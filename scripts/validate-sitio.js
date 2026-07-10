@@ -52,6 +52,13 @@ for (const source of mojibakeSources) {
       failures.push(`Posible mojibake en ${source}:${index + 1}`);
     }
   });
+  if (source.endsWith(".js")) {
+    try {
+      new vm.Script(sourceText, { filename: source });
+    } catch (error) {
+      failures.push(`Error de sintaxis en ${source}: ${error.message}`);
+    }
+  }
 }
 
 const ids = new Map();

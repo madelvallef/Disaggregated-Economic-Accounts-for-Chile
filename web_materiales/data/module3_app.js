@@ -135,10 +135,10 @@
     return sectorLabel(level, code);
   }
   function geoOrder(key, level = s.geoLevel) {
-    return geoOrderMaps[level].get(key) ? 9999;
+    return geoOrderMaps[level].get(key) ?? 9999;
   }
   function sectorOrder(key, level = s.sectorLevel) {
-    return sectorOrderMaps[level].get(String(key)) ? 9999;
+    return sectorOrderMaps[level].get(String(key)) ?? 9999;
   }
   function selectedGeoCodes(selection) {
     if (selection.province.length) return new Set(locations.filter((loc) => selection.province.includes(loc.nom_provincia)).map((loc) => Number(loc.cod_ubicacion)));
@@ -206,9 +206,9 @@
     let domRaw = raw;
     if (m) {
       if (key.includes("|||")) {
-        domRaw = m.byCellRawDom?.get(key) ? 0;
+        domRaw = m.byCellRawDom?.get(key) ?? 0;
       } else {
-        domRaw = m.byGeoRawDom?.get(key) ? m.bySectorRawDom?.get(key) ? 0;
+        domRaw = m.byGeoRawDom?.get(key) ?? m.bySectorRawDom?.get(key) ?? 0;
       }
     }
     // % de mi producción: raw (includes exports) / ventas_tot del self node
@@ -890,7 +890,7 @@
         const x = gridLeft + c * cellW;
         const key = `${rowKey}|||${colKey}`;
         const value = unitMap.get(key) || 0;
-        const _f = value <= 0 ? "#e6e6e6" : (window.NearZero.is(value, _matTotal, window.NearZero.MATRIX_THR) ? window.NearZero.GRAY : colorForValue(value));
+        const _f = value <= 0 ? "#ffffff" : (window.NearZero.is(value, _matTotal, window.NearZero.MATRIX_THR) ? window.NearZero.GRAY : colorForValue(value));
         parts.push(`<rect class="matrix-cell${value > 0 ? "" : " is-empty"}" data-row="${escapeHtml(rowKey)}" data-col="${escapeHtml(colKey)}" x="${x}" y="${y}" width="${cellW}" height="${cellH}" fill="${_f}"></rect>`);
       });
     });
