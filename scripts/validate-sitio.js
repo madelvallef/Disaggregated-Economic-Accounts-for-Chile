@@ -10,9 +10,12 @@ const html = fs.readFileSync(sitioPath, "utf8");
 const failures = [];
 const mojibakeSources = [
   "sitio.html",
+  "web_materiales/data/module2_distribution.js",
   "web_materiales/data/module3_app.js",
   "web_materiales/data/module4_app.js",
   "web_materiales/data/module4_engine.js",
+  "web_materiales/data/spatial_io_flows_data.js",
+  "web_materiales/data/spatial_io_network_data.js",
 ];
 
 const requiredIds = [

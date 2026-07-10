@@ -15,12 +15,18 @@ const projectRoot = path.resolve(__dirname, "..");
 const dryRun = process.argv.includes("--dry");
 
 // Archivos que se reparan (hoy con mojibake conocido).
-const FIX_FILES = ["sitio.html", "web_materiales/data/module3_app.js"];
+const FIX_FILES = [
+  "sitio.html",
+  "web_materiales/data/module3_app.js",
+  "web_materiales/data/module2_distribution.js",
+];
 // Archivos que solo se escanean: si aparece mojibake se reporta pero no se toca
 // (agregarlos a FIX_FILES si algun dia se corrompen).
 const SCAN_FILES = [
   "web_materiales/data/module4_app.js",
   "web_materiales/data/module4_engine.js",
+  "web_materiales/data/spatial_io_flows_data.js",
+  "web_materiales/data/spatial_io_network_data.js",
 ];
 
 // Windows-1252: los bytes 0x80-0x9F mapean a estos code points; el resto es
