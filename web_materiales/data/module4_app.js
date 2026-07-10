@@ -125,6 +125,65 @@
     if (!nd || typeof M4Engine === "undefined") return;
     const E = M4Engine.init(nd);
 
+    // ── CedTreeSelect (web_materiales/js/tree-select.js), modo single: el
+    // productor (provincia + actividad) es una unica hoja, a diferencia de
+    // M2/M3 que permiten multi-seleccion. Arboles construidos una sola vez;
+    // el de sectores se reconstruye al cambiar idioma (labels _eng).
+    function buildM4GeoTree() {
+      const sorted = [...E.domesticLocs].sort((a, b) =>
+        (a.cod_region_sort || 0) - (b.cod_region_sort || 0) ||
+        (a.cod_provincia_sort || 0) - (b.cod_provincia_sort || 0)
+      );
+      const mzMap = new Map();
+      sorted.forEach((loc) => {
+        const mz = loc.nom_macrozona, reg = loc.nom_region, prov = loc.nom_provincia;
+        if (!mz || !reg || !prov) return;
+        if (!mzMap.has(mz)) mzMap.set(mz, new Map());
+        if (!mzMap.get(mz).has(reg)) mzMap.get(mz).set(reg, new Set());
+        mzMap.get(mz).get(reg).add(prov);
+      });
+      return Array.from(mzMap.entries()).map(([mz, regMap]) => ({
+        value: mz,
+        label: mz,
+        children: Array.from(regMap.entries()).map(([reg, provs]) => ({
+          value: reg,
+          label: reg,
+          children: Array.from(provs).map((prov) => ({ value: prov, label: prov, children: [] })),
+        })),
+      }));
+    }
+
+    function buildM4SectorTree() {
+      const indMap = new Map();
+      sectors.forEach((sec) => {
+        const indCode = String(sec.cod_industria);
+        const pibrCode = String(sec.cod_PIBR13);
+        const actCode = String(sec.cod_SECTOR46);
+        if (!indCode || indCode === "undefined") return;
+        if (!indMap.has(indCode)) indMap.set(indCode, new Map());
+        if (!indMap.get(indCode).has(pibrCode)) indMap.get(indCode).set(pibrCode, new Set());
+        indMap.get(indCode).get(pibrCode).add(actCode);
+      });
+      return Array.from(indMap.entries())
+        .sort((a, b) => Number(a[0]) - Number(b[0]))
+        .map(([indCode, pibrMap]) => ({
+          value: indCode,
+          label: sectorLabel("industry", indCode),
+          children: Array.from(pibrMap.entries())
+            .sort((a, b) => Number(a[0]) - Number(b[0]))
+            .map(([pibrCode, actCodes]) => ({
+              value: pibrCode,
+              label: sectorLabel("pibr13", pibrCode),
+              children: Array.from(actCodes)
+                .sort((a, b) => Number(a) - Number(b))
+                .map((actCode) => ({ value: actCode, label: sectorLabel("activity", actCode), children: [] })),
+            })),
+        }));
+    }
+
+    let m4TreeSelectGeo = null;
+    let m4TreeSelectSector = null;
+
     // ── Estado ────────────────────────────────────────────────────────────
     // Productor por defecto: Santiago · Otras Prof. y Cientificos (cod_SECTOR46 = 40).
     // Si no existe en la grilla, cae al de mayor Domar weight.
@@ -431,8 +490,6 @@
     function buildShell() {
       const shell = section.querySelector(".m4-shell");
       const k = t();
-      const provOpts = E.provinceList.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join("");
-      const actOpts = E.activityOpts.map(o => `<option value="${escapeHtml(o.label)}"></option>`).join("");
       actLabelToCode = new Map(E.activityOpts.map(o => [o.label, String(o.value)]));
       const seg = (group, items, active) => `<div class="m4d-agg" data-${group}>` +
         items.map(([val, lbl]) => `<button class="${val === active ? "active" : ""}" data-val="${val}">${lbl}</button>`).join("") + `</div>`;
@@ -452,11 +509,11 @@
             <div class="m4d-clabel">1 · ${k.producerTitle}</div>
             <p class="m4d-instruction">${k.producerInstr}</p>
             <label class="m4d-field"><span>${k.location}</span>
-              <input class="m4d-select" id="m4d-sel-prov" list="m4d-prov-list" autocomplete="off" placeholder="${k.locPh}">
-              <datalist id="m4d-prov-list">${provOpts}</datalist></label>
+              <div class="ts-mount" id="m4d-geo-select"></div>
+              <input type="hidden" id="m4d-sel-prov"></label>
             <label class="m4d-field"><span>${k.sector}</span>
-              <input class="m4d-select" id="m4d-sel-sec" list="m4d-sec-list" autocomplete="off" placeholder="${k.secPh}">
-              <datalist id="m4d-sec-list">${actOpts}</datalist></label>
+              <div class="ts-mount" id="m4d-sector-select"></div>
+              <input type="hidden" id="m4d-sel-sec"></label>
           </div>
           <div class="m4d-kpi">
             <div class="m4d-kpi-title">${k.profileTitle}</div>
@@ -568,6 +625,42 @@
       const g = E.nodeGrid[st.j];
       el.selProv.value = g.loc.nom_provincia;
       el.selSec.value = E.secLabel("activity", E.activityList[g.col]);
+
+      // CedTreeSelect (modo single): reconstruir en cada buildShell() (se
+      // llama de nuevo al cambiar idioma) montando sobre los divs recien
+      // creados por el innerHTML de arriba.
+      m4TreeSelectGeo?.destroy?.();
+      m4TreeSelectSector?.destroy?.();
+      const geoMount4 = shell.querySelector("#m4d-geo-select");
+      const sectorMount4 = shell.querySelector("#m4d-sector-select");
+      m4TreeSelectGeo = (geoMount4 && window.CedTreeSelect)
+        ? window.CedTreeSelect.create({
+            mount: geoMount4,
+            mode: "single",
+            levels: ["macrozone", "region", "province"],
+            tree: buildM4GeoTree(),
+            onSelect: (value) => {
+              el.selProv.value = value;
+              el.selProv.dispatchEvent(new Event("change", { bubbles: true }));
+            },
+            i18n: () => ({ search: k.locPh, noResults: isEs() ? "Sin resultados" : "No results" }),
+          })
+        : null;
+      m4TreeSelectGeo?.setValue(g.loc.nom_provincia);
+      m4TreeSelectSector = (sectorMount4 && window.CedTreeSelect)
+        ? window.CedTreeSelect.create({
+            mount: sectorMount4,
+            mode: "single",
+            levels: ["industry", "pibr13", "activity"],
+            tree: buildM4SectorTree(),
+            onSelect: (value, label) => {
+              el.selSec.value = label;
+              el.selSec.dispatchEvent(new Event("change", { bubbles: true }));
+            },
+            i18n: () => ({ search: k.secPh, noResults: isEs() ? "Sin resultados" : "No results" }),
+          })
+        : null;
+      m4TreeSelectSector?.setValue(E.secLabel("activity", E.activityList[g.col]));
 
       wire(shell);
       // Conectar close buttons del rail al RankRailKit compartido (cierra en TODOS los módulos)

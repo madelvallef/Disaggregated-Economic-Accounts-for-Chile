@@ -339,6 +339,13 @@
       refresh();
     }
 
+    // Modo single: fija el texto mostrado en el trigger sin simular un click
+    // (para inicializar con una seleccion por defecto, p.ej. el productor de
+    // mayor Domar weight en Modulo 4).
+    function setValue(label) {
+      summaryEl.textContent = label || "";
+    }
+
     setTree(tree);
     setLang();
 
@@ -346,6 +353,7 @@
       refresh,
       setTree,
       setLang,
+      setValue,
       open: openPop,
       close: closePop,
       destroy() { mount.innerHTML = ""; },
