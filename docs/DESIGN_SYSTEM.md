@@ -2,7 +2,7 @@
 
 ## Fuente de verdad
 
-`web_materiales/css/design-system.css` gobierna la identidad visual del sitio (`sitio.html`, publicado tambien como `index.html` en `dist/`).
+`web_materiales/css/design-system.css` gobierna la identidad visual del sitio (`sitio.html`, publicado unicamente como `index.html` en `dist/`).
 
 La pagina debe incluir, despues de `vendor/dm-fonts.css`:
 
@@ -59,7 +59,7 @@ design-system.css
         |
         +--> sitio.html
                     |
-                    +--> npm run build --> dist/ (sitio.html + index.html)
+                    +--> npm run build --> dist/index.html
 ```
 
 ## Header / navegación común

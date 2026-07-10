@@ -24,7 +24,7 @@ Subir el contenido de `dist/` como raiz del sitio:
 
 La carpeta `dist/` debe contener:
 
-- `sitio.html` e `index.html` (misma pagina; el build copia `sitio.html` como `index.html`)
+- `index.html` (copia de build de `sitio.html`; no hay `dist/sitio.html`)
 - `web_materiales/`
 - `vendor/`
 - `downloads/`

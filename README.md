@@ -4,7 +4,7 @@ Este proyecto contiene una pagina web estatica para publicar el dashboard de Cue
 
 ## Estructura principal
 
-- `sitio.html`: EL sitio. Una sola pagina con todo el contenido (home, explorar, datos, research). En `dist/` se publica ademas como `index.html`.
+- `sitio.html`: EL sitio (fuente editable). Una sola pagina con todo el contenido (home, explorar, datos, research). En `dist/` se publica UNICAMENTE como `index.html` (no hay `dist/sitio.html`).
 - `web_materiales/`: datos JavaScript, logos CORFO/BID y tipografias Sculpin usadas por el sitio.
 - `web_materiales/css/design-system.css`: fuente unica de colores, tipografias, espaciado y componentes compartidos.
 - `vendor/`: librerias locales usadas por la pagina (`d3`, `html2canvas`, `jsPDF`, `KaTeX` y fuentes DM).
@@ -40,7 +40,7 @@ No editar archivos dentro de `dist/`. Esa carpeta se elimina y reconstruye autom
 npm.cmd run build
 ```
 
-El build copia `sitio.html` (tambien como `dist/index.html`), `web_materiales/`, `vendor/`, `downloads/`, `uploads/` y los tres archivos de cabeceras preparados en `security/`.
+El build copia `sitio.html` como `dist/index.html` (unico archivo HTML publicado), `web_materiales/`, `vendor/`, `downloads/`, `uploads/` y los tres archivos de cabeceras preparados en `security/`.
 
 ## Publicacion
 

@@ -6,9 +6,10 @@ const path = require("path");
 const projectRoot = path.resolve(__dirname, "..");
 const distDir = path.join(projectRoot, "dist");
 
-// El sitio es una sola pagina: sitio.html. En dist/ se publica ademas como
-// index.html para que el servidor la sirva en la raiz.
-const pages = ["sitio.html"];
+// El sitio es una sola pagina. La fuente editable es sitio.html en la raiz;
+// en dist/ se publica UNICAMENTE como index.html (no hay ningun enlace
+// interno a "sitio.html", asi que no hace falta duplicarla).
+const sourcePage = "sitio.html";
 
 const publicDirectories = [
   "web_materiales",
@@ -132,7 +133,6 @@ assertExists(path.join(projectRoot, designSystemHref));
 fs.mkdirSync(distDir, { recursive: true });
 
 const expectedTopLevel = new Set([
-  ...pages,
   "index.html",
   ...publicDirectories,
   ...securityFiles,
@@ -144,15 +144,12 @@ for (const entry of fs.readdirSync(distDir)) {
   }
 }
 
-for (const page of pages) {
-  const sourcePage = path.join(projectRoot, page);
-  assertPageUsesDesignSystem(sourcePage);
-  if (page === "sitio.html") assertSitioIntegrity(sourcePage);
-  copyFile(sourcePage, path.join(distDir, page));
+{
+  const sourcePagePath = path.join(projectRoot, sourcePage);
+  assertPageUsesDesignSystem(sourcePagePath);
+  assertSitioIntegrity(sourcePagePath);
+  copyFile(sourcePagePath, path.join(distDir, "index.html"));
 }
-
-// La misma pagina se sirve en la raiz del sitio.
-copyFile(path.join(distDir, "sitio.html"), path.join(distDir, "index.html"));
 
 for (const directory of publicDirectories) {
   copyDirectory(
@@ -169,6 +166,6 @@ for (const securityFile of securityFiles) {
 }
 
 console.log("Build completado: dist/ fue reconstruida desde las fuentes del proyecto.");
-console.log(`Paginas: ${pages.join(", ")}`);
+console.log(`Pagina: ${sourcePage} -> dist/index.html`);
 console.log(`Carpetas publicas: ${publicDirectories.join(", ")}`);
 console.log(`Seguridad: ${securityFiles.join(", ")}`);

@@ -16,7 +16,7 @@ fuentes en la raiz -> npm run build -> dist/ -> hosting
 
 Todo el sitio vive en una sola pagina:
 
-- `sitio.html`: flujo Home -> landing de Explore -> modulos verde, teal y morado -> Datos -> Citacion -> Research Paper -> Research Team -> Agradecimientos. En `dist/` se publica ademas como `index.html`.
+- `sitio.html`: flujo Home -> landing de Explore -> modulos verde, teal y morado -> Datos -> Citacion -> Research Paper -> Research Team -> Agradecimientos. En `dist/` se publica UNICAMENTE como `index.html`.
 
 La version multipagina anterior (`index.html`, `explore.html`, `data.html`, `research.html`, exploraciones `*.dc.html` y su runtime `support.js`) fue migrada por completo a `sitio.html` y esta archivada en `_archivo/legacy_2026-07/`.
 
@@ -65,7 +65,7 @@ No hay backend de aplicacion. El sitio no usa base de datos, autenticacion, form
 
 Para efectos de preproduccion, el "backend" corresponde al hosting estatico que sirve:
 
-- `sitio.html` (servida tambien como `index.html`)
+- `sitio.html` (publicada unicamente como `index.html` en `dist/`)
 - assets locales
 - archivos de datos
 - archivos descargables
