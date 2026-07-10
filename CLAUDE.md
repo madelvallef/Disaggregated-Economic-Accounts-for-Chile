@@ -7,7 +7,8 @@ Este proyecto tiene mucho texto en espanol. Los problemas de encoding con tildes
 - Mantener archivos de texto en `UTF-8`.
 - No introducir secuencias rotas como `Ã¡`, `Ã©`, `Ã±`, `Â¿`, `Â¡`.
 - Despues de editar copy, labels, traducciones o bloques HTML/JS largos, correr `npm.cmd run validate`.
-- Si la validacion detecta mojibake, corregirlo antes de continuar.
+- Si la validacion detecta mojibake, correr `npm.cmd run fix:mojibake` (script deterministico `scripts/fix-mojibake.js`) y re-validar antes de continuar.
+- Reglas completas para agentes (incluye Codex): `AGENTS.md` en la raiz.
 
 
 ## 📸 VERIFICACIÓN VISUAL — SIEMPRE PEDIR IMÁGENES AL USUARIO

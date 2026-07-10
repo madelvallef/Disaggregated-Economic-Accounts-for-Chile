@@ -9,6 +9,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "validate": "node scripts/validate-sitio.js",
+    "fix:mojibake": "node scripts/fix-mojibake.js",
     "preproduction": "npm run validate && npm run build && npm run qa:intensive",
     "qa:intensive": "node qa/sitio-smoke.js",
     "smoke": "node qa/sitio-smoke.js",
