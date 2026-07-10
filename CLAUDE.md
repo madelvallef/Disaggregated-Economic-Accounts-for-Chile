@@ -50,9 +50,9 @@ Todos los módulos usan el mismo topbar flex layout con `display: flex !importan
 
 ---
 
-# Decisiones de Rediseño de Páginas (2026)
+# Decisiones de Rediseño de Páginas (2026) — HISTÓRICO
 
-> Registro de decisiones acordadas al mejorar las páginas estáticas. Fuente de estilos: `web_materiales/css/design-system.css` (tokens `--ds-*`). Las exploraciones se hacen en archivos `*.dc.html` en la raíz; la versión final se integra en el HTML de producción (`index.html`, etc.).
+> **NOTA (jul-2026): sección histórica.** El sitio migró a una sola página (`sitio.html`, publicada también como `index.html` en `dist/`). Las páginas multipágina (`index/explore/data/research.html`) y las exploraciones `*.dc.html` están archivadas en `_archivo/legacy_2026-07/`. Las decisiones de diseño de abajo (header, copy del landing, tarjetas) siguen vigentes como referencia de contenido, pero aplican a las secciones equivalentes dentro de `sitio.html`. Fuente de estilos: `web_materiales/css/design-system.css` (tokens `--ds-*`).
 
 ## Navegación común (las 4 páginas — herramienta principal de navegación)
 

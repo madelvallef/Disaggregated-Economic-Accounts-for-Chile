@@ -6,13 +6,9 @@ const path = require("path");
 const projectRoot = path.resolve(__dirname, "..");
 const distDir = path.join(projectRoot, "dist");
 
-const pages = [
-  "sitio.html",
-  "index.html",
-  "explore.html",
-  "data.html",
-  "research.html",
-];
+// El sitio es una sola pagina: sitio.html. En dist/ se publica ademas como
+// index.html para que el servidor la sirva en la raiz.
+const pages = ["sitio.html"];
 
 const publicDirectories = [
   "web_materiales",
@@ -137,6 +133,7 @@ fs.mkdirSync(distDir, { recursive: true });
 
 const expectedTopLevel = new Set([
   ...pages,
+  "index.html",
   ...publicDirectories,
   ...securityFiles,
 ]);
@@ -153,6 +150,9 @@ for (const page of pages) {
   if (page === "sitio.html") assertSitioIntegrity(sourcePage);
   copyFile(sourcePage, path.join(distDir, page));
 }
+
+// La misma pagina se sirve en la raiz del sitio.
+copyFile(path.join(distDir, "sitio.html"), path.join(distDir, "index.html"));
 
 for (const directory of publicDirectories) {
   copyDirectory(

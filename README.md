@@ -4,11 +4,7 @@ Este proyecto contiene una pagina web estatica para publicar el dashboard de Cue
 
 ## Estructura principal
 
-- `sitio.html`: nueva experiencia integrada de una sola pagina y flujo principal en desarrollo.
-- `index.html`: Home liviano del sitio.
-- `explore.html`: aplicacion interactiva con los modulos 2, 3 y 4.
-- `data.html`: descargas publicas, Research Team y Acknowledgements.
-- `research.html`: pagina provisional del paper, cita BibTeX, equipo y agradecimientos.
+- `sitio.html`: EL sitio. Una sola pagina con todo el contenido (home, explorar, datos, research). En `dist/` se publica ademas como `index.html`.
 - `web_materiales/`: datos JavaScript, logos CORFO/BID y tipografias Sculpin usadas por el sitio.
 - `web_materiales/css/design-system.css`: fuente unica de colores, tipografias, espaciado y componentes compartidos.
 - `vendor/`: librerias locales usadas por la pagina (`d3`, `html2canvas`, `jsPDF`, `KaTeX` y fuentes DM).
@@ -18,14 +14,13 @@ Este proyecto contiene una pagina web estatica para publicar el dashboard de Cue
 - `scripts/build.js`: genera el paquete publicable desde una lista explicita de fuentes.
 - `docs/`: documentacion tecnica y checklist de preproduccion.
 - `dist/`: resultado generado y publicable; no se edita manualmente.
-- `_archivo/`: exploraciones, prototipos, capturas y materiales no necesarios para preproduccion.
+- `_archivo/`: exploraciones, prototipos, capturas y materiales no necesarios para preproduccion. Incluye `_archivo/legacy_2026-07/` con la antigua version multipagina (`index/explore/data/research.html`, `*.dc.html`, `support.js`), ya migrada a `sitio.html`.
 
 ## Fuente de trabajo y build
 
 La unica fuente editable del sitio esta en la raiz del proyecto:
 
-- editar `sitio.html` para la nueva experiencia integrada;
-- conservar `index.html`, `explore.html`, `data.html` y `research.html` como version multipagina mientras se completa la migracion;
+- editar `sitio.html` (unica pagina del sitio);
 - editar assets en `web_materiales/`, librerias locales en `vendor/` y archivos publicos en `downloads/`;
 - editar cabeceras en `security/`.
 
@@ -36,7 +31,8 @@ Este proyecto usa mucho texto en espanol con tildes, eñes y signos de apertura.
 - Guardar HTML, JS, CSS y Markdown en `UTF-8`.
 - No aceptar secuencias rotas como `Ã¡`, `Ã©`, `Ã±`, `Â¿`, `Â¡`.
 - Despues de editar textos, labels o traducciones, correr `npm.cmd run validate`.
-- Si aparece mojibake, corregirlo antes de seguir iterando.
+- Si aparece mojibake, correr `npm.cmd run fix:mojibake` y re-validar antes de seguir iterando.
+- Reglas completas para agentes IA: `AGENTS.md` en la raiz.
 
 No editar archivos dentro de `dist/`. Esa carpeta se elimina y reconstruye automaticamente con:
 
@@ -44,7 +40,7 @@ No editar archivos dentro de `dist/`. Esa carpeta se elimina y reconstruye autom
 npm.cmd run build
 ```
 
-El build copia `sitio.html`, las cuatro paginas multipagina, `web_materiales/`, `vendor/`, `downloads/`, `uploads/` y los tres archivos de cabeceras preparados en `security/`.
+El build copia `sitio.html` (tambien como `dist/index.html`), `web_materiales/`, `vendor/`, `downloads/`, `uploads/` y los tres archivos de cabeceras preparados en `security/`.
 
 ## Publicacion
 
@@ -65,7 +61,6 @@ No se debe subir `_archivo/`, `docs/`, `qa/`, `scripts/` ni `node_modules/` como
 ## Estado funcional relevante
 
 - El sitio es estatico: no requiere backend de aplicacion, base de datos, login ni servidor propio.
-- Home, Data y Research son paginas livianas; los datos pesados se cargan solo en `explore.html`.
 - Las visualizaciones se renderizan en el navegador a partir de archivos locales bajo `web_materiales/data/`.
 - El boton flotante de contacto existe, pero `CONTACT_FORM_URL` esta pendiente de configuracion.
 - La base de transacciones no se muestra como descarga publica hasta que el CSV definitivo exista en `downloads/`.

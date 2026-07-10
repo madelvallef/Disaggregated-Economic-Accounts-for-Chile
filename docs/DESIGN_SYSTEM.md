@@ -2,14 +2,9 @@
 
 ## Fuente de verdad
 
-`web_materiales/css/design-system.css` gobierna la identidad visual de todas las paginas publicas:
+`web_materiales/css/design-system.css` gobierna la identidad visual del sitio (`sitio.html`, publicado tambien como `index.html` en `dist/`).
 
-- `index.html`
-- `explore.html`
-- `data.html`
-- `research.html`
-
-Cada pagina debe incluir, despues de `vendor/dm-fonts.css`:
+La pagina debe incluir, despues de `vendor/dm-fonts.css`:
 
 ```html
 <link rel="stylesheet" href="web_materiales/css/design-system.css" data-design-system>
@@ -45,9 +40,9 @@ Los colores de modulos identifican secciones y estados de datos. No deben reempl
 
 ## Compatibilidad con Explore
 
-`explore.html` conserva nombres historicos como `--corfo-blue`, `--m2-color` y `--font-ui`. Estos ya no contienen valores independientes: son alias definidos por el Design System y apuntan a tokens `--ds-*`.
+Los modulos Explore de `sitio.html` conservan nombres historicos como `--corfo-blue`, `--m2-color` y `--font-ui`. Estos ya no contienen valores independientes: son alias definidos por el Design System y apuntan a tokens `--ds-*`.
 
-Los estilos propios de mapas, barras, heatmaps, paneles y comportamiento responsive permanecen en `explore.html`. Pueden definir medidas locales, pero no deben volver a declarar colores, fuentes o escalas globales en `:root`.
+Los estilos propios de mapas, barras, heatmaps, paneles y comportamiento responsive permanecen en el `<style>` de `sitio.html`. Pueden definir medidas locales, pero no deben volver a declarar colores, fuentes o escalas globales en `:root`.
 
 ## Reglas de cambio
 
@@ -62,17 +57,14 @@ Los estilos propios de mapas, barras, heatmaps, paneles y comportamiento respons
 ```text
 design-system.css
         |
-        +--> index.html
-        +--> explore.html
-        +--> data.html
-        +--> research.html
+        +--> sitio.html
                     |
-                    +--> npm run build --> dist/
+                    +--> npm run build --> dist/ (sitio.html + index.html)
 ```
 
-## Header / navegación común (las 4 páginas)
+## Header / navegación común
 
-El header es la herramienta de navegación principal y debe ser **idéntico** en `index`, `explore`, `data` y `research`.
+El header es la herramienta de navegación principal y debe ser **idéntico** en todas las secciones de `sitio.html`.
 
 Estructura:
 
@@ -87,11 +79,11 @@ Estructura:
 
 Etiquetas por idioma (switch ES/EN, `localStorage` `ced-lang`):
 
-| Ruta | ES | EN |
+| Sección | ES | EN |
 | --- | --- | --- |
-| `index.html` | Inicio | Home |
-| `explore.html` | Explorar | Explore |
-| `data.html` | Datos | Data |
-| `research.html` | Research Paper | Research Paper |
+| `#home` | Inicio | Home |
+| `#explorar` | Explorar | Explore |
+| `#datos` | Datos | Data |
+| `#research-paper` | Research Paper | Research Paper |
 
-El detalle de las decisiones por página (Home, etc.) se registra en `CLAUDE.md`.
+El detalle de las decisiones por sección se registra en `CLAUDE.md`.

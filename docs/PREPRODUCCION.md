@@ -24,10 +24,7 @@ Subir el contenido de `dist/` como raiz del sitio:
 
 La carpeta `dist/` debe contener:
 
-- `index.html`
-- `explore.html`
-- `data.html`
-- `research.html`
+- `sitio.html` e `index.html` (misma pagina; el build copia `sitio.html` como `index.html`)
 - `web_materiales/`
 - `vendor/`
 - `downloads/`
@@ -38,20 +35,19 @@ No subir `_archivo/`, `docs/`, prototipos ni capturas.
 ## Validaciones antes de subir
 
 - Confirmar que `npm.cmd run build` termina sin errores.
-- Abrir `dist/index.html`, `dist/explore.html`, `dist/data.html` y `dist/research.html`.
-- Confirmar que todos los recursos locales referenciados por las cuatro paginas existen.
+- Abrir `dist/index.html` (el sitio completo).
+- Confirmar que todos los recursos locales referenciados existen (`npm.cmd run validate`).
 - Revisar la consola del navegador y corregir errores criticos.
-- Navegar el header: Home, Explore, Data y Research.
-- En `explore.html`, probar los modulos 2, 3 y 4.
+- Navegar las secciones: Home, Explorar (modulos), Datos, Research Paper.
+- Probar los modulos de Explorar (mapas, barras, heatmaps, rankings).
 - Probar cambio de idioma.
-- Probar exportacion de figuras en PNG/PDF en desktop desde `explore.html`.
-- Probar descargas disponibles de `data.html` en espanol e ingles.
-- Confirmar que Home, Data y Research no cargan `web_materiales/data/`.
+- Probar exportacion de figuras en PNG/PDF en desktop.
+- Probar descargas disponibles en espanol e ingles.
 - Confirmar que `npm.cmd run qa:intensive` termina con `QA OK`.
 
 ## Pendientes conocidos
 
-- Configurar `CONTACT_FORM_URL` en `index.html` cuando exista la URL final del Google Form.
+- Configurar `CONTACT_FORM_URL` en `sitio.html` cuando exista la URL final del Google Form.
 - Agregar a `downloads/` el archivo de transacciones si se decide publicarlo.
 - Reemplazar los placeholders de fotos/afiliaciones del Research Team cuando esten aprobados.
 - Revisar institucionalmente el uso del logo BID/IDB antes de preproduccion final.

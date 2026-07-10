@@ -19,7 +19,6 @@ const FIX_FILES = ["sitio.html", "web_materiales/data/module3_app.js"];
 // Archivos que solo se escanean: si aparece mojibake se reporta pero no se toca
 // (agregarlos a FIX_FILES si algun dia se corrompen).
 const SCAN_FILES = [
-  "support.js",
   "web_materiales/data/module4_app.js",
   "web_materiales/data/module4_engine.js",
 ];
