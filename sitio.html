@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cuentas EconÃ³micas Desagregadas para Chile Â· CORFOâ€“BID</title>
+<title>Cuentas Económicas Desagregadas para Chile · CORFO–BID</title>
 <link rel="stylesheet" href="vendor/dm-fonts.css">
 <link rel="stylesheet" href="web_materiales/css/design-system.css">
 <style>
@@ -915,7 +915,7 @@
     }
 
     /* El "+/-" de summary es redundante con la flecha &#9662; del tree-header en los
-       filtros anidados de M3 (Mercado de interÃ©s): se oculta. */
+       filtros anidados de M3 (Mercado de interés): se oculta. */
     #m3-self-geo-tree-group summary::after,
     #m3-self-sector-tree-group summary::after,
     #geo-tree-group summary::after,
@@ -1054,12 +1054,12 @@
     }
     .m2-panel .cascade-back-btn { color: var(--m2-color); background: rgba(30,92,58,0.04); border-bottom-color: rgba(30,92,58,0.08); }
     .m3-panel .cascade-back-btn { color: var(--m3-color); background: rgba(11,79,85,0.04); border-bottom-color: rgba(11,79,85,0.08); }
-    /* Cascade items that have children â†’ show â†’ arrow on label */
+    /* Cascade items that have children → show → arrow on label */
     .cascade-item[data-hover-group="geo-macrozone"] span::after,
     .cascade-item[data-hover-group="geo-region"] span::after,
     .cascade-item[data-hover-group="sector-industry"] span::after,
     .cascade-item[data-hover-group="sector-pibr13"] span::after {
-      content: " â†’";
+      content: " →";
       font-size: 0.58rem;
       opacity: 0.45;
       margin-left: 2px;
@@ -1205,7 +1205,7 @@
       outline: none;
     }
 
-    /* â”€â”€ Variable selector (Module 2) custom dropdown + hover card â”€â”€ */
+    /* ── Variable selector (Module 2) custom dropdown + hover card ── */
     .m2-metric-custom .custom-select-trigger { color: var(--m2-color); font-weight: 600; }
     .m2-metric-custom .custom-select-option.is-active,
     .m2-metric-custom .custom-select-option:hover,
@@ -1342,9 +1342,9 @@
     .module-tab .tab-kicker { font-size: 9.5px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; line-height: 1.1; opacity: 0.85; }
     .module-tab .tab-axis { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.14; text-wrap: balance; }
     .module-tab.active .tab-kicker { opacity: 0.72; }
-    /* En inglÃ©s el adjetivo precede al sustantivo ("Territorial Impact"): se
+    /* En inglés el adjetivo precede al sustantivo ("Territorial Impact"): se
        invierte el orden vertical para que el eje (grande) quede arriba y el
-       sustantivo (kicker) abajo. En espaÃ±ol se mantiene "Impacto / Territorial". */
+       sustantivo (kicker) abajo. En español se mantiene "Impacto / Territorial". */
     html[lang="en"] .module-tab,
     html[lang="en"] #module-4 .m4d-tab { flex-direction: column-reverse; }
     #module-2 .module-tab:nth-child(1)::before { background: #1e5c3a; }
@@ -1470,7 +1470,7 @@
       stroke-linejoin: round;
     }
 
-    /* BotÃ³n de descarga con el color de cada mÃ³dulo (fondo blanco sÃ³lido) */
+    /* Botón de descarga con el color de cada módulo (fondo blanco sólido) */
     #module-2 .figure-download-btn { color: var(--m2-color); border-color: color-mix(in srgb, var(--m2-color) 28%, #fff); }
     #module-3 .figure-download-btn { color: var(--m3-color); border-color: color-mix(in srgb, var(--m3-color) 28%, #fff); }
     #module-4 .figure-download-btn { color: var(--m4-color); border-color: color-mix(in srgb, var(--m4-color) 28%, #fff); }
@@ -2188,7 +2188,7 @@
       cursor: pointer;
     }
 
-    /* Lectura de valor al pasar el cursor sobre la barra de gradiente (todos los mÃ³dulos) */
+    /* Lectura de valor al pasar el cursor sobre la barra de gradiente (todos los módulos) */
     .geo-legend-bar, .matrix-legend-bar-vertical { cursor: crosshair; }
     .legend-readout {
       position: fixed; z-index: 9999; pointer-events: none; opacity: 0;
@@ -2221,7 +2221,7 @@
       top: auto; bottom: -11px; left: 50%; transform: translateX(-50%);
       border: 6px solid transparent; border-top-color: rgba(255,255,255,0.97); border-right-color: transparent;
     }
-    /* Acento por mÃ³dulo en el valor (coherente con las hover cards) */
+    /* Acento por módulo en el valor (coherente con las hover cards) */
     body.m2-active .legend-readout-value { color: var(--m2-color); }
     body.m3-active .legend-readout-value { color: var(--m3-color, #0d6b73); }
     body.m4-active .legend-readout-value { color: var(--m4-color, #5c2d8a); }
@@ -2345,7 +2345,7 @@
       padding: 0;
     }
 
-    /* â•â• Module 5 â€” dark download module â•â• */
+    /* ══ Module 5 — dark download module ══ */
     .module-five {
       min-height: 100vh;
       display: flex;
@@ -2575,10 +2575,10 @@
     }
 
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       NEW PANEL (np-*) â€” Module 2 redesign
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-    /* â”€â”€ Module 2 â€” Forest Green overrides â”€â”€ */
+    /* ══════════════════════════════════════════
+       NEW PANEL (np-*) — Module 2 redesign
+    ══════════════════════════════════════════ */
+    /* ── Module 2 — Forest Green overrides ── */
     #module-2 .module-tab.active { background: var(--m2-color) !important; border-color: var(--m2-color) !important; }
     #module-2 .module-tab { color: rgba(30,92,58,0.6) !important; }
     #module-2 .module-tab:hover:not(.active) { color: var(--m2-color) !important; }
@@ -2612,7 +2612,7 @@
     /* m2 cascade nav active */
     #module-2 .np-cascade-nav-btn.is-active { color: var(--m2-color); border-bottom-color: var(--m2-color); }
 
-    /* â”€â”€ Viewport-responsive typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Viewport-responsive typography ──────────────────────────────── */
     :root { --vp-scale: clamp(0.82, 0.5 + 0.5vw, 1.25); }
     html { font-size: clamp(13px, 0.75vw + 9px, 19px); }
     /* Scale key UI labels */
@@ -2709,7 +2709,7 @@
     #module-4 .module-tab { color: rgba(92,45,138,0.6) !important; }
     #module-4 .module-tab:hover:not(.active) { color: var(--m4-color) !important; }
 
-    /* â”€â”€ Module 4 cascade panels â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Module 4 cascade panels ────────────────────────────────────── */
     .np-cascade[data-active-level="macrozone"] #m4-macrozone-panel,
     .np-cascade:not([data-active-level]) #m4-macrozone-panel { display: block; }
     .np-cascade[data-active-level="region"]   #m4-region-panel   { display: block; }
@@ -2729,8 +2729,8 @@
     #module-4 .np-act:hover { background: rgba(92,45,138,0.14); }
     #module-4 .np-arr-sm { color: rgba(92,45,138,0.5); }
     #module-4 .m3-sec-label { color: var(--m4-color); }
-    /* Header "GEOGRAFÃA | Todos | Limpiar" siempre en una sola lÃ­nea:
-       en vez de envolver, el texto y los botones se achican segÃºn el ancho del panel */
+    /* Header "GEOGRAFÍA | Todos | Limpiar" siempre en una sola línea:
+       en vez de envolver, el texto y los botones se achican según el ancho del panel */
     #module-4 .m4-rank-filter-panel { container-type: inline-size; }
     #module-4 .m4-rank-filter-panel .m3-sec-hdr { flex-wrap: nowrap; align-items: center; gap: 4px; min-width: 0; }
     #module-4 .m4-rank-filter-panel .m3-sec-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: clamp(0.52rem, 4.2cqw, var(--type-xs)); }
@@ -2740,7 +2740,7 @@
     #module-4 .cascade-filter.np-cascade {
       border-color: var(--m4-color) !important;
     }
-    /* Remove outer scroll on m4 dropdown â€” only inner column scrolls */
+    /* Remove outer scroll on m4 dropdown — only inner column scrolls */
     #module-4 .cascade-filter.np-cascade {
       height: auto !important;
       max-height: none !important;
@@ -2759,7 +2759,7 @@
     }
     /* Rank area: contained scroll (no duplicate) */
 
-    /* â”€â”€ module-two section fills full viewport height â”€â”€ */
+    /* ── module-two section fills full viewport height ── */
     #module-2, #module-3 {
       min-height: 100vh;
       height: 100vh;
@@ -2947,7 +2947,7 @@
     .np-styled-select { font-family: var(--font-ui); transition: border-color 0.15s ease, box-shadow 0.15s ease; }
     .np-styled-select:hover { border-color: rgba(34,30,124,0.35); }
     .np-styled-select:focus { outline: none; border-color: var(--corfo-blue); box-shadow: 0 0 0 3px rgba(34,30,124,0.09); }
-    /* â”€â”€ Accordion tree â”€â”€ */
+    /* ── Accordion tree ── */
     .np-accordion { display: flex; flex-direction: column; }
     .np-acc-item { display: flex; flex-direction: column; }
     .np-acc-hdr {
@@ -2996,7 +2996,7 @@
     /* Body hidden by default, shown via JS class */
     .np-acc-body { display: none; flex-direction: column; border-left: 1.5px solid rgba(34,30,124,0.10); margin-left: 16px; }
     .np-acc-body.is-open { display: flex; }
-    /* â”€â”€ Floating cascade dropdown â”€â”€ */
+    /* ── Floating cascade dropdown ── */
     .cascade-filter.np-cascade {
       position: static;
     }
@@ -3012,9 +3012,9 @@
       overflow-x: hidden;
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       MODULE 3 â€” TEAL THEME
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══════════════════════════════════════════
+       MODULE 3 — TEAL THEME
+    ══════════════════════════════════════════ */
 
     #module-2 .topbar { background: linear-gradient(90deg, var(--m2-color) 0%, var(--m2-mid) 100%); }
     #module-3 .topbar { background: linear-gradient(90deg, var(--m3-color) 0%, var(--m3-mid) 100%); }
@@ -3025,7 +3025,7 @@
     #module-3 .topbar .module-back-btn:hover { color: #fff; }
     #module-3 .topbar .logo-wrap img { opacity: 0.85; }
 
-    /* Module 3 shell â€” same row layout as module 2 */
+    /* Module 3 shell — same row layout as module 2 */
     #module-3 .module-two-shell {
       display: flex !important;
       flex-direction: row;
@@ -3063,12 +3063,12 @@
       flex-direction: column;
     }
 
-    /* Module tabs â€” teal active */
+    /* Module tabs — teal active */
     #module-3 .module-tab { color: rgba(11,79,85,0.6) !important; }
     #module-3 .module-tab.active { background: #0b4f55 !important; color: #fff !important; border-color: #0b4f55 !important; }
     #module-3 .module-tab:hover:not(.active) { color: #0b4f55 !important; }
 
-    /* â”€â”€ m3-panel â”€â”€ */
+    /* ── m3-panel ── */
     .m3-panel {
       background: #f4f7f7;
       border-right: 1px solid rgba(11,79,85,0.12);
@@ -3139,7 +3139,7 @@
       min-height: 36px;
     }
     .m3-sec-teal .selection-summary:empty::before {
-      content: 'Todo Chile Â· Todos los sectores';
+      content: 'Todo Chile · Todos los sectores';
       color: rgba(255,255,255,0.35);
       font-size: 0.64rem;
     }
@@ -3274,7 +3274,7 @@
     .m3-panel .np-acc-hdr:hover { background: rgba(11,79,85,0.04); }
 
 
-    /* â•â• MODULE 3 â€” TEAL COLOR OVERRIDES â•â• */
+    /* ══ MODULE 3 — TEAL COLOR OVERRIDES ══ */
     #module-3 .np-act { background: rgba(11,79,85,0.08); color: #0b4f55; }
     #module-3 .np-act:hover { background: rgba(11,79,85,0.16); }
     #module-3 .np-sec-label { color: #0b4f55; }
@@ -3326,10 +3326,10 @@
     #module-3 .matrix-col-label { fill: #0b4f55; }
     #module-4 .matrix-row-label { fill: #141414; }
     #module-4 .matrix-col-label { fill: #141414; }
-    /* Etiquetas del heatmap en negro tambiÃ©n en M2 y M3 (uniforme con M4) */
+    /* Etiquetas del heatmap en negro también en M2 y M3 (uniforme con M4) */
     #module-2 .matrix-row-label, #module-2 .matrix-col-label,
     #module-3 .matrix-row-label, #module-3 .matrix-col-label { fill: #141414; }
-    /* Igualar el tamaÃ±o de fuente de las etiquetas del heatmap de M2/M3 al del M4 */
+    /* Igualar el tamaño de fuente de las etiquetas del heatmap de M2/M3 al del M4 */
     #module-2 .matrix-row-label, #module-3 .matrix-row-label { font-size: clamp(7px, 0.7vw, 12px); }
     #module-2 .matrix-col-label, #module-3 .matrix-col-label { font-size: clamp(6px, 0.6vw, 10px); }
     #module-3 .selection-summary { color: #0b4f55; border-color: rgba(11,79,85,0.12); background: linear-gradient(180deg, rgba(11,79,85,0.025), rgba(11,79,85,0.06)); }
@@ -3342,7 +3342,7 @@
     #module-3 .np-acc-tog:hover { color: #0b4f55; }
     #module-3 .section-sub-label { color: #0b4f55; }
 
-    /* â•â• MODULE TRANSITION ANIMATIONS â•â• */
+    /* ══ MODULE TRANSITION ANIMATIONS ══ */
     .module-section {
       transition: opacity 0.35s ease;
     }
@@ -3365,9 +3365,9 @@
     }
 
 
-    /* â•â• MODULE 3 â€” selection-detail teal overrides â•â• */
+    /* ══ MODULE 3 — selection-detail teal overrides ══ */
 
-    /* â”€â”€ #m3-selection-summary â€” dark teal bg, all text must be light â”€â”€ */
+    /* ── #m3-selection-summary — dark teal bg, all text must be light ── */
     #m3-selection-summary {
       font-family: var(--font-ui);
       color: rgba(255,255,255,0.82);
@@ -3378,7 +3378,7 @@
       min-height: 36px;
     }
     #m3-selection-summary:empty::before {
-      content: 'Todo Chile Â· Todos los sectores';
+      content: 'Todo Chile · Todos los sectores';
       color: rgba(255,255,255,0.32);
       font-size: 0.63rem;
       font-family: var(--font-ui);
@@ -3397,7 +3397,7 @@
     #m3-selection-summary .selection-detail-item span { font-family: var(--font-ui); font-size: 0.68rem; color: rgba(255,255,255,0.85); font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     #m3-selection-summary .selection-detail-item em { font-family: var(--font-data); font-size: 0.64rem; color: rgba(255,255,255,0.5); font-style: normal; flex-shrink: 0; }
     #m3-selection-summary .selection-detail-column { margin-top: 6px; }
-    /* â”€â”€ Tratamiento claro (ficha con acento, igual que M2/M4) â”€â”€ */
+    /* ── Tratamiento claro (ficha con acento, igual que M2/M4) ── */
     #m3-selection-summary { color: #245054 !important; }
     #m3-selection-summary:empty::before { color: rgba(11,79,85,0.40) !important; }
     #m3-selection-summary strong { color: #0b4f55 !important; }
@@ -3418,7 +3418,7 @@
 
 
 
-    /* â”€â”€ m3 KPI block â”€â”€ */
+    /* ── m3 KPI block ── */
     .m3-kpi-block {
       background: rgba(11,79,85,0.06);
       border-top: 1px solid rgba(11,79,85,0.1);
@@ -3447,7 +3447,7 @@
     .m3-kpi-sub-val { font-family: var(--font-data); font-size: 0.57rem; color: rgba(11,79,85,0.6); flex-shrink: 0; }
     .m3-kpi-divider { height: 1px; background: rgba(11,79,85,0.1); margin: 3px 0; }
 
-    /* â”€â”€ Exclusions multi-select dropdown â”€â”€ */
+    /* ── Exclusions multi-select dropdown ── */
     .m3-excl-select { position: relative; }
 
     .m3-excl-trigger {
@@ -3504,7 +3504,7 @@
     .m3-excl-item input { margin: 0; accent-color: #0b4f55; flex-shrink: 0; }
     .m3-excl-item span { line-height: 1.3; }
 
-    /* â”€â”€ Trade scope selector â”€â”€ */
+    /* ── Trade scope selector ── */
     .m3-trade-row {
       display: flex;
       gap: 4px;
@@ -3556,7 +3556,7 @@
     .m3-trade-sub-btn:hover:not(.active) { background: rgba(11,79,85,0.08); }
     .m3-trade-sub-btn.active { background: rgba(11,79,85,0.15); border-color: #0b4f55; color: #0b4f55; font-weight: 700; }
 
-    /* â”€â”€ 3-state sub-toggle rows â”€â”€ */
+    /* ── 3-state sub-toggle rows ── */
     .m3-subtoggle-row {
       display: flex;
       align-items: center;
@@ -3617,7 +3617,7 @@
     }
     .m3-subtoggle-reset-btn:hover { background: rgba(11,79,85,0.08); color: #0b4f55; }
 
-    /* â”€â”€ Module 3 cascade columns (native, managed by module3_app.js) â”€â”€ */
+    /* ── Module 3 cascade columns (native, managed by module3_app.js) ── */
     #m3-self-geo-tree-group .np-cascade,
     #m3-self-sector-tree-group .np-cascade {
       border-color: #0b4f55;
@@ -3686,7 +3686,7 @@
     }
     #module-3 details[open] .np-filter-summary .tree-header { border-color: #0b4f55; }
 
-    /* â”€â”€ Viz area (light bg) â€” teal text â”€â”€ */
+    /* ── Viz area (light bg) — teal text ── */
     #module-3 .bar-row.is-hovered { border-left-color: rgba(11,79,85,0.2); }
     #module-3 .bar-row.is-active  { border-left-color: #0b4f55; background: rgba(11,79,85,0.07); }
     /* DM Sans for m3-body panel elements */
@@ -3730,7 +3730,7 @@
     body.m3-active #module3-hover-card .hover-card-item { color: #0b4f55 !important; }
     body.m3-active #module3-hover-card .hover-card-metric { color: rgba(11,79,85,0.7) !important; }
 
-    /* â”€â”€ hover-card close (pin) button â”€â”€ */
+    /* ── hover-card close (pin) button ── */
     .hover-card-close {
       position: absolute;
       top: 6px;
@@ -3756,7 +3756,7 @@
     body.m3-active .hover-card-metric strong { color: #0b4f55; }
 
 
-    /* â•â• MODULE CROSSFADE TRANSITION â•â• */
+    /* ══ MODULE CROSSFADE TRANSITION ══ */
     #m-transition-overlay {
       position: fixed;
       inset: 0;
@@ -3769,9 +3769,9 @@
     #m-transition-overlay.fade-out { opacity: 0; pointer-events: none; }
 
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       MODULE 2 â€” FOREST GREEN PANEL
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══════════════════════════════════════════
+       MODULE 2 — FOREST GREEN PANEL
+    ══════════════════════════════════════════ */
     .m2-panel {
       overflow: hidden;
       background: #f3f8f5;
@@ -3834,7 +3834,7 @@
     .m2-panel .filter-action:hover { background: rgba(30,92,58,0.14); }
     .m2-panel .np-acc-cb { accent-color: var(--m2-color); }
 
-    /* â•â•â•â•â•â•â•â• Estilo 02 Â· Fichas con acento â€” paneles M2 / M3 â•â•â•â•â•â•â•â• */
+    /* ════════ Estilo 02 · Fichas con acento — paneles M2 / M3 ════════ */
     .m2-panel { --p2c:#1e5c3a; --p2bg:rgba(30,92,58,0.05); --p2bd:rgba(30,92,58,0.30); --p2dv:rgba(30,92,58,0.16); --p2lb:rgba(30,92,58,0.80); --p2bt:rgba(30,92,58,0.70); }
     .m3-panel { --p2c:#0b4f55; --p2bg:rgba(11,79,85,0.05); --p2bd:rgba(11,79,85,0.30); --p2dv:rgba(11,79,85,0.16); --p2lb:rgba(11,79,85,0.80); --p2bt:rgba(11,79,85,0.70); }
     /* Secciones como fichas */
@@ -3850,7 +3850,7 @@
       color: var(--p2lb) !important; opacity: 1 !important; font-weight: 800; font-size: 9.5px;
       letter-spacing: .09em; text-transform: uppercase; }
     .m2-panel .m3-sec-hdr .m3-sec-label, .m3-panel .m3-sec-hdr .m3-sec-label { opacity: 1 !important; }
-    /* Segmentados (agregaciÃ³n + unidad) como grupo con borde y divisores */
+    /* Segmentados (agregación + unidad) como grupo con borde y divisores */
     .m2-panel .m3-agg-seg, .m3-panel .m3-agg-seg,
     .m2-panel .m3-unit-row, .m3-panel .m3-unit-row {
       display: flex !important; background: var(--p2dv) !important; border: 1px solid var(--p2bd);
@@ -3862,13 +3862,13 @@
     .m2-panel .m3-agg-btn.active, .m3-panel .m3-agg-btn.active,
     .m2-panel .m3-unit-btn.active, .m3-panel .m3-unit-btn.active {
       background: var(--p2c) !important; color: #fff !important; box-shadow: none !important; }
-    /* Chips Todos / Limpiar como pÃ­ldoras con borde */
+    /* Chips Todos / Limpiar como píldoras con borde */
     .m2-panel .np-act.filter-action, .m3-panel .np-act.filter-action {
       background: #fff !important; border: 1px solid var(--p2bd) !important; color: var(--p2c) !important;
       border-radius: 20px !important; font-weight: 700; padding: 2px 9px !important; }
     .m2-panel .np-act.filter-action:hover, .m3-panel .np-act.filter-action:hover { background: var(--p2bg) !important; }
 
-    /* Subsecciones anidadas dentro de una ficha (M3 Â· Mercado de interÃ©s) */
+    /* Subsecciones anidadas dentro de una ficha (M3 · Mercado de interés) */
     .m3-panel .m3-subfield, .m2-panel .m3-subfield { display: flex; flex-direction: column; gap: 6px; }
     .m3-panel .m3-subfield + .m3-subfield, .m2-panel .m3-subfield + .m3-subfield { margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--p2dv); }
     .m3-panel .m3-subfield-lbl, .m2-panel .m3-subfield-lbl {
@@ -3877,7 +3877,7 @@
     .m3-panel .m3-subfield, .m2-panel .m3-subfield { min-width: 0; }
     .m3-panel .m3-subfield .tree-group, .m2-panel .m3-subfield .tree-group { min-width: 0; }
 
-    /* Bloques de estadÃ­sticas como ficha con acento (igual que la tarjeta Domar de M4) */
+    /* Bloques de estadísticas como ficha con acento (igual que la tarjeta Domar de M4) */
     #module-2 .selection-summary {
       background: rgba(30,92,58,0.05) !important; border: none !important; border-left: 3px solid var(--m2-color) !important;
       border-radius: 8px !important; padding: 11px 12px !important; margin: 2px 0 9px !important; }
@@ -3897,7 +3897,7 @@
     .m2-panel .tree-group.is-emphasis > summary .tree-header { border-color: rgba(30,92,58,0.18) !important; background: transparent !important; box-shadow: none !important; }
     .m2-panel .tree-group.is-emphasis { box-shadow: none !important; outline: none !important; }
     .m2-panel .tree-group.is-emphasis summary { border-left: none !important; background: transparent !important; }
-    /* selection summary â€” all green */
+    /* selection summary — all green */
     .m2-panel .selection-summary { border-top-color: rgba(30,92,58,0.12) !important; background: linear-gradient(180deg,rgba(30,92,58,0.025),rgba(30,92,58,0.06)) !important; }
     .m2-panel .selection-summary strong { color: var(--m2-color) !important; }
     .m2-panel .selection-detail-meta-value { color: var(--m2-color) !important; }
@@ -3919,7 +3919,7 @@
     .m2-panel .np-cascade-nav-btn.is-active { color: var(--m2-color); border-bottom-color: var(--m2-color); }
     .m2-panel .np-arr-sm { color: rgba(30,92,58,0.5); }
     .m2-panel .np-tab-badge { background: rgba(30,92,58,0.1); border-color: rgba(30,92,58,0.25); color: var(--m2-color); }
-    /* selection summary green â€” ficha con acento (igual que M3/M4) */
+    /* selection summary green — ficha con acento (igual que M3/M4) */
     .m2-panel .selection-summary {
       background: rgba(30,92,58,0.05) !important;
       border-left: 3px solid var(--m2-color) !important;
@@ -3935,9 +3935,9 @@
     .m2-panel .selection-detail-item span { color: var(--m2-color); }
 
 
-    /* â•â• RESPONSIVE BREAKPOINTS â•â• */
+    /* ══ RESPONSIVE BREAKPOINTS ══ */
 
-    /* 27" / large desktop â€” generous spacing */
+    /* 27" / large desktop — generous spacing */
     @media (min-width: 1800px) {
       .module-two-shell, .module-three-shell, .module-four-shell, .module-five-shell { padding: 0 40px; }
       .np-panel, .m2-panel, .m3-panel { width: 360px; flex: 0 0 360px; }
@@ -3958,7 +3958,7 @@
       .module-section.module-five { width: 100%; margin-left: 0; margin-right: 0; }
     }
 
-    /* Small 14" laptop (1280-1365px) â€” compact panel */
+    /* Small 14" laptop (1280-1365px) — compact panel */
     @media (max-width: 1365px) {
       .np-panel, .m2-panel, .m3-panel { width: 240px; flex: 0 0 240px; }
       .module-section { width: calc(100% - 48px); }
@@ -4218,7 +4218,7 @@
       border: none;
       background: transparent;
     }
-    /* Selection summary â€” KPI block */
+    /* Selection summary — KPI block */
     #module-2 .selection-summary {
       padding: 14px 14px 18px;
       font-size: 0.72rem;
@@ -4252,7 +4252,7 @@
     .np-kpi-share { font-size: 0.64rem; color: var(--corfo-muted); font-weight: 600; margin-top: 2px; }
     .np-kpi-share strong { color: var(--corfo-blue); font-weight: 800; }
   
-    /* â”€â”€ Force module tab active colors (max specificity) â”€â”€ */
+    /* ── Force module tab active colors (max specificity) ── */
     #module-2 button.module-tab.active,
     #module-2 button.module-tab.active:focus {
       background: var(--m2-color) !important;
@@ -4272,7 +4272,7 @@
       border-color: var(--m4-color) !important;
     }
 
-    /* â•â• Module 1 â€” Landing page â•â• */
+    /* ══ Module 1 — Landing page ══ */
     .landing-body {
       display: flex;
       flex-direction: column;
@@ -4445,18 +4445,18 @@
       .landing-title { white-space: normal; }
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       MODULE 4 â€” Domar Weights (B2 layout)
-    /* â”€â”€ Module 4 side-panel width token â”€â”€ */
+    /* ════════════════════════════════════════════════════════════════════
+       MODULE 4 — Domar Weights (B2 layout)
+    /* ── Module 4 side-panel width token ── */
     #module-4 { --m4-panel-w: 323px; }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */â•â•â• */
+    /* ══════════════════════════════════════════════════════════════════ */═══ */
     #module-4.m4-new { min-height: 100vh; display: flex; flex-direction: column; }
     #module-4.m4-new .m4-shell {
       height: calc(100vh - 82px); flex: none;
       min-height: 0; display: flex; flex-direction: column; overflow: hidden;
     }
-    /* â”€â”€ Theory strip: Variante C â”€â”€ */
+    /* ── Theory strip: Variante C ── */
     .m4-theory-strip {
       flex-shrink: 0;
       position: relative;
@@ -4509,7 +4509,7 @@
     .m4-th-panel-desc {
       font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.35;
     }
-    /* Expanded drawer â€” overlay flotante: se muestra POR ENCIMA de los paneles, sin mover nada */
+    /* Expanded drawer — overlay flotante: se muestra POR ENCIMA de los paneles, sin mover nada */
     .m4-th-expanded {
       position: absolute;
       top: 100%; left: 0; right: 0;
@@ -4545,7 +4545,7 @@
 
     .m4-body { flex: 1; display: flex; overflow: hidden; min-height: 0; }
     .m4-panel { display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
-    /* â”€â”€ Module 4 three-panel layout â”€â”€ */
+    /* ── Module 4 three-panel layout ── */
     .m4-global {
       flex: 0 0 50%;
       display: flex; flex-direction: row;
@@ -4577,7 +4577,7 @@
       border-top: 1px solid rgba(92,45,138,0.08);
     }
 
-    /* Hint strip â€” hidden (panel always at full width) */
+    /* Hint strip — hidden (panel always at full width) */
     .m4-openj-hint { display: none !important; }
 
     /* Panel content always visible */
@@ -4631,7 +4631,7 @@
       flex: 1; min-width: 0; overflow: hidden; min-height: 0;
       clip-path: inset(0 0 -400px 0);
     }
-    /* Inline legend â€” same visual style as modules 2/3 */
+    /* Inline legend — same visual style as modules 2/3 */
     .m4-legend-v {
       flex-shrink: 0; display: grid;
       grid-template-columns: 16px 1fr; gap: 8px;
@@ -4749,7 +4749,7 @@
   </style>
 <link id="gfont-DM-Sans" rel="stylesheet" href="vendor/dm-fonts.css">
 <style id="m4d-styles">
-  /* â”€â”€ MÃ³dulo 4 Â· ExposiciÃ³n territorial y sectorial (OpciÃ³n D integrada) â”€â”€ */
+  /* ── Módulo 4 · Exposición territorial y sectorial (Opción D integrada) ── */
   #module-4 .m4-shell { background:
       radial-gradient(circle at 8% 12%, rgba(241, 147, 32, 0.08), transparent 18%),
       radial-gradient(circle at 92% 16%, rgba(114, 199, 213, 0.08), transparent 18%),
@@ -4836,7 +4836,7 @@
   #module-4 .m4d-ind-legend span { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-ui); font-size: 11.5px; color: var(--corfo-text); }
   #module-4 .m4d-ind-legend i { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
 
-  /* M4: tarjetas para Componente y Unidad de medida (mismo estÃ¡ndar q-card que M2/M3) */
+  /* M4: tarjetas para Componente y Unidad de medida (mismo estándar q-card que M2/M3) */
   #module-4 .m3-q-cards { gap: 6px; }
   #module-4 .m3-q-card { border-color: rgba(92,45,138,0.18); }
   #module-4 .m3-q-card .m3-q-title { color: rgba(92,45,138,0.85); }
@@ -4853,8 +4853,8 @@
   #module-4 .m4d-unit-info { cursor: default; }
   #module-4 .m4d-map-box, #module-4 .m4d-bars-col, #module-4 .m4d-hm-figure { position: relative; }
 
-  /* â•â•â•â• Encuadre unificado de las 3 figuras (mapa Â· barras Â· heatmap),
-     tintado con el color de cada mÃ³dulo â•â•â•â• */
+  /* ════ Encuadre unificado de las 3 figuras (mapa · barras · heatmap),
+     tintado con el color de cada módulo ════ */
   #module-2 .geo-layout .map-stage,
   #module-2 .sector-layout .viz-shell,
   #module-2 .viz-shell.heatmap-shell {
@@ -4880,7 +4880,7 @@
     padding: 12px !important;
   }
 
-  /* â•â•â•â• Barras unificadas con el estÃ¡ndar del MÃ³dulo 4 (M2 y M3) â•â•â•â• */
+  /* ════ Barras unificadas con el estándar del Módulo 4 (M2 y M3) ════ */
   #module-2 #sector-bars, #module-3 #m3-sector-bars { display: flex; flex-direction: column; gap: 5px; }
   .bar-chart-unit {
     font-family: var(--font-ui);
@@ -4898,10 +4898,10 @@
   #module-2 .m4d-bar-track span, #module-3 .m4d-bar-track span { display: block; height: 100%; border-radius: 4px; transition: width .25s; }
   #module-2 .m4d-bar-val, #module-3 .m4d-bar-val { font-family: var(--font-data); font-size: 12px; font-weight: 600; color: var(--corfo-text); text-align: right; }
 
-  /* Mod 1 Â· etiqueta de sector alineada a la derecha (los 3 mÃ³dulos) */
+  /* Mod 1 · etiqueta de sector alineada a la derecha (los 3 módulos) */
   #module-2 .m4d-bar-label, #module-3 .m4d-bar-label, #module-4 .m4d-bar-label { text-align: right; }
 
-  /* Mod 2 Â· leyenda de industrias en grilla 2Ã—3 (los 3 mÃ³dulos) */
+  /* Mod 2 · leyenda de industrias en grilla 2×3 (los 3 módulos) */
   #module-4 .m4d-ind-legend,
   #module-2 #macro-legend, #module-3 #m3-macro-legend {
     display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 18px; align-content: start;
@@ -4911,7 +4911,7 @@
   /* Quitar el sangrado del sector para que la leyenda quede igual al M4 */
   #module-2 .sector-layout #macro-legend, #module-3 .sector-layout #m3-macro-legend { padding-left: 0; }
 
-  /* â•â•â•â• Layout interno de la caja de barras IDÃ‰NTICO al M4 (.m4d-bars-col) â•â•â•â•
+  /* ════ Layout interno de la caja de barras IDÉNTICO al M4 (.m4d-bars-col) ════
      Barras con scroll propio (flex:1) + leyenda fija abajo con borde superior. */
   #module-2 .sector-layout .viz-shell,
   #module-3 .sector-layout .viz-shell {
@@ -4940,7 +4940,7 @@
   /* Rail (rankings) */
   #module-4 .m4d-rail { width: 284px; flex: 0 0 auto; display: flex; flex-direction: column; min-height: 0; }
   /* Al cerrar el ranking, la figura NO se expande: se oculta el rail y se
-     reparte su espacio (â‰ˆ151px por lado) como padding del hero, de modo que la
+     reparte su espacio (≈151px por lado) como padding del hero, de modo que la
      figura conserva el ancho "abierto" y se RECENTRA (igual que M2/M3). */
   #module-4 .m4d-vizcol.rank-collapsed .m4d-rail { display: none; }
   #module-4 .m4d-vizcol.rank-collapsed .m4d-hero { padding-left: 151px; padding-right: 151px; }
@@ -4970,7 +4970,7 @@
   #module4-hover-card .m4d-hc-sent b { color: var(--m4-color); }
   #module4-hover-card .m4d-hc-info { font-family: var(--font-ui); font-size: 12px; line-height: 1.45; color: var(--corfo-text); }
 
-  /* Hover card â€” OpciÃ³n C (banda de color) */
+  /* Hover card — Opción C (banda de color) */
   #module4-hover-card .m4d-hc-c-head { background: linear-gradient(120deg, var(--m4-color), var(--m4-mid)); color: #fff; padding: 11px 15px; }
   #module4-hover-card .m4d-hc-c-kind { font-family: var(--font-ui); font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.8; margin-bottom: 3px; }
   #module4-hover-card .m4d-hc-c-name { font-family: var(--font-ui); font-weight: 700; font-size: 14px; line-height: 1.2; }
@@ -4989,7 +4989,7 @@
   #module-4 .m4d-method.is-open .m4d-method-panel { transform: none; }
   #module-4 .m4d-method-panel h2 { font-family: var(--font-display); font-size: 24px; color: var(--m4-color); margin: 8px 0 9px; line-height: 1.06; }
   #module-4 .m4d-method-panel p { font-family: var(--font-ui); font-size: 13.5px; line-height: 1.55; color: var(--corfo-text); margin: 0 0 11px; }
-  /* Propuesta A Â· apÃ©ndice tÃ©cnico */
+  /* Propuesta A · apéndice técnico */
   #module-4 .m4d-mp-head { position: relative; padding: 26px 30px 18px; border-bottom: 1px solid var(--corfo-line); }
   #module-4 .m4d-mp-head .m4d-mp-eyebrow { display: block; font-family: var(--font-ui); font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--m4-color); opacity: .85; }
   #module-4 .m4d-method-panel .m4d-mp-lead { font-family: var(--font-ui); font-size: 13px; line-height: 1.55; color: var(--corfo-muted); margin: 0; max-width: 48ch; }
@@ -5108,20 +5108,20 @@
 
 <!-- ============ HOME ============ -->
 <section id="home">
-  <h1 class="display">Cuentas EconÃ³micas Desagregadas para Chile</h1>
-  <p style="margin:0;max-width:66ch;font-size:1.02rem;line-height:1.65;color:var(--ds-color-muted)">DesagregaciÃ³n de la actividad econÃ³mica a nivel sectorial y geogrÃ¡fico, consistentes con Cuentas Nacionales del Banco Central de Chile. Elaborado por Huneeus &amp; Del Valle (2026) en una colaboraciÃ³n entre CORFO y el BID a partir de microdatos administrativos del SII, encuestas y fuentes globales de datos de comercio.</p>
+  <h1 class="display">Cuentas Económicas Desagregadas para Chile</h1>
+  <p style="margin:0;max-width:66ch;font-size:1.02rem;line-height:1.65;color:var(--ds-color-muted)">Desagregación de la actividad económica a nivel sectorial y geográfico, consistentes con Cuentas Nacionales del Banco Central de Chile. Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre CORFO y el BID a partir de microdatos administrativos del SII, encuestas y fuentes globales de datos de comercio.</p>
   <div class="hero-cards">
     <a href="#explorar" class="hero-card primary">
-      <span style="font-weight:600;font-size:1.06rem;line-height:1.32;color:#fff">Â¿CÃ³mo se distribuye la economÃ­a por territorio y sector?</span>
-      <span style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-accent)">Explorar los datos â†’</span>
+      <span style="font-weight:600;font-size:1.06rem;line-height:1.32;color:#fff">¿Cómo se distribuye la economía por territorio y sector?</span>
+      <span style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-accent)">Explorar los datos →</span>
     </a>
     <a href="#datos" class="hero-card plain">
-      <span style="font-weight:600;font-size:1.06rem;line-height:1.32;color:var(--ds-color-text)">Â¿Quieres los datos para tu propio anÃ¡lisis?</span>
-      <span style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-brand)">Descarga los datos â†’</span>
+      <span style="font-weight:600;font-size:1.06rem;line-height:1.32;color:var(--ds-color-text)">¿Quieres los datos para tu propio análisis?</span>
+      <span style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-brand)">Descarga los datos →</span>
     </a>
     <a href="#research-paper" class="hero-card plain">
-      <span style="font-weight:600;font-size:1.06rem;line-height:1.32;color:var(--ds-color-text)">Â¿CÃ³mo se construyen y se aplican estas cuentas?</span>
-      <span style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-brand)">Leer el paper â†’</span>
+      <span style="font-weight:600;font-size:1.06rem;line-height:1.32;color:var(--ds-color-text)">¿Cómo se construyen y se aplican estas cuentas?</span>
+      <span style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-brand)">Leer el paper →</span>
     </a>
   </div>
 </section>
@@ -5137,15 +5137,15 @@
     <a href="research.html">Research</a>
   </nav>
   <script>
-  /* â”€â”€ Ajuste robusto de geometrÃ­a del heatmap (compartido M2/M3/M4) â”€â”€
+  /* ── Ajuste robusto de geometría del heatmap (compartido M2/M3/M4) ──
      El espacio para las etiquetas se calcula a partir del ANCHO REAL de la
-     etiqueta mÃ¡s larga (medido con canvas, escala lineal con el tamaÃ±o de
-     fuente) en vez de proporciones fijas. AsÃ­, combinaciones con POCAS celdas
-     y etiquetas LARGAS (p. ej. regiÃ³nÃ—sector) no se recortan: (a) se agranda el
+     etiqueta más larga (medido con canvas, escala lineal con el tamaño de
+     fuente) en vez de proporciones fijas. Así, combinaciones con POCAS celdas
+     y etiquetas LARGAS (p. ej. región×sector) no se recortan: (a) se agranda el
      margen reservado para que quepan, y (b) si el margen topa, se reduce el
-     tamaÃ±o de fuente para que el texto rotado nunca sobresalga del contenedor.
-     En configuraciones normales (muchas celdas, fuente pequeÃ±a) devuelve los
-     mismos valores que antes, asÃ­ que no altera el aspecto ya aprobado. */
+     tamaño de fuente para que el texto rotado nunca sobresalga del contenedor.
+     En configuraciones normales (muchas celdas, fuente pequeña) devuelve los
+     mismos valores que antes, así que no altera el aspecto ya aprobado. */
   window.fitHeatmapGeometry = (function () {
     let _ctx = null;
     function widthPerPx(text, family) {
@@ -5167,26 +5167,26 @@
       const colFamily = o.colFamily || rowFamily;
       const ROW_CAP = o.rowFsCap != null ? o.rowFsCap : 13;
       const COL_CAP = o.colFsCap != null ? o.colFsCap : 12;
-      const ROW_PAD = o.rowPad != null ? o.rowPad : 10; // hueco etiqueta de fila â†” borde
-      const COL_PAD = o.colPad != null ? o.colPad : 8;   // hueco etiqueta de columna â†” borde inferior
-      // Ancho de la etiqueta mÃ¡s larga por cada 1px de tamaÃ±o de fuente
+      const ROW_PAD = o.rowPad != null ? o.rowPad : 10; // hueco etiqueta de fila ↔ borde
+      const COL_PAD = o.colPad != null ? o.colPad : 8;   // hueco etiqueta de columna ↔ borde inferior
+      // Ancho de la etiqueta más larga por cada 1px de tamaño de fuente
       const rowWpp = maxWidthPerPx(o.rowLabels, rowFamily);
       const colWpp = maxWidthPerPx(o.colLabels, colFamily);
-      // â”€â”€ ÃREA DE CELDAS DE TAMAÃ‘O FIJO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-      // Los mÃ¡rgenes reservados para las etiquetas son CONSTANTES: no dependen
-      // del largo del texto ni del nÃºmero de filas/columnas. Por eso el recuadro
-      // de celdas (gridW Ã— gridH) mide SIEMPRE lo mismo en pantalla. Al elegir una
-      // agrupaciÃ³n con menos filas/columnas, las celdas simplemente crecen para
-      // llenar el mismo recuadro; las etiquetas se ajustan reduciendo su tamaÃ±o
+      // ── ÁREA DE CELDAS DE TAMAÑO FIJO ────────────────────────────────────
+      // Los márgenes reservados para las etiquetas son CONSTANTES: no dependen
+      // del largo del texto ni del número de filas/columnas. Por eso el recuadro
+      // de celdas (gridW × gridH) mide SIEMPRE lo mismo en pantalla. Al elegir una
+      // agrupación con menos filas/columnas, las celdas simplemente crecen para
+      // llenar el mismo recuadro; las etiquetas se ajustan reduciendo su tamaño
       // de fuente para caber en el margen fijo.
       const LP = Math.min(190, Math.max(90, Math.floor(o.contW * 0.2)));
       const BP = Math.min(170, Math.max(70, Math.floor(o.contH * 0.22)));
       const gridW = Math.max(40, o.contW - LP - 16);
       const gridH = Math.max(40, o.contH - TP - BP);
       const CH = gridH / nR;   // crecen al haber menos filas
-      // Ancho de celda: por defecto llenarÃ­a todo el ancho (gridW/nC), pero eso
-      // ESTIRA las celdas en pantallas anchas. Se limita a un mÃ¡ximo relativo al
-      // alto de la celda (â‰ˆ cuadrada) para que no se deformen; el sobrante de
+      // Ancho de celda: por defecto llenaría todo el ancho (gridW/nC), pero eso
+      // ESTIRA las celdas en pantallas anchas. Se limita a un máximo relativo al
+      // alto de la celda (≈ cuadrada) para que no se deformen; el sobrante de
       // ancho queda como margen y el heatmap se CENTRA (la figura ya usa
       // justify-content:center).
       const maxAspect = o.maxCellAspect != null ? o.maxCellAspect : 1.15;
@@ -5205,10 +5205,10 @@
   })();
 
   /* Helper global: tooltip de valor al pasar el cursor sobre una barra de leyenda
-     de gradiente (mapas + heatmaps de TODOS los mÃ³dulos). Estilo Ãºnico compartido.
+     de gradiente (mapas + heatmaps de TODOS los módulos). Estilo único compartido.
      - barEl: el div de la barra (.geo-legend-bar / .matrix-legend-bar-vertical)
-     - min, max: extremos positivos del gradiente (escala logarÃ­tmica, top = max)
-     - format(v): funciÃ³n que formatea el valor a string */
+     - min, max: extremos positivos del gradiente (escala logarítmica, top = max)
+     - format(v): función que formatea el valor a string */
   (function () {
     function tip() {
       let t = document.getElementById("legend-readout");
@@ -5239,7 +5239,7 @@
         const t = tip();
         t.querySelector(".legend-readout-label").textContent = readoutLabel();
         t.querySelector(".legend-readout-value").textContent = fmt(val);
-        // PosiciÃ³n: a la derecha de barras verticales; encima de barras horizontales.
+        // Posición: a la derecha de barras verticales; encima de barras horizontales.
         if (vertical) {
           t.classList.remove("is-above");
           t.style.left = (r.right + 12) + "px";
@@ -5256,25 +5256,25 @@
       barEl.addEventListener("mouseleave", leave);
     };
 
-    /* UnificaciÃ³n de heatmaps (M2/M3/M4): mantiene el alto de la leyenda vertical
+    /* Unificación de heatmaps (M2/M3/M4): mantiene el alto de la leyenda vertical
        igualado al alto REAL renderizado del SVG del heatmap, igual que la leyenda
        del mapa. Idempotente y a prueba de timing: aplica de inmediato + rAF +
-       fallbacks + un ResizeObserver persistente (tambiÃ©n corrige al redimensionar,
-       asÃ­ la barra nunca se descuelga ni desborda en ninguna pantalla). */
+       fallbacks + un ResizeObserver persistente (también corrige al redimensionar,
+       así la barra nunca se descuelga ni desborda en ninguna pantalla). */
     window.syncMatrixLegendHeight = function (legendEl, svgEl) {
       if (!legendEl || !svgEl) return;
       const apply = () => {
         const H = Math.round(svgEl.getBoundingClientRect().height);
         if (!(H > 0)) return;
-        // La barra de leyenda mide SÃ“LO el alto del Ã¡rea de celdas (sin las
+        // La barra de leyenda mide SÓLO el alto del área de celdas (sin las
         // etiquetas del eje X) y se alinea con el borde superior de la grilla.
-        // El render publica esa geometrÃ­a en data-grid-top / data-grid-height.
+        // El render publica esa geometría en data-grid-top / data-grid-height.
         const gTop = parseFloat(svgEl.dataset.gridTop);
         const gH = parseFloat(svgEl.dataset.gridHeight);
         const vb = (svgEl.getAttribute("viewBox") || "").split(/\s+/).map(Number);
         const vbH = vb[3] || H;
         if (gH > 0 && vbH > 0) {
-          const sc = H / vbH; // escala de render (â‰ˆ1 cuando el SVG es 1:1)
+          const sc = H / vbH; // escala de render (≈1 cuando el SVG es 1:1)
           svgEl.style.alignSelf = "flex-start";
           legendEl.style.alignSelf = "flex-start";
           legendEl.style.marginTop = Math.round((gTop || 0) * sc) + "px";
@@ -5296,11 +5296,11 @@
   })();
   </script>
   <div class="page-shell">
-  <nav class="module-rail" aria-label="NavegaciÃ³n de mÃ³dulos">
-    <a class="rail-link active" href="index.html" data-target="module-1" data-module="1" aria-label="MÃ³dulo 1"></a>
-    <a class="rail-link" href="#module-2" data-target="module-2" data-module="2" aria-label="MÃ³dulo 2"></a>
-    <a class="rail-link" href="#module-3" data-target="module-3" data-module="3" aria-label="MÃ³dulo 3"></a>
-    <a class="rail-link" href="#module-4" data-target="module-4" data-module="4" aria-label="MÃ³dulo 4"></a>
+  <nav class="module-rail" aria-label="Navegación de módulos">
+    <a class="rail-link active" href="index.html" data-target="module-1" data-module="1" aria-label="Módulo 1"></a>
+    <a class="rail-link" href="#module-2" data-target="module-2" data-module="2" aria-label="Módulo 2"></a>
+    <a class="rail-link" href="#module-3" data-target="module-3" data-module="3" aria-label="Módulo 3"></a>
+    <a class="rail-link" href="#module-4" data-target="module-4" data-module="4" aria-label="Módulo 4"></a>
 
   </nav>
   <section class="landing" id="module-1" aria-label="Portada">
@@ -5323,64 +5323,64 @@
 
     <main class="landing-body">
       <div class="embed-landing-title">
-        <h2>Â¿QuÃ© quieres explorar?</h2>
-        <p>Tres herramientas interactivas para recorrer la economÃ­a chilena por territorio y sector.</p>
+        <h2>¿Qué quieres explorar?</h2>
+        <p>Tres herramientas interactivas para recorrer la economía chilena por territorio y sector.</p>
       </div>
 
       <nav class="landing-grid" aria-label="Secciones">
         <a class="landing-card" href="#module-2">
           <div class="landing-card-head" style="background: linear-gradient(135deg, #1e5c3a, #27753f);">
             <span class="landing-card-num">1</span>
-            <span class="landing-card-label" data-i18n="btn1">CaracterizaciÃ³n GeogrÃ¡fica y Sectorial de la Actividad EconÃ³mica</span>
+            <span class="landing-card-label" data-i18n="btn1">Caracterización Geográfica y Sectorial de la Actividad Económica</span>
           </div>
           <div class="landing-card-body">
-            <p class="landing-card-question" data-i18n="btn1Q">Â¿DÃ³nde producen los sectores econÃ³micos?</p>
-            <p class="landing-card-desc" data-i18n="btn1Detail">Explora cÃ³mo se distribuye el PIB, empleo y ventas a travÃ©s de sectores y provincias.</p>
-            <span class="landing-card-action" data-i18n="landingExplore">Explorar â†’</span>
+            <p class="landing-card-question" data-i18n="btn1Q">¿Dónde producen los sectores económicos?</p>
+            <p class="landing-card-desc" data-i18n="btn1Detail">Explora cómo se distribuye el PIB, empleo y ventas a través de sectores y provincias.</p>
+            <span class="landing-card-action" data-i18n="landingExplore">Explorar →</span>
           </div>
         </a>
 
         <a class="landing-card" href="#module-3">
           <div class="landing-card-head" style="background: linear-gradient(135deg, #0b4f55, #0d6b73);">
             <span class="landing-card-num">2</span>
-            <span class="landing-card-label" data-i18n="btn2">GeografÃ­a de las Cadenas de Valor</span>
+            <span class="landing-card-label" data-i18n="btn2">Geografía de las Cadenas de Valor</span>
           </div>
           <div class="landing-card-body">
-            <p class="landing-card-question" data-i18n="btn2Q">Â¿QuiÃ©nes son los clientes y proveedores de cada territorio?</p>
-            <p class="landing-card-desc" data-i18n="btn2Detail">Identifica los principales socios comerciales de cada provincia-sector y quÃ© tan relevantes son para ellos.</p>
-            <span class="landing-card-action" data-i18n="landingExplore">Explorar â†’</span>
+            <p class="landing-card-question" data-i18n="btn2Q">¿Quiénes son los clientes y proveedores de cada territorio?</p>
+            <p class="landing-card-desc" data-i18n="btn2Detail">Identifica los principales socios comerciales de cada provincia-sector y qué tan relevantes son para ellos.</p>
+            <span class="landing-card-action" data-i18n="landingExplore">Explorar →</span>
           </div>
         </a>
 
         <a class="landing-card" href="#module-4">
           <div class="landing-card-head" style="background: linear-gradient(135deg, #5c2d8a, #7038a8);">
             <span class="landing-card-num">3</span>
-            <span class="landing-card-label" data-i18n="btn3">Impacto Sectorial y GeogrÃ¡fico de la Productividad</span>
+            <span class="landing-card-label" data-i18n="btn3">Impacto Sectorial y Geográfico de la Productividad</span>
           </div>
           <div class="landing-card-body">
-            <p class="landing-card-question" data-i18n="btn3Q">Â¿CÃ³mo afectan cambios productivos a distintos sectores y provincias?</p>
-            <p class="landing-card-desc" data-i18n="btn3Detail">Explora cÃ³mo se distribuyen sectorial y territorialmente el impacto de cambios productivos.</p>
-            <span class="landing-card-action" data-i18n="landingExplore">Explorar â†’</span>
+            <p class="landing-card-question" data-i18n="btn3Q">¿Cómo afectan cambios productivos a distintos sectores y provincias?</p>
+            <p class="landing-card-desc" data-i18n="btn3Detail">Explora cómo se distribuyen sectorial y territorialmente el impacto de cambios productivos.</p>
+            <span class="landing-card-action" data-i18n="landingExplore">Explorar →</span>
           </div>
         </a>
 
-        <!-- Tarjeta "Descarga de Datos" removida: la descarga vive en la secciÃ³n Datos de sitio.html -->
+        <!-- Tarjeta "Descarga de Datos" removida: la descarga vive en la sección Datos de sitio.html -->
       </nav>
 
       <div class="landing-cite">
         <div class="landing-cite-bar"></div>
         <div class="landing-cite-inner">
-          <span class="landing-cite-label" data-i18n="citationLabel">MetodologÃ­a, construcciÃ³n y aplicaciones â€” cita el paper</span>
+          <span class="landing-cite-label" data-i18n="citationLabel">Metodología, construcción y aplicaciones — cita el paper</span>
           <span class="landing-cite-text" data-i18n-html="citation">Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.</span>
         </div>
       </div>
     </main>
   </section>
 
-    <section class="module-section module-two" id="module-2" data-explore-module="characterization" aria-label="CaracterizaciÃ³n geogrÃ¡fica y sectorial">
+    <section class="module-section module-two" id="module-2" data-explore-module="characterization" aria-label="Caracterización geográfica y sectorial">
     <div class="embed-mod-title" style="--module-accent:#27753f">
       <span class="embed-mod-number" aria-hidden="true">1</span>
-      <h3 data-i18n="btn1">CaracterizaciÃ³n GeogrÃ¡fica y Sectorial de la Actividad EconÃ³mica</h3>
+      <h3 data-i18n="btn1">Caracterización Geográfica y Sectorial de la Actividad Económica</h3>
       <span class="bar"></span>
     </div>
     <header class="topbar module-header">
@@ -5391,7 +5391,7 @@
         </div>
       </div>
 
-      <h2 class="header-title module-header-title" data-i18n="module2HeaderTitle">CaracterizaciÃ³n geogrÃ¡fica y sectorial de la actividad econÃ³mica de Chile</h2>
+      <h2 class="header-title module-header-title" data-i18n="module2HeaderTitle">Caracterización geográfica y sectorial de la actividad económica de Chile</h2>
 
       <div class="header-actions">
         <a class="module-back-btn" href="index.html">
@@ -5409,24 +5409,24 @@
 
     <div class="module-two-shell">
 
-      <!-- â•â•â• LEFT PANEL â•â•â• -->
+      <!-- ═══ LEFT PANEL ═══ -->
       <div class="control-bar np-panel m2-panel" id="module-2-controls">
 
-        <!-- â”€â”€ Header verde â”€â”€ -->
+        <!-- ── Header verde ── -->
         <div class="m2-header">
-          <div class="m2-badge" data-i18n="m2BadgeLabel">CaracterizaciÃ³n Â· EconomÃ­a de Chile</div>
+          <div class="m2-badge" data-i18n="m2BadgeLabel">Caracterización · Economía de Chile</div>
           <button class="module-controls-toggle panel-controls-toggle" type="button" aria-expanded="true" aria-controls="module-2-controls">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10"></path><path d="M18 7h2"></path><circle cx="16" cy="7" r="2"></circle><path d="M4 17h2"></path><path d="M10 17h10"></path><circle cx="8" cy="17" r="2"></circle></svg>
             <span>Ocultar controles</span>
           </button>
         </div>
 
-        <!-- â”€â”€ Scroll body â”€â”€ -->
+        <!-- ── Scroll body ── -->
         <div class="m2-scroll">
 
-          <!-- 1 Â· Variable -->
+          <!-- 1 · Variable -->
           <div class="m3-sec">
-            <div class="m3-sec-label" data-i18n="m2VarLabel">1 Â· Variable</div>
+            <div class="m3-sec-label" data-i18n="m2VarLabel">1 · Variable</div>
             <div class="custom-select m2-metric-custom" id="m2-metric-custom">
               <button type="button" class="custom-select-trigger m2-metric-trigger" id="m2-metric-trigger" aria-haspopup="listbox" aria-expanded="false">
                 <span id="m2-metric-trigger-label">PIB</span>
@@ -5436,37 +5436,37 @@
             </div>
           </div>
 
-          <!-- 2 Â· AnÃ¡lisis -->
+          <!-- 2 · Análisis -->
           <div class="m3-sec" id="analysis-control-group">
-            <div class="m3-sec-label" data-i18n="m2AnalysisSectionLabel">2 Â· AnÃ¡lisis <span class="np-tab-badge" id="np-analysis-badge" style="margin-left:4px">Territorial</span></div>
+            <div class="m3-sec-label" data-i18n="m2AnalysisSectionLabel">2 · Análisis <span class="np-tab-badge" id="np-analysis-badge" style="margin-left:4px">Territorial</span></div>
             <div class="m3-q-cards m2-analysis-cards">
               <button type="button" class="m3-q-card active" data-m2-analysis="distribution">
-                <div class="m3-q-title">DistribuciÃ³n</div>
-                <div class="m3-q-sub">Â¿CuÃ¡nto aporta cada zona al total?</div>
+                <div class="m3-q-title">Distribución</div>
+                <div class="m3-q-sub">¿Cuánto aporta cada zona al total?</div>
               </button>
               <button type="button" class="m3-q-card" data-m2-analysis="dependency_territorial">
                 <div class="m3-q-title">Dependencia territorial</div>
-                <div class="m3-q-sub">Â¿QuÃ© tan importante es cada sector para la zona?</div>
+                <div class="m3-q-sub">¿Qué tan importante es cada sector para la zona?</div>
               </button>
               <button type="button" class="m3-q-card" data-m2-analysis="dependency_sectorial">
                 <div class="m3-q-title">Dependencia sectorial</div>
-                <div class="m3-q-sub">Â¿QuÃ© tan dependiente es cada zona del sector?</div>
+                <div class="m3-q-sub">¿Qué tan dependiente es cada zona del sector?</div>
               </button>
             </div>
             <select class="control-select is-hidden" id="m2-analysis" tabindex="-1" aria-hidden="true">
-              <option value="distribution" selected data-i18n="m2AnalysisDistribution">DistribuciÃ³n</option>
+              <option value="distribution" selected data-i18n="m2AnalysisDistribution">Distribución</option>
               <option value="dependency_territorial" data-i18n="m2AnalysisDependencyTerritorial">Dependencia territorial</option>
               <option value="dependency_sectorial" data-i18n="m2AnalysisDependencySectorial">Dependencia sectorial</option>
             </select>
           </div>
 
-          <!-- 3-4 Â· GeografÃ­a + Sectores -->
+          <!-- 3-4 · Geografía + Sectores -->
           <div class="filter-stack np-filter-outer">
 
-            <!-- GeografÃ­a -->
+            <!-- Geografía -->
             <div class="m3-sec">
               <div class="m3-sec-hdr">
-                <div class="m3-sec-label" data-i18n="m2GeoSectionLabel">4 Â· GeografÃ­a</div>
+                <div class="m3-sec-label" data-i18n="m2GeoSectionLabel">4 · Geografía</div>
                 <div class="np-actions">
                   <button type="button" class="np-act filter-action" data-filter-action="all-geo" data-i18n="m2SelectAll">Todos</button>
                   <button type="button" class="np-act filter-action" data-filter-action="clear-geo" data-i18n="m2ClearAll">Limpiar</button>
@@ -5475,24 +5475,24 @@
               <details class="tree-group" id="geo-tree-group">
                 <summary class="np-filter-summary">
                   <div class="tree-header">
-                    <span class="np-filter-label" data-i18n="m2GeoFilterLabel">Filtrar geografÃ­aâ€¦</span>
+                    <span class="np-filter-label" data-i18n="m2GeoFilterLabel">Filtrar geografía…</span>
                     <span class="np-arr-sm">&#9662;</span>
                   </div>
                 </summary>
                 <div class="cascade-filter np-cascade" data-active-level="macrozone">
                   <div class="np-cascade-nav">
                     <button class="np-cascade-nav-btn is-active" data-cascade-level="macrozone" data-i18n="m2AggMacrozone">Macrozona</button>
-                    <button class="np-cascade-nav-btn" data-cascade-level="region" data-i18n="m2AggRegion">RegiÃ³n</button>
+                    <button class="np-cascade-nav-btn" data-cascade-level="region" data-i18n="m2AggRegion">Región</button>
                     <button class="np-cascade-nav-btn" data-cascade-level="province" data-i18n="m2AggProvince">Provincia</button>
                   </div>
                   <div class="cascade-column" id="m2-macrozone-panel" data-level-label="Macrozona"></div>
-                  <div class="cascade-column" id="m2-region-panel" data-level-label="RegiÃ³n"></div>
+                  <div class="cascade-column" id="m2-region-panel" data-level-label="Región"></div>
                   <div class="cascade-column" id="m2-province-panel" data-level-label="Provincia"></div>
                 </div>
               </details>
               <select class="control-select is-hidden" id="m2-left-geo-level" tabindex="-1" aria-hidden="true">
                 <option value="macrozone">Macrozona</option>
-                <option value="region">RegiÃ³n</option>
+                <option value="region">Región</option>
                 <option value="province" selected>Provincia</option>
               </select>
             </div>
@@ -5500,7 +5500,7 @@
             <!-- Sectores -->
             <div class="m3-sec">
               <div class="m3-sec-hdr">
-                <div class="m3-sec-label" data-i18n="m2SectorSectionLabel">5 Â· Sectores</div>
+                <div class="m3-sec-label" data-i18n="m2SectorSectionLabel">5 · Sectores</div>
                 <div class="np-actions">
                   <button type="button" class="np-act filter-action" data-filter-action="all-sector" data-i18n="m2SelectAll">Todos</button>
                   <button type="button" class="np-act filter-action" data-filter-action="clear-sector" data-i18n="m2ClearAll">Limpiar</button>
@@ -5509,7 +5509,7 @@
               <details class="tree-group" id="sector-tree-group">
                 <summary class="np-filter-summary">
                   <div class="tree-header">
-                    <span class="np-filter-label" data-i18n="m2SectorFilterLabel">Filtrar sectoresâ€¦</span>
+                    <span class="np-filter-label" data-i18n="m2SectorFilterLabel">Filtrar sectores…</span>
                     <span class="np-arr-sm">&#9662;</span>
                   </div>
                 </summary>
@@ -5533,12 +5533,12 @@
 
           </div><!-- end filter-stack -->
 
-          <!-- Lectura Â· estadÃ­stica (Zona 3) -->
+          <!-- Lectura · estadística (Zona 3) -->
           <div class="selection-summary" id="selection-summary"></div>
 
-          <!-- 5 Â· Unidad -->
+          <!-- 5 · Unidad -->
           <div class="m3-sec" id="unit-control-group">
-            <div class="m3-sec-label" data-i18n="m2UnitSectionLabel">5 Â· Unidad de medida</div>
+            <div class="m3-sec-label" data-i18n="m2UnitSectionLabel">5 · Unidad de medida</div>
             <div class="m3-q-cards m2-unit-cards">
               <button type="button" class="m3-q-card active" data-m2-unit="value">
                 <div class="m3-q-title" data-i18n="m2UnitValueBtn">Monto en Billones de CLP</div>
@@ -5546,33 +5546,33 @@
               </button>
               <button type="button" class="m3-q-card" data-m2-unit="share">
                 <div class="m3-q-title" data-i18n="m2UnitShareBtn">Porcentaje %</div>
-                <div class="m3-q-sub" data-i18n="m2UnitShareCardSub">ParticipaciÃ³n dentro del total filtrado</div>
+                <div class="m3-q-sub" data-i18n="m2UnitShareCardSub">Participación dentro del total filtrado</div>
               </button>
               <button type="button" class="m3-q-card" data-m2-unit="relative">
-                <div class="m3-q-title" data-i18n="m2UnitRelativeBtn">Ãndice</div>
+                <div class="m3-q-title" data-i18n="m2UnitRelativeBtn">Índice</div>
                 <div class="m3-q-sub" data-i18n="m2UnitRelativeCardSub">Relativo a la referencia nacional</div>
               </button>
             </div>
             <select class="control-select is-hidden" id="m2-unit" tabindex="-1" aria-hidden="true">
               <option value="value" selected>Monto (Billones de CLP)</option>
               <option value="share" data-i18n="m2UnitShareOption">Porcentaje (%)</option>
-              <option value="relative" data-i18n="m2UnitRelativeOption">Ãndice relativo</option>
+              <option value="relative" data-i18n="m2UnitRelativeOption">Índice relativo</option>
             </select>
           </div>
 
-          <!-- 6 Â· Nivel de agregaciÃ³n Â· Territorio -->
+          <!-- 6 · Nivel de agregación · Territorio -->
           <div class="m3-sec">
-            <div class="m3-sec-label" data-i18n="m2AggGeoSectionLabel">6 Â· Nivel de agregaciÃ³n Â· Territorio</div>
+            <div class="m3-sec-label" data-i18n="m2AggGeoSectionLabel">6 · Nivel de agregación · Territorio</div>
             <div class="m3-agg-seg" id="np-geo-ag-opts">
               <button type="button" class="m3-agg-btn" data-geo-agg="macrozone" data-i18n="m2AggMacrozone">Macrozona</button>
-              <button type="button" class="m3-agg-btn" data-geo-agg="region" data-i18n="m2AggRegion">RegiÃ³n</button>
+              <button type="button" class="m3-agg-btn" data-geo-agg="region" data-i18n="m2AggRegion">Región</button>
               <button type="button" class="m3-agg-btn active" data-geo-agg="province" data-i18n="m2AggProvince">Provincia</button>
             </div>
           </div>
 
-          <!-- 7 Â· Nivel de agregaciÃ³n Â· Sector -->
+          <!-- 7 · Nivel de agregación · Sector -->
           <div class="m3-sec">
-            <div class="m3-sec-label" data-i18n="m2AggSecSectionLabel">7 Â· Nivel de agregaciÃ³n Â· Sector</div>
+            <div class="m3-sec-label" data-i18n="m2AggSecSectionLabel">7 · Nivel de agregación · Sector</div>
             <div class="m3-agg-seg" id="np-sector-ag-opts">
               <button type="button" class="m3-agg-btn" data-sector-agg="industry" data-i18n="m2AggIndustry">Industria</button>
               <button type="button" class="m3-agg-btn" data-sector-agg="pibr13" data-i18n="m2AggSector">Sector</button>
@@ -5584,12 +5584,12 @@
 
       </div><!-- end np-panel -->
 
-      <!-- â•â•â• RIGHT: tabs + viz â•â•â• -->
+      <!-- ═══ RIGHT: tabs + viz ═══ -->
       <div class="np-viz-col">
-        <div class="module-tabs" aria-label="Vistas del mÃ³dulo 2">
-          <button type="button" class="module-tab active" data-view="geo"><span class="tab-kicker" data-i18n="m2TabKicker">CaracterizaciÃ³n</span><span class="tab-axis" data-i18n="axisGeo">Territorial</span></button>
-          <button type="button" class="module-tab" data-view="sector"><span class="tab-kicker" data-i18n="m2TabKicker">CaracterizaciÃ³n</span><span class="tab-axis" data-i18n="axisSec">Sectorial</span></button>
-          <button type="button" class="module-tab" data-view="matrix"><span class="tab-kicker" data-i18n="m2TabKicker">CaracterizaciÃ³n</span><span class="tab-axis" data-i18n="axisCell">Territorialâ€“Sectorial</span></button>
+        <div class="module-tabs" aria-label="Vistas del módulo 2">
+          <button type="button" class="module-tab active" data-view="geo"><span class="tab-kicker" data-i18n="m2TabKicker">Caracterización</span><span class="tab-axis" data-i18n="axisGeo">Territorial</span></button>
+          <button type="button" class="module-tab" data-view="sector"><span class="tab-kicker" data-i18n="m2TabKicker">Caracterización</span><span class="tab-axis" data-i18n="axisSec">Sectorial</span></button>
+          <button type="button" class="module-tab" data-view="matrix"><span class="tab-kicker" data-i18n="m2TabKicker">Caracterización</span><span class="tab-axis" data-i18n="axisCell">Territorial–Sectorial</span></button>
         </div>
         <div class="module-two-body">
           <div class="module-two-view active" data-view-panel="geo">
@@ -5650,7 +5650,7 @@
                 </div>
               </div>
               <div class="matrix-figure" id="matrix-figure">
-                <svg id="matrix-svg" class="matrix-svg" aria-label="CaracterizaciÃ³n territorial - sectorial"></svg>
+                <svg id="matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg>
                 <div class="matrix-legend-vertical" id="matrix-legend"></div>
               </div>
             </div>
@@ -5665,7 +5665,7 @@
   <section class="module-section module-two module-three" id="module-3" data-explore-module="value-chains" aria-label="Cadenas de valor territoriales">
     <div class="embed-mod-title" style="--module-accent:#0e5f66">
       <span class="embed-mod-number" aria-hidden="true">2</span>
-      <h3 data-i18n="btn2">GeografÃ­a de las Cadenas de Valor</h3>
+      <h3 data-i18n="btn2">Geografía de las Cadenas de Valor</h3>
       <span class="bar"></span>
     </div>
     <header class="topbar module-header">
@@ -5695,10 +5695,10 @@
     <div class="module-two-shell module-three-shell">
       <div class="control-bar np-panel m3-panel" id="module-3-controls">
 
-        <!-- â”€â”€ Fixed: perspective header â”€â”€ -->
+        <!-- ── Fixed: perspective header ── -->
         <div class="m3-header">
           <div class="m3-panel-headline">
-            <div class="m3-badge" data-i18n="m3BadgeLabel">Cadenas de valor Â· Perspectiva</div>
+            <div class="m3-badge" data-i18n="m3BadgeLabel">Cadenas de valor · Perspectiva</div>
             <button class="module-controls-toggle panel-controls-toggle" type="button" aria-expanded="true" aria-controls="module-3-controls">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10"></path><path d="M18 7h2"></path><circle cx="16" cy="7" r="2"></circle><path d="M4 17h2"></path><path d="M10 17h10"></path><circle cx="8" cy="17" r="2"></circle></svg>
               <span>Ocultar controles</span>
@@ -5710,17 +5710,17 @@
           </div>
         </div>
 
-        <!-- â”€â”€ Scrollable body â”€â”€ -->
+        <!-- ── Scrollable body ── -->
         <div class="m3-scroll">
 
-          <!-- 1. Mercado de interÃ©s -->
+          <!-- 1. Mercado de interés -->
           <div class="filter-stack">
           <div class="m3-sec">
-            <div class="m3-sec-label" data-i18n="m3MarketLabel">1 Â· Define tu mercado</div>
+            <div class="m3-sec-label" data-i18n="m3MarketLabel">1 · Define tu mercado</div>
             <p class="m3-sec-instruction" data-i18n="m3MarketInstruction"></p>
             <div class="m3-subfield">
             <div class="m3-sec-hdr">
-              <div class="m3-subfield-lbl" data-i18n="m2GeoAggregationLabel">GeografÃ­a</div>
+              <div class="m3-subfield-lbl" data-i18n="m2GeoAggregationLabel">Geografía</div>
               <div class="np-actions">
                 <button type="button" class="np-act" data-m3-filter-action="all-self-geo" data-i18n="m2SelectAll">Todos</button>
                 <button type="button" class="np-act" data-m3-filter-action="clear-self-geo" data-i18n="m2ClearAll">Limpiar</button>
@@ -5729,18 +5729,18 @@
             <details class="tree-group" id="m3-self-geo-tree-group">
               <summary class="np-filter-summary">
                 <div class="tree-header">
-                  <span class="np-filter-label" id="m3-self-geo-label">GeografÃ­aâ€¦</span>
+                  <span class="np-filter-label" id="m3-self-geo-label">Geografía…</span>
                   <span class="np-arr-sm">&#9662;</span>
                 </div>
               </summary>
               <div class="cascade-filter np-cascade" data-active-level="macrozone">
                 <div class="np-cascade-nav">
                   <button class="np-cascade-nav-btn is-active" data-cascade-level="macrozone" data-i18n="m2AggMacrozone">Macrozona</button>
-                  <button class="np-cascade-nav-btn" data-cascade-level="region" data-i18n="m2AggRegion">RegiÃ³n</button>
+                  <button class="np-cascade-nav-btn" data-cascade-level="region" data-i18n="m2AggRegion">Región</button>
                   <button class="np-cascade-nav-btn" data-cascade-level="province" data-i18n="m2AggProvince">Provincia</button>
                 </div>
                 <div class="cascade-column" id="m3-self-macrozone-panel" data-level-label="Macrozona"></div>
-                <div class="cascade-column" id="m3-self-region-panel" data-level-label="RegiÃ³n"></div>
+                <div class="cascade-column" id="m3-self-region-panel" data-level-label="Región"></div>
                 <div class="cascade-column" id="m3-self-province-panel" data-level-label="Provincia"></div>
               </div>
             </details>
@@ -5756,7 +5756,7 @@
             <details class="tree-group" id="m3-self-sector-tree-group">
               <summary class="np-filter-summary">
                 <div class="tree-header">
-                  <span class="np-filter-label" id="m3-self-sector-label">Sectorâ€¦</span>
+                  <span class="np-filter-label" id="m3-self-sector-label">Sector…</span>
                   <span class="np-arr-sm">&#9662;</span>
                 </div>
               </summary>
@@ -5783,11 +5783,11 @@
             <div class="m3-kpi-block" id="m3-kpi-block"></div>
           </div>
 
-          <!-- Flujo de la selecciÃ³n: movido al final como Resultado -->
+          <!-- Flujo de la selección: movido al final como Resultado -->
 
-          <!-- 2. Elige cÃ³mo medir -->
+          <!-- 2. Elige cómo medir -->
           <div class="m3-sec">
-            <div class="m3-sec-label" data-i18n="m3VisualizeLabel">2 Â· Elige cÃ³mo medir</div>
+            <div class="m3-sec-label" data-i18n="m3VisualizeLabel">2 · Elige cómo medir</div>
             <p class="m3-sec-instruction" data-i18n="m3VisualizeInstruction"></p>
             <div class="m3-q-cards">
               <button type="button" class="m3-q-card active" data-m3-unit="value">
@@ -5799,24 +5799,24 @@
                 <div class="m3-q-ask" data-i18n="m3UnitFlowSub">Sobre mis ventas / compras intermedias</div>
               </button>
               <button type="button" class="m3-q-card" data-m3-unit="share_production">
-                <div class="m3-q-title" data-i18n="m3UnitProductionTitle">% de mi producciÃ³n</div>
+                <div class="m3-q-title" data-i18n="m3UnitProductionTitle">% de mi producción</div>
                 <div class="m3-q-ask" data-i18n="m3UnitProductionSub">Sobre mis ventas totales (incl. demanda final)</div>
               </button>
               <button type="button" class="m3-q-card" data-m3-unit="share_counterpart">
                 <div class="m3-q-title" data-i18n="m3UnitCounterpartTitle">% de la contraparte</div>
-                <div class="m3-q-ask" data-i18n="m3UnitCounterpartSub">Â¿QuÃ© peso tengo en su cadena?</div>
+                <div class="m3-q-ask" data-i18n="m3UnitCounterpartSub">¿Qué peso tengo en su cadena?</div>
               </button>
             </div>
           </div>
 
           <!-- 3. Ajusta el detalle -->
           <div class="m3-sec">
-            <div class="m3-sec-label" data-i18n="m3AggGeoLabel">3 Â· Ajusta el detalle</div>
+            <div class="m3-sec-label" data-i18n="m3AggGeoLabel">3 · Ajusta el detalle</div>
             <p class="m3-sec-instruction" data-i18n="m3AggInstruction"></p>
             <div class="m3-subfield-lbl m3-agg-sublabel" data-i18n="m3AggGeoSubLabel">Territorio</div>
             <div class="m3-agg-seg">
               <button type="button" class="m3-agg-btn" data-m3-geo-agg="macrozone" data-i18n="m2AggMacrozone">Macrozona</button>
-              <button type="button" class="m3-agg-btn" data-m3-geo-agg="region" data-i18n="m2AggRegion">RegiÃ³n</button>
+              <button type="button" class="m3-agg-btn" data-m3-geo-agg="region" data-i18n="m2AggRegion">Región</button>
               <button type="button" class="m3-agg-btn active" data-m3-geo-agg="province" data-i18n="m2AggProvince">Provincia</button>
             </div>
             <div class="m3-subfield-lbl m3-agg-sublabel" data-i18n="m3AggSecSubLabel" style="margin-top:9px;">Sector</div>
@@ -5829,7 +5829,7 @@
 
           <!-- 4. Filtra el comercio -->
           <div class="m3-sec">
-            <div class="m3-sec-label" data-i18n="m3TradeLabel">4 Â· Filtra el comercio</div>
+            <div class="m3-sec-label" data-i18n="m3TradeLabel">4 · Filtra el comercio</div>
             <p class="m3-sec-instruction" data-i18n="m3TradeInstruction"></p>
             <!-- Level 1: scope -->
             <div class="m3-trade-row">
@@ -5837,7 +5837,7 @@
               <button type="button" class="m3-trade-btn" data-m3-trade="domestic" data-i18n="m3TradeDomestic">Nacional</button>
               <button type="button" class="m3-trade-btn" data-m3-trade="international" data-i18n="m3TradeInternational">Intern.</button>
             </div>
-            <!-- Level 2: domestic sub-types â€” 3-state chips -->
+            <!-- Level 2: domestic sub-types — 3-state chips -->
             <div class="m3-trade-sub-block" id="m3-trade-sub" style="display:none; margin-top:6px;">
               <div style="display:flex; flex-direction:column; gap:3px;">
                 <div class="m3-subtoggle-row">
@@ -5877,9 +5877,9 @@
             </div>
           </div>
 
-          <!-- Resultado Â· Flujo de la selecciÃ³n -->
+          <!-- Resultado · Flujo de la selección -->
           <div class="m3-sec m3-result-sec">
-            <div class="m3-sec-label" data-i18n="m3FlowLabel">Resultado Â· Flujo de la selecciÃ³n</div>
+            <div class="m3-sec-label" data-i18n="m3FlowLabel">Resultado · Flujo de la selección</div>
             <div class="selection-summary m3-flujo-summary" id="m3-selection-summary"></div>
           </div>
         </div><!-- end m3-scroll -->
@@ -5891,17 +5891,17 @@
         </select>
         <select class="control-select is-hidden" id="m3-question" tabindex="-1" aria-hidden="true">
           <option value="main" selected>Clientes principales</option>
-          <option value="relevance">QuÃ© tan relevante soy para ellos</option>
+          <option value="relevance">Qué tan relevante soy para ellos</option>
         </select>
         <select class="control-select is-hidden" id="m3-unit" tabindex="-1" aria-hidden="true">
           <option value="value" selected>Billones de CLP</option>
           <option value="share_flow">% del flujo</option>
-          <option value="share_production">% de mi producciÃ³n</option>
+          <option value="share_production">% de mi producción</option>
           <option value="share_counterpart">% de la contraparte</option>
         </select>
         <select class="control-select is-hidden" id="m3-left-geo-level" tabindex="-1" aria-hidden="true">
           <option value="macrozone">Macrozona</option>
-          <option value="region">RegiÃ³n</option>
+          <option value="region">Región</option>
           <option value="province" selected>Provincia</option>
         </select>
         <select class="control-select is-hidden" id="m3-left-sector-level" tabindex="-1" aria-hidden="true">
@@ -5912,12 +5912,12 @@
 
       </div><!-- end m3-panel -->
 
-      <!-- â•â• Right: tabs + viz â•â• -->
+      <!-- ══ Right: tabs + viz ══ -->
       <div class="np-viz-col">
-        <div class="module-tabs" aria-label="Vistas del mÃ³dulo 3">
+        <div class="module-tabs" aria-label="Vistas del módulo 3">
           <button type="button" class="module-tab module3-tab active" data-module3-view="geo"><span class="tab-kicker" data-i18n="m3TabKicker">Encadenamientos</span><span class="tab-axis" data-i18n="axisGeo">Territorial</span></button>
           <button type="button" class="module-tab module3-tab" data-module3-view="sector"><span class="tab-kicker" data-i18n="m3TabKicker">Encadenamientos</span><span class="tab-axis" data-i18n="axisSec">Sectorial</span></button>
-          <button type="button" class="module-tab module3-tab" data-module3-view="matrix"><span class="tab-kicker" data-i18n="m3TabKicker">Encadenamientos</span><span class="tab-axis" data-i18n="axisCell">Territorialâ€“Sectorial</span></button>
+          <button type="button" class="module-tab module3-tab" data-module3-view="matrix"><span class="tab-kicker" data-i18n="m3TabKicker">Encadenamientos</span><span class="tab-axis" data-i18n="axisCell">Territorial–Sectorial</span></button>
         </div>
 
         <div class="module-two-view module-three-view active" data-module3-view-panel="geo">
@@ -5976,7 +5976,7 @@
                 </div>
               </div>
               <div class="matrix-figure" id="m3-matrix-figure">
-                <svg id="m3-matrix-svg" class="matrix-svg" aria-label="CaracterizaciÃ³n territorial - sectorial"></svg>
+                <svg id="m3-matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg>
                 <div class="matrix-legend-vertical" id="m3-matrix-legend"></div>
               </div>
             </div>
@@ -5990,7 +5990,7 @@
   <section class="module-section module-two m4-new" id="module-4" data-explore-module="productivity-impact" aria-label="Impacto productivo nacional">
     <div class="embed-mod-title" style="--module-accent:#7038a8">
       <span class="embed-mod-number" aria-hidden="true">3</span>
-      <h3 data-i18n="btn3">Impacto Sectorial y GeogrÃ¡fico de la Productividad</h3>
+      <h3 data-i18n="btn3">Impacto Sectorial y Geográfico de la Productividad</h3>
       <span class="bar"></span>
     </div>
     <header class="topbar module-header">
@@ -6015,7 +6015,7 @@
     <div class="m4-shell"></div>
   </section>
 
-    <!-- MÃ³dulo "Descarga de Datos" (#module-5) removido de Explorar: la descarga vive en la secciÃ³n Datos de sitio.html -->
+    <!-- Módulo "Descarga de Datos" (#module-5) removido de Explorar: la descarga vive en la sección Datos de sitio.html -->
   </div>
   <div class="floating-hover-card" id="module2-hover-card" aria-live="polite"></div>
   <div class="floating-hover-card" id="module3-hover-card" aria-live="polite"></div>
@@ -6030,23 +6030,23 @@
   <script src="web_materiales/data/spatial_io_network_data.js?v=2"></script>
   <script id="__near-zero-kit">
     /* Criterio "Cerca de 0 / Near 0": en mapas de calor (territorio y territorio-sector),
-       las celdas con participaciÃ³n < umbral respecto al total mostrado se pintan en gris
+       las celdas con participación < umbral respecto al total mostrado se pintan en gris
        claro (no con la escala). NO recalcula porcentajes: solo cambia el color. */
     window.NearZero = {
       GRAY: "#dcdcdc",
-      GEO_THR: 0.01,    // % del total de la selecciÃ³n (mapa territorial)
-      MATRIX_THR: 0.001, // % del total de la selecciÃ³n (heatmap territorio-sector)
+      GEO_THR: 0.01,    // % del total de la selección (mapa territorial)
+      MATRIX_THR: 0.001, // % del total de la selección (heatmap territorio-sector)
       is(value, total, thrPct) {
         return total > 0 && value > 0 && (value / total * 100) < thrPct;
       }
     };
   </script>
 
-  <!-- â•â• Ranking Top 12 (rail lateral) Â· compartido por M2 y M3 â•â• -->
+  <!-- ══ Ranking Top 12 (rail lateral) · compartido por M2 y M3 ══ -->
   <style id="__rank-rail-css">
     #module-2 .np-viz-col, #module-3 .np-viz-col { position: relative; }
     #module-2 .module-two-view, #module-3 .module-two-view { position: relative; }
-    /* El rail usa todo el alto disponible de la columna de visualizaciÃ³n */
+    /* El rail usa todo el alto disponible de la columna de visualización */
     #module-2 .np-viz-col .module-two-body { height: 100%; min-height: 0; }
     #module-2 .module-two-view, #module-3 .module-two-view { height: 100%; min-height: 0; }
     #module-2 .analysis-block, #module-3 .analysis-block { transition: padding-right .25s ease; }
@@ -6054,7 +6054,7 @@
     #module-3 .np-viz-col:not(.rank-collapsed) .analysis-block { padding-right: 300px; }
 
     /* Al CERRAR el ranking, NINGUNA vista se expande: conserva el mismo ancho
-       que con el ranking abierto (colW âˆ’ 300) repartiendo el espacio a ambos
+       que con el ranking abierto (colW − 300) repartiendo el espacio a ambos
        lados, de modo que la figura (mapa, barras o heatmap) se RECENTRA en vez
        de crecer horizontalmente. */
     #module-2 .np-viz-col.rank-collapsed .analysis-block,
@@ -6157,7 +6157,7 @@
         if (!rail) {
           rail = document.createElement("aside");
           rail.className = "rank-rail";
-          rail.innerHTML = '<div class="rank-rail-card"><div class="rank-rail-head"><div class="rank-rail-head-text"><h4 class="rank-rail-title"></h4><div class="rank-list-unit"></div></div><button class="rank-rail-close" type="button" aria-label="Ocultar ranking">Ã—</button></div><div class="rank-list"></div></div>';
+          rail.innerHTML = '<div class="rank-rail-card"><div class="rank-rail-head"><div class="rank-rail-head-text"><h4 class="rank-rail-title"></h4><div class="rank-list-unit"></div></div><button class="rank-rail-close" type="button" aria-label="Ocultar ranking">×</button></div><div class="rank-list"></div></div>';
           rail.querySelector(".rank-rail-close").addEventListener("click", () => setVisible(false));
           panel.appendChild(rail);
         }
@@ -6190,69 +6190,69 @@
   <script>
     const copy = {
       es: {
-        pageTitle: "Explore | Cuentas EconÃ³micas Desagregadas para Chile",
-        headerTitle: "Cuentas EconÃ³micas Desagregadas de Chile",
-        landingTitle: "Â¿QuÃ© quieres explorar?",
-        landingDesc: 'DesagregaciÃ³n de la actividad econÃ³mica a nivel sectorial y geogrÃ¡fico, consistentes con Cuentas Nacionales del Banco Central de Chile. Elaborado por Huneeus &amp; Del Valle (2026) en una colaboraciÃ³n entre CORFO y el BID a partir de microdatos administrativos del SII, encuestas y fuentes globales de datos de comercio.',
+        pageTitle: "Explore | Cuentas Económicas Desagregadas para Chile",
+        headerTitle: "Cuentas Económicas Desagregadas de Chile",
+        landingTitle: "¿Qué quieres explorar?",
+        landingDesc: 'Desagregación de la actividad económica a nivel sectorial y geográfico, consistentes con Cuentas Nacionales del Banco Central de Chile. Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre CORFO y el BID a partir de microdatos administrativos del SII, encuestas y fuentes globales de datos de comercio.',
         citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.',
-        citationLabel: "MetodologÃ­a, construcciÃ³n y aplicaciones â€” cita el paper",
-        btn1: "CaracterizaciÃ³n GeogrÃ¡fica y Sectorial de la Actividad EconÃ³mica",
-        btn1Q: "Â¿DÃ³nde producen los sectores econÃ³micos?",
-        btn1Detail: "Explora cÃ³mo se distribuye el PIB, empleo y ventas a travÃ©s de sectores y provincias.",
-        btn2: "GeografÃ­a de las Cadenas de Valor",
-        btn2Q: "Â¿QuiÃ©nes son los clientes y proveedores de cada territorio?",
-        btn2Detail: "Identifica los principales socios comerciales de cada provincia-sector y quÃ© tan relevantes son para ellos.",
-        btn3: "Impacto Sectorial y GeogrÃ¡fico de la Productividad",
-        btn3Q: "Â¿CÃ³mo afectan cambios productivos a distintos sectores y provincias?",
-        btn3Detail: "Explora cÃ³mo se distribuyen sectorial y territorialmente el impacto de cambios productivos.",
+        citationLabel: "Metodología, construcción y aplicaciones — cita el paper",
+        btn1: "Caracterización Geográfica y Sectorial de la Actividad Económica",
+        btn1Q: "¿Dónde producen los sectores económicos?",
+        btn1Detail: "Explora cómo se distribuye el PIB, empleo y ventas a través de sectores y provincias.",
+        btn2: "Geografía de las Cadenas de Valor",
+        btn2Q: "¿Quiénes son los clientes y proveedores de cada territorio?",
+        btn2Detail: "Identifica los principales socios comerciales de cada provincia-sector y qué tan relevantes son para ellos.",
+        btn3: "Impacto Sectorial y Geográfico de la Productividad",
+        btn3Q: "¿Cómo afectan cambios productivos a distintos sectores y provincias?",
+        btn3Detail: "Explora cómo se distribuyen sectorial y territorialmente el impacto de cambios productivos.",
         btn4: "Descarga de Datos",
         btn4Q: "Descarga los datos completos",
-        btn4Detail: "Accede a los archivos CSV, XLSX y la documentaciÃ³n tÃ©cnica para usar estos datos en tu propio anÃ¡lisis.",
-        landingExplore: "Explorar â†’",
-                module2HeaderTitle: "CaracterizaciÃ³n GeogrÃ¡fica y Sectorial de la Actividad EconÃ³mica",
-        module3HeaderTitle: "GeografÃ­a de las Cadenas de Valor",
-        module4HeaderTitle: "Impacto Sectorial y GeogrÃ¡fico de la Productividad",
+        btn4Detail: "Accede a los archivos CSV, XLSX y la documentación técnica para usar estos datos en tu propio análisis.",
+        landingExplore: "Explorar →",
+                module2HeaderTitle: "Caracterización Geográfica y Sectorial de la Actividad Económica",
+        module3HeaderTitle: "Geografía de las Cadenas de Valor",
+        module4HeaderTitle: "Impacto Sectorial y Geográfico de la Productividad",
         module5HeaderTitle: "Descarga de Datos",
         m5BackLabel: "Volver al inicio",
         m5HeroTitle: "Datos Abiertos",
-        m5IntroShort: 'Un objetivo central del proyecto de colaboraciÃ³n entre CORFO y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026), es que los datos generados constituyan un bien pÃºblico, de libre acceso y actualizaciÃ³n anual.',
-        m5IntroShort2: 'A continuaciÃ³n se presentan los cuatro archivos disponibles correspondientes a las Cuentas EconÃ³micas Desagregadas 2022.',
+        m5IntroShort: 'Un objetivo central del proyecto de colaboración entre CORFO y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual.',
+        m5IntroShort2: 'A continuación se presentan los cuatro archivos disponibles correspondientes a las Cuentas Económicas Desagregadas 2022.',
         m5CiteColLabel: "Acceso a la fuente",
-        m5CiteTag: "Uso obligatorio de cita â€” para usar estos datos, cita el siguiente paper",
+        m5CiteTag: "Uso obligatorio de cita — para usar estos datos, cita el siguiente paper",
         m5CiteText: 'Huneeus, F., &amp; Del Valle, M. (2026).<br><em>The Geographic and Sectoral Impact of Productivity</em>.<br>Unpublished manuscript.',
-        m5CiteNote: "Para mayor informaciÃ³n sobre las fuentes, construcciÃ³n y diversas aplicaciones, revisar el paper.",
+        m5CiteNote: "Para mayor información sobre las fuentes, construcción y diversas aplicaciones, revisar el paper.",
         m5Card1Title: "Descriptor de Variables",
-        m5Card1Sub: 'DescripciÃ³n de todas las variables contenidas en cada base de datos <span class="m5-card-ext">.xlsx Â· 42 KB</span>',
-        m5Card2Title: "InformaciÃ³n EconÃ³mica",
-        m5Card2Sub: 'DistribuciÃ³n geogrÃ¡fica y sectorial de la actividad econÃ³mica 2022 <span class="m5-card-ext">.csv Â· 8.4 MB</span>',
-        m5Card3Title: "InformaciÃ³n de Transacciones",
-        m5Card3Sub: 'Transacciones entre sectores y ubicaciones de origen y destino <span class="m5-card-ext">.csv Â· 31 MB</span>',
+        m5Card1Sub: 'Descripción de todas las variables contenidas en cada base de datos <span class="m5-card-ext">.xlsx · 42 KB</span>',
+        m5Card2Title: "Información Económica",
+        m5Card2Sub: 'Distribución geográfica y sectorial de la actividad económica 2022 <span class="m5-card-ext">.csv · 8.4 MB</span>',
+        m5Card3Title: "Información de Transacciones",
+        m5Card3Sub: 'Transacciones entre sectores y ubicaciones de origen y destino <span class="m5-card-ext">.csv · 31 MB</span>',
         m5Card4Title: "Tablas de Correspondencias",
-        m5Card4Sub: 'CÃ³digos de sector y provincia con sus correspondencias <span class="m5-card-ext">.xlsx Â· 18 KB</span>',
+        m5Card4Sub: 'Códigos de sector y provincia con sus correspondencias <span class="m5-card-ext">.xlsx · 18 KB</span>',
         m5Download: "Descargar",
-        m5IntroTitle: "IntroducciÃ³n",
+        m5IntroTitle: "Introducción",
         m5IntroBody: `
-          <p>Un objetivo central del proyecto de colaboraciÃ³n entre CORFO y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026) para la SubdirecciÃ³n de AnÃ¡lisis y Data Territorial, es que los datos generados constituyan un bien pÃºblico, de libre acceso y actualizaciÃ³n anual.</p>
-          <p>A continuaciÃ³n, se presentan los archivos disponibles para descarga correspondientes a las Cuentas EconÃ³micas Desagregadas 2022:</p>
+          <p>Un objetivo central del proyecto de colaboración entre CORFO y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026) para la Subdirección de Análisis y Data Territorial, es que los datos generados constituyan un bien público, de libre acceso y actualización anual.</p>
+          <p>A continuación, se presentan los archivos disponibles para descarga correspondientes a las Cuentas Económicas Desagregadas 2022:</p>
           <ol>
-            <li><strong>Descriptor de Variables:</strong> Incluye, para cada base de datos, una descripciÃ³n general de las variables contenidas.</li>
-            <li><strong>InformaciÃ³n EconÃ³mica:</strong> Presenta las variables que caracterizan la distribuciÃ³n geogrÃ¡fica de la actividad econÃ³mica en Chile durante 2022, desagregada por provincia y por 46 sectores productivos.</li>
-            <li><strong>InformaciÃ³n de Transacciones:</strong> Entrega las variables que capturan las transacciones entre sectores y ubicaciones de origen y destino.</li>
-            <li><strong>Tablas de Correspondencias:</strong> Detalla, para cada cÃ³digo de sector y ubicaciÃ³n utilizado, la correspondencia con la provincia y el sector que representan.</li>
+            <li><strong>Descriptor de Variables:</strong> Incluye, para cada base de datos, una descripción general de las variables contenidas.</li>
+            <li><strong>Información Económica:</strong> Presenta las variables que caracterizan la distribución geográfica de la actividad económica en Chile durante 2022, desagregada por provincia y por 46 sectores productivos.</li>
+            <li><strong>Información de Transacciones:</strong> Entrega las variables que capturan las transacciones entre sectores y ubicaciones de origen y destino.</li>
+            <li><strong>Tablas de Correspondencias:</strong> Detalla, para cada código de sector y ubicación utilizado, la correspondencia con la provincia y el sector que representan.</li>
           </ol>
         `,
         m5Item1Title: "1. Descriptor de Variables",
-        m5Item1Detail: "Incluye una descripciÃ³n general de las variables contenidas en cada base de datos.",
-        m5Item2Title: "2. InformaciÃ³n EconÃ³mica",
-        m5Item2Detail: "Presenta la distribuciÃ³n geogrÃ¡fica de la actividad econÃ³mica en Chile durante 2022.",
-        m5Item3Title: "3. InformaciÃ³n de Transacciones",
+        m5Item1Detail: "Incluye una descripción general de las variables contenidas en cada base de datos.",
+        m5Item2Title: "2. Información Económica",
+        m5Item2Detail: "Presenta la distribución geográfica de la actividad económica en Chile durante 2022.",
+        m5Item3Title: "3. Información de Transacciones",
         m5Item3Detail: "Contiene las variables que capturan las transacciones entre sectores y ubicaciones.",
         m5Item4Title: "4. Tablas de Correspondencias",
         m5Item4Detail: "Descarga agrupada de las tablas de sectores y ubicaciones utilizadas en el dashboard.",
         m5Notice: "Haz clic en cada recuadro para descargar el archivo correspondiente.",
-        m4MetricLabel: "MÃ©trica",
-        m4IntroTitle: "Â¿QuÃ© muestra esta secciÃ³n?",
-        m4IntroBody: "<p>Esta secciÃ³n estÃ¡ pensada para responder una pregunta simple: si algo cambia en una combinaciÃ³n provincia-sector, Â¿cÃ³mo se transmite ese cambio al resto de la economÃ­a?</p><p>Para hacerlo usamos la inversa de Leontief, una forma estÃ¡ndar de trabajar con la matriz insumo-producto. A diferencia de mirar solo los flujos directos entre proveedor y cliente, esta herramienta incorpora toda la cadena de encadenamientos: el proveedor del proveedor, las rondas sucesivas de compras intermedias y los efectos indirectos que se van acumulando en la red productiva.</p><p>Por eso esta secciÃ³n no busca medir Ãºnicamente relaciones inmediatas, sino el alcance total que puede tener un nodo sobre el conjunto de la economÃ­a conectada.</p><p>Dentro de la secciÃ³n hay dos vistas complementarias. Una muestra el impacto nacional de cada provincia-sector, es decir, cuÃ¡nto puede influir en el nivel agregado cuando se considera el efecto total que se propaga por toda la red productiva. La otra muestra la influencia de cada provincia-sector en el resto de la economÃ­a, identificando cuÃ¡les dependen de ese nodo de manera directa o indirecta.</p><div class=\"module-four-intro-callout\"><p>Para evaluar el impacto agregado mÃ¡s relevante, los efectos se ponderan por la importancia de cada componente en la demanda final. Esto permite traducir la red productiva a una medida macroeconÃ³mica comparable, dando mÃ¡s peso a lo que realmente sostiene el gasto final y, por tanto, el nivel total de actividad.</p><p>La mÃ©trica que ves resume, para cada mercado, cuÃ¡nto se transmite su actividad al consumo final total cuando se consideran todos los efectos directos e indirectos de la cadena productiva. En simple: si ese mercado cambia su actividad, cuÃ¡nto cambia el consumo final total una vez que se propagan todos los encadenamientos.</p></div>",
+        m4MetricLabel: "Métrica",
+        m4IntroTitle: "¿Qué muestra esta sección?",
+        m4IntroBody: "<p>Esta sección está pensada para responder una pregunta simple: si algo cambia en una combinación provincia-sector, ¿cómo se transmite ese cambio al resto de la economía?</p><p>Para hacerlo usamos la inversa de Leontief, una forma estándar de trabajar con la matriz insumo-producto. A diferencia de mirar solo los flujos directos entre proveedor y cliente, esta herramienta incorpora toda la cadena de encadenamientos: el proveedor del proveedor, las rondas sucesivas de compras intermedias y los efectos indirectos que se van acumulando en la red productiva.</p><p>Por eso esta sección no busca medir únicamente relaciones inmediatas, sino el alcance total que puede tener un nodo sobre el conjunto de la economía conectada.</p><p>Dentro de la sección hay dos vistas complementarias. Una muestra el impacto nacional de cada provincia-sector, es decir, cuánto puede influir en el nivel agregado cuando se considera el efecto total que se propaga por toda la red productiva. La otra muestra la influencia de cada provincia-sector en el resto de la economía, identificando cuáles dependen de ese nodo de manera directa o indirecta.</p><div class=\"module-four-intro-callout\"><p>Para evaluar el impacto agregado más relevante, los efectos se ponderan por la importancia de cada componente en la demanda final. Esto permite traducir la red productiva a una medida macroeconómica comparable, dando más peso a lo que realmente sostiene el gasto final y, por tanto, el nivel total de actividad.</p><p>La métrica que ves resume, para cada mercado, cuánto se transmite su actividad al consumo final total cuando se consideran todos los efectos directos e indirectos de la cadena productiva. En simple: si ese mercado cambia su actividad, cuánto cambia el consumo final total una vez que se propagan todos los encadenamientos.</p></div>",
         m4MetricBetaPsi: "beta * Psi_ij",
         m4MetricPsiIj: "Psi_ij",
         m3PerspectiveLabel: "Perspectiva",
@@ -6261,78 +6261,78 @@
         m3QuestionLabel: "Pregunta",
         m3QuestionMainProvider: "Clientes principales",
         m3QuestionMainClient: "Proveedores principales",
-        m3QuestionRelevance: "QuÃ© tan relevante soy para ellos",
+        m3QuestionRelevance: "Qué tan relevante soy para ellos",
         m3UnitLabel: "Unidad",
         m3UnitShare: "Porcentaje (%)",
-        m3GeoFilterLabel: "Selecciona la geografÃ­a",
+        m3GeoFilterLabel: "Selecciona la geografía",
         m3SectorFilterLabel: "Selecciona los sectores",
-        m3TabGeo: "CaracterizaciÃ³n territorial",
-        m3TabSector: "CaracterizaciÃ³n sectorial",
-        m3TabMatrix: "CaracterizaciÃ³n territorial - sectorial",
+        m3TabGeo: "Caracterización territorial",
+        m3TabSector: "Caracterización sectorial",
+        m3TabMatrix: "Caracterización territorial - sectorial",
         m3TabKicker: "Encadenamientos",
-        m2AnalysisLabel: "AnÃ¡lisis",
-        m2AnalysisDistribution: "DistribuciÃ³n",
+        m2AnalysisLabel: "Análisis",
+        m2AnalysisDistribution: "Distribución",
         m2AnalysisDependencyTerritorial: "Dependencia territorial",
         m2AnalysisDependencySectorial: "Dependencia sectorial",
-        m2AnalysisHelpDistribution: "Compara cÃ³mo se reparte la actividad econÃ³mica entre territorios, sectores o pares territorio-sector.",
-        m2AnalysisHelpDependencyTerritorial: "Lee cada valor respecto del total del territorio. Responde quÃ© tan importante es el sector seleccionado dentro de cada territorio.",
-        m2AnalysisHelpDependencySectorial: "Lee cada valor respecto del total del sector. Responde quÃ© tan importante es la geografÃ­a seleccionada dentro de cada sector.",
+        m2AnalysisHelpDistribution: "Compara cómo se reparte la actividad económica entre territorios, sectores o pares territorio-sector.",
+        m2AnalysisHelpDependencyTerritorial: "Lee cada valor respecto del total del territorio. Responde qué tan importante es el sector seleccionado dentro de cada territorio.",
+        m2AnalysisHelpDependencySectorial: "Lee cada valor respecto del total del sector. Responde qué tan importante es la geografía seleccionada dentro de cada sector.",
         m2UnitHelpValue: "Muestra el valor en billones de pesos chilenos.",
-        m2UnitHelpValueEn: "Muestra el valor en millones de dÃ³lares.",
-        m2UnitHelpDistribution: "Porcentaje (%) muestra la participaciÃ³n dentro del total filtrado visible en la figura.",
-        m2UnitHelpDependencyShare: "Porcentaje (%) muestra la dependencia dentro del total del territorio o del sector, segÃºn el anÃ¡lisis seleccionado.",
-        m2UnitHelpDependencyRelative: "Ãndice relativo compara esa dependencia con la participaciÃ³n nacional de referencia para la misma variable.",
+        m2UnitHelpValueEn: "Muestra el valor en millones de dólares.",
+        m2UnitHelpDistribution: "Porcentaje (%) muestra la participación dentro del total filtrado visible en la figura.",
+        m2UnitHelpDependencyShare: "Porcentaje (%) muestra la dependencia dentro del total del territorio o del sector, según el análisis seleccionado.",
+        m2UnitHelpDependencyRelative: "Índice relativo compara esa dependencia con la participación nacional de referencia para la misma variable.",
         m2UnitShareOption: "Porcentaje (%)",
-        m2UnitRelativeOption: "Ãndice relativo",
+        m2UnitRelativeOption: "Índice relativo",
         m2MeasureLabel: "Medida",
         m2UnitLabel: "Unidad",
-        m2AggregationLabel: "AgregaciÃ³n",
-        m2AggregationPrompt: "Selecciona la agregaciÃ³n",
-        m2GeoAggregationLabel: "GeografÃ­a",
+        m2AggregationLabel: "Agregación",
+        m2AggregationPrompt: "Selecciona la agregación",
+        m2GeoAggregationLabel: "Geografía",
         m2SectorAggregationLabel: "Sectores",
-        m2VarLabel: "1 Â· Variable",
-        m2AnalysisSectionLabel: "2 Â· AnÃ¡lisis",
-        m2UnitSectionLabel: "5 Â· Unidad de medida",
-        m2GeoSectionLabel: "3 Â· GeografÃ­a",
-        m2SectorSectionLabel: "4 Â· Sectores",
-        m2AggGeoSectionLabel: "6 Â· Nivel de agregaciÃ³n Â· Territorio",
-        m2AggSecSectionLabel: "7 Â· Nivel de agregaciÃ³n Â· Sector",
-        m2AggLevelLabel: "Nivel de agregaciÃ³n",
+        m2VarLabel: "1 · Variable",
+        m2AnalysisSectionLabel: "2 · Análisis",
+        m2UnitSectionLabel: "5 · Unidad de medida",
+        m2GeoSectionLabel: "3 · Geografía",
+        m2SectorSectionLabel: "4 · Sectores",
+        m2AggGeoSectionLabel: "6 · Nivel de agregación · Territorio",
+        m2AggSecSectionLabel: "7 · Nivel de agregación · Sector",
+        m2AggLevelLabel: "Nivel de agregación",
         m2UnitValueBtn: "Monto en Billones de CLP",
         m2UnitShareBtn: "Porcentaje %",
-        m2UnitRelativeBtn: "Ãndice",
+        m2UnitRelativeBtn: "Índice",
         m2UnitValueCardSub: "Valor absoluto",
-        m2UnitShareCardSub: "ParticipaciÃ³n dentro del total filtrado",
+        m2UnitShareCardSub: "Participación dentro del total filtrado",
         m2UnitRelativeCardSub: "Relativo a la referencia nacional",
         m2AggMacrozone: "Macrozona",
-        m2AggRegion: "RegiÃ³n",
+        m2AggRegion: "Región",
         m2AggProvince: "Provincia",
         m2AggIndustry: "Industria",
         m2AggSector: "Sector",
         m2AggActivity: "Actividad",
-        m2BadgeLabel: "CaracterizaciÃ³n Â· EconomÃ­a de Chile",
+        m2BadgeLabel: "Caracterización · Economía de Chile",
         m2FilterLabel: "",
-        m2GeoFilterLabel: "Selecciona la geografÃ­a",
+        m2GeoFilterLabel: "Selecciona la geografía",
         m2SectorFilterLabel: "Selecciona los sectores",
         m2SelectAll: "Todos",
         m2ClearAll: "Limpiar",
         m2MacrozoneLabel: "Macrozona",
-        m2RegionLabel: "RegiÃ³n",
+        m2RegionLabel: "Región",
         m2ProvinceLabel: "Provincia",
         m2IndustryLabel: "Industria",
         m2Pibr13Label: "Sector",
         m2ActivityLabel: "Actividad",
-        m2TabGeo: "CaracterizaciÃ³n territorial",
-        m2TabSector: "CaracterizaciÃ³n sectorial",
-        m2TabMatrix: "CaracterizaciÃ³n territorial - sectorial",
-        m2TabKicker: "CaracterizaciÃ³n",
+        m2TabGeo: "Caracterización territorial",
+        m2TabSector: "Caracterización sectorial",
+        m2TabMatrix: "Caracterización territorial - sectorial",
+        m2TabKicker: "Caracterización",
         axisGeo: "Territorial",
         axisSec: "Sectorial",
-        axisCell: "Territorialâ€“Sectorial",
+        axisCell: "Territorial–Sectorial",
         m2SectorFocusLabel: "Sector seleccionado",
         m2SectorTopProvinceLabel: "Provincia principal",
-        m2SectorHHILabel: "ConcentraciÃ³n territorial",
-        m2SectorShareLabel: "ParticipaciÃ³n nacional",
+        m2SectorHHILabel: "Concentración territorial",
+        m2SectorShareLabel: "Participación nacional",
         m2SectorMacroLabel: "Industria",
         m2MatrixFooterStatic: "Las filas se ordenan de norte a sur y las columnas siguen el orden sectorial definido en tu dashboard.",
         notice: "Haz clic en los recuadros interactivos para explorar cada una de las secciones."
@@ -6343,7 +6343,7 @@
         landingTitle: "What do you want to explore?",
         landingDesc: 'Disaggregation of economic activity at the sectoral and geographic level, consistent with the National Accounts of the Central Bank of Chile. Produced by Huneeus &amp; Del Valle (2026) in a collaboration between CORFO and the IDB using administrative microdata from the Chilean IRS, surveys, and global trade data sources.',
         citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.',
-        citationLabel: "Methodology, construction and applications â€” cite the paper",
+        citationLabel: "Methodology, construction and applications — cite the paper",
         btn1: "Geographic and Sectoral Characterization of Economic Activity",
         btn1Q: "Where do economic sectors produce?",
         btn1Detail: "Explore how GDP, employment and sales are distributed across sectors and provinces.",
@@ -6356,7 +6356,7 @@
         btn4: "Data Downloads",
         btn4Q: "Download the complete dataset",
         btn4Detail: "Access CSV, XLSX files and technical documentation to use this data in your own analysis.",
-        landingExplore: "Explore â†’",
+        landingExplore: "Explore →",
                 module2HeaderTitle: "Geographic and Sectoral Characterization of Economic Activity",
         module3HeaderTitle: "Geography of Value Chains",
         module4HeaderTitle: "Sectoral and Geographic Impact of Productivity",
@@ -6366,17 +6366,17 @@
         m5IntroShort: 'A central objective of the collaboration project between CORFO and the Inter-American Development Bank (IDB), developed by Huneeus &amp; Del Valle (2026), is that the generated data constitute a public good, freely accessible and updated annually.',
         m5IntroShort2: 'The four files available for the 2022 Disaggregated Economic Accounts are presented below.',
         m5CiteColLabel: "Source access",
-        m5CiteTag: "Citation required â€” to use these data, cite the following paper",
+        m5CiteTag: "Citation required — to use these data, cite the following paper",
         m5CiteText: 'Huneeus, F., &amp; Del Valle, M. (2026).<br><em>The Geographic and Sectoral Impact of Productivity</em>.<br>Unpublished manuscript.',
         m5CiteNote: "For more information on the sources, construction, and applications, please refer to the paper.",
         m5Card1Title: "Variable Descriptor",
-        m5Card1Sub: 'Description of all variables contained in each database <span class="m5-card-ext">.xlsx Â· 42 KB</span>',
+        m5Card1Sub: 'Description of all variables contained in each database <span class="m5-card-ext">.xlsx · 42 KB</span>',
         m5Card2Title: "Economic Information",
-        m5Card2Sub: 'Geographic and sectoral distribution of economic activity in 2022 <span class="m5-card-ext">.csv Â· 8.4 MB</span>',
+        m5Card2Sub: 'Geographic and sectoral distribution of economic activity in 2022 <span class="m5-card-ext">.csv · 8.4 MB</span>',
         m5Card3Title: "Transaction Information",
-        m5Card3Sub: 'Transactions between sectors and originâ€“destination locations <span class="m5-card-ext">.csv Â· 31 MB</span>',
+        m5Card3Sub: 'Transactions between sectors and origin–destination locations <span class="m5-card-ext">.csv · 31 MB</span>',
         m5Card4Title: "Correspondence Tables",
-        m5Card4Sub: 'Sector and province codes with their correspondences <span class="m5-card-ext">.xlsx Â· 18 KB</span>',
+        m5Card4Sub: 'Sector and province codes with their correspondences <span class="m5-card-ext">.xlsx · 18 KB</span>',
         m5Download: "Download",
         m5IntroTitle: "Introduction",
         m5IntroBody: `
@@ -6438,13 +6438,13 @@
         m2AggregationPrompt: "Select the aggregation",
         m2GeoAggregationLabel: "Geography",
         m2SectorAggregationLabel: "Sectors",
-        m2VarLabel: "1 Â· Variable",
-        m2AnalysisSectionLabel: "2 Â· Analysis",
-        m2UnitSectionLabel: "5 Â· Unit of measure",
-        m2GeoSectionLabel: "3 Â· Geography",
-        m2SectorSectionLabel: "4 Â· Sectors",
-        m2AggGeoSectionLabel: "6 Â· Aggregation level Â· Territory",
-        m2AggSecSectionLabel: "7 Â· Aggregation level Â· Sector",
+        m2VarLabel: "1 · Variable",
+        m2AnalysisSectionLabel: "2 · Analysis",
+        m2UnitSectionLabel: "5 · Unit of measure",
+        m2GeoSectionLabel: "3 · Geography",
+        m2SectorSectionLabel: "4 · Sectors",
+        m2AggGeoSectionLabel: "6 · Aggregation level · Territory",
+        m2AggSecSectionLabel: "7 · Aggregation level · Sector",
         m2AggLevelLabel: "Aggregation level",
         m2UnitValueBtn: "Amount MUSD$",
         m2UnitShareBtn: "Percentage %",
@@ -6458,7 +6458,7 @@
         m2AggIndustry: "Industry",
         m2AggSector: "Sector",
         m2AggActivity: "Activity",
-        m2BadgeLabel: "Characterization Â· Chilean Economy",
+        m2BadgeLabel: "Characterization · Chilean Economy",
         m2FilterLabel: "",
         m2GeoFilterLabel: "Choose geography",
         m2SectorFilterLabel: "Choose sectors",
@@ -6476,7 +6476,7 @@
         m2TabKicker: "Characterization",
         axisGeo: "Territorial",
         axisSec: "Sectoral",
-        axisCell: "Territorialâ€“Sectoral",
+        axisCell: "Territorial–Sectoral",
         m2SectorFocusLabel: "Selected sector",
         m2SectorTopProvinceLabel: "Top province",
         m2SectorHHILabel: "Territorial concentration",
@@ -6605,7 +6605,7 @@
         isDerived: true
       }
     });
-    // National GDP (sum of value added across all of Chile) â€” fixed denominator for the Domar weight.
+    // National GDP (sum of value added across all of Chile) — fixed denominator for the Domar weight.
     const nationalGdpTotal = d3.sum(rows, (d) => d.valor_agregado) || 0;
     // Bilingual one-line definitions shown in the variable hover card.
     const metricDescriptions = {
@@ -6625,10 +6625,10 @@
     const visualZeroThresholdClp = 100000000;
     const macroColors = module2.macroColors;
     const industryColors = {
-      "Agropecuario-silvÃ­cola y Pesca": "#f19320",
-      "MinerÃ­a": "#20a6f1",
+      "Agropecuario-silvícola y Pesca": "#f19320",
+      "Minería": "#20a6f1",
       "Manufactura": "#72c7d5",
-      "Infraestructura y ConstrucciÃ³n": "#78d6bb",
+      "Infraestructura y Construcción": "#78d6bb",
       "Servicios Empresariales": "#c7f120",
       "Servicios Sociales": "#fd8983"
     };
@@ -6810,7 +6810,7 @@
     function renderChecklist(container, items, selectedValues, groupKey) {
       const wanted = new Set(selectedValues);
       if (!items.length) {
-        container.innerHTML = `<p class="filter-empty">${state.lang === "es" ? "No hay opciones disponibles para la selecciÃ³n actual." : "No options are available for the current selection."}</p>`;
+        container.innerHTML = `<p class="filter-empty">${state.lang === "es" ? "No hay opciones disponibles para la selección actual." : "No options are available for the current selection."}</p>`;
         return;
       }
       container.innerHTML = items.map((item) => `
@@ -6900,7 +6900,7 @@
 
     function getValueUnitLabel(metricKey = state.metric, unitMode = state.unit, variant = "full") {
       if (unitMode === "share") return state.lang === "es" ? "Porcentaje\u00A0(%)" : "Percentage\u00A0(%)";
-      if (unitMode === "relative") return state.lang === "es" ? "Ãndice relativo" : "Relative index";
+      if (unitMode === "relative") return state.lang === "es" ? "Índice relativo" : "Relative index";
       if (metricKey === "empleo") return state.lang === "es" ? "personas" : "jobs";
       if (metricKey === "productividad_laboral") return state.lang === "es" ? "Billones de CLP por trabajador" : "USD per worker";
       if (metricKey === "domar_weight") return "";
@@ -6911,7 +6911,7 @@
     function formatValueWithUnit(value, metricKey = state.metric, unitMode = state.unit) {
       const formatted = formatValue(value, metricKey, unitMode);
       if (unitMode === "share") return state.lang === "es" ? `${formatted} Porcentaje (%)` : `${formatted} Percentage (%)`;
-      if (unitMode === "relative") return state.lang === "es" ? `${formatted} Ãndice relativo` : `${formatted} Relative index`;
+      if (unitMode === "relative") return state.lang === "es" ? `${formatted} Índice relativo` : `${formatted} Relative index`;
       if (metricKey === "domar_weight") return formatted;
       return `${formatted} ${getValueUnitLabel(metricKey, unitMode, "compact")}`;
     }
@@ -7017,7 +7017,7 @@
         const titleEl = c.querySelector('.m3-q-title');
         const subEl = c.querySelector('.m3-q-sub');
         if (c.dataset.m2Analysis === 'distribution') {
-          if (titleEl) titleEl.textContent = isEs ? 'DistribuciÃ³n' : 'Distribution';
+          if (titleEl) titleEl.textContent = isEs ? 'Distribución' : 'Distribution';
           if (subEl) subEl.innerHTML = analysisCardSubtitle('distribution');
         } else if (c.dataset.m2Analysis === 'dependency_territorial') {
           if (titleEl) titleEl.textContent = isEs ? 'Dependencia territorial' : 'Territorial dependency';
@@ -7057,20 +7057,20 @@
     }
 
     function dependencyUnitTitle(mode) {
-      if (mode === "share") return state.lang === "es" ? "ParticipaciÃ³n (%)" : "Share (%)";
-      if (mode === "relative") return state.lang === "es" ? "Ãndice relativo" : "Relative index";
+      if (mode === "share") return state.lang === "es" ? "Participación (%)" : "Share (%)";
+      if (mode === "relative") return state.lang === "es" ? "Índice relativo" : "Relative index";
       return getValueUnitLabel(state.metric, "value");
     }
 
     function dependencyUnitSubtitle(mode) {
       if (mode === "share") {
         return state.lang === "es"
-          ? "Peso dentro de la selecciÃ³n de referencia"
+          ? "Peso dentro de la selección de referencia"
           : "Weight within the reference selection";
       }
       if (mode === "relative") {
         return state.lang === "es"
-          ? "ComparaciÃ³n contra la referencia nacional"
+          ? "Comparación contra la referencia nacional"
           : "Comparison against the national benchmark";
       }
       return state.lang === "es"
@@ -7223,7 +7223,7 @@
           rowShareMap.set(key, rowShare);
           colShareMap.set(key, colShare);
 
-          // â”€â”€ Location Quotient (Cociente de LocalizaciÃ³n) â”€â”€
+          // ── Location Quotient (Cociente de Localización) ──
           const isLP = state.metric === "productividad_laboral";
           if (isLP) {
             // For LP: lq = LP_cell / LP_national (relative productivity vs national average)
@@ -7240,7 +7240,7 @@
               relativeMap.set(key, lq);
             }
           } else if (orientation === "geo") {
-            // Dependency territorial: LQ estÃ¡ndar (especializaciÃ³n provincial en el sector)
+            // Dependency territorial: LQ estándar (especialización provincial en el sector)
             const nationalShare = grandTotal > 0 ? colTotal / grandTotal : 0;
             const lq = nationalShare > 0 ? rowShare / nationalShare : 0;
             relativeMap.set(key, lq);
@@ -7250,7 +7250,7 @@
             const lq = nationalShare > 0 ? colShare / nationalShare : 0;
             relativeMap.set(key, lq);
           } else {
-            // Distribution: LQ estÃ¡ndar
+            // Distribution: LQ estándar
             const nationalShare = grandTotal > 0 ? colTotal / grandTotal : 0;
             const lq = nationalShare > 0 ? rowShare / nationalShare : 0;
             relativeMap.set(key, lq);
@@ -7304,7 +7304,7 @@
       if (!positives.length) return null;
       const maxVal = Math.min(d3.max(positives) || 3, 5); // cap at 5 for readability
       const minVal = d3.min(positives) || 0;
-      // Three-point divergent: [0] â†’ gray, [1] â†’ white, [maxVal] â†’ module green
+      // Three-point divergent: [0] → gray, [1] → white, [maxVal] → module green
       const colorInterp = d3.scaleLinear()
         .domain([0, 1, maxVal])
         .range(["#c8d8c8", "#ffffff", "#1e5c3a"])
@@ -7388,7 +7388,7 @@
       const lower = raw.toLowerCase();
       if (/^(el|la|los|las)\s/.test(lower)) return `en ${raw}`;
       if (/[y/,-]/.test(raw)) return `en ${raw}`;
-      if (/(ciÃ³n|siÃ³n|dad|tad|tud|ez|eza|ncia|encia|ura|ie|sis|itis|umbre|icia)$/i.test(lower) || /a$/i.test(lower)) {
+      if (/(ción|sión|dad|tad|tud|ez|eza|ncia|encia|ura|ie|sis|itis|umbre|icia)$/i.test(lower) || /a$/i.test(lower)) {
         return `en la ${raw}`;
       }
       return `en el ${raw}`;
@@ -7453,7 +7453,7 @@
       if (!geoLabel && !sectorLabel) return null;
       if (geoLabel?.generic && sectorLabel?.generic) {
         return {
-          es: "esta selecciÃ³n",
+          es: "esta selección",
           en: "this selection"
         };
       }
@@ -7475,7 +7475,7 @@
       const sectorLabel = sectorSummaryLabel();
       if (geoLabel?.generic && sectorLabel?.generic) {
         return {
-          es: "esta selecciÃ³n",
+          es: "esta selección",
           en: "this selection"
         };
       }
@@ -7501,7 +7501,7 @@
 function selectionCountLabel(type, level, count) {
       const geoLabels = {
         macrozone: { es: ["macrozona", "macrozonas"], en: ["macrozone", "macrozones"] },
-        region: { es: ["regiÃ³n", "regiones"], en: ["region", "regions"] },
+        region: { es: ["región", "regiones"], en: ["region", "regions"] },
         province: { es: ["provincia", "provincias"], en: ["province", "provinces"] }
       };
       const sectorLabels = {
@@ -7518,7 +7518,7 @@ function selectionCountLabel(type, level, count) {
     function aggregationLevelLabel(type, level, plural = true) {
       const geoLabels = {
         macrozone: { es: ["macrozona", "macrozonas"], en: ["macrozone", "macrozones"] },
-        region: { es: ["regiÃ³n", "regiones"], en: ["region", "regions"] },
+        region: { es: ["región", "regiones"], en: ["region", "regions"] },
         province: { es: ["provincia", "provincias"], en: ["province", "provinces"] }
       };
       const sectorLabels = {
@@ -7534,7 +7534,7 @@ function selectionCountLabel(type, level, count) {
 
     function buildSelectionDetailList(items, selectedTotal, labelFormatter) {
       if (!items.length) {
-        return `<div class="selection-detail-intro">${state.lang === "es" ? "No hay desglose adicional para la selecciÃ³n actual." : "No additional breakdown is available for the current selection."}</div>`;
+        return `<div class="selection-detail-intro">${state.lang === "es" ? "No hay desglose adicional para la selección actual." : "No additional breakdown is available for the current selection."}</div>`;
       }
       return `<div class="selection-detail-list">${items.slice(0, 5).map((item) => {
         const isLP = state.metric === 'productividad_laboral';
@@ -7550,7 +7550,7 @@ function selectionCountLabel(type, level, count) {
 
     function buildPairDetailList(items, selectedTotal, labelFormatter, start = 0, count = 10) {
       if (!items.length) {
-        return `<div class="selection-detail-intro">${state.lang === "es" ? "No hay desglose adicional para la selecciÃ³n actual." : "No additional breakdown is available for the current selection."}</div>`;
+        return `<div class="selection-detail-intro">${state.lang === "es" ? "No hay desglose adicional para la selección actual." : "No additional breakdown is available for the current selection."}</div>`;
       }
       return `<div class="selection-detail-list">${items.slice(start, start + count).map((item) => {
         const isLP = state.metric === 'productividad_laboral';
@@ -7596,13 +7596,13 @@ function selectionCountLabel(type, level, count) {
       }
       if (state.unit === "relative") {
         return state.lang === "es"
-          ? "El Ã­ndice relativo compara la dependencia observada con la participaciÃ³n nacional de referencia."
+          ? "El índice relativo compara la dependencia observada con la participación nacional de referencia."
           : "The relative index compares the observed dependency with the national reference share.";
       }
       return state.lang === "es"
         ? (state.analysis === "dependency_territorial"
-            ? "El porcentaje muestra cuÃ¡nto pesa el sector seleccionado dentro de cada territorio."
-            : "El porcentaje muestra cuÃ¡nto pesa la geografÃ­a seleccionada dentro de cada sector.")
+            ? "El porcentaje muestra cuánto pesa el sector seleccionado dentro de cada territorio."
+            : "El porcentaje muestra cuánto pesa la geografía seleccionada dentro de cada sector.")
         : (state.analysis === "dependency_territorial"
             ? "The percentage shows how much the selected sector weighs within each territory."
             : "The percentage shows how much the selected geography weighs within each sector.");
@@ -7649,7 +7649,7 @@ function selectionCountLabel(type, level, count) {
       const partsEs = [];
       const partsEn = [];
       if (geoExcluded > 0) {
-        partsEs.push(`${geoExcluded} ${geoExcluded === 1 ? "unidad geogrÃ¡fica excluida" : "unidades geogrÃ¡ficas excluidas"}`);
+        partsEs.push(`${geoExcluded} ${geoExcluded === 1 ? "unidad geográfica excluida" : "unidades geográficas excluidas"}`);
         partsEn.push(`${geoExcluded} ${geoExcluded === 1 ? "geographic unit excluded" : "geographic units excluded"}`);
       }
       if (sectorExcluded > 0) {
@@ -7658,8 +7658,8 @@ function selectionCountLabel(type, level, count) {
       }
       if (!partsEs.length) return "";
       return state.lang === "es"
-        ? `SelecciÃ³n efectiva: ${partsEs.join(" Â· ")}.`
-        : `Effective selection: ${partsEn.join(" Â· ")}.`;
+        ? `Selección efectiva: ${partsEs.join(" · ")}.`
+        : `Effective selection: ${partsEn.join(" · ")}.`;
     }
 
     function aggregateHoverDetails(source, groupField) {
@@ -7717,11 +7717,11 @@ function selectionCountLabel(type, level, count) {
         </div>
         <div class="hover-card-metrics">
           <div class="hover-card-metric">
-            <span>${escapeHtml(state.lang === "es" ? `ParticipaciÃ³n en ${rowLabel}: ${rowKey}` : `Share within ${rowLabel}: ${rowKey}`)}</span>
+            <span>${escapeHtml(state.lang === "es" ? `Participación en ${rowLabel}: ${rowKey}` : `Share within ${rowLabel}: ${rowKey}`)}</span>
             <strong>${escapeHtml(formatValue(rowShare, state.metric, "share"))}</strong>
           </div>
           <div class="hover-card-metric">
-            <span>${escapeHtml(state.lang === "es" ? `ParticipaciÃ³n en ${colLabel}: ${sectorLabel(state.sectorLevel, colKey)}` : `Share within ${colLabel}: ${sectorLabel(state.sectorLevel, colKey)}`)}</span>
+            <span>${escapeHtml(state.lang === "es" ? `Participación en ${colLabel}: ${sectorLabel(state.sectorLevel, colKey)}` : `Share within ${colLabel}: ${sectorLabel(state.sectorLevel, colKey)}`)}</span>
             <strong>${escapeHtml(formatValue(colShare, state.metric, "share"))}</strong>
           </div>
         </div>
@@ -7866,11 +7866,11 @@ function selectionCountLabel(type, level, count) {
             <span class="selection-detail-meta-value">${escapeHtml(shareText)}</span>
           </div>
           <div class="selection-detail-meta-item">
-            <span class="selection-detail-meta-label">${state.lang === "es" ? `SelecciÃ³n activa por ${aggregationLevelLabel("geo", state.geoLevel, false)}` : `Active selection by ${aggregationLevelLabel("geo", state.geoLevel, false)}`}</span>
+            <span class="selection-detail-meta-label">${state.lang === "es" ? `Selección activa por ${aggregationLevelLabel("geo", state.geoLevel, false)}` : `Active selection by ${aggregationLevelLabel("geo", state.geoLevel, false)}`}</span>
             <span class="selection-detail-meta-value">${escapeHtml(selectionCountLabel("geo", state.geoLevel, geoCount))}</span>
           </div>
           <div class="selection-detail-meta-item">
-            <span class="selection-detail-meta-label">${state.lang === "es" ? `SelecciÃ³n activa por ${aggregationLevelLabel("sector", state.sectorLevel, false)}` : `Active selection by ${aggregationLevelLabel("sector", state.sectorLevel, false)}`}</span>
+            <span class="selection-detail-meta-label">${state.lang === "es" ? `Selección activa por ${aggregationLevelLabel("sector", state.sectorLevel, false)}` : `Active selection by ${aggregationLevelLabel("sector", state.sectorLevel, false)}`}</span>
             <span class="selection-detail-meta-value">${escapeHtml(selectionCountLabel("sector", state.sectorLevel, sectorCount))}</span>
           </div>
         </div>
@@ -7949,14 +7949,14 @@ function selectionCountLabel(type, level, count) {
           ? (state.lang === "es" ? "TOTAL NACIONAL" : "NATIONAL TOTAL")
           : escapeHtml(state.lang === "es" ? scope.es : scope.en);
         const relativeTitle = state.lang === "es"
-          ? `${metric} Â· Ãndice relativo`
-          : `${metric} Â· Relative index`;
+          ? `${metric} · Índice relativo`
+          : `${metric} · Relative index`;
         const relativeMeaning = !scope
           ? (state.lang === "es"
-              ? `Benchmark nacional para <strong>${escapeHtml(metric)}</strong>, comparado con la referencia del resto del paÃ­s.`
+              ? `Benchmark nacional para <strong>${escapeHtml(metric)}</strong>, comparado con la referencia del resto del país.`
               : `National benchmark for <strong>${escapeHtml(metric)}</strong>, compared with the reference for the rest of the country.`)
           : (state.lang === "es"
-              ? `Ãndice relativo de <strong>${escapeHtml(scope.es)}</strong> para <strong>${escapeHtml(metric)}</strong>, comparado con la referencia del resto del paÃ­s.`
+              ? `Índice relativo de <strong>${escapeHtml(scope.es)}</strong> para <strong>${escapeHtml(metric)}</strong>, comparado con la referencia del resto del país.`
               : `Relative index for <strong>${escapeHtml(scope.en)}</strong> in <strong>${escapeHtml(metric)}</strong>, compared with the benchmark for the rest of the country.`);
         if (!scope) {
           selectionSummary.innerHTML = `<div class="selection-summary-head np-kpi-card" role="button" tabindex="0" aria-expanded="${state.selectionSummaryOpen ? "true" : "false"}"><div class="np-kpi-sub">${relativeScopeLabel}</div><div class="np-kpi-ttl">${escapeHtml(relativeTitle)}</div><div class="np-kpi-num">${escapeHtml(relativeValueText)}</div><div class="np-kpi-share">${relativeMeaning}</div>${detailIcon}</div>${state.selectionSummaryOpen ? detailBodyHtml : ""}`;
@@ -7971,8 +7971,8 @@ function selectionCountLabel(type, level, count) {
           ? escapeHtml(state.lang === "es" ? scope.es : scope.en)
           : (state.lang === "es" ? "TOTAL NACIONAL" : "NATIONAL TOTAL");
         const shareTitle = state.lang === "es"
-          ? `${metric} Â· Porcentaje (%)`
-          : `${metric} Â· Percentage (%)`;
+          ? `${metric} · Porcentaje (%)`
+          : `${metric} · Percentage (%)`;
         const shareMeaning = state.lang === "es"
           ? `<strong>${escapeHtml(summarySubject ? summarySubject.es : "Chile")}</strong> representa <strong>${escapeHtml(shareText)}</strong> del total nacional de <strong>${escapeHtml(metric)}</strong>.`
           : `<strong>${escapeHtml(summarySubject ? summarySubject.en : "Chile")}</strong> represents <strong>${escapeHtml(shareText)}</strong> of the national total for <strong>${escapeHtml(metric)}</strong>.`;
@@ -8185,8 +8185,8 @@ function selectionCountLabel(type, level, count) {
         positionHoverCard(event.clientX, event.clientY);
       };
 
-      // Hover: el tooltip pequeÃ±o compartido (attachLegendReadout) es el ÃšNICO
-      // card que se muestra al pasar el cursor â€” unificado con M3/M4. AquÃ­ solo
+      // Hover: el tooltip pequeño compartido (attachLegendReadout) es el ÚNICO
+      // card que se muestra al pasar el cursor — unificado con M3/M4. Aquí solo
       // conservamos el CLICK (filtrado por banda de la leyenda, exclusivo de M2).
       bar.onclick = (event) => {
         const minValue = Number(bar.dataset.min || 0);
@@ -8229,7 +8229,7 @@ function selectionCountLabel(type, level, count) {
     }
 
     function alignGeoLegendToMap() {
-      return; // leyenda ahora es hijo flex de .map-stage (estÃ¡ndar M4); sin posicionamiento JS
+      return; // leyenda ahora es hijo flex de .map-stage (estándar M4); sin posicionamiento JS
       const mapStage = document.querySelector(".geo-layout .map-stage");
       const svgEl = document.getElementById("map-chile");
       const legend = document.getElementById("geo-legend");
@@ -8423,19 +8423,19 @@ function selectionCountLabel(type, level, count) {
       // Back btn for regionPanel
       { let _bb = regionPanel?.querySelector(".cascade-back-btn");
         if (!_bb && regionPanel) { _bb = document.createElement("button"); _bb.className = "cascade-back-btn"; regionPanel.prepend(_bb); }
-        if (_bb) _bb.innerHTML = "â† " + (state.lang === "es" ? "Macrozona" : "Macrozone"); }
+        if (_bb) _bb.innerHTML = "← " + (state.lang === "es" ? "Macrozona" : "Macrozone"); }
       renderCascadeColumn(
         provincePanel,
         visibleProvinces.map((value) => ({ value, label: value })),
         state.geoSelection.province,
         "geo-province",
         null,
-        state.lang === "es" ? "Pasa el cursor sobre una regiÃ³n para ver sus provincias." : "Hover over a region to see its provinces."
+        state.lang === "es" ? "Pasa el cursor sobre una región para ver sus provincias." : "Hover over a region to see its provinces."
       );
       // Back btn for provincePanel
       { let _bb = provincePanel?.querySelector(".cascade-back-btn");
         if (!_bb && provincePanel) { _bb = document.createElement("button"); _bb.className = "cascade-back-btn"; provincePanel.prepend(_bb); }
-        if (_bb) _bb.innerHTML = "â† " + (state.lang === "es" ? "RegiÃ³n" : "Region"); }
+        if (_bb) _bb.innerHTML = "← " + (state.lang === "es" ? "Región" : "Region"); }
 
       renderCascadeColumn(
         industryPanel,
@@ -8456,7 +8456,7 @@ function selectionCountLabel(type, level, count) {
       // Back btn for pibr13Panel
       { let _bb = pibr13Panel?.querySelector(".cascade-back-btn");
         if (!_bb && pibr13Panel) { _bb = document.createElement("button"); _bb.className = "cascade-back-btn"; pibr13Panel.prepend(_bb); }
-        if (_bb) _bb.innerHTML = "â† " + (state.lang === "es" ? "Industria" : "Industry"); }
+        if (_bb) _bb.innerHTML = "← " + (state.lang === "es" ? "Industria" : "Industry"); }
       renderCascadeColumn(
         activityPanel,
         visibleActivities,
@@ -8468,7 +8468,7 @@ function selectionCountLabel(type, level, count) {
       // Back btn for activityPanel
       { let _bb = activityPanel?.querySelector(".cascade-back-btn");
         if (!_bb && activityPanel) { _bb = document.createElement("button"); _bb.className = "cascade-back-btn"; activityPanel.prepend(_bb); }
-        if (_bb) _bb.innerHTML = "â† " + (state.lang === "es" ? "Sector" : "Sector"); }
+        if (_bb) _bb.innerHTML = "← " + (state.lang === "es" ? "Sector" : "Sector"); }
     }
 
     function uniqueValues(values) {
@@ -8752,7 +8752,7 @@ function selectionCountLabel(type, level, count) {
       ).sort((a, b) => b[state.unit] - a[state.unit]);
       const metricByProvince = new Map();
 
-      // â”€â”€ LQ computation for "relative" mode â”€â”€
+      // ── LQ computation for "relative" mode ──
       if (state.unit === "relative") {
         const isLP = state.metric === "productividad_laboral";
         const xj_national = metricSum(filtered);  // national LP (or total) in filtered sectors
@@ -8933,8 +8933,8 @@ function selectionCountLabel(type, level, count) {
       const panelHeightCap = isMobileHeatmap ? Math.max(360, Math.min(460, window.innerHeight - 320)) : Infinity;
       const panelHeight = Math.max(220, Math.min(panelHeightRaw, panelHeightCap));
       const reservedBottom = 0;
-      // â”€â”€ GeometrÃ­a idÃ©ntica al MÃ³dulo 4: celdas no cuadradas + viewBox ajustado
-      //    al contenido + escala para llenar el cuadro (preserveAspectRatio meet). â”€â”€
+      // ── Geometría idéntica al Módulo 4: celdas no cuadradas + viewBox ajustado
+      //    al contenido + escala para llenar el cuadro (preserveAspectRatio meet). ──
       const contW = Math.max(220, panelWidth - 84);
       const contH = Math.max(220, panelHeight - 14);
       const _fit = window.fitHeatmapGeometry({
@@ -8962,16 +8962,16 @@ function selectionCountLabel(type, level, count) {
       svgEl.removeAttribute("width");
       svgEl.removeAttribute("height");
       svgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
-      // El SVG se dibuja 1:1 (viewBox == px) para que el ÃREA DE CELDAS conserve
-      // siempre el mismo tamaÃ±o en pantalla; al cambiar de agrupaciÃ³n sÃ³lo crecen
-      // o se encogen las celdas, no el recuadro. La geometrÃ­a de la grilla se
+      // El SVG se dibuja 1:1 (viewBox == px) para que el ÁREA DE CELDAS conserve
+      // siempre el mismo tamaño en pantalla; al cambiar de agrupación sólo crecen
+      // o se encogen las celdas, no el recuadro. La geometría de la grilla se
       // publica en dataset para que la leyenda mida exactamente su alto.
       svgEl.dataset.gridTop = topPad;
       svgEl.dataset.gridHeight = gridHeight;
       svgEl.style.cssText = `display:block;overflow:visible;align-self:flex-start;width:${Math.round(svgWidth)}px;height:${Math.round(svgHeight)}px`;
 
       const parts = [];
-      // TamaÃ±o de letra dinÃ¡mico (mismo estÃ¡ndar que M4)
+      // Tamaño de letra dinámico (mismo estándar que M4)
       const _rowFs = _fit.rowFs;
       const _colFs = _fit.colFs;
       rowKeys.forEach((rowKey, rowIndex) => {
@@ -9131,7 +9131,7 @@ function selectionCountLabel(type, level, count) {
         node.style.visibility = "hidden";
       });
       // Neutralizar el fondo/borde del recuadro de la figura para exportar con
-      // fondo BLANCO limpio (sin el degradado ni el borde del color del mÃ³dulo).
+      // fondo BLANCO limpio (sin el degradado ni el borde del color del módulo).
       const savedBox = {
         background: target.style.background,
         backgroundColor: target.style.backgroundColor,
@@ -9297,12 +9297,12 @@ function selectionCountLabel(type, level, count) {
       buildMetricSelect();
       unitSelect.options[0].text = lang === "es" ? "Billones de CLP" : "MUSD$";
       unitSelect.options[1].text = lang === "es" ? "Porcentaje (%)" : "Percentage (%)";
-      unitSelect.options[2].text = lang === "es" ? "Ãndice relativo" : "Relative index";
+      unitSelect.options[2].text = lang === "es" ? "Índice relativo" : "Relative index";
       const unitValueOption = unitMenu?.querySelector('.custom-select-option[data-value="value"]');
       if (unitValueOption) unitValueOption.textContent = lang === "es" ? "Billones de CLP" : "MUSD$";
       geoLevelControls.forEach((select) => {
         select.options[0].text = lang === "es" ? "Macrozona" : "Macrozone";
-        select.options[1].text = lang === "es" ? "RegiÃ³n" : "Region";
+        select.options[1].text = lang === "es" ? "Región" : "Region";
         select.options[2].text = lang === "es" ? "Provincia" : "Province";
       });
       sectorLevelControls.forEach((select) => {
@@ -9604,7 +9604,7 @@ function selectionCountLabel(type, level, count) {
           }
         });
 
-        // â”€â”€ Cascade drill-down: click on label span â†’ go to next level â”€â”€
+        // ── Cascade drill-down: click on label span → go to next level ──
         filterStack.addEventListener("click", (event) => {
           const span = event.target.closest(".cascade-item span");
           if (!span) return;
@@ -9635,7 +9635,7 @@ function selectionCountLabel(type, level, count) {
           }
         });
 
-        // â”€â”€ Cascade back navigation â”€â”€
+        // ── Cascade back navigation ──
         filterStack.addEventListener("click", (event) => {
           const backBtn = event.target.closest(".cascade-back-btn");
           if (!backBtn) return;
@@ -9823,7 +9823,7 @@ function selectionCountLabel(type, level, count) {
     });
 
 
-    /* â”€â”€ Module crossfade transition + active tracking â”€â”€ */
+    /* ── Module crossfade transition + active tracking ── */
     (function() {
       const MODULE_COLORS = {
         'module-1': { bg: '#221e7c', topbar: 'linear-gradient(90deg, #221e7c 0%, #2d2787 100%)' },
@@ -9859,7 +9859,7 @@ function selectionCountLabel(type, level, count) {
             window.scrollTo({ top, behavior: 'instant' });
           }
 
-          // Morph topbar â€” only the target module's header
+          // Morph topbar — only the target module's header
           const targetSection = document.querySelector(hash);
           if (targetSection) {
             const tb = targetSection.querySelector('.topbar.module-header');
@@ -9958,10 +9958,10 @@ function selectionCountLabel(type, level, count) {
   <script src="web_materiales/data/module4_engine.js?v=2"></script>
   <script src="web_materiales/data/module4_app.js?v=22"></script>
   <script>
-    /* â”€â”€ np-panel helpers â”€â”€ */
+    /* ── np-panel helpers ── */
     (function(){
 
-      // â”€â”€ Aggregation chip buttons â†’ hidden selects â”€â”€
+      // ── Aggregation chip buttons → hidden selects ──
       document.addEventListener('click', function(e){
         const geoBtn = e.target.closest('[data-geo-agg]');
         if(geoBtn){
@@ -9981,17 +9981,17 @@ function selectionCountLabel(type, level, count) {
         }
       });
 
-      // â”€â”€ Analysis tab badge â”€â”€
+      // ── Analysis tab badge ──
       document.querySelectorAll('#module-2 .module-tab').forEach(tab=>{
         tab.addEventListener('click', function(){
           const badge = document.getElementById('np-analysis-badge');
           if(!badge) return;
           const view = this.dataset.view;
-          badge.textContent = view==='geo'?'Territorial': view==='sector'?'Sectorial':'Territorialâ€“Sectorial';
+          badge.textContent = view==='geo'?'Territorial': view==='sector'?'Sectorial':'Territorial–Sectorial';
         });
       });
 
-      // â”€â”€ Accordion tree filter â”€â”€
+      // ── Accordion tree filter ──
       function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
       function buildGeoTree(locs) {
@@ -10110,7 +10110,7 @@ function selectionCountLabel(type, level, count) {
         }
       });
 
-      // â”€â”€ Floating cascade positioning â”€â”€
+      // ── Floating cascade positioning ──
       function positionCascade(details) {
         const summary = details.querySelector('summary .tree-header');
         const cascade = details.querySelector('.cascade-filter.np-cascade');
@@ -10138,7 +10138,7 @@ function selectionCountLabel(type, level, count) {
         });
       }, true);
 
-      // â”€â”€ Shared cascade nav tab + drill button wiring (modules 2, 3) â”€â”€â”€â”€â”€â”€
+      // ── Shared cascade nav tab + drill button wiring (modules 2, 3) ──────
       const GEO_NEXT  = { macrozone: "region", region: "province" };
       const SEC_NEXT  = { industry: "pibr13", pibr13: "activity" };
       const GEO_LEVELS = ["macrozone","region","province"];
@@ -10157,7 +10157,7 @@ function selectionCountLabel(type, level, count) {
           const tab = e.target.closest("[data-cascade-level]");
           if (tab) { switchCascadeLevel(cascade, tab.dataset.cascadeLevel); return; }
 
-          // Drill button click â†’ navigate to next level
+          // Drill button click → navigate to next level
           const drill = e.target.closest(".cascade-drill-btn");
           if (drill) {
             e.preventDefault(); e.stopPropagation();
@@ -10203,7 +10203,7 @@ function selectionCountLabel(type, level, count) {
         document.addEventListener('DOMContentLoaded', ()=>setTimeout(initAccordions,0));
       }
 
-      // â”€â”€ Module 2 card/button â†’ hidden select handlers â”€â”€
+      // ── Module 2 card/button → hidden select handlers ──
       document.addEventListener('click', function(e) {
         // Analysis cards
         const m2AnalysisCard = e.target.closest('[data-m2-analysis]');
@@ -10244,7 +10244,7 @@ function selectionCountLabel(type, level, count) {
     </script>
 
   <style>
-    /* â•â• TOPBAR FIX: Flex layout override â•â• */
+    /* ══ TOPBAR FIX: Flex layout override ══ */
     .topbar { display: flex !important; align-items: center !important; justify-content: flex-start !important; gap: 12px !important; min-height: auto !important; padding: 8px 20px !important; position: relative !important; }
     .topbar .header-title { flex: 1; text-align: center; }
     .topbar .lang-switch { order: -1; position: static !important; transform: none !important; flex-shrink: 0; }
@@ -10277,13 +10277,13 @@ function selectionCountLabel(type, level, count) {
     #module-1 .landing-card-question { font-size: clamp(0.8rem, 1.6vh, 1.08rem) !important; }
     #module-1 .landing-card-desc { font-size: clamp(0.7rem, 1.4vh, 0.98rem) !important; line-height: 1.4 !important; }
     #module-1 .landing-card-action { font-size: clamp(0.7rem, 1.4vh, 0.92rem) !important; margin-top: clamp(4px, 1vh, 10px) !important; }
-    /* La cita y el hero nunca se aplastan: el grid es el Ãºnico elemento flexible */
+    /* La cita y el hero nunca se aplastan: el grid es el único elemento flexible */
     #module-1 .landing-hero, #module-1 .landing-cite { flex-shrink: 0; }
     #module-1 .landing-grid { min-height: 0; }
     #module-1 .landing-cite { max-width: min(860px, 92vw) !important; }
     #module-1 .landing-cite-inner { flex: 1; min-width: 0; padding: clamp(6px, 1.4vh, 14px) clamp(10px, 1.6vw, 18px) !important; }
     #module-1 .landing-cite-label, #module-1 .landing-cite-text { font-size: clamp(0.62rem, 1.3vh, 0.88rem) !important; }
-    /* Pantallas bajas: NO se oculta nada â€” todo se comprime mÃ¡s */
+    /* Pantallas bajas: NO se oculta nada — todo se comprime más */
     @media (max-height: 760px) {
       #module-1 .landing-body { gap: clamp(10px, 2.4vh, 24px) !important; padding: clamp(10px, 2.2vh, 24px) clamp(16px, 3vw, 48px) !important; }
       #module-1 .landing-title { font-size: clamp(1.8rem, 5.6vh, 3rem) !important; margin-bottom: clamp(3px, 0.8vh, 8px) !important; }
@@ -10296,8 +10296,8 @@ function selectionCountLabel(type, level, count) {
       #module-1 .landing-cite-inner { padding: clamp(4px, 1vh, 8px) clamp(8px, 1.2vw, 14px) !important; }
       #module-1 .landing-cite-label, #module-1 .landing-cite-text { font-size: clamp(0.62rem, 1.2vh, 0.78rem) !important; }
     }
-    /* MÃ³dulo 5 con la misma altura que el resto: 100vh, sin scrollbar interno â€”
-       el contenido se comprime con clamp() igual que el mÃ³dulo 1 */
+    /* Módulo 5 con la misma altura que el resto: 100vh, sin scrollbar interno —
+       el contenido se comprime con clamp() igual que el módulo 1 */
     #module-5.module-five { height: 100vh; min-height: 100vh; overflow: hidden; }
     #module-5 .m5-dark-body { height: 100%; min-height: 0 !important; overflow: hidden; }
     #module-5 .m5-topbar { flex-shrink: 0; }
@@ -10323,7 +10323,7 @@ function selectionCountLabel(type, level, count) {
     #module-5 .header-title { font-size: clamp(0.85rem, 1.5vw, 1.15rem) !important; }
     #module-1 .header-title { font-size: clamp(1rem, 1.8vw, 1.35rem) !important; }
 
-    /* â•â• MÃ³dulo 4 Â· Drawer inferior â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Módulo 4 · Drawer inferior ══════════════════════════════════════ */
     #module-4.m4-new .m4-shell { position: relative !important; overflow: hidden !important; }
     /* Ocultar handle2 (ya no existe panel 3) */
     #m4-resize-2 { display: none !important; }
@@ -10484,7 +10484,7 @@ function selectionCountLabel(type, level, count) {
       backdrop.className = 'mob-drawer-backdrop';
       document.body.appendChild(backdrop);
 
-      // Un Ãºnico botÃ³n flotante, cuyo mÃ³dulo objetivo sigue al scroll
+      // Un único botón flotante, cuyo módulo objetivo sigue al scroll
       var fab = document.createElement('button');
       fab.className = 'mob-ctrl-fab';
       fab.type = 'button';
@@ -10526,7 +10526,7 @@ function selectionCountLabel(type, level, count) {
       backdrop.addEventListener('click', closeDrawer);
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDrawer(); });
 
-      // Detecta el mÃ³dulo de datos que ocupa el centro del viewport (robusto en carga directa)
+      // Detecta el módulo de datos que ocupa el centro del viewport (robusto en carga directa)
       function updateFab() {
         var mid = window.innerHeight * 0.45;
         var found = null;
@@ -10570,7 +10570,7 @@ function selectionCountLabel(type, level, count) {
       var topPanel = document.createElement("aside");
       topPanel.className = "mobile-top-panel";
       topPanel.setAttribute("aria-hidden", "true");
-      topPanel.innerHTML = '<div class="mobile-top-head"><h3 class="mobile-top-title">Top</h3><button class="mobile-top-close" type="button" aria-label="Cerrar Top">Ã—</button></div><div class="mobile-top-body"></div>';
+      topPanel.innerHTML = '<div class="mobile-top-head"><h3 class="mobile-top-title">Top</h3><button class="mobile-top-close" type="button" aria-label="Cerrar Top">×</button></div><div class="mobile-top-body"></div>';
       document.body.appendChild(topPanel);
       var topTitle = topPanel.querySelector(".mobile-top-title");
       var topBody = topPanel.querySelector(".mobile-top-body");
@@ -10965,10 +10965,10 @@ function selectionCountLabel(type, level, count) {
 
 
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       BOTÃ“N FLOTANTE DE CONTACTO  (deriva a Google Forms)
-       â–¸ Para activarlo, pega la URL del formulario en CONTACT_FORM_URL â†“â†“â†“
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ══════════════════════════════════════════════════════════════════
+       BOTÓN FLOTANTE DE CONTACTO  (deriva a Google Forms)
+       ▸ Para activarlo, pega la URL del formulario en CONTACT_FORM_URL ↓↓↓
+       ══════════════════════════════════════════════════════════════════ -->
   
 
   <style id="__contact-fab-css">
@@ -11932,7 +11932,7 @@ function selectionCountLabel(type, level, count) {
   <div class="wrap">
     <h1 class="display">Descarga los Datos</h1>
     <div style="margin:24px auto 0;max-width:66ch;font-size:1.01rem;line-height:1.65;color:var(--ds-color-muted)">
-      <p style="margin:0">Un objetivo central del proyecto de colaboraciÃ³n entre CORFO y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026), es que los datos generados constituyan un bien pÃºblico, de libre acceso y actualizaciÃ³n anual.</p>
+      <p style="margin:0">Un objetivo central del proyecto de colaboración entre CORFO y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual.</p>
       <p style="margin:16px 0 0">Los datos se construyen para las <strong style="color:var(--ds-color-text);font-weight:700">56 provincias</strong> de Chile y la totalidad de los sectores, divididos en <strong style="color:var(--ds-color-text);font-weight:700">46 sectores</strong>.</p>
     </div>
 
@@ -11942,14 +11942,14 @@ function selectionCountLabel(type, level, count) {
       <label style="display:block;font-weight:700;font-size:.86rem;color:var(--ds-color-text);margin:0 0 7px">Nombre</label>
       <input placeholder="Nombre y apellido" style="width:100%;box-sizing:border-box;height:50px;padding:0 15px;border:1px solid var(--ds-color-line);border-radius:9px;font:400 .95rem 'DM Sans';color:var(--ds-color-text);background:#fff">
 
-      <label style="display:block;font-weight:700;font-size:.86rem;color:var(--ds-color-text);margin:20px 0 7px">InstituciÃ³n</label>
-      <input placeholder="Universidad, ministerio, empresaâ€¦" style="width:100%;box-sizing:border-box;height:50px;padding:0 15px;border:1px solid var(--ds-color-line);border-radius:9px;font:400 .95rem 'DM Sans';color:var(--ds-color-text);background:#fff">
+      <label style="display:block;font-weight:700;font-size:.86rem;color:var(--ds-color-text);margin:20px 0 7px">Institución</label>
+      <input placeholder="Universidad, ministerio, empresa…" style="width:100%;box-sizing:border-box;height:50px;padding:0 15px;border:1px solid var(--ds-color-line);border-radius:9px;font:400 .95rem 'DM Sans';color:var(--ds-color-text);background:#fff">
 
       <label style="display:block;font-weight:700;font-size:.86rem;color:var(--ds-color-text);margin:20px 0 9px">Uso de los datos</label>
       <div style="display:flex;flex-wrap:wrap;gap:9px">
-        <button type="button" class="uso-pill" data-uso="InvestigaciÃ³n">InvestigaciÃ³n</button>
-        <button type="button" class="uso-pill" data-uso="PolÃ­ticas PÃºblicas">PolÃ­ticas PÃºblicas</button>
-        <button type="button" class="uso-pill" data-uso="ConsultorÃ­a">ConsultorÃ­a</button>
+        <button type="button" class="uso-pill" data-uso="Investigación">Investigación</button>
+        <button type="button" class="uso-pill" data-uso="Políticas Públicas">Políticas Públicas</button>
+        <button type="button" class="uso-pill" data-uso="Consultoría">Consultoría</button>
         <button type="button" class="uso-pill" data-uso="Otros">Otros</button>
       </div>
       <input id="uso-otros" placeholder="Especifica el uso" style="display:none;width:100%;box-sizing:border-box;height:50px;margin-top:11px;padding:0 15px;border:1px solid var(--ds-color-line);border-radius:9px;font:400 .95rem 'DM Sans';color:var(--ds-color-text);background:#fff">
@@ -11957,16 +11957,16 @@ function selectionCountLabel(type, level, count) {
       <label style="display:block;font-weight:700;font-size:.86rem;color:var(--ds-color-text);margin:20px 0 7px">Correo</label>
       <input placeholder="nombre@institucion.cl" style="width:100%;box-sizing:border-box;height:50px;padding:0 15px;border:1px solid var(--ds-color-line);border-radius:9px;font:400 .95rem 'DM Sans';color:var(--ds-color-text);background:#fff">
 
-      <button style="width:100%;margin-top:24px;height:52px;padding:0 26px;border:1px solid var(--ds-color-brand);border-radius:9px;background:var(--ds-color-brand);color:#fff;font:800 .98rem 'DM Sans';cursor:pointer">Descargar â†’</button>
-      <p style="margin:16px 0 0;font-size:.82rem;line-height:1.5;color:var(--ds-color-muted)">Usamos tus datos Ãºnicamente para llevar estadÃ­sticas de uso y avisarte de actualizaciones importantes. Â· <a href="#" style="color:var(--ds-color-brand);font-weight:700;text-decoration:none">Licencia</a> Â· <a href="#" style="color:var(--ds-color-brand);font-weight:700;text-decoration:none">CÃ³mo citar</a></p>
+      <button style="width:100%;margin-top:24px;height:52px;padding:0 26px;border:1px solid var(--ds-color-brand);border-radius:9px;background:var(--ds-color-brand);color:#fff;font:800 .98rem 'DM Sans';cursor:pointer">Descargar →</button>
+      <p style="margin:16px 0 0;font-size:.82rem;line-height:1.5;color:var(--ds-color-muted)">Usamos tus datos únicamente para llevar estadísticas de uso y avisarte de actualizaciones importantes. · <a href="#" style="color:var(--ds-color-brand);font-weight:700;text-decoration:none">Licencia</a> · <a href="#" style="color:var(--ds-color-brand);font-weight:700;text-decoration:none">Cómo citar</a></p>
     </div>
   </div>
 </section>
 
-<!-- ============ CITACIÃ“N ============ -->
+<!-- ============ CITACIÓN ============ -->
 <section id="citacion" class="sec-pad">
   <div class="wrap">
-    <h2 class="display">CitaciÃ³n</h2>
+    <h2 class="display">Citación</h2>
     <p style="margin:0 auto 22px;max-width:62ch;color:var(--ds-color-muted);line-height:1.6">Para usar estos datos, cita el siguiente paper:</p>
     <div style="max-width:680px;margin:0 auto;text-align:left">
       <div style="padding:18px 20px;border-left:3px solid var(--ds-color-accent);border-radius:0 8px 8px 0;background:#fff7ec;color:#5b4626;line-height:1.55">
@@ -11989,13 +11989,13 @@ function selectionCountLabel(type, level, count) {
     <div class="paper-card">
 
       <a class="paper-thumb" href="https://www.fedehuneeus.com/s/HdV.pdf" target="_blank" rel="noopener">
-        <img src="uploads/paper_HdV_page1.png" alt="The Geographic and Sectoral Impact of Productivity â€” primera pÃ¡gina">
+        <img src="uploads/paper_HdV_page1.png" alt="The Geographic and Sectoral Impact of Productivity — primera página">
         <span class="open-pdf">Abrir PDF</span>
       </a>
 
       <div>
         <h3 style="margin:0;font-family:var(--ds-font-display);font-weight:700;font-size:1.7rem;line-height:1.12;color:var(--ds-color-brand)">The Geographic and Sectoral Impact of Productivity</h3>
-        <p style="margin:12px 0 0;font-size:1.02rem;color:var(--ds-color-muted)">Federico Huneeus &nbsp;Â·&nbsp; Miguel Del Valle</p>
+        <p style="margin:12px 0 0;font-size:1.02rem;color:var(--ds-color-muted)">Federico Huneeus &nbsp;·&nbsp; Miguel Del Valle</p>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:18px 0;padding:14px 0;border-top:1px solid var(--ds-color-line);border-bottom:1px solid var(--ds-color-line)">
           <span style="font:700 .7rem 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ds-color-muted)">Working paper</span>
           <span style="width:1px;height:14px;background:var(--ds-color-line)"></span>
@@ -12005,8 +12005,8 @@ function selectionCountLabel(type, level, count) {
         <p style="margin:18px 0 0;font-size:.92rem;line-height:1.55;color:var(--ds-color-muted)"><span style="font:700 .7rem 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ds-color-brand)">Keywords&nbsp;&nbsp;</span>Productivity, spatial economics, geographic distribution, input-output linkages, trade, labor mobility.</p>
         <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:26px">
           <a class="paper-btn primary" href="https://www.fedehuneeus.com/s/HdV.pdf" target="_blank" rel="noopener">Descargar PDF</a>
-          <a class="paper-btn ghost" href="https://www.fedehuneeus.com/" target="_blank" rel="noopener">Ver en el sitio â†—</a>
-          <a class="paper-btn ghost" href="#citacion">CÃ³mo citar</a>
+          <a class="paper-btn ghost" href="https://www.fedehuneeus.com/" target="_blank" rel="noopener">Ver en el sitio ↗</a>
+          <a class="paper-btn ghost" href="#citacion">Cómo citar</a>
         </div>
       </div>
 
@@ -12043,12 +12043,12 @@ function selectionCountLabel(type, level, count) {
 <section id="acknowledgements" class="sec-pad">
   <div class="wrap">
     <h2 class="display" style="margin-bottom:18px">Agradecimientos</h2>
-    <p style="margin:0 auto 32px;max-width:72ch;color:var(--ds-color-muted);line-height:1.65">Agradecemos a CORFO por impulsar esta iniciativa y facilitar el acceso a datos administrativos anonimizados del Servicio de Impuestos Internos (SII) de Chile. Este trabajo tambiÃ©n contÃ³ con el apoyo del Banco Interamericano de Desarrollo (BID) en el marco del proyecto RG-T3976-P002, a travÃ©s de su DivisiÃ³n de Competitividad, TecnologÃ­a e InnovaciÃ³n. El financiador no tuvo rol en el diseÃ±o del estudio, ni en la recolecciÃ³n, anÃ¡lisis, interpretaciÃ³n de los datos, redacciÃ³n o decisiÃ³n de publicar.</p>
+    <p style="margin:0 auto 32px;max-width:72ch;color:var(--ds-color-muted);line-height:1.65">Agradecemos a CORFO por impulsar esta iniciativa y facilitar el acceso a datos administrativos anonimizados del Servicio de Impuestos Internos (SII) de Chile. Este trabajo también contó con el apoyo del Banco Interamericano de Desarrollo (BID) en el marco del proyecto RG-T3976-P002, a través de su División de Competitividad, Tecnología e Innovación. El financiador no tuvo rol en el diseño del estudio, ni en la recolección, análisis, interpretación de los datos, redacción o decisión de publicar.</p>
     <div style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap">
       <img src="web_materiales/logo_corfo2024/logo_corfo2024_navy_trim.png" alt="CORFO" style="height:60px;width:auto">
       <img src="web_materiales/logo_iadb/IDB-Logo.png" alt="Inter-American Development Bank" style="height:86px;width:auto">
     </div>
-    <p style="margin:44px auto 0;max-width:680px;padding-top:22px;border-top:1px solid var(--ds-color-line);font-size:.85rem;color:var(--ds-color-muted)">Â© Cuentas EconÃ³micas Desagregadas para Chile Â· CORFOâ€“BID, 2026.</p>
+    <p style="margin:44px auto 0;max-width:680px;padding-top:22px;border-top:1px solid var(--ds-color-line);font-size:.85rem;color:var(--ds-color-muted)">© Cuentas Económicas Desagregadas para Chile · CORFO–BID, 2026.</p>
   </div>
 </section>
 
@@ -12064,7 +12064,7 @@ function selectionCountLabel(type, level, count) {
     });
   });
 
-  // Scroll-spy: resalta la secciÃ³n activa en el header
+  // Scroll-spy: resalta la sección activa en el header
   var navLinks = document.querySelectorAll('.site-header a[href^="#"]');
   var byId = {};
   navLinks.forEach(function(a){ byId[a.getAttribute('href').slice(1)] = a; });

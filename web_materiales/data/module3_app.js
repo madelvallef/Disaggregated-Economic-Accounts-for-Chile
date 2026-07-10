@@ -71,7 +71,7 @@
   }
   function currentUnitLabel(mode = s.unit) {
     if (mode === "share_flow")        return isEs() ? "% del flujo" : "% of flow";
-    if (mode === "share_production")  return isEs() ? "% de mi producciÃ³n" : "% of my output";
+    if (mode === "share_production")  return isEs() ? "% de mi producción" : "% of my output";
     if (mode === "share_counterpart") return isEs() ? "% de la contraparte" : "% of counterpart";
     if (mode === "share")             return copy[lang()].m3UnitShare;
     return isEs() ? "Billones de CLP" : "MUSD$";
@@ -91,7 +91,7 @@
         maximumFractionDigits: s2 > 0 && s2 < 10 ? 1 : 0
       }).format(s2);
     }
-    // Default (flows): tv_USD Ã— m2UsdRate / 1000 â†’ CLP scale; or raw USD for English
+    // Default (flows): tv_USD × m2UsdRate / 1000 → CLP scale; or raw USD for English
     const scaled = isEs() ? num * m2UsdRate / 1000000 : num;
     return new Intl.NumberFormat(isEs() ? "es-CL" : "en-US", {
       minimumFractionDigits: scaled > 0 && scaled < 10 ? 1 : 0,
@@ -155,12 +155,12 @@
   function describeQuestion() {
     if (s.question === "main") {
       return s.perspective === "provider"
-        ? (isEs() ? "Muestra quÃ© clientes concentran mis ventas dentro del universo filtrado." : "Shows which clients concentrate my sales within the filtered universe.")
-        : (isEs() ? "Muestra quÃ© proveedores concentran mis compras dentro del universo filtrado." : "Shows which suppliers concentrate my purchases within the filtered universe.");
+        ? (isEs() ? "Muestra qué clientes concentran mis ventas dentro del universo filtrado." : "Shows which clients concentrate my sales within the filtered universe.")
+        : (isEs() ? "Muestra qué proveedores concentran mis compras dentro del universo filtrado." : "Shows which suppliers concentrate my purchases within the filtered universe.");
     }
     return s.perspective === "provider"
-      ? (isEs() ? "Mide quÃ© tan importante soy como proveedor para cada cliente visible." : "Measures how important I am as a supplier for each visible client.")
-      : (isEs() ? "Mide quÃ© tan importante soy como cliente para cada proveedor visible." : "Measures how important I am as a client for each visible supplier.");
+      ? (isEs() ? "Mide qué tan importante soy como proveedor para cada cliente visible." : "Measures how important I am as a supplier for each visible client.")
+      : (isEs() ? "Mide qué tan importante soy como cliente para cada proveedor visible." : "Measures how important I am as a client for each visible supplier.");
   }
   function describeUnit() {
     if (s.unit === "value") return isEs() ? `Muestra el flujo en ${currentUnitLabel("value")}.` : `Shows the flow in ${currentUnitLabel("value")}.`;
@@ -175,24 +175,24 @@
   }
   function describeExclusions() {
     const map = {
-      total: isEs() ? "DomÃ©stico + exportaciones" : "Domestic + exports",
+      total: isEs() ? "Doméstico + exportaciones" : "Domestic + exports",
       domestic: isEs() ? "Todo nacional" : "All domestic",
       intraregional: isEs() ? "Intra-regional" : "Intra-regional",
       intraprovincial: isEs() ? "Intra-provincial" : "Intra-provincial",
       intranode: isEs() ? "Intra-nodo" : "Intra-node",
       international: isEs() ? "Solo exportaciones" : "Exports only"
     };
-    return map[s.tradeScope] || (isEs() ? "DomÃ©stico + exportaciones" : "Domestic + exports");
+    return map[s.tradeScope] || (isEs() ? "Doméstico + exportaciones" : "Domestic + exports");
   }
   function blockTitles() {
     if (s.perspective === "provider") {
       return {
-        selfGeo: isEs() ? "Selecciona la geografÃ­a" : "Select geography",
+        selfGeo: isEs() ? "Selecciona la geografía" : "Select geography",
         selfSector: isEs() ? "Selecciona los sectores" : "Select sectors"
       };
     }
     return {
-      selfGeo: isEs() ? "Selecciona la geografÃ­a" : "Select geography",
+      selfGeo: isEs() ? "Selecciona la geografía" : "Select geography",
       selfSector: isEs() ? "Selecciona los sectores" : "Select sectors"
     };
   }
@@ -211,8 +211,8 @@
         domRaw = m.byGeoRawDom?.get(key) ? m.bySectorRawDom?.get(key) ? 0;
       }
     }
-    // % de mi producciÃ³n: raw (includes exports) / ventas_tot del self node
-    // Exports ARE part of my production going to the world â€” use full raw, not domRaw
+    // % de mi producción: raw (includes exports) / ventas_tot del self node
+    // Exports ARE part of my production going to the world — use full raw, not domRaw
     if (s.unit === "share_production") {
       let denom;
       if (key.includes("|||") && m) {
@@ -246,20 +246,20 @@
   }
 
   function syncExclusionControls() {
-    // No-op â€” exclusions replaced by tradeScope buttons (data-m3-trade)
+    // No-op — exclusions replaced by tradeScope buttons (data-m3-trade)
   }
 
   function showHover(html, x, y, pinned = false) {
     if (!hoverCard) return;
     if (hoverPinned && !pinned) return; // don't replace pinned card on hover
-    const closeBtn = `<button class="hover-card-close" onclick="(function(){var hc=document.getElementById('module3-hover-card');hc.classList.remove('is-visible','is-pinned');hc.innerHTML='';})()">Ã—</button>`;
+    const closeBtn = `<button class="hover-card-close" onclick="(function(){var hc=document.getElementById('module3-hover-card');hc.classList.remove('is-visible','is-pinned');hc.innerHTML='';})()">×</button>`;
     hoverCard.innerHTML = pinned ? closeBtn + html : html;
     hoverCard.classList.add("is-visible");
     hoverCard.classList.toggle("is-pinned", pinned);
     const rect = hoverCard.getBoundingClientRect();
     hoverCard.style.left = `${Math.max(16, Math.min(window.innerWidth - rect.width - 16, x + 16))}px`;
     hoverCard.style.top = `${Math.max(16, Math.min(window.innerHeight - rect.height - 16, y + 16))}px`;
-    // pinnedContent removed â€” use pinnedCell.genHtml instead
+    // pinnedContent removed — use pinnedCell.genHtml instead
   }
   function pinHover(html, x, y, genHtml) {
     hoverPinned = true;
@@ -277,7 +277,7 @@
     if (!hoverPinned || !pinnedCell?.genHtml) return;
     const freshHtml = pinnedCell.genHtml();
     if (!freshHtml) return;
-    const closeBtn = `<button class="hover-card-close" onclick="(function(){var hc=document.getElementById('module3-hover-card');hc.classList.remove('is-visible','is-pinned');hc.innerHTML='';})()">Ã—</button>`;
+    const closeBtn = `<button class="hover-card-close" onclick="(function(){var hc=document.getElementById('module3-hover-card');hc.classList.remove('is-visible','is-pinned');hc.innerHTML='';})()">×</button>`;
     hoverCard.innerHTML = closeBtn + freshHtml;
     hoverCard.querySelector(".hover-card-close")?.addEventListener("click", () => {
       hoverPinned = false;
@@ -300,7 +300,7 @@
   }
 
   function alignGeoLegendToMapM3() {
-    return; // leyenda ahora es hijo flex de .map-stage (estÃ¡ndar M4); sin posicionamiento JS
+    return; // leyenda ahora es hijo flex de .map-stage (estándar M4); sin posicionamiento JS
     const mapStage = document.querySelector(".module-three-view[data-module3-view-panel=\"geo\"] .map-stage");
     const svgEl = document.getElementById("m3-map-chile");
     const legend = document.getElementById("m3-geo-legend");
@@ -333,37 +333,37 @@
 
   function syncLanguage() {
     const titles = blockTitles();
-    // â”€â”€ Translate static panel elements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Translate static panel elements ──────────────────────────────────────
     const es = isEs();
     const prov = s.perspective === "provider";
     const cp = es ? (prov ? "cliente" : "proveedor") : (prov ? "client" : "supplier");
     const cpPl = es ? (prov ? "clientes" : "proveedores") : (prov ? "clients" : "suppliers");
     const myAct = es ? (prov ? "ventas" : "compras") : (prov ? "sales" : "purchases");
     const _t = {
-      m3BadgeLabel:         es ? "Cadenas de valor Â· Perspectiva"              : "Value chains Â· Perspective",
+      m3BadgeLabel:         es ? "Cadenas de valor · Perspectiva"              : "Value chains · Perspective",
       m3PerspBtnProvider:   es ? "Proveedor"                                   : "Supplier",
       m3PerspBtnClient:     es ? "Cliente"                                     : "Client",
-      m3MarketLabel:        es ? "1 Â· Define tu mercado"                       : "1 Â· Define your market",
-      m3MarketInstruction:  es ? `Selecciona la ubicaciÃ³n y el sector del mercado ${prov?"proveedor":"cliente"} cuya distribuciÃ³n de ${cpPl} quieres explorar.` : `Select the location and sector of the ${prov?"supplier":"client"} market whose distribution of ${cpPl} you want to explore.`,
+      m3MarketLabel:        es ? "1 · Define tu mercado"                       : "1 · Define your market",
+      m3MarketInstruction:  es ? `Selecciona la ubicación y el sector del mercado ${prov?"proveedor":"cliente"} cuya distribución de ${cpPl} quieres explorar.` : `Select the location and sector of the ${prov?"supplier":"client"} market whose distribution of ${cpPl} you want to explore.`,
       m3CharcLabel:         es ? "Estructura productiva del mercado"           : "Productive structure of the market",
-      m3CharcInstruction:   es ? `AsÃ­ se compone la actividad econÃ³mica del mercado que seleccionaste: cuÃ¡nto produce, cuÃ¡nto vende y de dÃ³nde saca sus insumos. Te ayuda a dimensionar a quiÃ©n estÃ¡s observando antes de mirar sus ${cpPl}.` : `This is how the selected market's economic activity breaks down: how much it produces, how much it sells and where it sources its inputs. It helps you size up who you are observing before looking at its ${cpPl}.`,
-      m3FlowLabel:          es ? "Resultado Â· Flujo de la selecciÃ³n"           : "Result Â· Selection flow",
-      m3VisualizeLabel:     es ? "2 Â· Elige cÃ³mo medir"                        : "2 Â· Choose how to measure",
-      m3VisualizeInstruction: es ? `Cada unidad responde una pregunta distinta sobre tu relaciÃ³n con los ${cpPl}. Elige la que te interesa observar.` : `Each unit answers a different question about your relationship with your ${cpPl}. Pick the one you want to observe.`,
-      m3AggGeoLabel:        es ? "3 Â· Ajusta el detalle"                       : "3 Â· Adjust the detail",
-      m3AggInstruction:     es ? `Escoge con quÃ© nivel de agregaciÃ³n territorial y sectorial se muestran tus ${cpPl} en el mapa.` : `Choose the territorial and sectoral aggregation level at which your ${cpPl} appear on the map.`,
+      m3CharcInstruction:   es ? `Así se compone la actividad económica del mercado que seleccionaste: cuánto produce, cuánto vende y de dónde saca sus insumos. Te ayuda a dimensionar a quién estás observando antes de mirar sus ${cpPl}.` : `This is how the selected market's economic activity breaks down: how much it produces, how much it sells and where it sources its inputs. It helps you size up who you are observing before looking at its ${cpPl}.`,
+      m3FlowLabel:          es ? "Resultado · Flujo de la selección"           : "Result · Selection flow",
+      m3VisualizeLabel:     es ? "2 · Elige cómo medir"                        : "2 · Choose how to measure",
+      m3VisualizeInstruction: es ? `Cada unidad responde una pregunta distinta sobre tu relación con los ${cpPl}. Elige la que te interesa observar.` : `Each unit answers a different question about your relationship with your ${cpPl}. Pick the one you want to observe.`,
+      m3AggGeoLabel:        es ? "3 · Ajusta el detalle"                       : "3 · Adjust the detail",
+      m3AggInstruction:     es ? `Escoge con qué nivel de agregación territorial y sectorial se muestran tus ${cpPl} en el mapa.` : `Choose the territorial and sectoral aggregation level at which your ${cpPl} appear on the map.`,
       m3AggGeoSubLabel:     es ? "Territorio"                                  : "Territory",
       m3AggSecSubLabel:     es ? "Sector"                                      : "Sector",
-      m3AggSecLabel:        es ? "3 Â· Ajusta el detalle"                       : "3 Â· Adjust the detail",
-      m3AggSectionLabel:    es ? "3 Â· Ajusta el detalle"                       : "3 Â· Adjust the detail",
-      m3TradeLabel:         es ? "4 Â· Filtra el comercio"                      : "4 Â· Filter trade",
-      m3TradeInstruction:   es ? "Limita las transacciones que se cuentan segÃºn su origen y destino." : "Limit which transactions are counted by their origin and destination.",
-      m2GeoAggregationLabel:es ? "GeografÃ­a"                                   : "Geography",
+      m3AggSecLabel:        es ? "3 · Ajusta el detalle"                       : "3 · Adjust the detail",
+      m3AggSectionLabel:    es ? "3 · Ajusta el detalle"                       : "3 · Adjust the detail",
+      m3TradeLabel:         es ? "4 · Filtra el comercio"                      : "4 · Filter trade",
+      m3TradeInstruction:   es ? "Limita las transacciones que se cuentan según su origen y destino." : "Limit which transactions are counted by their origin and destination.",
+      m2GeoAggregationLabel:es ? "Geografía"                                   : "Geography",
       m2AggSector:          "Sector",
       m2SelectAll:          es ? "Todos"                                        : "Select all",
       m2ClearAll:           es ? "Limpiar"                                      : "Clear",
       m2AggMacrozone:       es ? "Macrozona"                                    : "Macrozone",
-      m2AggRegion:          es ? "RegiÃ³n"                                       : "Region",
+      m2AggRegion:          es ? "Región"                                       : "Region",
       m2AggProvince:        es ? "Provincia"                                    : "Province",
       m2AggIndustry:        es ? "Industria"                                    : "Industry",
       m2AggActivity:        es ? "Actividad"                                    : "Activity",
@@ -376,13 +376,13 @@
       m3Exclude:            es ? "Excluir"                                       : "Exclude",
       m3Reset:              "Reset",
       m3UnitValueTitle:     es ? "Billones de CLP"                               : "MUSD$",
-      m3UnitValueSub:       es ? `Â¿DÃ³nde estÃ¡n mis ${cpPl} mÃ¡s grandes?`          : `Where are my largest ${cpPl}?`,
+      m3UnitValueSub:       es ? `¿Dónde están mis ${cpPl} más grandes?`          : `Where are my largest ${cpPl}?`,
       m3UnitFlowTitle:      es ? `% de mis ${myAct} a empresas`                   : `% of my ${myAct} to firms`,
-      m3UnitFlowSub:        es ? `Â¿CÃ³mo reparto mis ${myAct} entre ${cpPl}?`      : `How do I split my ${myAct} across ${cpPl}?`,
+      m3UnitFlowSub:        es ? `¿Cómo reparto mis ${myAct} entre ${cpPl}?`      : `How do I split my ${myAct} across ${cpPl}?`,
       m3UnitProductionTitle:es ? `% de mis ${myAct} totales`                     : `% of my total ${myAct}`,
-      m3UnitProductionSub:  es ? `Â¿QuÃ© tan dependiente soy de cada ${cp}?`        : `How dependent am I on each ${cp}?`,
+      m3UnitProductionSub:  es ? `¿Qué tan dependiente soy de cada ${cp}?`        : `How dependent am I on each ${cp}?`,
       m3UnitCounterpartTitle:es ? `% de las ventas totales del ${cp}`            : `% of the ${cp}'s total sales`,
-      m3UnitCounterpartSub: es ? `Â¿QuÃ© tan importante soy para ese ${cp}?`        : `How important am I to that ${cp}?`,
+      m3UnitCounterpartSub: es ? `¿Qué tan importante soy para ese ${cp}?`        : `How important am I to that ${cp}?`,
     };
     section.querySelectorAll("[data-i18n]").forEach((node) => {
       const v = _t[node.dataset.i18n];
@@ -398,7 +398,7 @@
     section.querySelector("#m3-self-sector-label").textContent = titles.selfSector;
     geoLevelControls.forEach((select) => {
       select.options[0].text = isEs() ? "Macrozona" : "Macrozone";
-      select.options[1].text = isEs() ? "RegiÃ³n" : "Region";
+      select.options[1].text = isEs() ? "Región" : "Region";
       select.options[2].text = isEs() ? "Provincia" : "Province";
     });
     sectorLevelControls.forEach((select) => {
@@ -411,7 +411,7 @@
     const tradeBtns = section.querySelectorAll("[data-m3-trade]");
     tradeBtns.forEach((b) => {
       if (b.dataset.m3Trade === "total") b.textContent = isEs() ? "Total" : "Total";
-      if (b.dataset.m3Trade === "domestic") b.textContent = isEs() ? "DomÃ©stico" : "Domestic";
+      if (b.dataset.m3Trade === "domestic") b.textContent = isEs() ? "Doméstico" : "Domestic";
       if (b.dataset.m3Trade === "international") b.textContent = isEs() ? "Internacional" : "International";
     });
   }
@@ -436,14 +436,14 @@
 
     renderCascadeColumn(section.querySelector(`#${prefix}-macrozone-panel`), allMacrozones.map((v) => ({ value: v, label: v })), selectionGeo.macrozone, `${prefix}-geo-macrozone`, activeMacro, isEs() ? "No hay macrozonas disponibles." : "No macrozones available.");
     renderCascadeColumn(section.querySelector(`#${prefix}-region-panel`), visibleRegions.map((v) => ({ value: v, label: v })), selectionGeo.region, `${prefix}-geo-region`, activeRegion, isEs() ? "Pasa el cursor sobre una macrozona para ver sus regiones." : "Hover over a macrozone to see its regions.");
-    { const p = section.querySelector(`#${prefix}-region-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = 'â† ' + (isEs() ? 'Macrozona' : 'Macrozone'); } }
-    renderCascadeColumn(section.querySelector(`#${prefix}-province-panel`), visibleProvinces.map((v) => ({ value: v, label: v })), selectionGeo.province, `${prefix}-geo-province`, null, isEs() ? "Pasa el cursor sobre una regiÃ³n para ver sus provincias." : "Hover over a region to see its provinces.");
-    { const p = section.querySelector(`#${prefix}-province-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = 'â† ' + (isEs() ? 'RegiÃ³n' : 'Region'); } }
+    { const p = section.querySelector(`#${prefix}-region-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = '← ' + (isEs() ? 'Macrozona' : 'Macrozone'); } }
+    renderCascadeColumn(section.querySelector(`#${prefix}-province-panel`), visibleProvinces.map((v) => ({ value: v, label: v })), selectionGeo.province, `${prefix}-geo-province`, null, isEs() ? "Pasa el cursor sobre una región para ver sus provincias." : "Hover over a region to see its provinces.");
+    { const p = section.querySelector(`#${prefix}-province-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = '← ' + (isEs() ? 'Región' : 'Region'); } }
     renderCascadeColumn(section.querySelector(`#${prefix}-industry-panel`), allIndustries, selectionSector.industry, `${prefix}-sector-industry`, activeIndustry, isEs() ? "No hay industrias disponibles." : "No industries available.");
     renderCascadeColumn(section.querySelector(`#${prefix}-pibr13-panel`), visiblePibr13, selectionSector.pibr13, `${prefix}-sector-pibr13`, activePibr13, isEs() ? "Pasa el cursor sobre una industria para ver sus sectores." : "Hover over an industry to see its sectors.");
-    { const p = section.querySelector(`#${prefix}-pibr13-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = 'â† ' + (isEs() ? 'Industria' : 'Industry'); } }
+    { const p = section.querySelector(`#${prefix}-pibr13-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = '← ' + (isEs() ? 'Industria' : 'Industry'); } }
     renderCascadeColumn(section.querySelector(`#${prefix}-activity-panel`), visibleActivities, selectionSector.activity, `${prefix}-sector-activity`, null, isEs() ? "Pasa el cursor sobre un sector para ver sus actividades." : "Hover over a sector to see its activities.");
-    { const p = section.querySelector(`#${prefix}-activity-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = 'â† ' + (isEs() ? 'Sector' : 'Sector'); } }
+    { const p = section.querySelector(`#${prefix}-activity-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = '← ' + (isEs() ? 'Sector' : 'Sector'); } }
   }
 
   function renderFilters() {
@@ -557,7 +557,7 @@
       result.topGeoBySector.get(sectorKey).set(geoKey, (result.topGeoBySector.get(sectorKey).get(geoKey) || 0) + raw);
       result.totalSelected += raw;
     }
-    // â”€â”€ KPI economic decomposition (always seller perspective, no exclusions) â”€â”€
+    // ── KPI economic decomposition (always seller perspective, no exclusions) ──
     const kpi = { vendorTotal:0, vendorIntermedNac:0, vendorFinalDemand:0, vendorExport:0, clientTotal:0, clientNac:0, clientImport:0 };
     for (let i = 0; i < data.tv.length; i++) {
       const raw = Number(data.tv[i] || 0);
@@ -582,12 +582,12 @@
     }
     result.kpi = kpi;
 
-    // â”€â”€ Module2-based denominators for % de mi producciÃ³n and % de la contraparte â”€â”€
-    // Both always use ventas_tot â€” difference is WHOSE ventas_tot:
+    // ── Module2-based denominators for % de mi producción and % de la contraparte ──
+    // Both always use ventas_tot — difference is WHOSE ventas_tot:
     //   share_production  = flow / ventas_tot of MY node (self)
     //   share_counterpart = flow / ventas_tot of the COUNTERPART node
     const m2rows = window.module2Data?.econRows || [];
-    const m2scale = m2UsdRate * 1e6; // econRows ventas_tot in raw CLP; flows in USD â†’ divide CLP by (usdRate Ã— 1e6) to get MUSD
+    const m2scale = m2UsdRate * 1e6; // econRows ventas_tot in raw CLP; flows in USD → divide CLP by (usdRate × 1e6) to get MUSD
     const counterpartGeoTotals    = new Map();
     const counterpartSectorTotals = new Map();
     const counterpartCellTotals   = new Map();
@@ -645,11 +645,11 @@
         : (isEs() ? "Total filtrado de cada proveedor visible" : "Each visible supplier's filtered total"));
     const detail = !s.summaryOpen ? "" : `
       <div class="selection-detail-grid">
-        <div class="selection-detail-meta-item"><span class="selection-detail-meta-label">${escapeHtml(ownLabel)}</span><span class="selection-detail-meta-value">${escapeHtml(selectionCountLabel("geo", s.geoLevel, metrics.selfGeoCount))} Â· ${escapeHtml(selectionCountLabel("sector", s.sectorLevel, metrics.selfSectorCount))}</span></div>
+        <div class="selection-detail-meta-item"><span class="selection-detail-meta-label">${escapeHtml(ownLabel)}</span><span class="selection-detail-meta-value">${escapeHtml(selectionCountLabel("geo", s.geoLevel, metrics.selfGeoCount))} · ${escapeHtml(selectionCountLabel("sector", s.sectorLevel, metrics.selfSectorCount))}</span></div>
         <div class="selection-detail-meta-item"><span class="selection-detail-meta-label">${escapeHtml(isEs() ? "Tipo de comercio" : "Trade type")}</span><span class="selection-detail-meta-value">${escapeHtml(describeExclusions())}</span></div>
         <div class="selection-detail-meta-item"><span class="selection-detail-meta-label">${escapeHtml(isEs() ? "Pregunta activa" : "Active question")}</span><span class="selection-detail-meta-value">${escapeHtml(currentQuestionLabel())}</span></div>
         <div class="selection-detail-meta-item"><span class="selection-detail-meta-label">${escapeHtml(isEs() ? "Lectura" : "Interpretation")}</span><span class="selection-detail-meta-value">${escapeHtml(describeQuestion())}</span></div>
-        <div class="selection-detail-meta-item"><span class="selection-detail-meta-label">${escapeHtml(isEs() ? "Base de cÃ¡lculo" : "Calculation base")}</span><span class="selection-detail-meta-value">${escapeHtml(baseLabel)}</span></div>
+        <div class="selection-detail-meta-item"><span class="selection-detail-meta-label">${escapeHtml(isEs() ? "Base de cálculo" : "Calculation base")}</span><span class="selection-detail-meta-value">${escapeHtml(baseLabel)}</span></div>
         <div class="selection-detail-column"><h4>${escapeHtml(isEs() ? `Principales ${aggregationLevelLabel("geo", s.geoLevel)} de contraparte` : `Top counterparty ${aggregationLevelLabel("geo", s.geoLevel)}`)}</h4>${topGeo.map(([key, value]) => `<div class="selection-detail-item"><span>${escapeHtml(key)}</span><em>${escapeHtml(formatUnitValue(value, "value"))}</em></div>`).join("")}</div>
         <div class="selection-detail-column"><h4>${escapeHtml(isEs() ? `Principales ${aggregationLevelLabel("sector", s.sectorLevel)} de contraparte` : `Top counterparty ${aggregationLevelLabel("sector", s.sectorLevel)}`)}</h4>${topSector.map(([key, value]) => `<div class="selection-detail-item"><span>${escapeHtml(sectorGroupLabel(key))}</span><em>${escapeHtml(formatUnitValue(value, "value"))}</em></div>`).join("")}</div>
       </div>`;
@@ -843,8 +843,8 @@
     }
     const panelWidth = Math.max(320, figure.clientWidth || 900);
     const panelHeight = Math.max(220, figure.clientHeight || 520);
-    // â”€â”€ GeometrÃ­a idÃ©ntica al MÃ³dulo 4: celdas no cuadradas + viewBox ajustado
-    //    al contenido + escala para llenar el cuadro (preserveAspectRatio meet). â”€â”€
+    // ── Geometría idéntica al Módulo 4: celdas no cuadradas + viewBox ajustado
+    //    al contenido + escala para llenar el cuadro (preserveAspectRatio meet). ──
     const contW = Math.max(220, panelWidth - 84);
     const contH = Math.max(220, panelHeight - 14);
     const _fit = window.fitHeatmapGeometry({
@@ -871,16 +871,16 @@
     svg.removeAttribute("width");
     svg.removeAttribute("height");
     svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-    // El SVG se dibuja 1:1 (viewBox == px) para que el ÃREA DE CELDAS conserve
-    // siempre el mismo tamaÃ±o en pantalla; al cambiar de agrupaciÃ³n sÃ³lo crecen
-    // o se encogen las celdas, no el recuadro. La geometrÃ­a de la grilla se
+    // El SVG se dibuja 1:1 (viewBox == px) para que el ÁREA DE CELDAS conserve
+    // siempre el mismo tamaño en pantalla; al cambiar de agrupación sólo crecen
+    // o se encogen las celdas, no el recuadro. La geometría de la grilla se
     // publica en dataset para que la leyenda mida exactamente su alto.
     svg.dataset.gridTop = topPad;
     svg.dataset.gridHeight = gridHeight;
     svg.style.cssText = `display:block;overflow:visible;align-self:flex-start;width:${Math.round(svgWidth)}px;height:${Math.round(svgHeight)}px`;
 
     const parts = [];
-    // TamaÃ±o de letra dinÃ¡mico (mismo estÃ¡ndar que M4)
+    // Tamaño de letra dinámico (mismo estándar que M4)
     const _rowFs = _fit.rowFs;
     const _colFs = _fit.colFs;
     rowKeys.forEach((rowKey, r) => {
@@ -909,7 +909,7 @@
         const display = unitMap.get(key) || 0;
         const rowShare = rowTotals.get(rowKey) ? raw / rowTotals.get(rowKey) : 0;
         const colShare = colTotals.get(colKey) ? raw / colTotals.get(colKey) : 0;
-        showHover(`<div class="hover-card-head"><div class="hover-card-name">${escapeHtml(rowKey)} - ${escapeHtml(sectorGroupLabel(colKey))}</div><div class="hover-card-value">${escapeHtml(formatUnitValue(display, s.unit))}</div></div><div class="hover-card-metrics"><div class="hover-card-metric"><span>${escapeHtml(isEs() ? `ParticipaciÃ³n en ${rowKey}` : `Share within ${rowKey}`)}</span><strong>${escapeHtml(formatValue(rowShare, "share"))}</strong></div><div class="hover-card-metric"><span>${escapeHtml(isEs() ? `ParticipaciÃ³n en ${sectorGroupLabel(colKey)}` : `Share within ${sectorGroupLabel(colKey)}`)}</span><strong>${escapeHtml(formatValue(colShare, "share"))}</strong></div></div>`, event.clientX, event.clientY);
+        showHover(`<div class="hover-card-head"><div class="hover-card-name">${escapeHtml(rowKey)} - ${escapeHtml(sectorGroupLabel(colKey))}</div><div class="hover-card-value">${escapeHtml(formatUnitValue(display, s.unit))}</div></div><div class="hover-card-metrics"><div class="hover-card-metric"><span>${escapeHtml(isEs() ? `Participación en ${rowKey}` : `Share within ${rowKey}`)}</span><strong>${escapeHtml(formatValue(rowShare, "share"))}</strong></div><div class="hover-card-metric"><span>${escapeHtml(isEs() ? `Participación en ${sectorGroupLabel(colKey)}` : `Share within ${sectorGroupLabel(colKey)}`)}</span><strong>${escapeHtml(formatValue(colShare, "share"))}</strong></div></div>`, event.clientX, event.clientY);
       });
       node.addEventListener("mousemove", (event) => { if (hoverCard?.classList.contains("is-visible") && !hoverPinned) showHover(hoverCard.innerHTML, event.clientX, event.clientY); });
       node.addEventListener("mouseleave", hideHover);
@@ -980,7 +980,7 @@
     const es = isEs();
     block.innerHTML = `
       <div class="m3-kpi-row">
-        <div class="m3-kpi-row-label">${es ? "Ventas totales / ProducciÃ³n bruta" : "Total sales / Gross output"}</div>
+        <div class="m3-kpi-row-label">${es ? "Ventas totales / Producción bruta" : "Total sales / Gross output"}</div>
         <div class="m3-kpi-row-val">${fmt(kpi.vendorTotal)} ${currentUnitLabel("value")}</div>
         <div class="m3-kpi-subs">
           <div class="m3-kpi-sub-row"><span class="m3-kpi-sub-label">${es ? "Ventas intermedias nacionales" : "Domestic intermediate sales"}</span><span class="m3-kpi-sub-val">${fmt(kpi.vendorIntermedNac)}</span></div>
@@ -1004,10 +1004,10 @@
     const perspLabel = s.perspective === "provider"
       ? (isEs() ? "Clientes" : "Clients")
       : (isEs() ? "Proveedores" : "Suppliers");
-    if (s.unit === "value")             return isEs() ? `${perspLabel} Â· Billones de CLP`  : `${perspLabel} Â· MUSD$`;
-    if (s.unit === "share_flow")        return isEs() ? `${perspLabel} Â· % flujo`           : `${perspLabel} Â· % flow`;
-    if (s.unit === "share_production")  return isEs() ? `${perspLabel} Â· % producciÃ³n`      : `${perspLabel} Â· % output`;
-    if (s.unit === "share_counterpart") return isEs() ? `${perspLabel} Â· % contraparte`     : `${perspLabel} Â· % counterpart`;
+    if (s.unit === "value")             return isEs() ? `${perspLabel} · Billones de CLP`  : `${perspLabel} · MUSD$`;
+    if (s.unit === "share_flow")        return isEs() ? `${perspLabel} · % flujo`           : `${perspLabel} · % flow`;
+    if (s.unit === "share_production")  return isEs() ? `${perspLabel} · % producción`      : `${perspLabel} · % output`;
+    if (s.unit === "share_counterpart") return isEs() ? `${perspLabel} · % contraparte`     : `${perspLabel} · % counterpart`;
     return perspLabel;
   }
 
@@ -1066,7 +1066,7 @@
     });
     const rowShare = rowTotal > 0 ? raw / rowTotal : 0;
     const colShare = colTotal > 0 ? raw / colTotal : 0;
-    return `<div class="hover-card-head"><div class="hover-card-name">${escapeHtml(rowKey)} - ${escapeHtml(sectorGroupLabel(colKey))}</div><div class="hover-card-value">${escapeHtml(formatUnitValue(display, s.unit))}</div></div><div class="hover-card-metrics"><div class="hover-card-metric"><span>${escapeHtml(isEs() ? `ParticipaciÃ³n en ${rowKey}` : `Share within ${rowKey}`)}</span><strong>${escapeHtml(formatValue(rowShare, "share"))}</strong></div><div class="hover-card-metric"><span>${escapeHtml(isEs() ? `ParticipaciÃ³n en ${sectorGroupLabel(colKey)}` : `Share within ${sectorGroupLabel(colKey)}`)}</span><strong>${escapeHtml(formatValue(colShare, "share"))}</strong></div></div>`;
+    return `<div class="hover-card-head"><div class="hover-card-name">${escapeHtml(rowKey)} - ${escapeHtml(sectorGroupLabel(colKey))}</div><div class="hover-card-value">${escapeHtml(formatUnitValue(display, s.unit))}</div></div><div class="hover-card-metrics"><div class="hover-card-metric"><span>${escapeHtml(isEs() ? `Participación en ${rowKey}` : `Share within ${rowKey}`)}</span><strong>${escapeHtml(formatValue(rowShare, "share"))}</strong></div><div class="hover-card-metric"><span>${escapeHtml(isEs() ? `Participación en ${sectorGroupLabel(colKey)}` : `Share within ${sectorGroupLabel(colKey)}`)}</span><strong>${escapeHtml(formatValue(colShare, "share"))}</strong></div></div>`;
   }
 
   function renderAll() {
@@ -1200,7 +1200,7 @@
       const key      = btn.dataset.m3Subtoggle;
       const newState = btn.dataset.state; // "include" | "solo" | "exclude"
       s.subState[key] = newState;
-      // Sync all state buttons â€” activate only the selected state per key
+      // Sync all state buttons — activate only the selected state per key
       section.querySelectorAll("[data-m3-subtoggle]").forEach((b) => {
         const match = b.dataset.m3Subtoggle === key && b.dataset.state === newState;
         b.classList.toggle("active", match);
@@ -1241,8 +1241,8 @@
     const message = () => {
       if (index === 0) {
         return s.perspective === "provider"
-          ? (isEs() ? "La selecciÃ³n propia representa proveedores. Las exclusiones ajustan el universo de transacciones." : "Own selection represents suppliers. Exclusions adjust the transaction universe.")
-          : (isEs() ? "La selecciÃ³n propia representa clientes. Las exclusiones ajustan el universo de transacciones." : "Own selection represents clients. Exclusions adjust the transaction universe.");
+          ? (isEs() ? "La selección propia representa proveedores. Las exclusiones ajustan el universo de transacciones." : "Own selection represents suppliers. Exclusions adjust the transaction universe.")
+          : (isEs() ? "La selección propia representa clientes. Las exclusiones ajustan el universo de transacciones." : "Own selection represents clients. Exclusions adjust the transaction universe.");
       }
       if (index === 1) return describeQuestion();
       return describeUnit();
@@ -1251,7 +1251,7 @@
     node?.addEventListener("mouseleave", hideFloatingControlHelp);
   });
 
-  // â”€â”€ Wire custom UI buttons to hidden selects â”€â”€
+  // ── Wire custom UI buttons to hidden selects ──
   section.querySelectorAll('[data-m3-persp]').forEach(btn => {
     btn.addEventListener('click', () => {
       s.perspective = btn.dataset.m3Persp;
@@ -1313,7 +1313,7 @@
     });
   });
 
-  // â”€â”€ Cascade drill-down for module 3 â”€â”€
+  // ── Cascade drill-down for module 3 ──
   filterStack?.addEventListener('click', (event) => {
     const span = event.target.closest('.cascade-item span');
     if (!span) return;
