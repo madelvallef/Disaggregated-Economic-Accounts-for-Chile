@@ -6859,9 +6859,11 @@
 
     function allowedUnitModes() {
       const allowed = allowedDistributionUnitModes();
+      // El Índice Relativo (LQ) solo tiene sentido en los análisis de
+      // dependencia (territorial y sectorial); en distribución se oculta.
       return state.analysis === "distribution"
-        ? allowed
-        : allowed.filter((mode) => mode !== "relative");
+        ? allowed.filter((mode) => mode !== "relative")
+        : allowed;
     }
 
     function dependencyUnitTitle(mode) {
