@@ -1927,6 +1927,45 @@
       flex: 0 0 11px;
     }
 
+    /* ── Leyenda de censura (gris = bajo umbral, otro color = 0/sin dato) ── */
+    .near-zero-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+      margin-top: 6px;
+      font-size: 0.66rem;
+      color: var(--corfo-muted);
+    }
+    .near-zero-legend span {
+      display: inline-flex;
+      gap: 5px;
+      align-items: center;
+      min-width: 0;
+      white-space: nowrap;
+    }
+    .near-zero-legend i {
+      width: 9px;
+      height: 9px;
+      display: inline-block;
+      flex: 0 0 9px;
+      border-radius: 2px;
+    }
+
+    /* Variante para módulo 4: el layout es viewport-fijo (sin scroll), así
+       que la nota va superpuesta (position:absolute) sobre la figura en vez
+       de ocupar espacio propio en el flujo flex. */
+    .near-zero-legend-overlay {
+      position: absolute;
+      left: 8px;
+      bottom: 6px;
+      z-index: 3;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(34, 30, 124, 0.12);
+      border-radius: 6px;
+      padding: 3px 7px;
+      pointer-events: none;
+    }
+
 .geo-legend {
       display: grid;
       grid-template-columns: 1fr;
@@ -5418,6 +5457,10 @@
                     <svg id="map-chile" viewBox="0 0 860 620" aria-label="Mapa de Chile"></svg>
                     <div class="macro-legend geo-legend" id="geo-legend"></div>
                   </div>
+                  <div class="near-zero-legend">
+                    <span><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0 (bajo el umbral visible)</span></span>
+                    <span><i style="background:#f3f5f8;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">Sin datos o valor 0</span></span>
+                  </div>
                 </div>
               </div>
             </section>
@@ -5461,6 +5504,10 @@
               <div class="matrix-figure" id="matrix-figure">
                 <svg id="matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg>
                 <div class="matrix-legend-vertical" id="matrix-legend"></div>
+              </div>
+              <div class="near-zero-legend">
+                <span><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0 (bajo el umbral visible)</span></span>
+                <span><i style="background:#ffffff;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">Sin datos o valor 0</span></span>
               </div>
             </div>
           </section>
@@ -5746,6 +5793,10 @@
                   <svg id="m3-map-chile" viewBox="0 0 860 620" aria-label="Mapa de Chile"></svg>
                   <div class="macro-legend geo-legend" id="m3-geo-legend"></div>
                 </div>
+                <div class="near-zero-legend">
+                  <span><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0 (bajo el umbral visible)</span></span>
+                  <span><i style="background:#ffffff;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">Sin datos o valor 0</span></span>
+                </div>
               </div>
             </div>
           </section>
@@ -5787,6 +5838,10 @@
               <div class="matrix-figure" id="m3-matrix-figure">
                 <svg id="m3-matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg>
                 <div class="matrix-legend-vertical" id="m3-matrix-legend"></div>
+              </div>
+              <div class="near-zero-legend">
+                <span><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0 (bajo el umbral visible)</span></span>
+                <span><i style="background:#ffffff;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">Sin datos o valor 0</span></span>
               </div>
             </div>
           </section>
@@ -5847,6 +5902,16 @@
       MATRIX_THR: 0.001, // % del total de la selección (heatmap territorio-sector)
       is(value, total, thrPct) {
         return total > 0 && value > 0 && (value / total * 100) < thrPct;
+      },
+      // Fragmento HTML compartido para explicar, junto a cada leyenda de mapa
+      // o heatmap, qué significan las celdas gris (censura por umbral) vs las
+      // celdas de valor 0 / sin dato (color varía por figura: se pasa zeroColor).
+      legendHtml(zeroColor, texts) {
+        const t = texts || { near: "≈0", zero: "0" };
+        return `<div class="near-zero-legend">
+          <span><i style="background:${this.GRAY}"></i>${t.near}</span>
+          <span><i style="background:${zeroColor};border:1px solid rgba(34,30,124,0.18)"></i>${t.zero}</span>
+        </div>`;
       }
     };
   </script>
@@ -6093,6 +6158,8 @@
         m2UnitHelpDependencyRelative: "Índice relativo compara esa dependencia con la participación nacional de referencia para la misma variable.",
         m2UnitShareOption: "Porcentaje (%)",
         m2UnitRelativeOption: "Índice relativo",
+        legendNearZero: "≈0 (bajo el umbral visible)",
+        legendZero: "Sin datos o valor 0",
         m2MeasureLabel: "Medida",
         m2UnitLabel: "Unidad",
         m2AggregationLabel: "Agregación",
@@ -6241,6 +6308,8 @@
         m2UnitHelpDependencyRelative: "Relative index compares that dependency with the national reference share for the same variable.",
         m2UnitShareOption: "Percentage (%)",
         m2UnitRelativeOption: "Relative index",
+        legendNearZero: "≈0 (below visible threshold)",
+        legendZero: "No data or value 0",
         m2MeasureLabel: "Measure",
         m2UnitLabel: "Unit",
         m2AggregationLabel: "Aggregation",

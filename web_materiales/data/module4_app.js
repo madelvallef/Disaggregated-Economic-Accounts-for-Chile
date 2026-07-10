@@ -45,6 +45,7 @@
       compDirectSub: "Cadena directa (primer eslabón)",
       compIndirectSub: "Cadenas sucesivas de la economía",
       method: "Para más detalle", unitPercent: "Porcentaje\u00A0(%)",
+      legendNearZero: "≈0 (bajo el umbral visible)", legendZero: "Sin datos o valor 0",
       tabGeo: "Distribución territorial del impacto", tabSec: "Distribución sectorial del impacto", tabCell: "Distribución territorial-sectorial del impacto",
       tabKicker: "Impacto", axisGeo: "Territorial", axisSec: "Sectorial", axisCell: "Territorial–Sectorial",
       railGeo: "Territorios Top", railSec: "Sectores Top", railCell: "Combinaciones Top",
@@ -89,6 +90,7 @@
       compDirectSub: "Direct chain (first link)",
       compIndirectSub: "Successive chains of the economy",
       method: "More detail", unitPercent: "Percentage\u00A0(%)",
+      legendNearZero: "≈0 (below visible threshold)", legendZero: "No data or value 0",
       tabGeo: "Territorial distribution of impact", tabSec: "Sectoral distribution of impact", tabCell: "Territorial-sectoral distribution of impact",
       tabKicker: "Impact", axisGeo: "Territorial", axisSec: "Sectorial", axisCell: "Territorial–Sectoral",
       railGeo: "Top territories", railSec: "Top sectors", railCell: "Top combinations",
@@ -505,6 +507,10 @@
                 <div class="figure-actions" data-export-scope="module4" data-export-view="geo"><button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg></button><div class="figure-download-menu" aria-hidden="true"><button class="figure-download-option" type="button" data-export-format="png">PNG</button><button class="figure-download-option" type="button" data-export-format="pdf">PDF</button></div></div>
                 <svg id="m4d-map" aria-label="${k.tabGeo}"></svg>
                 <div class="matrix-legend-vertical" id="m4d-map-legend"></div>
+                <div class="near-zero-legend near-zero-legend-overlay">
+                  <span><i style="background:#dcdcdc"></i>${k.legendNearZero}</span>
+                  <span><i style="background:${EMPTY};border:1px solid rgba(34,30,124,0.18)"></i>${k.legendZero}</span>
+                </div>
               </div>
               <div class="m4d-rail"><div class="m4d-rail-card"><div class="m4d-rail-head"><div class="rank-rail-head-text"><h4>${k.railGeo}</h4><div class="rank-list-unit">${k.unitPercent}</div></div><button class="rank-rail-close" type="button" aria-label="Ocultar ranking">×</button></div><div class="m4d-rank" id="m4d-rail-geo"></div></div></div>
             </div>
@@ -526,6 +532,10 @@
                 <div class="figure-actions" data-export-scope="module4" data-export-view="matrix"><button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg></button><div class="figure-download-menu" aria-hidden="true"><button class="figure-download-option" type="button" data-export-format="png">PNG</button><button class="figure-download-option" type="button" data-export-format="pdf">PDF</button></div></div>
                 <svg id="m4d-hm" aria-label="${k.tabCell}"></svg>
                 <div class="matrix-legend-vertical" id="m4d-hm-legend"></div>
+                <div class="near-zero-legend near-zero-legend-overlay">
+                  <span><i style="background:#dcdcdc"></i>${k.legendNearZero}</span>
+                  <span><i style="background:${EMPTY};border:1px solid rgba(34,30,124,0.18)"></i>${k.legendZero}</span>
+                </div>
               </div>
               <div class="m4d-rail"><div class="m4d-rail-card"><div class="m4d-rail-head"><div class="rank-rail-head-text"><h4>${k.railCell}</h4><div class="rank-list-unit">${k.unitPercent}</div></div><button class="rank-rail-close" type="button" aria-label="Ocultar ranking">×</button></div><div class="m4d-rank" id="m4d-rail-cell"></div></div></div>
             </div>
