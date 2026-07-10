@@ -17,6 +17,7 @@ const dryRun = process.argv.includes("--dry");
 // Archivos que se reparan (hoy con mojibake conocido).
 const FIX_FILES = [
   "sitio.html",
+  "web_materiales/js/tree-select.js",
   "web_materiales/data/module3_app.js",
   "web_materiales/data/module2_distribution.js",
 ];

@@ -10,6 +10,7 @@ const html = fs.readFileSync(sitioPath, "utf8");
 const failures = [];
 const mojibakeSources = [
   "sitio.html",
+  "web_materiales/js/tree-select.js",
   "web_materiales/data/module2_distribution.js",
   "web_materiales/data/module3_app.js",
   "web_materiales/data/module4_app.js",

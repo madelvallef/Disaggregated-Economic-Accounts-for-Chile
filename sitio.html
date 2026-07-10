@@ -861,9 +861,7 @@
     /* El "+/-" de summary es redundante con la flecha &#9662; del tree-header en los
        filtros anidados de M3 (Mercado de interés): se oculta. */
     #m3-self-geo-tree-group summary::after,
-    #m3-self-sector-tree-group summary::after,
-    #geo-tree-group summary::after,
-    #sector-tree-group summary::after { display: none; }
+    #m3-self-sector-tree-group summary::after { display: none; }
 
     .filter-actions {
       display: flex;
@@ -1965,6 +1963,65 @@
       padding: 3px 7px;
       pointer-events: none;
     }
+
+    /* ══ CedTreeSelect — selector jerarquico con busqueda (web_materiales/js/tree-select.js) ══ */
+    .ts-select { position: relative; width: 100%; }
+    .ts-trigger {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      width: 100%; padding: 7px 11px; background: #fff;
+      border: 1px solid rgba(34,30,124,0.13); border-radius: 7px; cursor: pointer;
+      font: inherit; text-align: left;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .ts-trigger:hover { border-color: rgba(34,30,124,0.28); }
+    .ts-select.is-open .ts-trigger { border-color: var(--corfo-blue); background: rgba(34,30,124,0.03); }
+    .ts-summary { font-size: 0.74rem; font-weight: 600; color: #4b5268; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ts-caret { color: rgba(34,30,124,0.45); font-size: 10px; flex: 0 0 auto; }
+    .ts-pop {
+      position: fixed; z-index: 600; display: flex; flex-direction: column; overflow: hidden;
+      background: #fff; border: 1px solid var(--corfo-blue); border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(34,30,124,0.14);
+    }
+    .ts-tools { display: flex; align-items: center; gap: 6px; padding: 8px; border-bottom: 1px solid rgba(34,30,124,0.08); flex: 0 0 auto; }
+    .ts-search { flex: 1; min-width: 0; border: 1px solid rgba(34,30,124,0.16); border-radius: 6px; padding: 5px 8px; font: inherit; font-size: 0.72rem; color: var(--corfo-text); }
+    .ts-search:focus { outline: none; border-color: var(--corfo-blue); }
+    .ts-actions { display: flex; gap: 4px; flex: 0 0 auto; }
+    .ts-act {
+      font-family: var(--font-ui) !important; font-weight: 800; font-size: 0.6rem;
+      text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 7px;
+      background: rgba(34,30,124,0.07); border: none; border-radius: 5px;
+      color: var(--corfo-blue); cursor: pointer;
+    }
+    .ts-act:hover { background: rgba(34,30,124,0.14); }
+    .ts-tree { overflow-y: auto; padding: 4px 0; }
+    .ts-empty { padding: 14px; font-size: 0.72rem; color: var(--corfo-muted); text-align: center; }
+    .ts-node[hidden] { display: none; }
+    .ts-row { display: flex; align-items: center; gap: 4px; min-height: 26px; padding-right: 8px; }
+    .ts-tog {
+      flex: 0 0 auto; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;
+      border: none; background: transparent; color: #9aa0b8; cursor: pointer; border-radius: 3px;
+      transition: color 0.12s, transform 0.2s ease;
+    }
+    .ts-tog.is-open { transform: rotate(180deg); }
+    .ts-tog:hover { color: var(--corfo-blue); }
+    .ts-tog-spacer { cursor: default; }
+    .ts-check { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; cursor: pointer; padding: 3px 0; }
+    .ts-check input { flex: 0 0 auto; width: 13px; height: 13px; accent-color: var(--corfo-blue); cursor: pointer; margin: 0; }
+    .ts-lbl { font-size: 0.71rem; color: var(--corfo-text); line-height: 1.2; white-space: normal; }
+    .ts-opt { flex: 1; min-width: 0; text-align: left; background: none; border: none; padding: 5px 4px; font-size: 0.71rem; color: var(--corfo-text); cursor: pointer; border-radius: 4px; font-family: inherit; }
+    .ts-opt:hover { background: rgba(34,30,124,0.06); }
+    .ts-children { display: flex; flex-direction: column; border-left: 1.5px solid rgba(34,30,124,0.10); margin-left: 8px; }
+    .ts-children[hidden] { display: none; }
+    .ts-hit { background: rgba(255, 214, 92, 0.55); border-radius: 2px; padding: 0 1px; }
+
+    /* Colores por modulo */
+    .m2-panel .ts-select.is-open .ts-trigger { border-color: var(--m2-color); background: rgba(30,92,58,0.03); }
+    .m2-panel .ts-pop { border-color: var(--m2-color); }
+    .m2-panel .ts-check input { accent-color: var(--m2-color); }
+    .m2-panel .ts-act { color: var(--m2-color); background: rgba(30,92,58,0.07); }
+    .m2-panel .ts-act:hover { background: rgba(30,92,58,0.14); }
+    .m2-panel .ts-search:focus { border-color: var(--m2-color); }
+    .m2-panel .ts-tog:hover { color: var(--m2-color); }
 
 .geo-legend {
       display: grid;
@@ -5320,24 +5377,7 @@
                 <button type="button" class="np-act filter-action" data-filter-action="clear-geo" data-i18n="m2ClearAll">Limpiar</button>
               </div>
             </div>
-            <details class="tree-group" id="geo-tree-group">
-              <summary class="np-filter-summary">
-                <div class="tree-header">
-                  <span class="np-filter-label" data-i18n="m2GeoFilterLabel">Filtrar geografía…</span>
-                  <span class="np-arr-sm">&#9662;</span>
-                </div>
-              </summary>
-              <div class="cascade-filter np-cascade" data-active-level="macrozone">
-                <div class="np-cascade-nav">
-                  <button class="np-cascade-nav-btn is-active" data-cascade-level="macrozone" data-i18n="m2AggMacrozone">Macrozona</button>
-                  <button class="np-cascade-nav-btn" data-cascade-level="region" data-i18n="m2AggRegion">Región</button>
-                  <button class="np-cascade-nav-btn" data-cascade-level="province" data-i18n="m2AggProvince">Provincia</button>
-                </div>
-                <div class="cascade-column" id="m2-macrozone-panel" data-level-label="Macrozona"></div>
-                <div class="cascade-column" id="m2-region-panel" data-level-label="Región"></div>
-                <div class="cascade-column" id="m2-province-panel" data-level-label="Provincia"></div>
-              </div>
-            </details>
+            <div class="ts-mount" id="geo-tree-group"></div>
             <select class="control-select is-hidden" id="m2-left-geo-level" tabindex="-1" aria-hidden="true">
               <option value="macrozone">Macrozona</option>
               <option value="region">Región</option>
@@ -5352,24 +5392,7 @@
                 <button type="button" class="np-act filter-action" data-filter-action="clear-sector" data-i18n="m2ClearAll">Limpiar</button>
               </div>
             </div>
-            <details class="tree-group" id="sector-tree-group">
-              <summary class="np-filter-summary">
-                <div class="tree-header">
-                  <span class="np-filter-label" data-i18n="m2SectorFilterLabel">Filtrar sectores…</span>
-                  <span class="np-arr-sm">&#9662;</span>
-                </div>
-              </summary>
-              <div class="cascade-filter np-cascade" data-active-level="industry">
-                <div class="np-cascade-nav">
-                  <button class="np-cascade-nav-btn is-active" data-cascade-level="industry" data-i18n="m2AggIndustry">Industria</button>
-                  <button class="np-cascade-nav-btn" data-cascade-level="pibr13" data-i18n="m2AggSector">Sector</button>
-                  <button class="np-cascade-nav-btn" data-cascade-level="activity" data-i18n="m2AggActivity">Actividad</button>
-                </div>
-                <div class="cascade-column" id="m2-industry-panel" data-level-label="Industria"></div>
-                <div class="cascade-column" id="m2-pibr13-panel" data-level-label="Sector"></div>
-                <div class="cascade-column" id="m2-activity-panel" data-level-label="Actividad"></div>
-              </div>
-            </details>
+            <div class="ts-mount" id="sector-tree-group"></div>
             <select class="control-select is-hidden" id="m2-left-sector-level" tabindex="-1" aria-hidden="true">
               <option value="industry">Industria</option>
               <option value="pibr13">Sector</option>
@@ -5888,6 +5911,7 @@
   <script src="vendor/html2canvas.min.js"></script>
   <script src="vendor/jspdf.umd.min.js"></script>
   <script src="web_materiales/data/module2_distribution.js"></script>
+  <script src="web_materiales/js/tree-select.js?v=1"></script>
   <script src="web_materiales/data/spatial_io_flows_data.js?v=2"></script>
   <script src="web_materiales/data/spatial_io_network_data.js?v=2"></script>
   <script id="__near-zero-kit">
@@ -6189,6 +6213,12 @@
         m2SectorFilterLabel: "Selecciona los sectores",
         m2SelectAll: "Todos",
         m2ClearAll: "Limpiar",
+        tsSearchGeo: "Buscar macrozona, región o provincia…",
+        tsSearchSector: "Buscar industria, sector o actividad…",
+        tsSummaryAllGeo: "Todas las provincias",
+        tsSummaryAllSector: "Todos los sectores",
+        tsSummaryN: "{n} seleccionados",
+        tsNoResults: "Sin resultados",
         m2MacrozoneLabel: "Macrozona",
         m2RegionLabel: "Región",
         m2ProvinceLabel: "Provincia",
@@ -6338,6 +6368,12 @@
         m2SectorFilterLabel: "Choose sectors",
         m2SelectAll: "Select all",
         m2ClearAll: "Clear",
+        tsSearchGeo: "Search macrozone, region or province…",
+        tsSearchSector: "Search industry, sector or activity…",
+        tsSummaryAllGeo: "All provinces",
+        tsSummaryAllSector: "All sectors",
+        tsSummaryN: "{n} selected",
+        tsNoResults: "No results",
         m2MacrozoneLabel: "Macrozone",
         m2RegionLabel: "Region",
         m2ProvinceLabel: "Province",
@@ -6423,12 +6459,6 @@
     const unitSelect = module2Section?.querySelector("#m2-unit");
     const geoLevelControls = module2Section?.querySelectorAll("#m2-left-geo-level") || [];
     const sectorLevelControls = module2Section?.querySelectorAll("#m2-left-sector-level") || [];
-    const macrozonePanel = module2Section?.querySelector("#m2-macrozone-panel");
-    const regionPanel = module2Section?.querySelector("#m2-region-panel");
-    const provincePanel = module2Section?.querySelector("#m2-province-panel");
-    const industryPanel = module2Section?.querySelector("#m2-industry-panel");
-    const pibr13Panel = module2Section?.querySelector("#m2-pibr13-panel");
-    const activityPanel = module2Section?.querySelector("#m2-activity-panel");
     const filterStack = module2Section?.querySelector(".filter-stack");
     const moduleTwoShell = module2Section?.querySelector(".module-two-shell");
     const selectionSummary = module2Section?.querySelector("#selection-summary");
@@ -6462,6 +6492,106 @@
     });
     const sectors = module2.sectors;
     const geoFeatures = module2.geojson.features;
+
+    // ── CedTreeSelect (web_materiales/js/tree-select.js): arbol completo de
+    // geografia y sectores, construido una sola vez a partir de los datos
+    // (no depende del filtro activo). El componente emite los mismos
+    // checkboxes data-filter-group/value que renderCascadeColumn generaba
+    // antes, asi que el listener delegado en .filter-stack y el cascadeo
+    // padre->hijos (syncGeoSelections/syncSectorSelections) no se tocan.
+    function buildGeoTreeForSelect() {
+      const filtered = locations.filter((loc) => Number(loc.cod_ubicacion) !== 57);
+      const sorted = [...filtered].sort((a, b) =>
+        (a.cod_region_sort || 0) - (b.cod_region_sort || 0) ||
+        (a.cod_provincia_sort || 0) - (b.cod_provincia_sort || 0)
+      );
+      const mzMap = new Map();
+      sorted.forEach((loc) => {
+        const mz = loc.nom_macrozona, reg = loc.nom_region, prov = loc.nom_provincia;
+        if (!mz || !reg || !prov) return;
+        if (!mzMap.has(mz)) mzMap.set(mz, new Map());
+        if (!mzMap.get(mz).has(reg)) mzMap.get(mz).set(reg, new Set());
+        mzMap.get(mz).get(reg).add(prov);
+      });
+      return Array.from(mzMap.entries()).map(([mz, regMap]) => ({
+        value: mz,
+        label: mz,
+        children: Array.from(regMap.entries()).map(([reg, provs]) => ({
+          value: reg,
+          label: reg,
+          children: Array.from(provs).map((prov) => ({ value: prov, label: prov, children: [] })),
+        })),
+      }));
+    }
+
+    function buildSectorTreeForSelect() {
+      const indMap = new Map();
+      sectors.forEach((sec) => {
+        const indCode = String(sec.cod_industria);
+        const pibrCode = String(sec.cod_PIBR13);
+        const actCode = String(sec.cod_SECTOR46);
+        if (!indCode || indCode === "undefined") return;
+        if (!indMap.has(indCode)) indMap.set(indCode, new Map());
+        if (!indMap.get(indCode).has(pibrCode)) indMap.get(indCode).set(pibrCode, new Set());
+        indMap.get(indCode).get(pibrCode).add(actCode);
+      });
+      return Array.from(indMap.entries())
+        .sort((a, b) => Number(a[0]) - Number(b[0]))
+        .map(([indCode, pibrMap]) => ({
+          value: indCode,
+          label: sectorLabel("industry", indCode),
+          children: Array.from(pibrMap.entries())
+            .sort((a, b) => Number(a[0]) - Number(b[0]))
+            .map(([pibrCode, actCodes]) => ({
+              value: pibrCode,
+              label: sectorLabel("pibr13", pibrCode),
+              children: Array.from(actCodes)
+                .sort((a, b) => Number(a) - Number(b))
+                .map((actCode) => ({ value: actCode, label: sectorLabel("activity", actCode), children: [] })),
+            })),
+        }));
+    }
+
+    const treeSelectGeo = (geoTreeGroup && window.CedTreeSelect)
+      ? window.CedTreeSelect.create({
+          mount: geoTreeGroup,
+          mode: "multi",
+          levels: ["macrozone", "region", "province"],
+          groupPrefix: "geo",
+          showActions: false,
+          tree: buildGeoTreeForSelect(),
+          getSelection: () => state.geoSelection,
+          i18n: () => ({
+            search: copy[state.lang].tsSearchGeo,
+            all: copy[state.lang].m2SelectAll,
+            clear: copy[state.lang].m2ClearAll,
+            summaryAll: copy[state.lang].tsSummaryAllGeo,
+            summaryN: copy[state.lang].tsSummaryN,
+            noResults: copy[state.lang].tsNoResults,
+          }),
+        })
+      : null;
+
+    const treeSelectSector = (sectorTreeGroup && window.CedTreeSelect)
+      ? window.CedTreeSelect.create({
+          mount: sectorTreeGroup,
+          mode: "multi",
+          levels: ["industry", "pibr13", "activity"],
+          groupPrefix: "sector",
+          showActions: false,
+          tree: buildSectorTreeForSelect(),
+          getSelection: () => state.sectorSelection,
+          i18n: () => ({
+            search: copy[state.lang].tsSearchSector,
+            all: copy[state.lang].m2SelectAll,
+            clear: copy[state.lang].m2ClearAll,
+            summaryAll: copy[state.lang].tsSummaryAllSector,
+            summaryN: copy[state.lang].tsSummaryN,
+            noResults: copy[state.lang].tsNoResults,
+          }),
+        })
+      : null;
+
     const metricMeta = Object.assign({}, module2.metrics, {
       productividad_laboral: {
         label_es: "Productividad laboral",
@@ -8216,7 +8346,6 @@ function selectionCountLabel(type, level, count) {
     }
 
     function updateFilterOptions() {
-      const allMacrozones = uniqueSorted(rows, "nom_macrozona", "cod_region_sort");
       const allowedRegionsSource = state.geoSelection.macrozone.length
         ? rows.filter((row) => state.geoSelection.macrozone.includes(row.nom_macrozona))
         : rows;
@@ -8228,7 +8357,6 @@ function selectionCountLabel(type, level, count) {
       const allRegions = uniqueSorted(allowedRegionsSource, "nom_region", "cod_region_sort");
       const allProvinces = uniqueSorted(allowedProvincesSource, "nom_provincia", "cod_provincia_sort");
 
-      const allIndustries = uniqueSectorOptions("industry");
       const allowedPibr13Source = state.sectorSelection.industry.length
         ? rows.filter((row) => state.sectorSelection.industry.includes(String(row.cod_industria)))
         : rows;
@@ -8245,105 +8373,8 @@ function selectionCountLabel(type, level, count) {
       state.sectorSelection.pibr13 = pruneSelection(state.sectorSelection.pibr13, allPibr13.map((item) => item.value));
       state.sectorSelection.activity = pruneSelection(state.sectorSelection.activity, allActivities.map((item) => item.value));
 
-      const activeMacrozone = allMacrozones.includes(state.hoverGeoMacrozone)
-        ? state.hoverGeoMacrozone
-        : state.geoSelection.macrozone[0] || allMacrozones[0] || null;
-      const visibleRegions = activeMacrozone
-        ? uniqueSorted(rows.filter((row) => row.nom_macrozona === activeMacrozone), "nom_region", "cod_region_sort")
-        : [];
-      const activeRegion = visibleRegions.includes(state.hoverGeoRegion)
-        ? state.hoverGeoRegion
-        : state.geoSelection.region.find((value) => visibleRegions.includes(value)) || visibleRegions[0] || null;
-      const visibleProvinces = activeRegion
-        ? uniqueSorted(rows.filter((row) => row.nom_region === activeRegion), "nom_provincia", "cod_provincia_sort")
-        : [];
-
-      const industryValues = allIndustries.map((item) => item.value);
-      const pibr13Values = allPibr13.map((item) => item.value);
-      const activeIndustry = industryValues.includes(state.hoverIndustry)
-        ? state.hoverIndustry
-        : state.sectorSelection.industry[0] || industryValues[0] || null;
-      const visiblePibr13 = activeIndustry
-        ? uniqueSectorOptions("pibr13", rows.filter((row) => String(row.cod_industria) === activeIndustry))
-        : [];
-      const visiblePibr13Values = visiblePibr13.map((item) => item.value);
-      const activePibr13 = visiblePibr13Values.includes(state.hoverPibr13)
-        ? state.hoverPibr13
-        : state.sectorSelection.pibr13.find((value) => visiblePibr13Values.includes(value)) || visiblePibr13Values[0] || null;
-      const visibleActivities = activePibr13
-        ? uniqueSectorOptions("activity", rows.filter((row) => String(row.cod_PIBR13) === activePibr13))
-        : [];
-
-      state.hoverGeoMacrozone = activeMacrozone;
-      state.hoverGeoRegion = activeRegion;
-      state.hoverIndustry = activeIndustry;
-      state.hoverPibr13 = activePibr13;
-
-      renderCascadeColumn(
-        macrozonePanel,
-        allMacrozones.map((value) => ({ value, label: value })),
-        state.geoSelection.macrozone,
-        "geo-macrozone",
-        activeMacrozone,
-        state.lang === "es" ? "No hay macrozonas disponibles." : "No macrozones available."
-      );
-      renderCascadeColumn(
-        regionPanel,
-        visibleRegions.map((value) => ({ value, label: value })),
-        state.geoSelection.region,
-        "geo-region",
-        activeRegion,
-        state.lang === "es" ? "Pasa el cursor sobre una macrozona para ver sus regiones." : "Hover over a macrozone to see its regions."
-      );
-      // Back btn for regionPanel
-      { let _bb = regionPanel?.querySelector(".cascade-back-btn");
-        if (!_bb && regionPanel) { _bb = document.createElement("button"); _bb.className = "cascade-back-btn"; regionPanel.prepend(_bb); }
-        if (_bb) _bb.innerHTML = "← " + (state.lang === "es" ? "Macrozona" : "Macrozone"); }
-      renderCascadeColumn(
-        provincePanel,
-        visibleProvinces.map((value) => ({ value, label: value })),
-        state.geoSelection.province,
-        "geo-province",
-        null,
-        state.lang === "es" ? "Pasa el cursor sobre una región para ver sus provincias." : "Hover over a region to see its provinces."
-      );
-      // Back btn for provincePanel
-      { let _bb = provincePanel?.querySelector(".cascade-back-btn");
-        if (!_bb && provincePanel) { _bb = document.createElement("button"); _bb.className = "cascade-back-btn"; provincePanel.prepend(_bb); }
-        if (_bb) _bb.innerHTML = "← " + (state.lang === "es" ? "Región" : "Region"); }
-
-      renderCascadeColumn(
-        industryPanel,
-        allIndustries,
-        state.sectorSelection.industry,
-        "sector-industry",
-        activeIndustry,
-        state.lang === "es" ? "No hay industrias disponibles." : "No industries available."
-      );
-      renderCascadeColumn(
-        pibr13Panel,
-        visiblePibr13,
-        state.sectorSelection.pibr13,
-        "sector-pibr13",
-        activePibr13,
-        state.lang === "es" ? "Pasa el cursor sobre una industria para ver sus sectores." : "Hover over an industry to see its sectors."
-      );
-      // Back btn for pibr13Panel
-      { let _bb = pibr13Panel?.querySelector(".cascade-back-btn");
-        if (!_bb && pibr13Panel) { _bb = document.createElement("button"); _bb.className = "cascade-back-btn"; pibr13Panel.prepend(_bb); }
-        if (_bb) _bb.innerHTML = "← " + (state.lang === "es" ? "Industria" : "Industry"); }
-      renderCascadeColumn(
-        activityPanel,
-        visibleActivities,
-        state.sectorSelection.activity,
-        "sector-activity",
-        null,
-        state.lang === "es" ? "Pasa el cursor sobre un sector para ver sus actividades." : "Hover over a sector to see its activities."
-      );
-      // Back btn for activityPanel
-      { let _bb = activityPanel?.querySelector(".cascade-back-btn");
-        if (!_bb && activityPanel) { _bb = document.createElement("button"); _bb.className = "cascade-back-btn"; activityPanel.prepend(_bb); }
-        if (_bb) _bb.innerHTML = "← " + (state.lang === "es" ? "Sector" : "Sector"); }
+      treeSelectGeo?.refresh();
+      treeSelectSector?.refresh();
     }
 
     function uniqueValues(values) {
@@ -9188,6 +9219,11 @@ function selectionCountLabel(type, level, count) {
       syncAggregationControls();
       syncAnalysisUi();
       syncDownloadLinks();
+      treeSelectGeo?.setLang();
+      // Los nombres de sector/industria/actividad tienen version _eng: hay
+      // que reconstruir el arbol (no solo los textos del trigger/popup).
+      treeSelectSector?.setTree(buildSectorTreeForSelect());
+      treeSelectSector?.setLang();
       updateFilterOptions();
       renderModule2();
     }
