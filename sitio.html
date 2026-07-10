@@ -2022,6 +2022,13 @@
     .m2-panel .ts-act:hover { background: rgba(30,92,58,0.14); }
     .m2-panel .ts-search:focus { border-color: var(--m2-color); }
     .m2-panel .ts-tog:hover { color: var(--m2-color); }
+    .m3-panel .ts-select.is-open .ts-trigger { border-color: #0b4f55; background: rgba(11,79,85,0.03); }
+    .m3-panel .ts-pop { border-color: #0b4f55; }
+    .m3-panel .ts-check input { accent-color: #0b4f55; }
+    .m3-panel .ts-act { color: #0b4f55; background: rgba(11,79,85,0.07); }
+    .m3-panel .ts-act:hover { background: rgba(11,79,85,0.14); }
+    .m3-panel .ts-search:focus { border-color: #0b4f55; }
+    .m3-panel .ts-tog:hover { color: #0b4f55; }
 
 .geo-legend {
       display: grid;
@@ -5603,24 +5610,7 @@
                 <button type="button" class="np-act" data-m3-filter-action="clear-self-geo" data-i18n="m2ClearAll">Limpiar</button>
               </div>
             </div>
-            <details class="tree-group" id="m3-self-geo-tree-group">
-              <summary class="np-filter-summary">
-                <div class="tree-header">
-                  <span class="np-filter-label" id="m3-self-geo-label">Geografía…</span>
-                  <span class="np-arr-sm">&#9662;</span>
-                </div>
-              </summary>
-              <div class="cascade-filter np-cascade" data-active-level="macrozone">
-                <div class="np-cascade-nav">
-                  <button class="np-cascade-nav-btn is-active" data-cascade-level="macrozone" data-i18n="m2AggMacrozone">Macrozona</button>
-                  <button class="np-cascade-nav-btn" data-cascade-level="region" data-i18n="m2AggRegion">Región</button>
-                  <button class="np-cascade-nav-btn" data-cascade-level="province" data-i18n="m2AggProvince">Provincia</button>
-                </div>
-                <div class="cascade-column" id="m3-self-macrozone-panel" data-level-label="Macrozona"></div>
-                <div class="cascade-column" id="m3-self-region-panel" data-level-label="Región"></div>
-                <div class="cascade-column" id="m3-self-province-panel" data-level-label="Provincia"></div>
-              </div>
-            </details>
+            <div class="ts-mount" id="m3-self-geo-tree-group"></div>
             </div>
             <div class="m3-subfield">
             <div class="m3-sec-hdr">
@@ -5630,24 +5620,7 @@
                 <button type="button" class="np-act" data-m3-filter-action="clear-self-sector" data-i18n="m2ClearAll">Limpiar</button>
               </div>
             </div>
-            <details class="tree-group" id="m3-self-sector-tree-group">
-              <summary class="np-filter-summary">
-                <div class="tree-header">
-                  <span class="np-filter-label" id="m3-self-sector-label">Sector…</span>
-                  <span class="np-arr-sm">&#9662;</span>
-                </div>
-              </summary>
-              <div class="cascade-filter np-cascade" data-active-level="industry">
-                <div class="np-cascade-nav">
-                  <button class="np-cascade-nav-btn is-active" data-cascade-level="industry" data-i18n="m2AggIndustry">Industria</button>
-                  <button class="np-cascade-nav-btn" data-cascade-level="pibr13" data-i18n="m2AggSector">Sector</button>
-                  <button class="np-cascade-nav-btn" data-cascade-level="activity" data-i18n="m2AggActivity">Actividad</button>
-                </div>
-                <div class="cascade-column" id="m3-self-industry-panel" data-level-label="Industria"></div>
-                <div class="cascade-column" id="m3-self-pibr13-panel" data-level-label="Sector"></div>
-                <div class="cascade-column" id="m3-self-activity-panel" data-level-label="Actividad"></div>
-              </div>
-            </details>
+            <div class="ts-mount" id="m3-self-sector-tree-group"></div>
             </div>
           </div>
 
@@ -6824,20 +6797,6 @@
       `).join("");
     }
 
-    function renderCascadeColumn(container, items, selectedValues, groupKey, activeValue = null, emptyMessage = "") {
-      container.classList.toggle("is-empty", !items.length);
-      if (!items.length) {
-        container.innerHTML = `<p class="filter-empty">${emptyMessage}</p>`;
-        return;
-      }
-      const wanted = new Set(selectedValues);
-      container.innerHTML = `<div class="cascade-list">${items.map((item) => `
-        <label class="cascade-item${activeValue === String(item.value) ? " is-active" : ""}" data-hover-group="${groupKey}" data-hover-value="${escapeHtml(String(item.value))}">
-          <input type="checkbox" data-filter-group="${groupKey}" value="${escapeHtml(String(item.value))}"${wanted.has(String(item.value)) ? " checked" : ""}>
-          <span>${escapeHtml(item.label)}</span>
-        </label>
-      `).join("")}</div>`;
-    }
 
     function uniqueSorted(items, labelKey, orderKey) {
       return Array.from(
@@ -9912,72 +9871,6 @@ function selectionCountLabel(type, level, count) {
           }))
         }));
       }
-
-      // ── Floating cascade positioning ──
-      function positionCascade(details) {
-        const summary = details.querySelector('summary .tree-header');
-        const cascade = details.querySelector('.cascade-filter.np-cascade');
-        if (!summary || !cascade) return;
-        const rect = summary.getBoundingClientRect();
-        cascade.style.top  = (rect.bottom + 1) + 'px';
-        cascade.style.left = rect.left + 'px';
-        cascade.style.width = rect.width + 'px';
-      }
-      window._positionCascade = positionCascade;
-
-      document.querySelectorAll('#module-2 details.tree-group, #module-3 details.tree-group, #module-4 details.tree-group').forEach(det => {
-        det.addEventListener('toggle', function() {
-          if (this.open) {
-            // Use rAF to ensure layout is complete before positioning
-            requestAnimationFrame(() => positionCascade(this));
-          }
-        });
-      });
-
-      // Close cascade when clicking outside
-      document.addEventListener('click', function(e) {
-        document.querySelectorAll('#module-2 details.tree-group[open], #module-3 details.tree-group[open], #module-4 details.tree-group[open]').forEach(det => {
-          if (!det.contains(e.target)) det.open = false;
-        });
-      }, true);
-
-      // ── Shared cascade nav tab + drill button wiring (modules 2, 3) ──────
-      const GEO_NEXT  = { macrozone: "region", region: "province" };
-      const SEC_NEXT  = { industry: "pibr13", pibr13: "activity" };
-      const GEO_LEVELS = ["macrozone","region","province"];
-      const SEC_LEVELS = ["industry","pibr13","activity"];
-
-      function switchCascadeLevel(cascade, level) {
-        cascade.setAttribute("data-active-level", level);
-        cascade.querySelectorAll(".np-cascade-nav-btn[data-cascade-level]").forEach(btn => {
-          btn.classList.toggle("is-active", btn.dataset.cascadeLevel === level);
-        });
-      }
-
-      document.querySelectorAll('#module-2 .cascade-filter.np-cascade, #module-3 .cascade-filter.np-cascade').forEach(cascade => {
-        // Nav tab click
-        cascade.addEventListener("click", function(e) {
-          const tab = e.target.closest("[data-cascade-level]");
-          if (tab) { switchCascadeLevel(cascade, tab.dataset.cascadeLevel); return; }
-
-          // Drill button click → navigate to next level
-          const drill = e.target.closest(".cascade-drill-btn");
-          if (drill) {
-            e.preventDefault(); e.stopPropagation();
-            const g = drill.dataset.drillGroup, v = drill.dataset.drillValue;
-            const next = GEO_NEXT[g.replace(/.*-/, "")] || SEC_NEXT[g.replace(/.*-/, "")];
-            if (!next) return;
-            // Trigger hover so module 2/3 JS updates child column
-            const fakeHoverEvt = new MouseEvent("mouseover", { bubbles: true });
-            const label = cascade.querySelector(`[data-hover-group="${g}"][data-hover-value="${CSS.escape(v)}"]`);
-            if (label) label.dispatchEvent(fakeHoverEvt);
-            // Determine new level key (strip prefix)
-            const base = g.replace(/^(geo-|sector-|m[34]-|m3-self-)/, "");
-            const nextLevel = GEO_NEXT[base] || SEC_NEXT[base];
-            if (nextLevel) switchCascadeLevel(cascade, nextLevel);
-          }
-        });
-      });
 
       // ── Module 2 card/button → hidden select handlers ──
       document.addEventListener('click', function(e) {

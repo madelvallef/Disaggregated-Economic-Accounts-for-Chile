@@ -58,6 +58,102 @@
     activity: new Map(allActivities.map((item, index) => [String(item.value), index]))
   };
 
+  // ── CedTreeSelect (web_materiales/js/tree-select.js): mismo componente que
+  // Modulo 2. Arbol completo construido una sola vez; los checkboxes que
+  // emite (data-filter-group="m3-self-geo-macrozone" etc) son consumidos por
+  // el listener delegado existente en .filter-stack (mas abajo), asi que la
+  // logica de estado (s.selfGeo/s.selfSector, updateSelectionList) no cambia.
+  function buildM3GeoTree() {
+    const sorted = [...domesticLocations].sort((a, b) =>
+      (a.cod_region_sort || 0) - (b.cod_region_sort || 0) ||
+      (a.cod_provincia_sort || 0) - (b.cod_provincia_sort || 0)
+    );
+    const mzMap = new Map();
+    sorted.forEach((loc) => {
+      const mz = loc.nom_macrozona, reg = loc.nom_region, prov = loc.nom_provincia;
+      if (!mz || !reg || !prov) return;
+      if (!mzMap.has(mz)) mzMap.set(mz, new Map());
+      if (!mzMap.get(mz).has(reg)) mzMap.get(mz).set(reg, new Set());
+      mzMap.get(mz).get(reg).add(prov);
+    });
+    return Array.from(mzMap.entries()).map(([mz, regMap]) => ({
+      value: mz,
+      label: mz,
+      children: Array.from(regMap.entries()).map(([reg, provs]) => ({
+        value: reg,
+        label: reg,
+        children: Array.from(provs).map((prov) => ({ value: prov, label: prov, children: [] })),
+      })),
+    }));
+  }
+
+  function buildM3SectorTree() {
+    const indMap = new Map();
+    sectors.forEach((sec) => {
+      const indCode = String(sec.cod_industria);
+      const pibrCode = String(sec.cod_PIBR13);
+      const actCode = String(sec.cod_SECTOR46);
+      if (!indCode || indCode === "undefined") return;
+      if (!indMap.has(indCode)) indMap.set(indCode, new Map());
+      if (!indMap.get(indCode).has(pibrCode)) indMap.get(indCode).set(pibrCode, new Set());
+      indMap.get(indCode).get(pibrCode).add(actCode);
+    });
+    return Array.from(indMap.entries())
+      .sort((a, b) => Number(a[0]) - Number(b[0]))
+      .map(([indCode, pibrMap]) => ({
+        value: indCode,
+        label: sectorGroupLabel(indCode, "industry"),
+        children: Array.from(pibrMap.entries())
+          .sort((a, b) => Number(a[0]) - Number(b[0]))
+          .map(([pibrCode, actCodes]) => ({
+            value: pibrCode,
+            label: sectorGroupLabel(pibrCode, "pibr13"),
+            children: Array.from(actCodes)
+              .sort((a, b) => Number(a) - Number(b))
+              .map((actCode) => ({ value: actCode, label: sectorGroupLabel(actCode, "activity"), children: [] })),
+          })),
+      }));
+  }
+
+  const m3GeoMount = section.querySelector("#m3-self-geo-tree-group");
+  const m3SectorMount = section.querySelector("#m3-self-sector-tree-group");
+
+  const m3TreeSelectGeo = (m3GeoMount && window.CedTreeSelect)
+    ? window.CedTreeSelect.create({
+        mount: m3GeoMount,
+        mode: "multi",
+        levels: ["macrozone", "region", "province"],
+        groupPrefix: "m3-self-geo",
+        showActions: false,
+        tree: buildM3GeoTree(),
+        getSelection: () => s.selfGeo,
+        i18n: () => ({
+          search: isEs() ? "Buscar macrozona, región o provincia…" : "Search macrozone, region or province…",
+          summaryAll: isEs() ? "Todas las provincias" : "All provinces",
+          summaryN: isEs() ? "{n} seleccionados" : "{n} selected",
+          noResults: isEs() ? "Sin resultados" : "No results",
+        }),
+      })
+    : null;
+
+  const m3TreeSelectSector = (m3SectorMount && window.CedTreeSelect)
+    ? window.CedTreeSelect.create({
+        mount: m3SectorMount,
+        mode: "multi",
+        levels: ["industry", "pibr13", "activity"],
+        groupPrefix: "m3-self-sector",
+        showActions: false,
+        tree: buildM3SectorTree(),
+        getSelection: () => s.selfSector,
+        i18n: () => ({
+          search: isEs() ? "Buscar industria, sector o actividad…" : "Search industry, sector or activity…",
+          summaryAll: isEs() ? "Todos los sectores" : "All sectors",
+          summaryN: isEs() ? "{n} seleccionados" : "{n} selected",
+          noResults: isEs() ? "Sin resultados" : "No results",
+        }),
+      })
+    : null;
+
   function lang() { return state.lang; }
   function isEs() { return lang() === "es"; }
   function activeSides() {
@@ -184,19 +280,6 @@
     };
     return map[s.tradeScope] || (isEs() ? "Doméstico + exportaciones" : "Domestic + exports");
   }
-  function blockTitles() {
-    if (s.perspective === "provider") {
-      return {
-        selfGeo: isEs() ? "Selecciona la geografía" : "Select geography",
-        selfSector: isEs() ? "Selecciona los sectores" : "Select sectors"
-      };
-    }
-    return {
-      selfGeo: isEs() ? "Selecciona la geografía" : "Select geography",
-      selfSector: isEs() ? "Selecciona los sectores" : "Select sectors"
-    };
-  }
-
   function displayMetric(raw, baseTotal, benchmarkMap, key) {
     if (s.unit === "value") return applyMatrixZeroThreshold(raw, "value");
     // % del flujo: raw / mis ventas/compras intermedias totales
@@ -332,7 +415,6 @@
   }
 
   function syncLanguage() {
-    const titles = blockTitles();
     // ── Translate static panel elements ──────────────────────────────────────
     const es = isEs();
     const prov = s.perspective === "provider";
@@ -394,8 +476,6 @@
     questionSelect.options[1].text = copy[lang()].m3QuestionRelevance;
     unitSelect.options[0].text = isEs() ? "Billones de CLP" : "MUSD$";
     unitSelect.options[1].text = copy[lang()].m3UnitShare;
-    section.querySelector("#m3-self-geo-label").textContent = titles.selfGeo;
-    section.querySelector("#m3-self-sector-label").textContent = titles.selfSector;
     geoLevelControls.forEach((select) => {
       select.options[0].text = isEs() ? "Macrozona" : "Macrozone";
       select.options[1].text = isEs() ? "Región" : "Region";
@@ -423,27 +503,8 @@
     selectionSector.industry = pruneSelection(selectionSector.industry, allIndustries.map((d) => d.value));
     selectionSector.pibr13 = pruneSelection(selectionSector.pibr13, allPibr13.map((d) => d.value));
     selectionSector.activity = pruneSelection(selectionSector.activity, allActivities.map((d) => d.value));
-
-    const activeMacro = selectionGeo.macrozone[0] || allMacrozones[0] || null;
-    const visibleRegions = activeMacro ? uniqueSorted(locations.filter((d) => d.nom_macrozona === activeMacro), "nom_region", "cod_region_sort") : [];
-    const activeRegion = selectionGeo.region.find((v) => visibleRegions.includes(v)) || visibleRegions[0] || null;
-    const visibleProvinces = activeRegion ? uniqueSorted(locations.filter((d) => d.nom_region === activeRegion), "nom_provincia", "cod_provincia_sort") : [];
-
-    const activeIndustry = selectionSector.industry[0] || allIndustries[0]?.value || null;
-    const visiblePibr13 = activeIndustry ? uniqueSectorOptions("pibr13", sectors.filter((d) => String(d.cod_industria) === String(activeIndustry))) : [];
-    const activePibr13 = selectionSector.pibr13.find((v) => visiblePibr13.some((d) => d.value === v)) || visiblePibr13[0]?.value || null;
-    const visibleActivities = activePibr13 ? uniqueSectorOptions("activity", sectors.filter((d) => String(d.cod_PIBR13) === String(activePibr13))) : [];
-
-    renderCascadeColumn(section.querySelector(`#${prefix}-macrozone-panel`), allMacrozones.map((v) => ({ value: v, label: v })), selectionGeo.macrozone, `${prefix}-geo-macrozone`, activeMacro, isEs() ? "No hay macrozonas disponibles." : "No macrozones available.");
-    renderCascadeColumn(section.querySelector(`#${prefix}-region-panel`), visibleRegions.map((v) => ({ value: v, label: v })), selectionGeo.region, `${prefix}-geo-region`, activeRegion, isEs() ? "Pasa el cursor sobre una macrozona para ver sus regiones." : "Hover over a macrozone to see its regions.");
-    { const p = section.querySelector(`#${prefix}-region-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = '← ' + (isEs() ? 'Macrozona' : 'Macrozone'); } }
-    renderCascadeColumn(section.querySelector(`#${prefix}-province-panel`), visibleProvinces.map((v) => ({ value: v, label: v })), selectionGeo.province, `${prefix}-geo-province`, null, isEs() ? "Pasa el cursor sobre una región para ver sus provincias." : "Hover over a region to see its provinces.");
-    { const p = section.querySelector(`#${prefix}-province-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = '← ' + (isEs() ? 'Región' : 'Region'); } }
-    renderCascadeColumn(section.querySelector(`#${prefix}-industry-panel`), allIndustries, selectionSector.industry, `${prefix}-sector-industry`, activeIndustry, isEs() ? "No hay industrias disponibles." : "No industries available.");
-    renderCascadeColumn(section.querySelector(`#${prefix}-pibr13-panel`), visiblePibr13, selectionSector.pibr13, `${prefix}-sector-pibr13`, activePibr13, isEs() ? "Pasa el cursor sobre una industria para ver sus sectores." : "Hover over an industry to see its sectors.");
-    { const p = section.querySelector(`#${prefix}-pibr13-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = '← ' + (isEs() ? 'Industria' : 'Industry'); } }
-    renderCascadeColumn(section.querySelector(`#${prefix}-activity-panel`), visibleActivities, selectionSector.activity, `${prefix}-sector-activity`, null, isEs() ? "Pasa el cursor sobre un sector para ver sus actividades." : "Hover over a sector to see its activities.");
-    { const p = section.querySelector(`#${prefix}-activity-panel`); if (p) { let bb = p.querySelector('.cascade-back-btn'); if (!bb) { bb = document.createElement('button'); bb.className = 'cascade-back-btn'; p.prepend(bb); } bb.innerHTML = '← ' + (isEs() ? 'Sector' : 'Sector'); } }
+    m3TreeSelectGeo?.refresh();
+    m3TreeSelectSector?.refresh();
   }
 
   function renderFilters() {
@@ -1313,42 +1374,15 @@
     });
   });
 
-  // ── Cascade drill-down for module 3 ──
-  filterStack?.addEventListener('click', (event) => {
-    const span = event.target.closest('.cascade-item span');
-    if (!span) return;
-    const item = span.closest('.cascade-item[data-hover-group]');
-    if (!item) return;
-    const group = item.dataset.hoverGroup;
-    const value = item.dataset.hoverValue;
-    const cascade = item.closest('.np-cascade');
-    if (!cascade) return;
-    if (group.endsWith('-geo-macrozone')) {
-      cascade.setAttribute('data-active-level', 'region');
-    } else if (group.endsWith('-geo-region')) {
-      cascade.setAttribute('data-active-level', 'province');
-    } else if (group.endsWith('-sector-industry')) {
-      cascade.setAttribute('data-active-level', 'pibr13');
-    } else if (group.endsWith('-sector-pibr13')) {
-      cascade.setAttribute('data-active-level', 'activity');
-    }
-  });
-
-  filterStack?.addEventListener('click', (event) => {
-    const backBtn = event.target.closest('.cascade-back-btn');
-    if (!backBtn) return;
-    const cascade = backBtn.closest('.np-cascade');
-    if (!cascade) return;
-    const cur = cascade.getAttribute('data-active-level');
-    if (cur === 'region' || cur === 'pibr13') cascade.removeAttribute('data-active-level');
-    else if (cur === 'province') cascade.setAttribute('data-active-level', 'region');
-    else if (cur === 'activity') cascade.setAttribute('data-active-level', 'pibr13');
-  });
-
   const baseApplyLanguage = applyLanguage;
   applyLanguage = function(nextLang) {
     baseApplyLanguage(nextLang);
     syncLanguage();
+    m3TreeSelectGeo?.setLang();
+    // Los nombres de sector/industria/actividad tienen version _eng: hay que
+    // reconstruir el arbol (no solo los checks, que ya actualiza refresh()).
+    m3TreeSelectSector?.setTree(buildM3SectorTree());
+    m3TreeSelectSector?.setLang();
     renderFilters();
     renderAll();
   };
