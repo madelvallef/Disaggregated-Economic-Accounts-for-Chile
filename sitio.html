@@ -804,65 +804,6 @@
       }
     }
 
-    .tree-group {
-      border-top: 1px solid rgba(34, 30, 124, 0.10);
-      padding-top: 9px;
-    }
-
-    .tree-group.is-emphasis summary {
-      border-left: 3px solid var(--corfo-cyan);
-      background: linear-gradient(90deg, rgba(32, 166, 241, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
-    }
-
-    .tree-group:first-child {
-      border-top: none;
-      padding-top: 0;
-    }
-
-    .tree-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-    }
-
-    .tree-group summary {
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 0;
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-
-    .tree-summary-label {
-      min-width: 0;
-      flex: 1 1 auto;
-    }
-
-    .tree-group summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .tree-group summary::after {
-      content: "+";
-      color: var(--corfo-muted);
-      font-size: 0.9rem;
-      line-height: 1;
-    }
-
-    .tree-group[open] summary::after {
-      content: "-";
-    }
-
-    /* El "+/-" de summary es redundante con la flecha &#9662; del tree-header en los
-       filtros anidados de M3 (Mercado de interés): se oculta. */
-    #m3-self-geo-tree-group summary::after,
-    #m3-self-sector-tree-group summary::after { display: none; }
-
     .filter-actions {
       display: flex;
       gap: 8px;
@@ -930,112 +871,6 @@
     .exclusion-option span {
       min-width: 0;
       line-height: 1.2;
-    }
-
-.cascade-filter {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 5px;
-      margin-top: 4px;
-      height: 126px;
-      max-height: 126px;
-    }
-
-    .cascade-column {
-      height: 126px;
-      max-height: 126px;
-      padding-right: 2px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scrollbar-gutter: stable;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(34, 30, 124, 0.42) rgba(34, 30, 124, 0.08);
-    }
-
-    .cascade-column::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    .cascade-column::-webkit-scrollbar-track {
-      background: rgba(34, 30, 124, 0.08);
-    }
-
-    .cascade-column::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, rgba(241, 147, 32, 0.95), rgba(34, 30, 124, 0.78));
-      border: 2px solid rgba(255, 255, 255, 0.95);
-      border-radius: 999px;
-    }
-
-    .cascade-column::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(180deg, rgba(236, 155, 0, 0.98), rgba(34, 30, 124, 0.9));
-    }
-
-    .cascade-column.is-empty {
-      display: flex;
-      align-items: flex-start;
-    }
-
-    .cascade-back-btn {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 5px 10px;
-      font-family: var(--font-ui);
-      font-size: 0.62rem;
-      font-weight: 700;
-      color: var(--corfo-blue);
-      background: rgba(34,30,124,0.04);
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      text-align: left;
-      border-bottom: 1px solid rgba(34,30,124,0.08);
-      position: sticky;
-      top: 0;
-      z-index: 2;
-    }
-    .m2-panel .cascade-back-btn { color: var(--m2-color); background: rgba(30,92,58,0.04); border-bottom-color: rgba(30,92,58,0.08); }
-    .m3-panel .cascade-back-btn { color: var(--m3-color); background: rgba(11,79,85,0.04); border-bottom-color: rgba(11,79,85,0.08); }
-    /* Cascade items that have children → show → arrow on label */
-    .cascade-item[data-hover-group="geo-macrozone"] span::after,
-    .cascade-item[data-hover-group="geo-region"] span::after,
-    .cascade-item[data-hover-group="sector-industry"] span::after,
-    .cascade-item[data-hover-group="sector-pibr13"] span::after {
-      content: " →";
-      font-size: 0.58rem;
-      opacity: 0.45;
-      margin-left: 2px;
-    }
-
-    .cascade-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 3px;
-    }
-
-    .cascade-item {
-      display: grid;
-      grid-template-columns: 15px 1fr;
-      gap: 6px;
-      align-items: start;
-      padding: 3px 5px;
-      border-left: 2px solid transparent;
-      color: var(--corfo-text);
-      cursor: pointer;
-      transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
-    }
-
-    .cascade-item span,
-    .cascade-item strong {
-      font-size: 0.74rem;
-      line-height: 1.18;
-    }
-
-    .cascade-item:hover,
-    .cascade-item.is-active {
-      background: rgba(34, 30, 124, 0.06);
-      border-left-color: var(--corfo-blue);
-      color: var(--corfo-blue);
     }
 
     .control-select,
@@ -1182,16 +1017,6 @@
       line-height: 1.42;
       color: #3a4a40;
       text-wrap: pretty;
-    }
-
-    .cascade-item input {
-      margin: 2px 0 0;
-      accent-color: var(--corfo-blue);
-    }
-
-    .cascade-item span {
-      font-size: 0.72rem;
-      line-height: 1.12;
     }
 
     .control-chip-row {
@@ -2206,7 +2031,6 @@
       min-width: 0;
       min-height: 0;
     }
-    }
 
     .matrix-cell {
       shape-rendering: crispEdges;
@@ -2636,24 +2460,6 @@
     #module-2 .module-tab.active { background: var(--m2-color) !important; border-color: var(--m2-color) !important; }
     #module-2 .module-tab { color: rgba(30,92,58,0.6) !important; }
     #module-2 .module-tab:hover:not(.active) { color: var(--m2-color) !important; }
-    #module-2 details[open] .np-filter-summary .tree-header { border-color: var(--m2-color); }
-    #module-2 .cascade-filter.np-cascade { border-color: var(--m2-color); }
-    /* Remove double scrollbar in m2 cascades (same fix as m3/m4) */
-    #module-2 .cascade-filter.np-cascade {
-      height: auto !important;
-      max-height: none !important;
-      overflow: visible !important;
-      width: auto !important;
-      min-width: clamp(280px, 20vw, 320px) !important;
-    }
-    #module-2 details.tree-group[open] .cascade-filter.np-cascade {
-      overflow: hidden !important;
-      max-height: clamp(240px, 60vh, 600px) !important;
-    }
-    #module-2 .cascade-filter.np-cascade .cascade-column {
-      height: auto !important;
-      max-height: none !important;
-    }
     #module-2 .np-ag-opt.is-active { background: var(--m2-color); border-color: var(--m2-color); }
     #module-2 .bar-row.is-active { border-left-color: var(--m2-color); background: rgba(30,92,58,0.07); }
     #module-2 .map-region.is-active { stroke: #27753f; }
@@ -2662,8 +2468,6 @@
     /* selection summary green tint */
     #module-2 .selection-summary { border-top-color: rgba(30,92,58,0.12); background: linear-gradient(180deg,rgba(30,92,58,0.025),rgba(30,92,58,0.06)); }
     #module-2 .np-kpi-ttl, #module-2 .np-kpi-num { color: var(--m2-color); }
-    /* m2 cascade nav active */
-    #module-2 .np-cascade-nav-btn.is-active { color: var(--m2-color); border-bottom-color: var(--m2-color); }
 
     /* ── Viewport-responsive typography ──────────────────────────────── */
     :root { --vp-scale: clamp(0.82, 0.5 + 0.5vw, 1.25); }
@@ -2762,25 +2566,8 @@
     #module-4 .module-tab { color: rgba(92,45,138,0.6) !important; }
     #module-4 .module-tab:hover:not(.active) { color: var(--m4-color) !important; }
 
-    /* ── Module 4 cascade panels ────────────────────────────────────── */
-    .np-cascade[data-active-level="macrozone"] #m4-macrozone-panel,
-    .np-cascade:not([data-active-level]) #m4-macrozone-panel { display: block; }
-    .np-cascade[data-active-level="region"]   #m4-region-panel   { display: block; }
-    .np-cascade[data-active-level="province"] #m4-province-panel { display: block; }
-    .np-cascade[data-active-level="industry"] #m4-industry-panel,
-    .np-cascade:not([data-active-level]) #m4-industry-panel  { display: block; }
-    .np-cascade[data-active-level="pibr13"]   #m4-pibr13-panel   { display: block; }
-    .np-cascade[data-active-level="activity"] #m4-activity-panel { display: block; }
-    #module-4 .np-cascade-nav-btn.is-active { color: var(--m4-color); border-bottom-color: var(--m4-color); background: rgba(92,45,138,0.04); }
-    #module-4 .np-cascade-nav-btn:hover:not(.is-active) { color: var(--m4-color); background: rgba(92,45,138,0.025); }
-    #module-4 .cascade-item.is-active { background: rgba(92,45,138,0.04); }
-    #module-4 .cascade-item.is-active span { color: var(--m4-color); }
-    #module-4 .cascade-item input { accent-color: var(--m4-color); }
-    #module-4 .np-filter-label { color: rgba(92,45,138,0.6); }
-    #module-4 .tree-group[open] .np-filter-summary .tree-header { border-color: var(--m4-color); background: rgba(92,45,138,0.03); }
     #module-4 .np-act { color: var(--m4-color); background: rgba(92,45,138,0.07); }
     #module-4 .np-act:hover { background: rgba(92,45,138,0.14); }
-    #module-4 .np-arr-sm { color: rgba(92,45,138,0.5); }
     #module-4 .m3-sec-label { color: var(--m4-color); }
     /* Header "GEOGRAFÍA | Todos | Limpiar" siempre en una sola línea:
        en vez de envolver, el texto y los botones se achican según el ancho del panel */
@@ -2789,27 +2576,6 @@
     #module-4 .m4-rank-filter-panel .m3-sec-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: clamp(0.52rem, 4.2cqw, var(--type-xs)); }
     #module-4 .m4-rank-filter-panel .np-actions { flex: 0 0 auto; }
     #module-4 .m4-rank-filter-panel .m3-sec-hdr .np-act { font-size: clamp(0.48rem, 3.6cqw, 0.62rem); padding: 2px clamp(3px, 2cqw, 7px); white-space: nowrap; }
-    /* Cascade filter: inline (position static) for module 4's narrow panel */
-    #module-4 .cascade-filter.np-cascade {
-      border-color: var(--m4-color) !important;
-    }
-    /* Remove outer scroll on m4 dropdown — only inner column scrolls */
-    #module-4 .cascade-filter.np-cascade {
-      height: auto !important;
-      max-height: none !important;
-      overflow: visible !important;
-      width: auto !important;
-      min-width: clamp(280px, 20vw, 320px) !important;
-    }
-    #module-4 details.tree-group[open] .cascade-filter.np-cascade {
-      overflow: hidden !important;
-      max-height: clamp(240px, 60vh, 600px) !important;
-    }
-    /* m4 cascade columns: no fixed height, grow to content */
-    #module-4 .cascade-filter.np-cascade .cascade-column {
-      height: auto !important;
-      max-height: none !important;
-    }
     /* Rank area: contained scroll (no duplicate) */
 
     /* ── module-two section fills full viewport height ── */
@@ -3000,22 +2766,6 @@
     .np-styled-select { font-family: var(--font-ui); transition: border-color 0.15s ease, box-shadow 0.15s ease; }
     .np-styled-select:hover { border-color: rgba(34,30,124,0.35); }
     .np-styled-select:focus { outline: none; border-color: var(--corfo-blue); box-shadow: 0 0 0 3px rgba(34,30,124,0.09); }
-    /* ── Floating cascade dropdown ── */
-    .cascade-filter.np-cascade {
-      position: static;
-    }
-    details.tree-group[open] .cascade-filter.np-cascade {
-      position: fixed !important;
-      z-index: 500;
-      background: #fff;
-      border: 1px solid var(--corfo-blue);
-      border-radius: 0 0 8px 8px;
-      box-shadow: 0 8px 24px rgba(34,30,124,0.14);
-      max-height: 320px;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
     /* ══════════════════════════════════════════
        MODULE 3 — TEAL THEME
     ══════════════════════════════════════════ */
@@ -3264,48 +3014,13 @@
     }
     .m3-agg-btn.active { background: #fff; color: #0b4f55; box-shadow: 0 1px 3px rgba(11,79,85,0.12); }
 
-    /* Override tree-group accent in m3 panel */
-    .m3-panel .tree-group { border-top-color: rgba(11,79,85,0.08); }
-    .m3-panel .np-filter-summary .tree-header { border-color: rgba(11,79,85,0.13); }
-    .m3-panel .np-filter-summary .tree-header:hover { border-color: rgba(11,79,85,0.3); }
-    .m3-panel details[open] .np-filter-summary .tree-header { border-color: #0b4f55; }
-    .m3-panel .cascade-filter.np-cascade { border-color: #0b4f55; }
-
-
     /* ══ MODULE 3 — TEAL COLOR OVERRIDES ══ */
     #module-3 .np-act { background: rgba(11,79,85,0.08); color: #0b4f55; }
     #module-3 .np-act:hover { background: rgba(11,79,85,0.16); }
     #module-3 .np-sec-label { color: #0b4f55; }
     #module-3 .np-lbl { color: #0b4f55; }
-    #module-3 .tree-group summary { color: #0b4f55; }
-    #module-3 .tree-group[open] summary { color: #0b4f55; }
     #module-3 .filter-action { color: #0b4f55; }
     #module-3 .filter-action.is-active { border-bottom-color: #0b4f55; color: #0b4f55; }
-    #module-3 .cascade-item.is-active { border-left-color: #0b4f55; color: #0b4f55; }
-    #module-3 .cascade-item input { accent-color: #0b4f55; }
-    #module-3 details[open] .np-filter-summary .tree-header { border-color: #0b4f55; background: rgba(11,79,85,0.03); }
-    #module-3 .cascade-filter.np-cascade { border-color: #0b4f55; }
-    /* Remove double scrollbar in m3 cascades (same fix as m4) */
-    #m3-self-geo-tree-group .cascade-filter.np-cascade,
-    #m3-self-sector-tree-group .cascade-filter.np-cascade {
-      height: auto !important;
-      max-height: none !important;
-      overflow: visible !important;
-      width: auto !important;
-      min-width: clamp(280px, 20vw, 320px) !important;
-    }
-    #m3-self-geo-tree-group details.tree-group[open] .cascade-filter.np-cascade,
-    #m3-self-sector-tree-group details.tree-group[open] .cascade-filter.np-cascade {
-      overflow: hidden !important;
-      max-height: clamp(240px, 60vh, 600px) !important;
-    }
-    #m3-self-geo-tree-group .cascade-filter.np-cascade .cascade-column,
-    #m3-self-sector-tree-group .cascade-filter.np-cascade .cascade-column {
-      height: auto !important;
-      max-height: none !important;
-    }
-    #module-3 .np-cascade-nav-btn.is-active { color: #0b4f55; border-bottom-color: #0b4f55; background: rgba(11,79,85,0.04); }
-    #module-3 .np-cascade-nav-btn:hover:not(.is-active) { color: #0b4f55; background: rgba(11,79,85,0.025); }
     #module-3 .np-ag-opt.is-active { background: #0b4f55; border-color: #0b4f55; }
     #module-3 .np-ag-opt:hover:not(.is-active) { background: rgba(11,79,85,0.07); color: #0b4f55; }
     #module-3 .control-chip-row button.active { background: #0b4f55; border-color: #0b4f55; }
@@ -3605,82 +3320,12 @@
     }
     .m3-subtoggle-reset-btn:hover { background: rgba(11,79,85,0.08); color: #0b4f55; }
 
-    /* ── Module 3 cascade columns (native, managed by module3_app.js) ── */
-    #m3-self-geo-tree-group .np-cascade,
-    #m3-self-sector-tree-group .np-cascade {
-      border-color: #0b4f55;
-    }
-    /* M3 self cascade drill-down (same pattern as m2) */
-    .np-cascade[data-active-level="macrozone"] #m3-self-macrozone-panel,
-    .np-cascade:not([data-active-level]) #m3-self-macrozone-panel { display: block; }
-    .np-cascade[data-active-level="region"]    #m3-self-region-panel    { display: block; }
-    .np-cascade[data-active-level="province"]  #m3-self-province-panel  { display: block; }
-    .np-cascade[data-active-level="industry"]  #m3-self-industry-panel,
-    .np-cascade:not([data-active-level]) #m3-self-industry-panel  { display: block; }
-    .np-cascade[data-active-level="pibr13"]    #m3-self-pibr13-panel    { display: block; }
-    .np-cascade[data-active-level="activity"]  #m3-self-activity-panel  { display: block; }
-    /* Nav arrow button inside each cascade item */
-    .cascade-drill-btn {
-      flex-shrink: 0; margin-left: auto;
-      background: none; border: none; padding: 0 2px;
-      cursor: pointer; color: rgba(34,30,124,0.25);
-      font-size: 0.8rem; line-height: 1;
-      transition: color 0.12s, transform 0.12s;
-    }
-    .cascade-drill-btn:hover { color: var(--corfo-blue); transform: translateX(2px); }
-    .m2-panel .cascade-drill-btn:hover { color: var(--m2-color); }
-    #module-3 .cascade-drill-btn:hover { color: #0b4f55; }
-    #module-4 .cascade-drill-btn:hover { color: var(--m4-color); }
-    /* Cascade items use flex to host the drill button */
-    .cascade-item { display: flex !important; align-items: flex-start; gap: 4px; }
-    .cascade-item span { flex: 1; min-width: 0; }
-      display: block;
-      border-bottom: 1px solid rgba(11,79,85,0.08);
-    }
-    #m3-self-geo-tree-group .np-cascade .cascade-column:last-child,
-    #m3-self-sector-tree-group .np-cascade .cascade-column:last-child {
-      border-bottom: none;
-    }
-    #m3-self-geo-tree-group .cascade-item,
-    #m3-self-sector-tree-group .cascade-item {
-      border-left-color: transparent;
-      transition: background 0.12s;
-    }
-    #m3-self-geo-tree-group .cascade-item input,
-    #m3-self-sector-tree-group .cascade-item input {
-      accent-color: #0b4f55;
-    }
-    #m3-self-geo-tree-group .cascade-item.is-active,
-    #m3-self-sector-tree-group .cascade-item.is-active {
-      background: rgba(11,79,85,0.06);
-      border-left-color: #0b4f55;
-    }
-    #m3-self-geo-tree-group .cascade-item:hover,
-    #m3-self-sector-tree-group .cascade-item:hover {
-      background: rgba(11,79,85,0.04);
-    }
-    /* Column header labels */
-    #m3-self-geo-tree-group .cascade-column-header,
-    #m3-self-sector-tree-group .cascade-column-header {
-      font-size: 0.52rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(11,79,85,0.45);
-      padding: 5px 10px 3px;
-      background: rgba(11,79,85,0.03);
-      position: sticky;
-      top: 0;
-    }
-    #module-3 details[open] .np-filter-summary .tree-header { border-color: #0b4f55; }
-
     /* ── Viz area (light bg) — teal text ── */
     #module-3 .bar-row.is-hovered { border-left-color: rgba(11,79,85,0.2); }
     #module-3 .bar-row.is-active  { border-left-color: #0b4f55; background: rgba(11,79,85,0.07); }
     /* DM Sans for m3-body panel elements */
     .m3-body, .m3-sec-label, .m3-q-title, .m3-q-sub, .m3-agg-lbl, .m3-agg-btn,
-    .m3-unit-btn, .m3-badge, .m3-body .np-act, .m3-body .np-filter-label,
-    .m3-body .cascade-item span, .m3-body .filter-action {
+    .m3-unit-btn, .m3-badge, .m3-body .np-act, .m3-body .filter-action {
       font-family: var(--font-ui) !important;
     }
 
@@ -3862,7 +3507,6 @@
       font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--p2bt); }
     /* Evitar que el dropdown (con min-width) ensanche su ficha por encima del resto */
     .m3-panel .m3-subfield, .m2-panel .m3-subfield { min-width: 0; }
-    .m3-panel .m3-subfield .tree-group, .m2-panel .m3-subfield .tree-group { min-width: 0; }
 
     /* Bloques de estadísticas como ficha con acento (igual que la tarjeta Domar de M4) */
     #module-2 .selection-summary {
@@ -3872,13 +3516,6 @@
       background: rgba(11,79,85,0.05) !important; border: none !important; border-left: 3px solid #0b4f55 !important;
       border-radius: 8px !important; padding: 11px 12px !important; margin: 0 0 9px !important; }
 
-    .m2-panel .np-filter-summary .tree-header { border-color: rgba(30,92,58,0.13); }
-    .m2-panel .np-filter-summary .tree-header:hover { border-color: rgba(30,92,58,0.3); }
-    .m2-panel details[open] .np-filter-summary .tree-header { border-color: var(--m2-color); background: rgba(30,92,58,0.03); }
-    .m2-panel .cascade-item input[type="checkbox"] { accent-color: var(--m2-color); }
-    .m2-panel .tree-group.is-emphasis > summary .tree-header { border-color: rgba(30,92,58,0.18) !important; background: transparent !important; box-shadow: none !important; }
-    .m2-panel .tree-group.is-emphasis { box-shadow: none !important; outline: none !important; }
-    .m2-panel .tree-group.is-emphasis summary { border-left: none !important; background: transparent !important; }
     /* selection summary — all green */
     .m2-panel .selection-summary { border-top-color: rgba(30,92,58,0.12) !important; background: linear-gradient(180deg,rgba(30,92,58,0.025),rgba(30,92,58,0.06)) !important; }
     .m2-panel .selection-summary strong { color: var(--m2-color) !important; }
@@ -3891,15 +3528,6 @@
     .m2-panel .np-kpi-share strong { color: var(--m2-color) !important; }
     .m2-panel .selection-summary-head { color: var(--m2-color) !important; }
     .m2-panel .selection-summary-head::after { color: rgba(30,92,58,0.45) !important; }
-    .m2-panel .cascade-item.is-active { background: rgba(30,92,58,0.07); border-left-color: var(--m2-color); }
-    .m2-panel .cascade-item:hover { background: rgba(30,92,58,0.04); }
-    .m2-panel .cascade-item.is-active span { color: var(--m2-color); }
-    .m2-panel .cascade-list label.cascade-item input { accent-color: var(--m2-color); }
-    .m2-panel .np-cascade-nav-btn { color: rgba(30,92,58,0.55); }
-    .m2-panel .np-cascade-nav-btn.is-active { color: var(--m2-color); border-bottom-color: var(--m2-color); background: rgba(30,92,58,0.04); }
-    .m2-panel .np-cascade-nav-btn:hover:not(.is-active) { color: var(--m2-color); background: rgba(30,92,58,0.025); }
-    .m2-panel .np-cascade-nav-btn.is-active { color: var(--m2-color); border-bottom-color: var(--m2-color); }
-    .m2-panel .np-arr-sm { color: rgba(30,92,58,0.5); }
     .m2-panel .np-tab-badge { background: rgba(30,92,58,0.1); border-color: rgba(30,92,58,0.25); color: var(--m2-color); }
     /* selection summary green — ficha con acento (igual que M3/M4) */
     .m2-panel .selection-summary {
@@ -3953,11 +3581,6 @@
       #module-3 .topbar .header-title,
       #module-4 .topbar .header-title { font-size: clamp(0.75rem, 1.1vw, 1rem); }
     }
-
-    /* Slim scrollbar for filter cascade */
-    .np-cascade::-webkit-scrollbar, .np-cascade .cascade-column::-webkit-scrollbar { width: 4px; }
-    .np-cascade::-webkit-scrollbar-track, .np-cascade .cascade-column::-webkit-scrollbar-track { background: transparent; }
-    .np-cascade::-webkit-scrollbar-thumb, .np-cascade .cascade-column::-webkit-scrollbar-thumb { background: rgba(34,30,124,0.18); border-radius: 4px; }
 
     .np-arr-abs {
       position: absolute;
@@ -4046,116 +3669,6 @@
     }
     .np-opt.is-active .np-opt-name { color: var(--corfo-blue); font-weight: 800; }
     .np-opt-desc { font-size: 0.64rem; color: #6b7280; line-height: 1.3; }
-    /* Filter summary (details/summary trigger) */
-    .np-filter-summary {
-      list-style: none;
-      cursor: pointer;
-    }
-    .np-filter-summary::-webkit-details-marker { display: none; }
-    .np-filter-summary .tree-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 7px 11px;
-      background: #fff;
-      border: 1px solid rgba(34,30,124,0.13);
-      border-radius: 7px;
-      transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
-    }
-    .np-filter-summary .tree-header:hover {
-      border-color: rgba(34,30,124,0.28);
-      background: rgba(34,30,124,0.018);
-      box-shadow: 0 1px 4px rgba(34,30,124,0.07);
-    }
-    details[open] .np-filter-summary .tree-header {
-      border-color: var(--corfo-blue);
-      background: rgba(34,30,124,0.03);
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-    .np-filter-label {
-      font-size: 0.74rem;
-      font-weight: 600;
-      color: #4b5268;
-      flex: 1;
-      min-width: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .np-arr-sm {
-      font-size: 0.75rem;
-      color: #8a8fa8;
-      transition: transform 0.2s ease;
-      flex-shrink: 0;
-      display: inline-block;
-    }
-    details[open] .np-arr-sm { transform: rotate(180deg); }
-    /* Cascade inside panel: stack vertically */
-    details:not([open]) .cascade-filter.np-cascade { display: none !important; }
-    .np-cascade {
-      display: block;
-      gap: 0 !important;
-      border: 1px solid var(--corfo-blue);
-      border-top: none;
-      border-bottom-left-radius: 7px;
-      border-bottom-right-radius: 7px;
-      background: #fff;
-      box-shadow: 0 6px 16px rgba(34,30,124,0.09);
-    }
-    /* Drill-down cascade: one column at a time via data-active-level */
-    .np-cascade .cascade-column {
-      min-width: 0 !important;
-      width: 100% !important;
-      max-height: 200px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      display: none;
-    }
-    /* Geo columns */
-    .np-cascade[data-active-level="macrozone"] #m2-macrozone-panel,
-    .np-cascade:not([data-active-level]) #m2-macrozone-panel { display: block; }
-    .np-cascade[data-active-level="region"]    #m2-region-panel    { display: block; }
-    .np-cascade[data-active-level="province"]  #m2-province-panel  { display: block; }
-    /* Sector columns */
-    .np-cascade[data-active-level="industry"]  #m2-industry-panel,
-    .np-cascade:not([data-active-level]) #m2-industry-panel  { display: block; }
-    .np-cascade[data-active-level="pibr13"]    #m2-pibr13-panel    { display: block; }
-    .np-cascade[data-active-level="activity"]  #m2-activity-panel  { display: block; }
-    /* Level nav tabs */
-    .np-cascade-nav {
-      display: flex;
-      border-bottom: 1px solid rgba(34,30,124,0.09);
-      background: rgba(34,30,124,0.02);
-      position: sticky;
-      top: 0;
-      z-index: 2;
-    }
-    .np-cascade-nav-btn {
-      flex: 1;
-      padding: 5px 3px;
-      font-size: 0.56rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #9aa0b8;
-      border: none;
-      border-bottom: 2px solid transparent;
-      background: transparent;
-      cursor: pointer;
-      transition: color 0.13s, border-color 0.13s, background 0.13s;
-      white-space: nowrap;
-    }
-    .np-cascade-nav-btn.is-active {
-      color: var(--corfo-blue);
-      border-bottom-color: var(--corfo-blue);
-      background: rgba(34,30,124,0.04);
-    }
-    .np-cascade-nav-btn:hover:not(.is-active) {
-      color: var(--corfo-blue);
-      background: rgba(34,30,124,0.025);
-    }
     /* Aggregation chips */
     .np-ag {
       display: flex;
@@ -4933,7 +4446,7 @@
   #module-4 .m4d-rail-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
   #module-4 .m4d-rail-head h4 { flex: 1; font-family: var(--font-ui); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--corfo-muted); margin: 0; line-height: 1.3; }
   #module-4 .m4d-rail-head .rank-rail-close { border: none; background: transparent; color: var(--corfo-muted); font-size: 18px; line-height: 1; cursor: pointer; padding: 0 4px; border-radius: 6px; flex: 0 0 auto; }
-  #module-4 .m4d-rail-head .rank-rail-close:hover { background: rgba(0,0,0,.07); }mn; }
+  #module-4 .m4d-rail-head .rank-rail-close:hover { background: rgba(0,0,0,.07); }
   #module-4 .m4d-rail-card h4 { font-family: var(--font-ui); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--corfo-muted); margin: 0 0 10px; }
   #module-4 .m4d-rank { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 7px; }
   #module-4 .m4d-chip { display: flex; align-items: center; gap: 9px; font-family: var(--font-ui); font-size: 12.5px; }
