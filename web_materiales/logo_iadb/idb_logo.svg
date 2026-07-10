@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="120" viewBox="0 0 320 120" role="img" aria-labelledby="title desc">
+  <title id="title">IDB BID logo</title>
+  <desc id="desc">Inter-American Development Bank and Banco Interamericano de Desarrollo wordmark placeholder based on public institutional naming.</desc>
+  <rect width="320" height="120" fill="none"></rect>
+  <g fill="#005073" font-family="Arial, Helvetica, sans-serif">
+    <text x="8" y="50" font-size="42" font-weight="700" letter-spacing="1">BID</text>
+    <text x="96" y="50" font-size="42" font-weight="700" letter-spacing="1">IDB</text>
+    <text x="9" y="78" font-size="13" font-weight="700">Banco Interamericano de Desarrollo</text>
+    <text x="9" y="98" font-size="13" font-weight="700">Inter-American Development Bank</text>
+  </g>
+  <rect x="9" y="58" width="215" height="4" fill="#80bc00"></rect>
+</svg>
