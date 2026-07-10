@@ -278,7 +278,12 @@
     }
 
     trigger.addEventListener("click", () => { open ? closePop() : openPop(); });
-    document.addEventListener("click", (event) => {
+    // mousedown (no "click") para cerrar al tocar afuera: es el patron
+    // estandar en este tipo de popup (Bootstrap, Radix, etc.) porque se
+    // dispara antes que cualquier efecto secundario del click (foco,
+    // scroll-into-view del navegador) que podria alterar el target a
+    // mitad de la interaccion.
+    document.addEventListener("mousedown", (event) => {
       if (!open) return;
       if (root.contains(event.target)) return;
       closePop();
