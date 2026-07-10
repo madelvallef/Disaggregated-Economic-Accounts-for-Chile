@@ -5308,85 +5308,83 @@
             </select>
           </div>
 
-          <!-- 3-4 · Geografía + Sectores -->
+          <!-- 3 · Selección (Geografía + Sectores) -->
           <div class="filter-stack np-filter-outer">
-
-            <!-- Geografía -->
-            <div class="m3-sec">
-              <div class="m3-sec-hdr">
-                <div class="m3-sec-label" data-i18n="m2GeoSectionLabel">4 · Geografía</div>
-                <div class="np-actions">
-                  <button type="button" class="np-act filter-action" data-filter-action="all-geo" data-i18n="m2SelectAll">Todos</button>
-                  <button type="button" class="np-act filter-action" data-filter-action="clear-geo" data-i18n="m2ClearAll">Limpiar</button>
-                </div>
+          <div class="m3-sec">
+            <div class="m3-sec-label" data-i18n="m2SelectionSectionLabel">3 · Selección</div>
+            <div class="m3-subfield">
+            <div class="m3-sec-hdr">
+              <div class="m3-subfield-lbl" data-i18n="m2GeoAggregationLabel">Geografía</div>
+              <div class="np-actions">
+                <button type="button" class="np-act filter-action" data-filter-action="all-geo" data-i18n="m2SelectAll">Todos</button>
+                <button type="button" class="np-act filter-action" data-filter-action="clear-geo" data-i18n="m2ClearAll">Limpiar</button>
               </div>
-              <details class="tree-group" id="geo-tree-group">
-                <summary class="np-filter-summary">
-                  <div class="tree-header">
-                    <span class="np-filter-label" data-i18n="m2GeoFilterLabel">Filtrar geografía…</span>
-                    <span class="np-arr-sm">&#9662;</span>
-                  </div>
-                </summary>
-                <div class="cascade-filter np-cascade" data-active-level="macrozone">
-                  <div class="np-cascade-nav">
-                    <button class="np-cascade-nav-btn is-active" data-cascade-level="macrozone" data-i18n="m2AggMacrozone">Macrozona</button>
-                    <button class="np-cascade-nav-btn" data-cascade-level="region" data-i18n="m2AggRegion">Región</button>
-                    <button class="np-cascade-nav-btn" data-cascade-level="province" data-i18n="m2AggProvince">Provincia</button>
-                  </div>
-                  <div class="cascade-column" id="m2-macrozone-panel" data-level-label="Macrozona"></div>
-                  <div class="cascade-column" id="m2-region-panel" data-level-label="Región"></div>
-                  <div class="cascade-column" id="m2-province-panel" data-level-label="Provincia"></div>
-                </div>
-              </details>
-              <select class="control-select is-hidden" id="m2-left-geo-level" tabindex="-1" aria-hidden="true">
-                <option value="macrozone">Macrozona</option>
-                <option value="region">Región</option>
-                <option value="province" selected>Provincia</option>
-              </select>
             </div>
-
-            <!-- Sectores -->
-            <div class="m3-sec">
-              <div class="m3-sec-hdr">
-                <div class="m3-sec-label" data-i18n="m2SectorSectionLabel">5 · Sectores</div>
-                <div class="np-actions">
-                  <button type="button" class="np-act filter-action" data-filter-action="all-sector" data-i18n="m2SelectAll">Todos</button>
-                  <button type="button" class="np-act filter-action" data-filter-action="clear-sector" data-i18n="m2ClearAll">Limpiar</button>
+            <details class="tree-group" id="geo-tree-group">
+              <summary class="np-filter-summary">
+                <div class="tree-header">
+                  <span class="np-filter-label" data-i18n="m2GeoFilterLabel">Filtrar geografía…</span>
+                  <span class="np-arr-sm">&#9662;</span>
                 </div>
+              </summary>
+              <div class="cascade-filter np-cascade" data-active-level="macrozone">
+                <div class="np-cascade-nav">
+                  <button class="np-cascade-nav-btn is-active" data-cascade-level="macrozone" data-i18n="m2AggMacrozone">Macrozona</button>
+                  <button class="np-cascade-nav-btn" data-cascade-level="region" data-i18n="m2AggRegion">Región</button>
+                  <button class="np-cascade-nav-btn" data-cascade-level="province" data-i18n="m2AggProvince">Provincia</button>
+                </div>
+                <div class="cascade-column" id="m2-macrozone-panel" data-level-label="Macrozona"></div>
+                <div class="cascade-column" id="m2-region-panel" data-level-label="Región"></div>
+                <div class="cascade-column" id="m2-province-panel" data-level-label="Provincia"></div>
               </div>
-              <details class="tree-group" id="sector-tree-group">
-                <summary class="np-filter-summary">
-                  <div class="tree-header">
-                    <span class="np-filter-label" data-i18n="m2SectorFilterLabel">Filtrar sectores…</span>
-                    <span class="np-arr-sm">&#9662;</span>
-                  </div>
-                </summary>
-                <div class="cascade-filter np-cascade" data-active-level="industry">
-                  <div class="np-cascade-nav">
-                    <button class="np-cascade-nav-btn is-active" data-cascade-level="industry" data-i18n="m2AggIndustry">Industria</button>
-                    <button class="np-cascade-nav-btn" data-cascade-level="pibr13" data-i18n="m2AggSector">Sector</button>
-                    <button class="np-cascade-nav-btn" data-cascade-level="activity" data-i18n="m2AggActivity">Actividad</button>
-                  </div>
-                  <div class="cascade-column" id="m2-industry-panel" data-level-label="Industria"></div>
-                  <div class="cascade-column" id="m2-pibr13-panel" data-level-label="Sector"></div>
-                  <div class="cascade-column" id="m2-activity-panel" data-level-label="Actividad"></div>
-                </div>
-              </details>
-              <select class="control-select is-hidden" id="m2-left-sector-level" tabindex="-1" aria-hidden="true">
-                <option value="industry">Industria</option>
-                <option value="pibr13">Sector</option>
-                <option value="activity" selected>Actividad</option>
-              </select>
+            </details>
+            <select class="control-select is-hidden" id="m2-left-geo-level" tabindex="-1" aria-hidden="true">
+              <option value="macrozone">Macrozona</option>
+              <option value="region">Región</option>
+              <option value="province" selected>Provincia</option>
+            </select>
             </div>
-
+            <div class="m3-subfield">
+            <div class="m3-sec-hdr">
+              <div class="m3-subfield-lbl" data-i18n="m2SectorAggregationLabel">Sectores</div>
+              <div class="np-actions">
+                <button type="button" class="np-act filter-action" data-filter-action="all-sector" data-i18n="m2SelectAll">Todos</button>
+                <button type="button" class="np-act filter-action" data-filter-action="clear-sector" data-i18n="m2ClearAll">Limpiar</button>
+              </div>
+            </div>
+            <details class="tree-group" id="sector-tree-group">
+              <summary class="np-filter-summary">
+                <div class="tree-header">
+                  <span class="np-filter-label" data-i18n="m2SectorFilterLabel">Filtrar sectores…</span>
+                  <span class="np-arr-sm">&#9662;</span>
+                </div>
+              </summary>
+              <div class="cascade-filter np-cascade" data-active-level="industry">
+                <div class="np-cascade-nav">
+                  <button class="np-cascade-nav-btn is-active" data-cascade-level="industry" data-i18n="m2AggIndustry">Industria</button>
+                  <button class="np-cascade-nav-btn" data-cascade-level="pibr13" data-i18n="m2AggSector">Sector</button>
+                  <button class="np-cascade-nav-btn" data-cascade-level="activity" data-i18n="m2AggActivity">Actividad</button>
+                </div>
+                <div class="cascade-column" id="m2-industry-panel" data-level-label="Industria"></div>
+                <div class="cascade-column" id="m2-pibr13-panel" data-level-label="Sector"></div>
+                <div class="cascade-column" id="m2-activity-panel" data-level-label="Actividad"></div>
+              </div>
+            </details>
+            <select class="control-select is-hidden" id="m2-left-sector-level" tabindex="-1" aria-hidden="true">
+              <option value="industry">Industria</option>
+              <option value="pibr13">Sector</option>
+              <option value="activity" selected>Actividad</option>
+            </select>
+            </div>
+          </div>
           </div><!-- end filter-stack -->
 
           <!-- Lectura · estadística (Zona 3) -->
           <div class="selection-summary" id="selection-summary"></div>
 
-          <!-- 5 · Unidad -->
+          <!-- 4 · Unidad -->
           <div class="m3-sec" id="unit-control-group">
-            <div class="m3-sec-label" data-i18n="m2UnitSectionLabel">5 · Unidad de medida</div>
+            <div class="m3-sec-label" data-i18n="m2UnitSectionLabel">4 · Unidad de medida</div>
             <div class="m3-q-cards m2-unit-cards">
               <button type="button" class="m3-q-card active" data-m2-unit="value">
                 <div class="m3-q-title" data-i18n="m2UnitValueBtn">Monto en Billones de CLP</div>
@@ -5408,9 +5406,9 @@
             </select>
           </div>
 
-          <!-- 6 · Nivel de agregación · Territorio -->
+          <!-- 5 · Nivel de agregación · Territorio -->
           <div class="m3-sec">
-            <div class="m3-sec-label" data-i18n="m2AggGeoSectionLabel">6 · Nivel de agregación · Territorio</div>
+            <div class="m3-sec-label" data-i18n="m2AggGeoSectionLabel">5 · Nivel de agregación · Territorio</div>
             <div class="m3-agg-seg" id="np-geo-ag-opts">
               <button type="button" class="m3-agg-btn" data-geo-agg="macrozone" data-i18n="m2AggMacrozone">Macrozona</button>
               <button type="button" class="m3-agg-btn" data-geo-agg="region" data-i18n="m2AggRegion">Región</button>
@@ -5418,9 +5416,9 @@
             </div>
           </div>
 
-          <!-- 7 · Nivel de agregación · Sector -->
+          <!-- 6 · Nivel de agregación · Sector -->
           <div class="m3-sec">
-            <div class="m3-sec-label" data-i18n="m2AggSecSectionLabel">7 · Nivel de agregación · Sector</div>
+            <div class="m3-sec-label" data-i18n="m2AggSecSectionLabel">6 · Nivel de agregación · Sector</div>
             <div class="m3-agg-seg" id="np-sector-ag-opts">
               <button type="button" class="m3-agg-btn" data-sector-agg="industry" data-i18n="m2AggIndustry">Industria</button>
               <button type="button" class="m3-agg-btn" data-sector-agg="pibr13" data-i18n="m2AggSector">Sector</button>
@@ -6168,11 +6166,10 @@
         m2SectorAggregationLabel: "Sectores",
         m2VarLabel: "1 · Variable",
         m2AnalysisSectionLabel: "2 · Análisis",
-        m2UnitSectionLabel: "5 · Unidad de medida",
-        m2GeoSectionLabel: "3 · Geografía",
-        m2SectorSectionLabel: "4 · Sectores",
-        m2AggGeoSectionLabel: "6 · Nivel de agregación · Territorio",
-        m2AggSecSectionLabel: "7 · Nivel de agregación · Sector",
+        m2SelectionSectionLabel: "3 · Selección",
+        m2UnitSectionLabel: "4 · Unidad de medida",
+        m2AggGeoSectionLabel: "5 · Nivel de agregación · Territorio",
+        m2AggSecSectionLabel: "6 · Nivel de agregación · Sector",
         m2AggLevelLabel: "Nivel de agregación",
         m2UnitValueBtn: "Monto en Billones de CLP",
         m2UnitShareBtn: "Porcentaje %",
@@ -6318,11 +6315,10 @@
         m2SectorAggregationLabel: "Sectors",
         m2VarLabel: "1 · Variable",
         m2AnalysisSectionLabel: "2 · Analysis",
-        m2UnitSectionLabel: "5 · Unit of measure",
-        m2GeoSectionLabel: "3 · Geography",
-        m2SectorSectionLabel: "4 · Sectors",
-        m2AggGeoSectionLabel: "6 · Aggregation level · Territory",
-        m2AggSecSectionLabel: "7 · Aggregation level · Sector",
+        m2SelectionSectionLabel: "3 · Selection",
+        m2UnitSectionLabel: "4 · Unit of measure",
+        m2AggGeoSectionLabel: "5 · Aggregation level · Territory",
+        m2AggSecSectionLabel: "6 · Aggregation level · Sector",
         m2AggLevelLabel: "Aggregation level",
         m2UnitValueBtn: "Amount MUSD$",
         m2UnitShareBtn: "Percentage %",
