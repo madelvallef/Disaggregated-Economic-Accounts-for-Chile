@@ -103,10 +103,12 @@ async function run() {
           m4Children: document.querySelector("#module-4 .m4-shell").children.length,
           shellHeights,
           overflowX: document.documentElement.scrollWidth - window.innerWidth,
-          headerOverlap: (() => {
+          headerLayoutOk: (() => {
             const brand = document.querySelector(".site-header .brand").getBoundingClientRect();
             const nav = document.querySelector(".site-header .site-nav").getBoundingClientRect();
-            return brand.right - nav.left;
+            return window.innerWidth <= 820
+              ? nav.top >= brand.bottom - 1
+              : nav.left >= brand.right - 1;
           })(),
         };
       });
@@ -117,12 +119,36 @@ async function run() {
       assert(state.m3Paths > 0, `${viewport.name}: M3 no dibujo el mapa`);
       assert(state.m4Children > 0, `${viewport.name}: M4 no se inicializo`);
       assert(state.overflowX <= 2, `${viewport.name}: overflow horizontal de ${state.overflowX}px`);
-      assert(state.headerOverlap <= 1, `${viewport.name}: header solapado ${state.headerOverlap}px`);
+      assert(state.headerLayoutOk, `${viewport.name}: header con marca y navegacion solapadas`);
 
       if (viewport.name === "desktop") {
         const spread = Math.max(...state.shellHeights) - Math.min(...state.shellHeights);
         assert(spread <= 2, `desktop: alturas M2/M3/M4 no coinciden (${state.shellHeights.join("/")})`);
       } else {
+        const english = page.locator('.site-header [data-lang="en"]');
+        assert(await english.count() === 1, "mobile: selector EN no es unico");
+        await english.click();
+        await page.waitForTimeout(150);
+        const englishState = await page.evaluate(() => {
+          const nav = document.querySelector(".site-header .site-nav");
+          const brand = document.querySelector(".site-header .brand").getBoundingClientRect();
+          const navRect = nav.getBoundingClientRect();
+          return {
+            lang: document.documentElement.lang,
+            hasExplore: [...nav.querySelectorAll("a")].some((link) => link.textContent.trim() === "Explore"),
+            mobileStacked: navRect.top >= brand.bottom - 1,
+            overflowX: document.documentElement.scrollWidth - window.innerWidth,
+          };
+        });
+        assert(englishState.lang === "en" && englishState.hasExplore, "mobile: cambio a EN incompleto");
+        assert(englishState.mobileStacked, "mobile: header EN no conserva dos filas");
+        assert(englishState.overflowX <= 2, `mobile EN: overflow horizontal de ${englishState.overflowX}px`);
+
+        const spanish = page.locator('.site-header [data-lang="es"]');
+        assert(await spanish.count() === 1, "mobile: selector ES no es unico");
+        await spanish.click();
+        await page.waitForTimeout(150);
+
         await page.locator("#module-2").scrollIntoViewIfNeeded();
         await page.waitForTimeout(250);
         const controls = page.locator(".mob-ctrl-fab.is-on");
