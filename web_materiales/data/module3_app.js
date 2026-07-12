@@ -925,8 +925,15 @@
     } else {
       legend.innerHTML = "";
     }
-    const panelWidth = Math.max(320, figure.clientWidth || 900);
-    const panelHeight = Math.max(220, figure.clientHeight || 520);
+    const isMobileHeatmap = window.matchMedia && window.matchMedia("(max-width: 820px)").matches;
+    // La matriz es una superficie de exploración: en móvil mantiene celdas y
+    // etiquetas legibles dentro de un visor desplazable, no se comprime.
+    const panelWidth = isMobileHeatmap
+      ? Math.max(680, figure.clientWidth || 0)
+      : Math.max(320, figure.clientWidth || 900);
+    const panelHeight = isMobileHeatmap
+      ? Math.max(960, figure.clientHeight || 0)
+      : Math.max(220, figure.clientHeight || 520);
     // ── Geometría idéntica al Módulo 4: celdas no cuadradas + viewBox ajustado
     //    al contenido + escala para llenar el cuadro (preserveAspectRatio meet). ──
     // OJO: la reserva usa SOLO el ancho del título (estable para una misma
@@ -935,14 +942,15 @@
     // ancho según los dígitos de cada nivel de agregación y volvería a hacer
     // que el SVG cambiara de tamaño al re-agrupar.
     const legendTitleW = legend?.querySelector(".matrix-legend-unit")?.offsetWidth || 0;
-    const legendReserve = 14 + Math.max(70, legendTitleW);
+    const legendReserve = isMobileHeatmap ? 0 : 14 + Math.max(70, legendTitleW);
     const contW = Math.max(220, panelWidth - legendReserve);
     const contH = Math.max(220, panelHeight - 14);
     const _fit = window.fitHeatmapGeometry({
       contW, contH, nRows: rowKeys.length, nCols: colKeys.length,
       rowLabels: rowKeys,
       colLabels: colKeys.map((c) => sectorGroupLabel(c)),
-      rotDeg: 66, rowFamily: "Verdana, Geneva, sans-serif", colFamily: "Verdana, Geneva, sans-serif",
+      rotDeg: isMobileHeatmap ? 90 : 66,
+      rowFamily: "Verdana, Geneva, sans-serif", colFamily: "Verdana, Geneva, sans-serif",
     });
     const leftLabelWidth = _fit.LP;
     const bottomLabelHeight = _fit.BP;
@@ -993,10 +1001,11 @@
       });
     });
     window.NearZero.updateLegend("m3-matrix-nz-legend", _matAnyGray, _matAnyZero);
+    const labelRotation = isMobileHeatmap ? -90 : -66;
     colKeys.forEach((colKey, c) => {
       const labelX = gridLeft + (c + 1) * cellW - 1;
       const labelY = gridBottom + 3;
-      parts.push(`<text class="matrix-col-label" x="${labelX}" y="${labelY}" transform="rotate(-66 ${labelX} ${labelY})" style="font-size:${_colFs}px">${escapeHtml(sectorGroupLabel(colKey))}</text>`);
+      parts.push(`<text class="matrix-col-label" x="${labelX}" y="${labelY}" transform="rotate(${labelRotation} ${labelX} ${labelY})" style="font-size:${_colFs}px">${escapeHtml(sectorGroupLabel(colKey))}</text>`);
     });
     svg.innerHTML = parts.join("");
     svg.querySelectorAll(".matrix-cell").forEach((node) => {

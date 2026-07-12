@@ -106,9 +106,7 @@ async function run() {
           headerLayoutOk: (() => {
             const brand = document.querySelector(".site-header .brand").getBoundingClientRect();
             const nav = document.querySelector(".site-header .site-nav").getBoundingClientRect();
-            return window.innerWidth <= 820
-              ? nav.top >= brand.bottom - 1
-              : nav.left >= brand.right - 1;
+            return nav.left >= brand.right - 1;
           })(),
         };
       });
@@ -136,12 +134,12 @@ async function run() {
           return {
             lang: document.documentElement.lang,
             hasExplore: [...nav.querySelectorAll("a")].some((link) => link.textContent.trim() === "Explore"),
-            mobileStacked: navRect.top >= brand.bottom - 1,
+            mobileInline: navRect.left >= brand.right - 1,
             overflowX: document.documentElement.scrollWidth - window.innerWidth,
           };
         });
         assert(englishState.lang === "en" && englishState.hasExplore, "mobile: cambio a EN incompleto");
-        assert(englishState.mobileStacked, "mobile: header EN no conserva dos filas");
+        assert(englishState.mobileInline, "mobile: header EN solapa la marca y la navegacion");
         assert(englishState.overflowX <= 2, `mobile EN: overflow horizontal de ${englishState.overflowX}px`);
 
         const spanish = page.locator('.site-header [data-lang="es"]');
@@ -171,6 +169,42 @@ async function run() {
         const rows = await page.locator(".mobile-top-panel .rank-chip").count();
         assert(rows > 0, "mobile: vista Top no contiene ranking");
         await page.locator(".mobile-top-close").click();
+
+        // Las tres perspectivas de cada módulo deben poder verse sin que la
+        // página se ensanche. Las matrices conservan su resolución dentro de
+        // un visor desplazable, en vez de reducirse hasta ser ilegibles.
+        const mobileViews = [
+          { module: "#module-2", tab: '#module-2 .module-tab[data-view="sector"]', figure: "#module-2 #sector-bars", label: "M2 sectorial" },
+          { module: "#module-2", tab: '#module-2 .module-tab[data-view="matrix"]', figure: "#module-2 .matrix-scroll", matrix: true, label: "M2 territorial-sectorial" },
+          { module: "#module-3", tab: '#module-3 .module-tab[data-module3-view="sector"]', figure: "#module-3 #m3-sector-bars", label: "M3 sectorial" },
+          { module: "#module-3", tab: '#module-3 .module-tab[data-module3-view="matrix"]', figure: "#module-3 .matrix-scroll", matrix: true, label: "M3 territorial-sectorial" },
+          { module: "#module-4", tab: "#module-4 .m4d-tab:nth-child(2)", figure: "#module-4 #m4d-bars", label: "M4 sectorial" },
+          { module: "#module-4", tab: "#module-4 .m4d-tab:nth-child(3)", figure: "#module-4 .m4d-hm-scroll", matrix: true, label: "M4 territorial-sectorial" },
+        ];
+        for (const view of mobileViews) {
+          await page.locator(view.module).scrollIntoViewIfNeeded();
+          await page.locator(view.tab).click();
+          await page.waitForTimeout(300);
+          const result = await page.locator(view.figure).evaluate((element, matrix) => {
+            const rect = element.getBoundingClientRect();
+            return {
+              width: rect.width,
+              height: rect.height,
+              scrollWidth: element.scrollWidth,
+              scrollHeight: element.scrollHeight,
+              overflowX: document.documentElement.scrollWidth - window.innerWidth,
+              matrix,
+            };
+          }, view.matrix || false);
+          assert(result.width > 220 && result.height > 100, `mobile: ${view.label} no tiene una figura util`);
+          assert(result.overflowX <= 2, `mobile: ${view.label} genera overflow horizontal de ${result.overflowX}px`);
+          if (view.matrix) {
+            assert(
+              result.scrollWidth > result.width || result.scrollHeight > result.height,
+              `mobile: ${view.label} no conserva una superficie desplazable`,
+            );
+          }
+        }
       }
 
       await page.close();

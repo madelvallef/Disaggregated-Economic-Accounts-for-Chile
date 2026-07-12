@@ -11,10 +11,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>Cuentas Económicas Desagregadas para Chile · CORFO–BID</title>
 <style>
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;color-scheme:only light}
   body{margin:0;background:var(--ds-color-canvas);color:var(--ds-color-text);font-family:"DM Sans",system-ui,sans-serif}
   a{color:var(--ds-color-brand)}
   a:hover{color:var(--ds-color-accent)}
@@ -2017,6 +2018,9 @@
       width: 100%;
       overflow: hidden;
     }
+
+    .matrix-scroll,
+    .m4d-hm-scroll { display: contents; }
 
     .matrix-svg {
       max-width: 100%;
@@ -4590,23 +4594,21 @@
   }
 
   @media (max-width: 820px) {
-    :root { --site-header-mobile-height: 108px; }
+    :root { --site-header-mobile-height: 58px; }
 
     .site-header {
-      display: grid !important;
-      grid-template-columns: minmax(0, 1fr) !important;
-      grid-template-rows: 58px 50px !important;
+      display: flex !important;
+      align-items: center !important;
       height: var(--site-header-mobile-height) !important;
       min-height: var(--site-header-mobile-height) !important;
-      padding: 0 !important;
-      gap: 0 !important;
+      padding: 0 10px !important;
+      gap: 8px !important;
     }
 
     .site-header .brand {
-      grid-column: 1 !important;
-      grid-row: 1 !important;
-      min-height: 58px;
-      padding: 0 16px;
+      flex: 0 0 auto;
+      min-height: 44px;
+      padding: 0 4px;
       display: flex;
       align-items: center;
     }
@@ -4621,16 +4623,15 @@
     }
 
     .site-header .site-nav {
-      grid-column: 1 / -1 !important;
-      grid-row: 2 !important;
-      width: 100%;
-      min-height: 50px;
+      flex: 1 1 auto;
+      min-width: 0;
+      width: auto;
+      min-height: 44px;
       margin: 0 !important;
-      padding: 3px 8px;
+      padding: 0;
       gap: 2px;
       overflow-x: auto;
       overscroll-behavior-x: contain;
-      border-top: 1px solid rgba(255, 255, 255, 0.16);
       scrollbar-width: none;
     }
 
@@ -4639,7 +4640,7 @@
     .site-header .site-nav > a {
       flex: 0 0 auto;
       min-height: 44px;
-      padding: 0 11px !important;
+      padding: 0 10px !important;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -4652,8 +4653,8 @@
     .site-header .lang {
       flex: 0 0 auto;
       min-height: 44px;
-      margin-left: 2px;
-      padding-left: 8px;
+      margin-left: 0;
+      padding-left: 7px;
       display: inline-flex;
       align-items: center;
     }
@@ -4706,6 +4707,7 @@
 
     .hero-card > span:first-child { font-size: 0.96rem !important; line-height: 1.28 !important; }
     .hero-card > span:last-child { font-size: 0.84rem !important; }
+
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -5227,7 +5229,7 @@
                 </div>
               </div>
               <div class="matrix-figure" id="matrix-figure">
-                <svg id="matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg>
+                <div class="matrix-scroll"><svg id="matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg></div>
                 <div class="matrix-legend-vertical" id="matrix-legend"></div>
                 <div class="near-zero-legend" id="matrix-nz-legend" hidden>
                   <span class="nz-gray" hidden><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0</span></span>
@@ -5518,7 +5520,7 @@
                 </div>
               </div>
               <div class="matrix-figure" id="m3-matrix-figure">
-                <svg id="m3-matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg>
+                <div class="matrix-scroll"><svg id="m3-matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg></div>
                 <div class="matrix-legend-vertical" id="m3-matrix-legend"></div>
                 <div class="near-zero-legend" id="m3-matrix-nz-legend" hidden>
                   <span class="nz-gray" hidden><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0</span></span>
@@ -8458,9 +8460,13 @@ function selectionCountLabel(type, level, count) {
       const svgEl = document.getElementById("matrix-svg");
       const legendEl = document.getElementById("matrix-legend");
       const isMobileHeatmap = window.matchMedia && window.matchMedia("(max-width: 820px)").matches;
-      const panelWidth = Math.max(320, figureEl?.clientWidth || 900);
-      const panelHeightRaw = figureEl?.clientHeight || (isMobileHeatmap ? 450 : 520);
-      const panelHeightCap = isMobileHeatmap ? Math.max(360, Math.min(460, window.innerHeight - 320)) : Infinity;
+      const panelWidth = isMobileHeatmap
+        ? Math.max(680, figureEl?.clientWidth || 0)
+        : Math.max(320, figureEl?.clientWidth || 900);
+      const panelHeightRaw = isMobileHeatmap
+        ? Math.max(760, figureEl?.clientHeight || 0)
+        : (figureEl?.clientHeight || 520);
+      const panelHeightCap = Infinity;
       const panelHeight = Math.max(220, Math.min(panelHeightRaw, panelHeightCap));
       const reservedBottom = 0;
       // ── Geometría idéntica al Módulo 4: celdas no cuadradas + viewBox ajustado
@@ -8482,14 +8488,17 @@ function selectionCountLabel(type, level, count) {
       // cambia de ancho según los dígitos de cada nivel de agregación y
       // volvería a hacer que el SVG cambiara de tamaño al re-agrupar.
       const legendTitleW = legendEl?.querySelector(".matrix-legend-unit")?.offsetWidth || 0;
-      const legendReserve = 14 + Math.max(70, legendTitleW);
+      // En móvil la leyenda es una fila independiente debajo de la matriz;
+      // reservarle ancho lateral encoge innecesariamente las celdas.
+      const legendReserve = isMobileHeatmap ? 0 : 14 + Math.max(70, legendTitleW);
       const contW = Math.max(220, panelWidth - legendReserve);
       const contH = Math.max(220, panelHeight - 14);
       const _fit = window.fitHeatmapGeometry({
         contW, contH, nRows: rowKeys.length, nCols: colKeys.length,
         rowLabels: rowKeys,
         colLabels: colKeys.map((c) => sectorLabel(state.sectorLevel, c)),
-        rotDeg: 66, rowFamily: "Verdana, Geneva, sans-serif", colFamily: "Verdana, Geneva, sans-serif",
+        rotDeg: isMobileHeatmap ? 90 : 66,
+        rowFamily: "Verdana, Geneva, sans-serif", colFamily: "Verdana, Geneva, sans-serif",
       });
       const leftLabelWidth = _fit.LP;
       const bottomLabelHeight = _fit.BP;
@@ -8547,10 +8556,11 @@ function selectionCountLabel(type, level, count) {
       });
 
       const labelOffset = 3;
+      const labelRotation = isMobileHeatmap ? -90 : -66;
       colKeys.forEach((colKey, colIndex) => {
         const labelX = gridLeft + (colIndex + 1) * cellW - 1;
         const labelY = gridBottom + labelOffset;
-        parts.push(`<text class="matrix-col-label" x="${labelX}" y="${labelY}" transform="rotate(-66 ${labelX} ${labelY})" style="font-size:${_colFs}px">${escapeHtml(sectorLabel(state.sectorLevel, colKey))}</text>`);
+        parts.push(`<text class="matrix-col-label" x="${labelX}" y="${labelY}" transform="rotate(${labelRotation} ${labelX} ${labelY})" style="font-size:${_colFs}px">${escapeHtml(sectorLabel(state.sectorLevel, colKey))}</text>`);
       });
 
       svgEl.innerHTML = parts.join("");
@@ -10035,6 +10045,17 @@ function selectionCountLabel(type, level, count) {
       #module-2 .module-tab .tab-axis, #module-3 .module-tab .tab-axis, #module-4 .m4d-tab .tab-axis { font-size: 12px !important; font-weight: 700 !important; }
       #module-2 .module-two-view.active, #module-3 .module-two-view.active { overflow: hidden !important; }
       #module-2 .analysis-block, #module-3 .analysis-block { height: 100% !important; overflow: hidden !important; }
+      #module-3 .geo-layout,
+      #module-3 .geo-layout .map-stage {
+        min-height: 0 !important;
+        height: 100% !important;
+      }
+      /* La vista Top sustituye al rail lateral: en móvil no se reserva su ancho. */
+      #module-2 .np-viz-col.rank-collapsed .analysis-block,
+      #module-3 .np-viz-col.rank-collapsed .analysis-block {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
       #module-2 .module-two-view[data-view-panel="matrix"].active,
       #module-3 .module-three-view[data-module3-view-panel="matrix"].active {
         overflow-y: auto !important;
@@ -10067,7 +10088,7 @@ function selectionCountLabel(type, level, count) {
         margin: 0 auto !important;
         padding-bottom: 8px !important;
       }
-      #module-4 .m4d-map-box, #module-4 .m4d-bars-col, #module-4 .m4d-hm-figure { min-height: 0 !important; height: calc(100vh - var(--mobile-topbar-h) - var(--mobile-tabs-h) - var(--mobile-actions-h) - 26px - var(--mobile-figure-gap)) !important; padding: 7px 9px 8px !important; }
+      #module-4 .m4d-map-box, #module-4 .m4d-bars-col, #module-4 .m4d-hm-figure { min-height: 0 !important; height: calc(100svh - 320px) !important; padding: 7px 9px 8px !important; }
       #module-2 .map-stage svg, #module-3 .map-stage svg {
         flex: 1 1 auto !important;
         min-height: 0 !important;
@@ -10178,9 +10199,45 @@ function selectionCountLabel(type, level, count) {
         align-items: center !important;
         justify-content: flex-start !important;
       }
-      #module-2 .matrix-figure > svg, #module-3 .matrix-figure > svg {
-        margin-left: auto !important;
-        margin-right: auto !important;
+      #module-2 .matrix-figure,
+      #module-3 .matrix-figure,
+      #module-4 .m4d-hm-figure {
+        align-items: stretch !important;
+        overflow: hidden !important;
+      }
+      /* En M4 el SVG ancho no debe ensanchar la página: sólo su visor admite
+         desplazamiento horizontal y vertical. */
+      #module-4 .m4d-vizcol,
+      #module-4 .m4d-panel,
+      #module-4 .m4d-hero,
+      #module-4 .m4d-hm-figure {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+      }
+      #module-4 .m4d-hm-figure {
+        flex: 1 1 0 !important;
+      }
+      #module-2 .matrix-scroll,
+      #module-3 .matrix-scroll,
+      #module-4 .m4d-hm-scroll {
+        display: flex !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        overflow: auto !important;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+      }
+      #module-2 .matrix-scroll > svg,
+      #module-3 .matrix-scroll > svg,
+      #module-4 .m4d-hm-scroll > svg {
+        max-width: none !important;
+        max-height: none !important;
+        flex: 0 0 auto !important;
+        margin: 0 !important;
       }
       .bar-chart-unit, #module-4 .bar-chart-unit { display: block !important; padding: 0 6px 4px !important; font-size: 0.64rem !important; line-height: 1.1 !important; white-space: normal !important; overflow: visible !important; text-overflow: clip !important; }
       #module-4 .m4d-rail { display: none !important; }
@@ -10190,6 +10247,8 @@ function selectionCountLabel(type, level, count) {
       #module-4 .m4d-bar-track, #module-3 .m4d-bar-track, #module-2 .m4d-bar-track { height: 11px !important; }
       #module-4 .m4d-bar-value, #module-3 .m4d-bar-value, #module-2 .m4d-bar-value { font-size: 8.5px !important; }
       .figure-actions { display: none !important; }
+      .module-controls-reopen,
+      .module-controls-backdrop { display: none !important; }
       .mob-ctrl-fab, .mob-top-fab {
         position: fixed !important;
         top: auto !important;

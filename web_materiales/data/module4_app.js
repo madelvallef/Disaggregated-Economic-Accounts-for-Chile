@@ -357,13 +357,19 @@
       const grid = gridFor();
       const M = E.matrix(st.geoLevel, st.secLevel, grid);
       const cont = svgEl.closest(".m4d-hm-figure") || svgEl.parentElement;
-      const contW = Math.max(220, (cont.clientWidth || 600) - 84);
-      const contH = Math.max(220, (cont.clientHeight || 500) - 14);
+      const isMobileHeatmap = window.matchMedia && window.matchMedia("(max-width: 820px)").matches;
+      const contW = isMobileHeatmap
+        ? Math.max(680, (cont.clientWidth || 0) - 84)
+        : Math.max(220, (cont.clientWidth || 600) - 84);
+      const contH = isMobileHeatmap
+        ? Math.max(760, (cont.clientHeight || 0) - 14)
+        : Math.max(220, (cont.clientHeight || 500) - 14);
       const _fit = window.fitHeatmapGeometry({
         contW, contH, nRows: M.nR, nCols: M.nC,
         rowLabels: M.rows, colLabels: M.colLabels,
-        rotDeg: 66, rowFamily: "DM Sans, system-ui", colFamily: "DM Sans, system-ui",
-        // Mismo ángulo (66°) y holgura que M3. Además fijamos el techo de fuente
+        rotDeg: isMobileHeatmap ? 90 : 66,
+        // En móvil las etiquetas del eje X se leen en vertical; desktop conserva
+        // el ángulo de 66°. Además fijamos el techo de fuente
         // del eje X (colFsCap) para que la letra NO crezca con el tamaño del panel
         // y quede al mismo tamaño que M3 (que renderiza ~8px).
         colPad: 8, colFsCap: 8,
@@ -389,7 +395,8 @@
       const rowFs = _fit.rowFs;
       const colFs = _fit.colFs;
       M.rows.forEach((rn, r) => { s += `<text x="${LP - 5}" y="${TP + (r + 0.5) * CH}" dominant-baseline="middle" text-anchor="end" class="matrix-row-label" font-family="DM Sans,system-ui" style="font-size:${rowFs}px">${escapeHtml(rn)}</text>`; });
-      M.colLabels.forEach((cn, c) => { const x = LP + (c + 0.5) * CW, y = TP + M.nR * CH + 3; s += `<text x="${x}" y="${y}" transform="rotate(-66 ${x} ${y})" text-anchor="end" class="matrix-col-label" font-family="DM Sans,system-ui" style="font-size:${colFs}px">${escapeHtml(cn)}</text>`; });
+      const labelRotation = isMobileHeatmap ? -90 : -66;
+      M.colLabels.forEach((cn, c) => { const x = LP + (c + 0.5) * CW, y = TP + M.nR * CH + 3; s += `<text x="${x}" y="${y}" transform="rotate(${labelRotation} ${x} ${y})" text-anchor="end" class="matrix-col-label" font-family="DM Sans,system-ui" style="font-size:${colFs}px">${escapeHtml(cn)}</text>`; });
       svgEl.removeAttribute("width");
       svgEl.removeAttribute("height");
       svgEl.setAttribute("viewBox", `0 0 ${SVG_W} ${SVG_H}`);
@@ -597,7 +604,7 @@
             <div class="m4d-hero">
               <div class="m4d-hm-figure" id="m4d-hm-figure">
                 <div class="figure-actions" data-export-scope="module4" data-export-view="matrix"><button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg></button><div class="figure-download-menu" aria-hidden="true"><button class="figure-download-option" type="button" data-export-format="png">PNG</button><button class="figure-download-option" type="button" data-export-format="pdf">PDF</button></div></div>
-                <svg id="m4d-hm" aria-label="${k.tabCell}"></svg>
+                <div class="m4d-hm-scroll"><svg id="m4d-hm" aria-label="${k.tabCell}"></svg></div>
                 <div class="matrix-legend-vertical" id="m4d-hm-legend"></div>
                 <div class="near-zero-legend" id="m4d-hm-nz-legend" hidden>
                   <span class="nz-gray" hidden><i style="background:#dcdcdc"></i>${k.legendNearZero}</span>
