@@ -388,7 +388,7 @@
         if (v <= 0) _matAnyZero = true;
         if (isNearZero) _matAnyGray = true;
         const _f = v <= 0 ? EMPTY : (isNearZero ? window.NearZero.GRAY : cf(v));
-        s += `<rect x="${LP + c * CW}" y="${TP + r * CH}" width="${CW - 0.5}" height="${CH - 0.5}" fill="${_f}" rx="0.5" class="m4d-cell" data-r="${r}" data-c="${c}"/>`;
+        s += `<rect x="${LP + c * CW}" y="${TP + r * CH}" width="${CW}" height="${CH}" fill="${_f}" class="matrix-cell m4d-cell" data-r="${r}" data-c="${c}"/>`;
       }
       // Tamaño de letra adaptativo: que las etiquetas no se solapen entre sí.
       // Filas: separadas por CH (vertical). Columnas: rotadas -60°, separación perpendicular ≈ CW·sin(60°).
