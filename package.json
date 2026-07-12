@@ -1,0 +1,25 @@
+{
+  "name": "disaggregated-economic-accounts-for-chile",
+  "version": "1.0.0",
+  "description": "Este proyecto contiene una pagina web estatica para publicar el dashboard de Cuentas Economicas Territorialmente Desagregadas de Chile.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "validate": "node scripts/validate-sitio.js",
+    "fix:mojibake": "node scripts/fix-mojibake.js",
+    "preproduction": "npm run validate && npm run build && npm run qa:intensive",
+    "qa:intensive": "node qa/sitio-smoke.js",
+    "smoke": "node qa/sitio-smoke.js",
+    "test": "npm run validate && npm run smoke"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
+  }
+}
