@@ -262,8 +262,8 @@
     if (s.unit === "value") return isEs() ? `Muestra el flujo en ${currentUnitLabel("value")}.` : `Shows the flow in ${currentUnitLabel("value")}.`;
     if (s.question === "main") {
       return s.perspective === "provider"
-        ? (isEs() ? "Usa como denominador el total filtrado del mercado proveedor." : "Uses the filtered supplier-market total as denominator.")
-        : (isEs() ? "Usa como denominador el total filtrado del mercado cliente." : "Uses the filtered client-market total as denominator.");
+        ? (isEs() ? "Usa como denominador el total filtrado de los productores seleccionados." : "Uses the selected producers' filtered total as denominator.")
+        : (isEs() ? "Usa como denominador el total filtrado de los productores seleccionados." : "Uses the selected producers' filtered total as denominator.");
     }
     return s.perspective === "provider"
       ? (isEs() ? "Usa como denominador el total filtrado de cada cliente visible." : "Uses each visible client's filtered total as denominator.")
@@ -423,12 +423,12 @@
     const myAct = es ? (prov ? "ventas" : "compras") : (prov ? "sales" : "purchases");
     const _t = {
       m3BadgeLabel:         es ? "Cadenas de valor · Perspectiva"              : "Value chains · Perspective",
-      m3PerspBtnProvider:   es ? "Proveedor"                                   : "Supplier",
-      m3PerspBtnClient:     es ? "Cliente"                                     : "Client",
-      m3MarketLabel:        es ? "1 · Define tu mercado"                       : "1 · Define your market",
-      m3MarketInstruction:  es ? `Selecciona la ubicación y el sector del mercado ${prov?"proveedor":"cliente"} cuya distribución de ${cpPl} quieres explorar.` : `Select the location and sector of the ${prov?"supplier":"client"} market whose distribution of ${cpPl} you want to explore.`,
-      m3CharcLabel:         es ? "Estructura productiva del mercado"           : "Productive structure of the market",
-      m3CharcInstruction:   es ? `Así se compone la actividad económica del mercado que seleccionaste: cuánto produce, cuánto vende y de dónde saca sus insumos. Te ayuda a dimensionar a quién estás observando antes de mirar sus ${cpPl}.` : `This is how the selected market's economic activity breaks down: how much it produces, how much it sells and where it sources its inputs. It helps you size up who you are observing before looking at its ${cpPl}.`,
+      m3PerspBtnProvider:   es ? "Ver clientes"                                : "View clients",
+      m3PerspBtnClient:     es ? "Ver proveedores"                             : "View suppliers",
+      m3MarketLabel:        es ? "1 · Elige los productores"                   : "1 · Choose the producers",
+      m3MarketInstruction:  es ? `Selecciona la ubicación y el sector de los productores cuyos ${cpPl} quieres explorar.` : `Select the location and sector of the producers whose ${cpPl} you want to explore.`,
+      m3CharcLabel:         es ? "Perfil de los productores"                   : "Producers' profile",
+      m3CharcInstruction:   es ? `Así se compone la actividad económica de los productores seleccionados: cuánto producen, cuánto venden y de dónde obtienen sus insumos. Te ayuda a dimensionar a los productores antes de mirar sus ${cpPl}.` : `This is how the selected producers' economic activity breaks down: how much they produce, how much they sell and where they source their inputs. It helps you size up the producers before looking at their ${cpPl}.`,
       m3FlowLabel:          es ? "Resultado · Flujo de la selección"           : "Result · Selection flow",
       m3VisualizeLabel:     es ? "2 · Elige cómo medir"                        : "2 · Choose how to measure",
       m3VisualizeInstruction: es ? `Cada unidad responde una pregunta distinta sobre tu relación con los ${cpPl}. Elige la que te interesa observar.` : `Each unit answers a different question about your relationship with your ${cpPl}. Pick the one you want to observe.`,
@@ -692,15 +692,16 @@
   }
 
   function renderSummary(metrics) {
+    if (!summaryEl) return;
     const topGeo = Array.from(metrics.byGeoRaw.entries()).sort((a, b) => b[1] - a[1]).slice(0, 5);
     const topSector = Array.from(metrics.bySectorRaw.entries()).sort((a, b) => b[1] - a[1]).slice(0, 5);
     const ownLabel = s.perspective === "provider"
-      ? (isEs() ? "Mercado proveedor" : "Supplier market")
-      : (isEs() ? "Mercado cliente" : "Client market");
+      ? (isEs() ? "Productores seleccionados" : "Selected producers")
+      : (isEs() ? "Productores seleccionados" : "Selected producers");
     const baseLabel = s.question === "main"
       ? (s.perspective === "provider"
-        ? (isEs() ? "Total filtrado del mercado proveedor" : "Filtered supplier market total")
-        : (isEs() ? "Total filtrado del mercado cliente" : "Filtered client market total"))
+        ? (isEs() ? "Total filtrado de los productores seleccionados" : "Selected producers' filtered total")
+        : (isEs() ? "Total filtrado de los productores seleccionados" : "Selected producers' filtered total"))
       : (s.perspective === "provider"
         ? (isEs() ? "Total filtrado de cada cliente visible" : "Each visible client's filtered total")
         : (isEs() ? "Total filtrado de cada proveedor visible" : "Each visible supplier's filtered total"));
@@ -716,7 +717,7 @@
       </div>`;
     const _flowNum = escapeHtml(formatValue(metrics.totalSelected, "value"));
     const _flowUnit = escapeHtml(currentUnitLabel("value"));
-    const _flowIntro = isEs() ? "El flujo total del mercado que definiste arriba." : "The total flow of the market you defined above.";
+    const _flowIntro = isEs() ? "El flujo total de los productores seleccionados arriba." : "The total flow of the producers selected above.";
     summaryEl.innerHTML = `<div class="m3-flow-intro">${_flowIntro}</div><div class="m3-flow-num">${_flowNum} <span class="m3-flow-unit">${_flowUnit}</span></div>`;
   }
 
@@ -757,6 +758,7 @@
     svg.selectAll("*").remove();
     const projection = d3.geoMercator().fitExtent([[6, 6], [_mH - 6, _mH - 6]], _fc);
     const path = d3.geoPath(projection);
+    let _geoAnyGray = false, _geoAnyZero = false;
     svg.selectAll("path")
       .data(geoFeatures)
       .enter()
@@ -765,8 +767,8 @@
       .attr("d", path)
       .attr("fill", (d) => {
         const value = metricByProvince.get(d.properties.CUT_PROV) || 0;
-        if (value <= 0) return "#ffffff";
-        if (window.NearZero.is(value, _geoTotal, window.NearZero.GEO_THR)) return window.NearZero.GRAY;
+        if (value <= 0) { _geoAnyZero = true; return "#ffffff"; }
+        if (window.NearZero.is(value, _geoTotal, window.NearZero.GEO_THR)) { _geoAnyGray = true; return window.NearZero.GRAY; }
         return colorForValue(value);
       })
       .attr("stroke", "rgba(34,30,124,0.32)")
@@ -804,6 +806,7 @@
     const _b = path.bounds(_fc), _pad = 4;
     _svgNode.setAttribute("viewBox", `${_b[0][0] - _pad} ${_b[0][1] - _pad} ${_b[1][0] - _b[0][0] + 2 * _pad} ${_b[1][1] - _b[0][1] + 2 * _pad}`);
     _svgNode.style.cssText = "display:block;height:100%;width:auto;max-width:100%";
+    window.NearZero.updateLegend("m3-geo-nz-legend", _geoAnyGray, _geoAnyZero);
     if (!values.length) {
       legend.innerHTML = "";
       return;
@@ -902,17 +905,55 @@
       RankRailKit.fill("module-3", "matrix", isEs() ? "Combinaciones Top" : "Top combinations",
         _cells.map(([nm, v]) => ({ name: nm, valueText: formatValue(v, s.unit), color: colorForValue(v) })), lang(), currentUnitLabel(s.unit));
     }
-    const panelWidth = Math.max(320, figure.clientWidth || 900);
-    const panelHeight = Math.max(220, figure.clientHeight || 520);
+    // El contenido de la leyenda (título + números) se construye ANTES de
+    // reservar el ancho para el SVG, y no después: así "offsetWidth" mide el
+    // ancho real de ESTE render (con el título/valores actuales), no el del
+    // render anterior (que podía quedar desactualizado o en 0 si la leyenda
+    // estaba oculta), evitando que quede recortada o se separe del heatmap.
+    // Se reconstruye una segunda vez más abajo para alinear su alto exacto
+    // con la grilla ya renderizada.
+    if (values.length) {
+      const _lvEarly = _matScaleVals.length ? _matScaleVals : values;
+      const minEarly = d3.min(_lvEarly), maxEarly = d3.max(_lvEarly);
+      const samplesEarly = minEarly === maxEarly ? [minEarly] : Array.from({ length: 6 }, (_, index) => minEarly * Math.pow(maxEarly / minEarly, index / 5)).reverse();
+      legend.innerHTML = `<div class="matrix-legend-unit">${escapeHtml(currentUnitLabel(s.unit))}</div><div class="matrix-legend-bar-vertical" aria-hidden="true"></div><div class="matrix-legend-scale-vertical">${samplesEarly.map((value) => `<span>${escapeHtml(formatValue(value, s.unit))}</span>`).join("")}</div>`;
+      // El título es position:absolute (no empuja la barra/números) y por eso
+      // NO cuenta para el ancho del elemento flex (.matrix-figure centra
+      // svg+leyenda como grupo); sin esto el título puede quedar recortado.
+      const titleElEarly = legend.querySelector(".matrix-legend-unit");
+      legend.style.minWidth = titleElEarly ? Math.ceil(titleElEarly.offsetWidth) + "px" : "";
+    } else {
+      legend.innerHTML = "";
+    }
+    const isMobileHeatmap = window.matchMedia && window.matchMedia("(max-width: 820px)").matches;
+    const mobileContentScaleW = isMobileHeatmap ? 0.80 : 1;
+    // La matriz se dimensiona contra el espacio útil disponible; en móvil
+    // reducimos el ancho interno para que entre completa sin scroll.
+    const panelWidth = isMobileHeatmap
+      ? Math.max(376, figure.clientWidth || 0)
+      : Math.max(320, figure.clientWidth || 900);
+    const panelHeight = isMobileHeatmap
+      ? Math.max(212, figure.clientHeight || 0)
+      : Math.max(220, figure.clientHeight || 520);
     // ── Geometría idéntica al Módulo 4: celdas no cuadradas + viewBox ajustado
     //    al contenido + escala para llenar el cuadro (preserveAspectRatio meet). ──
-    const contW = Math.max(220, panelWidth - 84);
+    // OJO: la reserva usa SOLO el ancho del título (estable para una misma
+    // unidad) y un piso fijo — nunca "legend.offsetWidth" del contenedor
+    // completo, porque ese incluye la columna de números, que cambia de
+    // ancho según los dígitos de cada nivel de agregación y volvería a hacer
+    // que el SVG cambiara de tamaño al re-agrupar.
+    const legendTitleW = legend?.querySelector(".matrix-legend-unit")?.offsetWidth || 0;
+    const legendReserve = isMobileHeatmap ? 0 : 14 + Math.max(70, legendTitleW);
+    const contW = Math.max(220, Math.floor((panelWidth - legendReserve) * mobileContentScaleW));
     const contH = Math.max(220, panelHeight - 14);
     const _fit = window.fitHeatmapGeometry({
       contW, contH, nRows: rowKeys.length, nCols: colKeys.length,
       rowLabels: rowKeys,
-      colLabels: colKeys.map((c) => sectorGroupLabel(c)),
-      rotDeg: 66, rowFamily: "Verdana, Geneva, sans-serif", colFamily: "Verdana, Geneva, sans-serif",
+      colLabels: colKeys.map((c) => isMobileHeatmap && window.heatmapAxisLabelShort ? window.heatmapAxisLabelShort(sectorGroupLabel(c)) : sectorGroupLabel(c)),
+      rotDeg: isMobileHeatmap ? 82 : 66,
+      leftPadMin: isMobileHeatmap ? 64 : undefined,
+      bottomPadMin: isMobileHeatmap ? 84 : undefined,
+      rowFamily: "Verdana, Geneva, sans-serif", colFamily: "Verdana, Geneva, sans-serif",
     });
     const leftLabelWidth = _fit.LP;
     const bottomLabelHeight = _fit.BP;
@@ -921,8 +962,11 @@
     const cellW = _fit.CW;
     const gridWidth = colKeys.length * cellW;
     const gridHeight = rowKeys.length * cellH;
-    const gridLeft = leftLabelWidth;
-    const gridTop = topPad;
+    // offsetX/offsetY centran la grilla (posiblemente más chica que el
+    // recuadro fijo, por el aspecto casi-cuadrado de las celdas) dentro del
+    // mismo recuadro; el SVG exterior no cambia de tamaño.
+    const gridLeft = leftLabelWidth + (_fit.offsetX || 0);
+    const gridTop = topPad + (_fit.offsetY || 0);
     const gridBottom = gridTop + gridHeight;
     const legendGap = 14;
     const legendLeft = gridLeft + gridWidth + legendGap;
@@ -936,7 +980,7 @@
     // siempre el mismo tamaño en pantalla; al cambiar de agrupación sólo crecen
     // o se encogen las celdas, no el recuadro. La geometría de la grilla se
     // publica en dataset para que la leyenda mida exactamente su alto.
-    svg.dataset.gridTop = topPad;
+    svg.dataset.gridTop = gridTop;
     svg.dataset.gridHeight = gridHeight;
     svg.style.cssText = `display:block;overflow:visible;align-self:flex-start;width:${Math.round(svgWidth)}px;height:${Math.round(svgHeight)}px`;
 
@@ -944,6 +988,7 @@
     // Tamaño de letra dinámico (mismo estándar que M4)
     const _rowFs = _fit.rowFs;
     const _colFs = _fit.colFs;
+    let _matAnyGray = false, _matAnyZero = false;
     rowKeys.forEach((rowKey, r) => {
       const y = gridTop + r * cellH;
       parts.push(`<text class="matrix-row-label" x="${gridLeft - 6}" y="${y + cellH / 2}" style="font-size:${_rowFs}px">${escapeHtml(rowKey)}</text>`);
@@ -951,14 +996,21 @@
         const x = gridLeft + c * cellW;
         const key = `${rowKey}|||${colKey}`;
         const value = unitMap.get(key) || 0;
-        const _f = value <= 0 ? "#ffffff" : (window.NearZero.is(value, _matTotal, window.NearZero.MATRIX_THR) ? window.NearZero.GRAY : colorForValue(value));
+        const isNearZero = value > 0 && window.NearZero.is(value, _matTotal, window.NearZero.MATRIX_THR);
+        if (value <= 0) _matAnyZero = true;
+        if (isNearZero) _matAnyGray = true;
+        const _f = value <= 0 ? "#ffffff" : (isNearZero ? window.NearZero.GRAY : colorForValue(value));
         parts.push(`<rect class="matrix-cell${value > 0 ? "" : " is-empty"}" data-row="${escapeHtml(rowKey)}" data-col="${escapeHtml(colKey)}" x="${x}" y="${y}" width="${cellW}" height="${cellH}" fill="${_f}"></rect>`);
       });
     });
+    window.NearZero.updateLegend("m3-matrix-nz-legend", _matAnyGray, _matAnyZero);
+      const labelRotation = isMobileHeatmap ? -82 : -66;
     colKeys.forEach((colKey, c) => {
       const labelX = gridLeft + (c + 1) * cellW - 1;
       const labelY = gridBottom + 3;
-      parts.push(`<text class="matrix-col-label" x="${labelX}" y="${labelY}" transform="rotate(-66 ${labelX} ${labelY})" style="font-size:${_colFs}px">${escapeHtml(sectorGroupLabel(colKey))}</text>`);
+      const fullLabel = sectorGroupLabel(colKey);
+      const dispLabel = isMobileHeatmap && window.heatmapAxisLabelShort ? window.heatmapAxisLabelShort(fullLabel) : fullLabel;
+      parts.push(`<text class="matrix-col-label" x="${labelX}" y="${labelY}" transform="rotate(${labelRotation} ${labelX} ${labelY})" style="font-size:${_colFs}px"><title>${escapeHtml(fullLabel)}</title>${escapeHtml(dispLabel)}</text>`);
     });
     svg.innerHTML = parts.join("");
     svg.querySelectorAll(".matrix-cell").forEach((node) => {
@@ -990,6 +1042,11 @@
       const samples = minValue === maxValue ? [minValue] : Array.from({ length: 6 }, (_, index) => minValue * Math.pow(maxValue / minValue, index / 5)).reverse();
       legend.innerHTML = `<div class="matrix-legend-unit">${escapeHtml(currentUnitLabel(s.unit))}</div><div class="matrix-legend-bar-vertical" aria-hidden="true"></div><div class="matrix-legend-scale-vertical">${samples.map((value) => `<span>${escapeHtml(formatValue(value, s.unit))}</span>`).join("")}</div>`;
       window.attachLegendReadout?.(legend.querySelector(".matrix-legend-bar-vertical"), minValue, maxValue, (v) => formatValue(v, s.unit));
+      // El título es position:absolute (no empuja la barra/números) y por eso
+      // NO cuenta para el ancho del elemento flex; sin esto el título puede
+      // quedar recortado por fuera del contenedor.
+      const titleEl = legend.querySelector(".matrix-legend-unit");
+      legend.style.minWidth = titleEl ? Math.ceil(titleEl.offsetWidth) + "px" : "";
       // La leyenda es hermana flex del SVG (CSS .matrix-figure): el conjunto
       // svg+leyenda se centra como una unidad y la barra queda pegada al
       // heatmap. Igualamos su alto al alto REAL renderizado del SVG mediante el
@@ -1140,6 +1197,7 @@
     renderSector(metrics);
     renderMatrix(metrics);
   }
+  window.module3RenderAll = renderAll;
 
   summaryEl?.addEventListener("click", (event) => {
     if (!event.target.closest(".selection-summary-head")) return;
@@ -1445,5 +1503,3 @@
     console.error("module3 data load failed", error);
   });
 })();
-
-

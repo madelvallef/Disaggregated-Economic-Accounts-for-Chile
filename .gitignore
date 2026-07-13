@@ -1,3 +1,14 @@
 node_modules/
 dist/
 .thumbnail
+
+# Material interno, iteraciones y capturas: nunca publicar en GitHub.
+operacion/
+.claude/
+_archivo/
+qa/layout/
+qa/screenshots/
+M4 Panel Control - Version final.html
+m4-panel-control.html
+AGENTS.md
+CLAUDE.md

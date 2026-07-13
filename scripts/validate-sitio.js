@@ -30,6 +30,7 @@ const requiredIds = [
   "citacion",
   "research-paper",
   "research-team",
+  "contacto",
   "acknowledgements",
 ];
 
@@ -38,7 +39,7 @@ for (const id of requiredIds) {
 }
 
 function hasMojibake(text) {
-  return /(?:Ã.|Â.|â[\u0080-\uFFFF]?|Î.)/.test(text);
+  return /(?:Ã[\u0080-\u00BF]|Â[\u0080-\u00BF]|â[\u0080-\u00BF]{1,2})/.test(text);
 }
 
 for (const source of mojibakeSources) {

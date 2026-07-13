@@ -103,10 +103,10 @@ async function run() {
           m4Children: document.querySelector("#module-4 .m4-shell").children.length,
           shellHeights,
           overflowX: document.documentElement.scrollWidth - window.innerWidth,
-          headerOverlap: (() => {
+          headerLayoutOk: (() => {
             const brand = document.querySelector(".site-header .brand").getBoundingClientRect();
             const nav = document.querySelector(".site-header .site-nav").getBoundingClientRect();
-            return brand.right - nav.left;
+            return nav.left >= brand.right - 1;
           })(),
         };
       });
@@ -117,12 +117,36 @@ async function run() {
       assert(state.m3Paths > 0, `${viewport.name}: M3 no dibujo el mapa`);
       assert(state.m4Children > 0, `${viewport.name}: M4 no se inicializo`);
       assert(state.overflowX <= 2, `${viewport.name}: overflow horizontal de ${state.overflowX}px`);
-      assert(state.headerOverlap <= 1, `${viewport.name}: header solapado ${state.headerOverlap}px`);
+      assert(state.headerLayoutOk, `${viewport.name}: header con marca y navegacion solapadas`);
 
       if (viewport.name === "desktop") {
         const spread = Math.max(...state.shellHeights) - Math.min(...state.shellHeights);
         assert(spread <= 2, `desktop: alturas M2/M3/M4 no coinciden (${state.shellHeights.join("/")})`);
       } else {
+        const english = page.locator('.site-header [data-lang="en"]');
+        assert(await english.count() === 1, "mobile: selector EN no es unico");
+        await english.click();
+        await page.waitForTimeout(150);
+        const englishState = await page.evaluate(() => {
+          const nav = document.querySelector(".site-header .site-nav");
+          const brand = document.querySelector(".site-header .brand").getBoundingClientRect();
+          const navRect = nav.getBoundingClientRect();
+          return {
+            lang: document.documentElement.lang,
+            hasExplore: [...nav.querySelectorAll("a")].some((link) => link.textContent.trim() === "Explore"),
+            mobileInline: navRect.left >= brand.right - 1,
+            overflowX: document.documentElement.scrollWidth - window.innerWidth,
+          };
+        });
+        assert(englishState.lang === "en" && englishState.hasExplore, "mobile: cambio a EN incompleto");
+        assert(englishState.mobileInline, "mobile: header EN solapa la marca y la navegacion");
+        assert(englishState.overflowX <= 2, `mobile EN: overflow horizontal de ${englishState.overflowX}px`);
+
+        const spanish = page.locator('.site-header [data-lang="es"]');
+        assert(await spanish.count() === 1, "mobile: selector ES no es unico");
+        await spanish.click();
+        await page.waitForTimeout(150);
+
         await page.locator("#module-2").scrollIntoViewIfNeeded();
         await page.waitForTimeout(250);
         const controls = page.locator(".mob-ctrl-fab.is-on");
@@ -145,6 +169,46 @@ async function run() {
         const rows = await page.locator(".mobile-top-panel .rank-chip").count();
         assert(rows > 0, "mobile: vista Top no contiene ranking");
         await page.locator(".mobile-top-close").click();
+
+        // Las tres perspectivas de cada módulo deben poder verse sin que la
+        // página se ensanche. Una matriz puede conservar scroll interno o
+        // ajustarse íntegramente al visor, siempre que no pierda legibilidad.
+        const mobileViews = [
+          { module: "#module-2", tab: '#module-2 .module-tab[data-view="sector"]', figure: "#module-2 #sector-bars", label: "M2 sectorial" },
+          { module: "#module-2", tab: '#module-2 .module-tab[data-view="matrix"]', figure: "#module-2 .matrix-scroll", matrix: true, label: "M2 territorial-sectorial" },
+          { module: "#module-3", tab: '#module-3 .module-tab[data-module3-view="sector"]', figure: "#module-3 #m3-sector-bars", label: "M3 sectorial" },
+          { module: "#module-3", tab: '#module-3 .module-tab[data-module3-view="matrix"]', figure: "#module-3 .matrix-scroll", matrix: true, label: "M3 territorial-sectorial" },
+          { module: "#module-4", tab: "#module-4 .m4d-tab:nth-child(2)", figure: "#module-4 #m4d-bars", label: "M4 sectorial" },
+          { module: "#module-4", tab: "#module-4 .m4d-tab:nth-child(3)", figure: "#module-4 .m4d-hm-scroll", matrix: true, label: "M4 territorial-sectorial" },
+        ];
+        for (const view of mobileViews) {
+          await page.locator(view.module).scrollIntoViewIfNeeded();
+          await page.locator(view.tab).click();
+          await page.waitForTimeout(300);
+          const result = await page.locator(view.figure).evaluate((element, matrix) => {
+            const rect = element.getBoundingClientRect();
+            return {
+              width: rect.width,
+              height: rect.height,
+              scrollWidth: element.scrollWidth,
+              scrollHeight: element.scrollHeight,
+              svgWidth: element.querySelector("svg")?.getBoundingClientRect().width || 0,
+              svgHeight: element.querySelector("svg")?.getBoundingClientRect().height || 0,
+              overflowX: document.documentElement.scrollWidth - window.innerWidth,
+              matrix,
+            };
+          }, view.matrix || false);
+          assert(result.width > 220 && result.height > 100, `mobile: ${view.label} no tiene una figura util`);
+          assert(result.overflowX <= 2, `mobile: ${view.label} genera overflow horizontal de ${result.overflowX}px`);
+          if (view.matrix) {
+            assert(
+              result.scrollWidth > result.width ||
+              result.scrollHeight > result.height ||
+              (result.svgWidth > 0 && result.svgWidth <= result.width + 2 && result.svgHeight <= result.height + 2),
+              `mobile: ${view.label} no tiene una matriz desplazable ni ajustada al visor`,
+            );
+          }
+        }
       }
 
       await page.close();

@@ -11,11 +11,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="only light">
 <title>Cuentas Económicas Desagregadas para Chile · CORFO–BID</title>
-<link rel="stylesheet" href="vendor/dm-fonts.css">
-<link rel="stylesheet" href="web_materiales/css/design-system.css">
 <style>
   *{box-sizing:border-box}
+  :root,html{color-scheme:only light!important}
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--ds-color-canvas);color:var(--ds-color-text);font-family:"DM Sans",system-ui,sans-serif}
   a{color:var(--ds-color-brand)}
@@ -23,9 +23,8 @@
 
   /* ---- Header sticky global ---- */
   .site-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:24px;padding:0 44px;height:74px;background:var(--ds-color-brand)}
-  .site-header .brand{display:flex;align-items:center;gap:16px}
-  .site-header .brand img{height:22px;width:auto;display:block}
-  .site-header .brand a{font-weight:800;font-size:.84rem;color:#fff;text-decoration:none;padding-left:16px;border-left:1px solid rgba(255,255,255,.28)}
+  .site-header .brand{display:flex;align-items:center}
+  .site-header .brand a{font-weight:800;font-size:.9rem;color:#fff;text-decoration:none;letter-spacing:.04em}
   .site-nav{margin-left:auto;display:flex;align-items:center;gap:4px}
   .site-nav a{padding:9px 13px;border-radius:6px;font-weight:700;font-size:.92rem;color:rgba(255,255,255,.85);text-decoration:none;transition:background .15s,color .15s}
   .site-nav a:hover{color:#fff;background:rgba(255,255,255,.12)}
@@ -1203,7 +1202,14 @@
       gap: 6px;
     }
 
-    .figure-download-btn {
+    .figure-action-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .figure-download-btn,
+    .figure-expand-btn {
       appearance: none;
       width: 34px;
       height: 34px;
@@ -1220,14 +1226,17 @@
     }
 
     .figure-download-btn:hover,
-    .figure-download-btn:focus-visible {
+    .figure-download-btn:focus-visible,
+    .figure-expand-btn:hover,
+    .figure-expand-btn:focus-visible {
       outline: none;
       transform: translateY(-1px);
       box-shadow: 0 12px 24px rgba(34, 30, 124, 0.16);
       border-color: rgba(34, 30, 124, 0.26);
     }
 
-    .figure-download-btn svg {
+    .figure-download-btn svg,
+    .figure-expand-btn svg {
       width: 18px;
       height: 18px;
       stroke: currentColor;
@@ -1239,8 +1248,18 @@
 
     /* Botón de descarga con el color de cada módulo (fondo blanco sólido) */
     #module-2 .figure-download-btn { color: var(--m2-color); border-color: color-mix(in srgb, var(--m2-color) 28%, #fff); }
+    #module-2 .figure-expand-btn { color: var(--m2-color); border-color: color-mix(in srgb, var(--m2-color) 22%, #fff); }
     #module-3 .figure-download-btn { color: var(--m3-color); border-color: color-mix(in srgb, var(--m3-color) 28%, #fff); }
+    #module-3 .figure-expand-btn { color: var(--m3-color); border-color: color-mix(in srgb, var(--m3-color) 22%, #fff); }
     #module-4 .figure-download-btn { color: var(--m4-color); border-color: color-mix(in srgb, var(--m4-color) 28%, #fff); }
+    #module-4 .figure-expand-btn { color: var(--m4-color); border-color: color-mix(in srgb, var(--m4-color) 22%, #fff); }
+    .figure-expand-btn.is-active {
+      background: rgba(34, 30, 124, 0.08);
+      box-shadow: 0 10px 20px rgba(34, 30, 124, 0.16);
+    }
+    #module-2 .figure-expand-btn.is-active { background: color-mix(in srgb, var(--m2-color) 10%, #fff); }
+    #module-3 .figure-expand-btn.is-active { background: color-mix(in srgb, var(--m3-color) 10%, #fff); }
+    #module-4 .figure-expand-btn.is-active { background: color-mix(in srgb, var(--m4-color) 10%, #fff); }
 
     .figure-download-menu {
       min-width: 104px;
@@ -1256,6 +1275,158 @@
 
     .figure-actions.is-open .figure-download-menu {
       display: flex;
+    }
+
+    body.figure-expanded {
+      overflow: hidden;
+    }
+
+    .figure-expand-stage {
+      position: fixed;
+      inset: var(--sitio-header-h, 74px) 0 0 0;
+      z-index: 120;
+      display: none;
+      align-items: stretch;
+      justify-content: stretch;
+      padding: 12px;
+      background: rgba(247, 248, 251, 0.992);
+      overflow: hidden;
+    }
+
+    body.figure-expanded .figure-expand-stage {
+      display: flex;
+    }
+
+    /* La figura no abandona su módulo: así conserva los estilos específicos
+       de M2, M3 o M4. Sólo se eleva a una capa fija bajo el header. */
+    .is-figure-expanded {
+      position: fixed !important;
+      inset: calc(var(--sitio-header-h, 74px) + 12px) 12px 12px !important;
+      z-index: 121 !important;
+      width: auto !important;
+      height: auto !important;
+      min-width: 0 !important;
+      min-height: 0 !important;
+      max-width: none !important;
+      max-height: none !important;
+      margin: 0 !important;
+      overflow: visible !important;
+    }
+
+    /* Las tarjetas de lectura son parte de la figura: al ampliar deben
+       mantenerse por encima del fondo modal y no quedar recortadas. */
+    body.figure-expanded .floating-hover-card {
+      z-index: 123;
+    }
+
+    /* Los shells de M2/M3 usan isolation para sus rieles laterales. Durante
+       la ampliación se libera ese contexto para que la figura pueda situarse
+       por encima del fondo modal, sin subir el resto del módulo. */
+    .module-two-shell.is-figure-expand-context,
+    .m4-shell.is-figure-expand-context {
+      isolation: auto !important;
+    }
+
+    .is-figure-expanded .figure-actions {
+      right: 12px;
+      bottom: 12px;
+    }
+
+    .figure-expand-close {
+      position: fixed;
+      /* El cierre queda en el aire superior derecho de la figura ampliada,
+         no sobre el header ni encima de su leyenda. */
+      top: calc(var(--sitio-header-h, 74px) + 18px);
+      left: auto;
+      right: 24px;
+      z-index: 122;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 30, 124, 0.16);
+      background: #ffffff;
+      color: var(--corfo-blue);
+      box-shadow: 0 10px 24px rgba(34, 30, 124, 0.16);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    @media (min-width: 821px) {
+      /* La ampliación privilegia lectura. Conserva un margen lateral común
+         para mapa, barras y heatmap, en vez de estirar los gráficos al borde. */
+      body.figure-expanded #module-2 .is-figure-expanded,
+      body.figure-expanded #module-3 .is-figure-expanded,
+      body.figure-expanded #module-4 .is-figure-expanded {
+        padding-left: clamp(40px, 7vw, 116px) !important;
+        padding-right: clamp(40px, 7vw, 116px) !important;
+      }
+
+      /* Barras y heatmaps se leen mejor dentro del mismo ancho de marco que
+         el mapa: no aprovechan el viewport completo sólo porque está libre. */
+      body.figure-expanded #module-2 .viz-shell.is-figure-expanded,
+      body.figure-expanded #module-2 .matrix-figure.is-figure-expanded,
+      body.figure-expanded #module-3 .viz-shell.is-figure-expanded,
+      body.figure-expanded #module-3 .matrix-figure.is-figure-expanded,
+      body.figure-expanded #module-4 .m4d-bars-col.is-figure-expanded,
+      body.figure-expanded #module-4 .m4d-hm-figure.is-figure-expanded {
+        left: 50% !important;
+        right: auto !important;
+        width: min(1216px, calc(100vw - 48px)) !important;
+        transform: translateX(-50%);
+      }
+
+      /* Sin scrollbar al ampliar barras: el alto de fila se calcula en JS a
+         partir de la cantidad de sectores visibles. */
+      body.figure-expanded #module-2 .sector-layout .viz-shell.is-figure-expanded #sector-bars,
+      body.figure-expanded #module-3 .sector-layout .viz-shell.is-figure-expanded #m3-sector-bars,
+      body.figure-expanded #module-4 .m4d-bars-col.is-figure-expanded .m4d-bars-scroll {
+        overflow-y: hidden !important;
+        padding-right: 0 !important;
+      }
+
+      body.figure-expanded #module-2 .sector-layout .viz-shell.is-figure-expanded #sector-bars,
+      body.figure-expanded #module-3 .sector-layout .viz-shell.is-figure-expanded #m3-sector-bars,
+      body.figure-expanded #module-4 .m4d-bars-col.is-figure-expanded .m4d-bars {
+        gap: 2px !important;
+      }
+
+      body.figure-expanded #module-2 .sector-layout .viz-shell.is-figure-expanded .m4d-bar-row,
+      body.figure-expanded #module-3 .sector-layout .viz-shell.is-figure-expanded .m4d-bar-row,
+      body.figure-expanded #module-4 .m4d-bars-col.is-figure-expanded .m4d-bar-row {
+        min-height: var(--expanded-bar-row-h, 14px) !important;
+        height: var(--expanded-bar-row-h, 14px) !important;
+        grid-template-columns: 180px minmax(0, 1fr) 54px !important;
+        gap: 8px !important;
+      }
+
+      body.figure-expanded .is-figure-expanded .m4d-bar-label,
+      body.figure-expanded .is-figure-expanded .m4d-bar-val {
+        font-size: var(--expanded-bar-label-size, 10px) !important;
+        line-height: 1.1 !important;
+      }
+
+      body.figure-expanded .is-figure-expanded .m4d-bar-label {
+        -webkit-line-clamp: 1 !important;
+      }
+
+      body.figure-expanded .is-figure-expanded .m4d-bar-track {
+        height: max(7px, calc(var(--expanded-bar-row-h, 14px) - 4px)) !important;
+      }
+    }
+
+    body.figure-expanded .figure-expand-close {
+      display: inline-flex;
+    }
+
+    .figure-expand-close:hover,
+    .figure-expand-close:focus-visible {
+      outline: none;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(34, 30, 124, 0.20);
     }
 
     .figure-download-option {
@@ -1750,15 +1921,29 @@
       flex: 0 0 11px;
     }
 
-    /* ── Leyenda de censura (gris = bajo umbral, otro color = 0/sin dato) ── */
+    /* ── Leyenda de censura (gris = bajo umbral, otro color = 0/sin dato) ──
+       Misma posicion/estilo en las 6 figuras (M2/M3/M4 x mapa/heatmap):
+       superpuesta (position:absolute) dentro del contenedor de la figura
+       (.map-stage / .matrix-figure, ambos position:relative). La posicion
+       (left/top) se calcula en JS (window.NearZero) justo debajo de la
+       barra de leyenda correspondiente, para que quede pegada a ella en
+       cualquier layout/breakpoint sin duplicar reglas responsive. */
     .near-zero-legend {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
       display: flex;
-      flex-wrap: wrap;
-      gap: 4px 12px;
-      margin-top: 6px;
-      font-size: 0.66rem;
+      flex-direction: column;
+      gap: 3px;
+      background: transparent;
+      border-radius: 6px;
+      padding: 3px 7px 3px 0;
+      font-size: 0.62rem;
       color: var(--corfo-muted);
+      pointer-events: none;
     }
+    .near-zero-legend[hidden] { display: none; }
     .near-zero-legend span {
       display: inline-flex;
       gap: 5px;
@@ -1766,27 +1951,13 @@
       min-width: 0;
       white-space: nowrap;
     }
+    .near-zero-legend span[hidden] { display: none; }
     .near-zero-legend i {
-      width: 9px;
-      height: 9px;
+      width: 16px;
+      height: 16px;
       display: inline-block;
-      flex: 0 0 9px;
+      flex: 0 0 16px;
       border-radius: 2px;
-    }
-
-    /* Variante para módulo 4: el layout es viewport-fijo (sin scroll), así
-       que la nota va superpuesta (position:absolute) sobre la figura en vez
-       de ocupar espacio propio en el flujo flex. */
-    .near-zero-legend-overlay {
-      position: absolute;
-      left: 8px;
-      bottom: 6px;
-      z-index: 3;
-      background: rgba(255, 255, 255, 0.88);
-      border: 1px solid rgba(34, 30, 124, 0.12);
-      border-radius: 6px;
-      padding: 3px 7px;
-      pointer-events: none;
     }
 
     /* ══ CedTreeSelect — selector jerarquico con busqueda (web_materiales/js/tree-select.js) ══ */
@@ -1807,6 +1978,10 @@
       background: #fff; border: 1px solid var(--corfo-blue); border-radius: 8px;
       box-shadow: 0 8px 24px rgba(34,30,124,0.14);
     }
+    /* Sin esto, [hidden] (regla del navegador) queda empatada en especificidad
+       con .ts-pop y una regla de autor le gana a la del user-agent: el popup
+       seguia mostrandose (display:flex) aunque JS pusiera pop.hidden = true. */
+    .ts-pop[hidden] { display: none; }
     .ts-tools { display: flex; align-items: center; gap: 6px; padding: 8px; border-bottom: 1px solid rgba(34,30,124,0.08); flex: 0 0 auto; }
     .ts-search { flex: 1; min-width: 0; border: 1px solid rgba(34,30,124,0.16); border-radius: 6px; padding: 5px 8px; font: inherit; font-size: 0.72rem; color: var(--corfo-text); }
     .ts-search:focus { outline: none; border-color: var(--corfo-blue); }
@@ -2017,6 +2192,9 @@
       overflow: hidden;
     }
 
+    .matrix-scroll,
+    .m4d-hm-scroll { display: contents; }
+
     .matrix-svg {
       max-width: 100%;
       max-height: 100%;
@@ -2176,7 +2354,10 @@
       width: 16px;
       height: 100%;
       min-height: 60px;
-      flex: 1 1 auto;
+      /* flex-grow:0 para que la barra NUNCA se ensanche más allá de 16px
+         (debe calzar con los cuadraditos de "≈0"/"=0", también 16px), aunque
+         el contenedor tenga de sobra por el min-width reservado al título. */
+      flex: 0 1 16px;
       border: 1px solid rgba(34, 30, 124, 0.16);
       background: linear-gradient(
         180deg,
@@ -2470,7 +2651,7 @@
     #module-2 .np-kpi-ttl, #module-2 .np-kpi-num { color: var(--m2-color); }
 
     /* ── Viewport-responsive typography ──────────────────────────────── */
-    :root { --vp-scale: clamp(0.82, 0.5 + 0.5vw, 1.25); }
+    :root { --vp-scale: clamp(0.82, 0.5 + 0.5vw, 1.25); --control-copy-size: 0.72rem; --control-copy-line-height: 1.46; }
     html { font-size: clamp(13px, 0.75vw + 9px, 19px); }
     /* Scale key UI labels */
     .np-kpi-num { font-size: clamp(1.5rem, 1.8vw, 2.6rem) !important; }
@@ -2964,7 +3145,7 @@
     .m3-q-sub   { font-size: 0.59rem; font-weight: 400; color: #7a9a9c; margin-top: 2px; line-height: 1.3; }
     .m3-q-ask   { font-size: 0.6rem; font-style: italic; font-weight: 400; color: #0d6b73; margin-top: 3px; line-height: 1.3; }
     .m3-q-card.active .m3-q-ask { color: #0b4f55; }
-    .m3-sec-instruction { font-family: var(--font-ui); font-size: 0.62rem; line-height: 1.45; color: var(--corfo-muted); margin: 0 0 6px; font-weight: 400; text-transform: none; letter-spacing: 0; }
+    .m3-sec-instruction { font-family: var(--font-ui); font-size: var(--control-copy-size); line-height: var(--control-copy-line-height); color: var(--corfo-muted); margin: 0 0 6px; font-weight: 400; text-transform: none; letter-spacing: 0; }
     .m3-panel .m3-charc-sec { margin-bottom: 12px !important; }
     #module-3 .m3-charc-sec .m3-kpi-block, .m3-panel .m3-charc-sec .m3-kpi-block { background: transparent !important; border: none !important; padding: 6px 0 0 !important; margin: 0 !important; }
     .m3-agg-sublabel { font-size: 0.58rem; opacity: 0.8; margin: 0 0 4px; }
@@ -4251,12 +4432,12 @@
       radial-gradient(circle at 84% 88%, rgba(120, 214, 187, 0.08), transparent 16%),
       linear-gradient(180deg, #f9f9f9 0%, var(--corfo-bg) 100%); }
   #module-4 .m4d-main { flex: 1; min-height: 0; display: grid; grid-template-columns: var(--ctrl-panel-w) minmax(0, 1fr); }
-  #module-4 .m4d-controls { border-right: 1px solid var(--corfo-line); background: var(--corfo-bg-soft);
+  #module-4 .m4d-controls { border-right: 1px solid var(--corfo-line); background: #fff;
     padding: 16px 16px 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px;
-    scrollbar-width: thin; scrollbar-color: rgba(92,45,138,0.15) transparent; }
+    scrollbar-width: thin; scrollbar-color: rgba(92,45,138,0.15) transparent; container-type: inline-size; }
   #module-4 .m4d-controls::-webkit-scrollbar { width: 3px; }
   #module-4 .m4d-controls::-webkit-scrollbar-thumb { background: rgba(92,45,138,0.18); border-radius: 3px; }
-  #module-4 .m4d-cgroup { display: flex; flex-direction: column; gap: 8px; background: rgba(92,45,138,0.05); border-left: 3px solid var(--m4-color); border-radius: 8px; padding: 10px 12px; }
+  #module-4 .m4d-cgroup { display: flex; flex-direction: column; gap: 8px; background: #fff; border: 1px solid #eee9f2; border-radius: 8px; padding: 13px; }
   #module-4 .m4d-clabel { font-family: var(--font-ui); font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .09em; color: rgba(92,45,138,0.78); }
   #module-4 .m4d-field { display: flex; flex-direction: column; gap: 4px; font-family: var(--font-ui); }
   #module-4 .m4d-field > span { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: rgba(92,45,138,0.6); }
@@ -4264,17 +4445,18 @@
     padding: 9px 11px; border: 1px solid rgba(92,45,138,0.30); border-radius: 7px; background: #fff; cursor: pointer; }
   #module-4 .m4d-select:focus { outline: 2px solid rgba(92,45,138,.35); border-color: var(--m4-color); }
 
-  #module-4 .m4d-kpi { background: rgba(92,45,138,0.05); border: none; border-left: 3px solid var(--m4-color); border-radius: 8px; padding: 11px 12px; display: flex; flex-direction: column; gap: 9px; }
-  #module-4 .m4d-kpi-top { display: flex; align-items: baseline; gap: 7px; }
-  #module-4 .m4d-kpi-lbl { font-family: var(--font-ui); font-size: 11px; font-weight: 600; color: var(--corfo-muted); }
-  #module-4 .m4d-kpi-val { font-family: var(--font-data); font-size: 25px; font-weight: 600; color: var(--m4-color); line-height: 1; margin-left: auto; }
-  #module-4 .m4d-bd-top { font-family: var(--font-ui); font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--corfo-muted); }
+  #module-4 .m4d-kpi { background: #fcfaff; border: 1px solid #eee9f2; border-left: 3px solid var(--m4-color); border-radius: 8px; padding: 13px; display: flex; flex-direction: column; gap: 0; }
+  #module-4 .m4d-kpi-top { display: block; margin: 0 0 15px; }
+  #module-4 .m4d-kpi-lbl { display: none; }
+  #module-4 .m4d-kpi-val { display: block; margin: 0; color: var(--m4-deep, #45206f); font-family: var(--font-data); font-size: 2.5rem; font-weight: 800; line-height: 1; text-align: center; }
+  #module-4 .m4d-bd-top { margin: 0 0 8px; color: #655c70; font-family: var(--font-data); font-size: .6rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
   #module-4 .m4d-bd-bar { display: flex; height: 10px; border-radius: 3px; overflow: hidden; }
   #module-4 .m4d-bd-bar span { display: block; height: 100%; }
-  #module-4 .m4d-bd-key { display: flex; flex-direction: column; gap: 3px; font-family: var(--font-ui); font-size: 11px; color: var(--corfo-text); }
-  #module-4 .m4d-bd-key span { display: flex; align-items: center; gap: 6px; }
-  #module-4 .m4d-bd-key i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; flex: 0 0 auto; }
-  #module-4 .m4d-bd-key b { margin-left: auto; font-family: var(--font-data); font-weight: 600; }
+  #module-4 .m4d-bd-key { display: flex; justify-content: space-between; gap: 8px; margin-top: 10px; font-family: var(--font-ui); font-size: .63rem; color: #40374d; }
+  #module-4 .m4d-bd-key span { display: flex; flex: 1 1 0; align-items: center; gap: 6px; min-width: 0; font-weight: 700; line-height: 1.2; }
+  #module-4 .m4d-bd-key i { width: 4px; height: 34px; border-radius: 2px; display: inline-block; flex: 0 0 auto; }
+  #module-4 .m4d-bd-key em { min-width: 0; font-style: normal; overflow-wrap: normal; word-break: normal; }
+  #module-4 .m4d-bd-key b { margin-left: auto; color: var(--m4-deep, #45206f); font-family: var(--font-data); font-size: 1.05rem; font-weight: 800; }
 
   #module-4 .m4d-agg, #module-4 .m4d-seg { display: grid; gap: 1px; background: rgba(92,45,138,0.15); border: 1px solid rgba(92,45,138,0.30); border-radius: 8px; padding: 0; overflow: hidden; }
   #module-4 .m4d-agg { grid-template-columns: 1fr 1fr 1fr; }
@@ -4287,7 +4469,8 @@
   #module-4 .m4d-unit { display: flex; align-items: center; gap: 7px; font-family: var(--font-ui); font-size: 13px; font-weight: 600; color: var(--m4-color); }
   #module-4 .m4d-unit span:first-child { text-wrap: pretty; }
   #module-4 .m4d-info { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; flex: 0 0 auto;
-    border-radius: 50%; border: 1px solid rgba(92,45,138,.4); color: var(--m4-color); font-family: var(--font-data); font-size: 9px; font-style: italic; cursor: help; }
+    padding: 0; border-radius: 50%; border: 1px solid rgba(92,45,138,.4); background: #fff; color: var(--m4-color); font-family: var(--font-data); font-size: 9px; font-style: italic; cursor: pointer; }
+  #module-4 .m4d-info:focus-visible { outline: 2px solid rgba(92,45,138,.45); outline-offset: 2px; }
   #module-4 .m4d-method-btn { width: 100%; margin-top: auto; font-family: var(--font-ui); font-size: 12.5px; font-weight: 600;
     color: var(--m4-color); background: rgba(92,45,138,.08); border: 1px solid rgba(92,45,138,.2); border-radius: 8px; padding: 10px; cursor: pointer; }
   #module-4 .m4d-method-btn:hover { background: rgba(92,45,138,.14); }
@@ -4338,8 +4521,16 @@
   #module-4 .m3-q-card .m3-q-sub { color: rgba(92,45,138,0.55); }
   #module-4 .m3-q-card .m3-q-ask { color: rgba(92,45,138,0.72); font-style: italic; }
   #module-4 .m3-q-card.active .m3-q-ask { color: var(--m4-color); }
-  #module-4 .m4d-instruction { font-family: var(--font-ui); font-size: 0.62rem; line-height: 1.45; color: var(--corfo-muted); margin: 0 0 8px; }
-  #module-4 .m4d-kpi-title { font-family: var(--font-ui); font-size: 9.5px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--m4-color); margin-bottom: 4px; }
+  #module-4 .m4d-instruction { font-family: var(--font-ui); font-size: var(--control-copy-size); line-height: var(--control-copy-line-height); color: var(--corfo-muted); margin: 0 0 11px; }
+  #module-4 .m4d-instruction:last-of-type { margin-bottom: 0; }
+  #module-4 .m4d-instruction b { color: var(--m4-deep, #45206f); font-weight: 750; }
+  #module-4 .m4d-panel-intro { margin: 0 0 10px; padding: 10px 11px; border-left: 3px solid var(--m4-color); border-radius: 0 8px 8px 0; background: rgba(92,45,138,.05); color: var(--corfo-text); font-family: var(--font-ui); font-size: 0.67rem; line-height: 1.5; }
+  #module-4 .m4d-profile-scenario { margin: 9px 0 11px; color: #40374d; font-family: var(--font-ui); font-size: .76rem; line-height: 1.55; }
+  #module-4 .m4d-profile-scenario b { color: var(--m4-deep, #45206f); font-weight: 800; }
+  #module-4 .m3-q-card { cursor: pointer; }
+  #module-4 .m3-q-card:focus-visible { outline: 2px solid rgba(92,45,138,.42); outline-offset: 2px; }
+  #module-4 .m3-q-card .m3-q-title { display: flex; align-items: center; gap: 6px; }
+  #module-4 .m4d-kpi-title { display: block; margin: 0 0 8px; color: var(--m4-color); font-family: var(--font-data); font-size: .65rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
   #module-4 .m4d-sublbl { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--corfo-muted); opacity: 0.85; margin: 0 0 5px; }
   #module-4 .m4d-unit-note { background: rgba(92,45,138,0.05); border-left: 3px solid var(--m4-color); border-radius: 8px; padding: 9px 11px; font-size: 0.62rem; line-height: 1.45; color: var(--corfo-muted); display: block; }
   #module-4 .m4d-unit-note .ntag { font-weight: 800; text-transform: uppercase; font-size: 9px; letter-spacing: .06em; color: var(--m4-color); margin-right: 4px; }
@@ -4478,9 +4669,9 @@
   #module4-hover-card .m4d-hc-c-rank b { color: var(--m4-color); font-family: var(--font-data); font-weight: 700; }
 
   /* Method drawer */
-  #module-4 .m4d-method { position: fixed; inset: 0; background: rgba(20,12,30,.42); display: flex; justify-content: flex-end; opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 60; }
+  #module-4 .m4d-method { position: fixed; top: var(--sitio-header-h, 74px); right: 0; bottom: 0; left: 0; background: rgba(20,12,30,.42); display: flex; justify-content: flex-end; opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 60; }
   #module-4 .m4d-method.is-open { opacity: 1; pointer-events: auto; }
-  #module-4 .m4d-method-panel { width: min(580px, 94vw); height: 100%; overflow-y: auto; background: #fff; padding: 0; box-shadow: -8px 0 40px rgba(0,0,0,.2); transform: translateX(20px); transition: transform .2s; position: relative; }
+  #module-4 .m4d-method-panel { width: min(580px, 94vw); height: 100%; max-height: calc(100svh - var(--sitio-header-h, 74px)); overflow-y: auto; background: #fff; padding: 0; box-shadow: -8px 0 40px rgba(0,0,0,.2); transform: translateX(20px); transition: transform .2s; position: relative; }
   #module-4 .m4d-method.is-open .m4d-method-panel { transform: none; }
   #module-4 .m4d-method-panel h2 { font-family: var(--font-display); font-size: 24px; color: var(--m4-color); margin: 8px 0 9px; line-height: 1.06; }
   #module-4 .m4d-method-panel p { font-family: var(--font-ui); font-size: 13.5px; line-height: 1.55; color: var(--corfo-text); margin: 0 0 11px; }
@@ -4513,6 +4704,21 @@
     #module-4 .m4d-kpi-val { font-size: 21px; }
     #module-4 .m4d-controls { gap: 12px; padding: 12px; }
   }
+  @container (max-width: 390px) {
+    #module-4 .m4d-bd-key { gap: 4px; }
+    #module-4 .m4d-bd-key span { display: grid; grid-template-columns: 4px minmax(0, 1fr); grid-template-rows: auto auto; gap: 0 4px; font-size: .52rem; }
+    #module-4 .m4d-bd-key i { grid-row: 1 / span 2; grid-column: 1; height: 30px; }
+    #module-4 .m4d-bd-key em { grid-row: 1; grid-column: 2; align-self: end; }
+    #module-4 .m4d-bd-key b { grid-row: 2; grid-column: 2; justify-self: start; margin: 2px 0 0; font-size: .92rem; }
+  }
+  @media (max-width: 820px) {
+    #module-4 .m4d-bd-key { display: grid; grid-template-columns: 1fr; gap: 7px; }
+    #module-4 .m4d-bd-key span { display: flex; width: 100%; gap: 6px; }
+    #module-4 .m4d-bd-key i { height: 22px; }
+    #module-4 .m4d-bd-key em { overflow-wrap: normal; }
+    #module-4 .m4d-bd-key span { font-size: .7rem; }
+    #module-4 .m4d-bd-key b { margin-left: auto; font-size: .95rem; }
+  }
 </style>
 <style id="__explore-inline-css">
   .mobile-top-panel, .mob-top-fab { display:none !important; }
@@ -4535,38 +4741,186 @@
   .explore-inline .embed-mod-title h3 { margin:0; font-family:inherit; font-weight:800; font-size:1.35rem; line-height:1.15; color:#221e7c; }
 </style>
 
+<style id="__site-polish">
+  /* Base shared by the editorial sections and the interactive workspace. */
+  body { background: var(--ds-color-canvas) !important; }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+
+  :where(a, button, input, select, textarea):focus-visible {
+    outline: 3px solid var(--ds-color-accent);
+    outline-offset: 3px;
+  }
+
+  .site-header .site-nav a:focus-visible,
+  .site-header .lang button:focus-visible {
+    outline-color: #fff;
+    outline-offset: -3px;
+  }
+
+  #home > p { text-wrap: pretty; }
+  .hero-card { min-height: 168px; }
+
+  @media (min-width: 821px) {
+    .site-header .brand a { min-height: 44px; display: inline-flex; align-items: center; }
+    .site-header .site-nav a { min-height: 44px; display: inline-flex; align-items: center; }
+  }
+
+  @media (max-width: 820px) {
+    :root { --site-header-mobile-height: 58px; }
+
+    .site-header {
+      display: flex !important;
+      align-items: center !important;
+      height: var(--site-header-mobile-height) !important;
+      min-height: var(--site-header-mobile-height) !important;
+      padding: 0 10px !important;
+      gap: 8px !important;
+    }
+
+    .site-header .brand {
+      flex: 0 0 auto;
+      min-height: 44px;
+      padding: 0 4px;
+      display: flex;
+      align-items: center;
+    }
+
+    .site-header .brand a {
+      min-height: 44px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+    }
+
+    .site-header .site-nav {
+      flex: 1 1 auto;
+      min-width: 0;
+      width: auto;
+      min-height: 44px;
+      margin: 0 !important;
+      padding: 0;
+      gap: 2px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+    }
+
+    .site-header .site-nav::-webkit-scrollbar { display: none; }
+
+    .site-header .site-nav > a {
+      flex: 0 0 auto;
+      min-height: 44px;
+      padding: 0 10px !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem !important;
+      line-height: 1.2;
+      white-space: nowrap;
+      text-align: left;
+    }
+
+    .site-header .lang {
+      flex: 0 0 auto;
+      min-height: 44px;
+      margin-left: 0;
+      padding-left: 7px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .site-header .lang button {
+      min-width: 30px;
+      min-height: 40px;
+      padding: 0 5px;
+      font-size: 0.78rem;
+    }
+
+    section { scroll-margin-top: var(--site-header-mobile-height); }
+    .explore-inline { --sitio-header-h: var(--site-header-mobile-height); }
+
+    #home {
+      min-height: auto;
+      padding: 42px 16px 52px;
+      gap: 20px;
+      justify-content: flex-start;
+    }
+
+    #home h1.display {
+      max-width: 14ch;
+      font-size: 2.15rem;
+      line-height: 1.08;
+    }
+
+    #home > p {
+      max-width: 38ch;
+      font-size: 0.96rem !important;
+      line-height: 1.56 !important;
+    }
+
+    .hero-cards {
+      width: 100%;
+      max-width: 520px;
+      margin-top: 2px;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hero-card {
+      width: 100%;
+      max-width: none;
+      min-height: 94px;
+      padding: 15px 16px;
+      gap: 7px;
+      border-radius: 8px;
+    }
+
+    .hero-card > span:first-child { font-size: 0.96rem !important; line-height: 1.28 !important; }
+    .hero-card > span:last-child { font-size: 0.84rem !important; }
+
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  }
+</style>
+
 </head>
 <body>
 
 <header class="site-header">
   <div class="brand">
-    <img src="web_materiales/logo_corfo2024/logo_corfo2024_blanco_trim.png" alt="CORFO">
-    <a href="#home">Inicio</a>
+    <a href="#home" data-site-i18n="brand">CED CORFO</a>
   </div>
   <nav class="site-nav">
-    <a href="#explorar">Explorar</a>
-    <a href="#datos">Datos</a>
-    <a href="#research-paper">Research Paper</a>
+    <a href="#explorar" data-site-i18n="navExplore">Explorar</a>
+    <a href="#datos" data-site-i18n="navData">Datos</a>
+    <a href="#research-paper" data-site-i18n="navResearch">Trabajo de Investigación</a>
+    <a href="#contacto" data-site-i18n="navContact">Contacto</a>
     <span class="lang"><button class="on" data-lang="es">ES</button><button class="off" data-lang="en">EN</button></span>
   </nav>
 </header>
 
 <!-- ============ HOME ============ -->
 <section id="home">
-  <h1 class="display">Cuentas Económicas Desagregadas para Chile</h1>
-  <p style="margin:0;max-width:66ch;font-size:1.02rem;line-height:1.65;color:var(--ds-color-muted)">Desagregación de la actividad económica a nivel sectorial y geográfico, consistentes con Cuentas Nacionales del Banco Central de Chile. Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre CORFO y el BID a partir de microdatos administrativos del SII, encuestas y fuentes globales de datos de comercio.</p>
+  <h1 class="display" data-site-i18n="homeTitle">Cuentas Económicas Desagregadas para Chile</h1>
+  <p data-i18n-html="landingDesc" style="margin:0;max-width:66ch;font-size:1.02rem;line-height:1.65;color:var(--ds-color-muted)">Desagregación de la actividad económica a nivel sectorial y geográfico, consistente con las Cuentas Nacionales del Banco Central de Chile (BCCh). Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), a partir de microdatos administrativos del Servicio de Impuestos Internos (SII), encuestas y fuentes globales de datos de comercio.</p>
   <div class="hero-cards">
     <a href="#explorar" class="hero-card primary">
-      <span style="font-weight:600;font-size:1.06rem;line-height:1.32;color:#fff">¿Cómo se distribuye la economía por territorio y sector?</span>
-      <span style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-accent)">Explorar los datos →</span>
+      <span data-site-i18n="homeExploreQuestion" style="font-weight:600;font-size:1.06rem;line-height:1.32;color:#fff">¿Cómo se distribuye la economía por sector y territorios?</span>
+      <span data-site-i18n="homeExploreAction" style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-accent)">Explorar los datos →</span>
     </a>
     <a href="#datos" class="hero-card plain">
-      <span style="font-weight:600;font-size:1.06rem;line-height:1.32;color:var(--ds-color-text)">¿Quieres los datos para tu propio análisis?</span>
-      <span style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-brand)">Descarga los datos →</span>
+      <span data-site-i18n="homeDataQuestion" style="font-weight:600;font-size:1.06rem;line-height:1.32;color:var(--ds-color-text)">¿Quieres usar los datos para tu propio análisis?</span>
+      <span data-site-i18n="homeDataAction" style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-brand)">Descarga los datos →</span>
     </a>
     <a href="#research-paper" class="hero-card plain">
-      <span style="font-weight:600;font-size:1.06rem;line-height:1.32;color:var(--ds-color-text)">¿Cómo se construyen y se aplican estas cuentas?</span>
-      <span style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-brand)">Leer el paper →</span>
+      <span data-site-i18n="homeResearchQuestion" style="font-weight:600;font-size:1.06rem;line-height:1.32;color:var(--ds-color-text)">¿Cómo se construyen y aplican estos datos?</span>
+      <span data-site-i18n="homeResearchAction" style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-brand)">Leer el trabajo →</span>
     </a>
   </div>
 </section>
@@ -4608,6 +4962,7 @@
       const COL_CAP = o.colFsCap != null ? o.colFsCap : 12;
       const ROW_PAD = o.rowPad != null ? o.rowPad : 10; // hueco etiqueta de fila ↔ borde
       const COL_PAD = o.colPad != null ? o.colPad : 8;   // hueco etiqueta de columna ↔ borde inferior
+      const bottomPadMin = o.bottomPadMin != null ? o.bottomPadMin : 70;
       // Ancho de la etiqueta más larga por cada 1px de tamaño de fuente
       const rowWpp = maxWidthPerPx(o.rowLabels, rowFamily);
       const colWpp = maxWidthPerPx(o.colLabels, colFamily);
@@ -4618,30 +4973,66 @@
       // agrupación con menos filas/columnas, las celdas simplemente crecen para
       // llenar el mismo recuadro; las etiquetas se ajustan reduciendo su tamaño
       // de fuente para caber en el margen fijo.
-      const LP = Math.min(190, Math.max(90, Math.floor(o.contW * 0.2)));
-      const BP = Math.min(170, Math.max(70, Math.floor(o.contH * 0.22)));
+      const leftPadMin = o.leftPadMin != null ? o.leftPadMin : 90;
+      const LP = Math.min(190, Math.max(leftPadMin, Math.floor(o.contW * 0.2)));
+      const BP = Math.min(170, Math.max(bottomPadMin, Math.floor(o.contH * 0.22)));
       const gridW = Math.max(40, o.contW - LP - 16);
       const gridH = Math.max(40, o.contH - TP - BP);
-      const CH = gridH / nR;   // crecen al haber menos filas
-      // Ancho de celda: por defecto llenaría todo el ancho (gridW/nC), pero eso
-      // ESTIRA las celdas en pantallas anchas. Se limita a un máximo relativo al
-      // alto de la celda (≈ cuadrada) para que no se deformen; el sobrante de
-      // ancho queda como margen y el heatmap se CENTRA (la figura ya usa
-      // justify-content:center).
-      const maxAspect = o.maxCellAspect != null ? o.maxCellAspect : 1.15;
-      const CW = Math.min(gridW / nC, CH * maxAspect);
-      const gridWfit = CW * nC;
+      // Celdas: llenan el recuadro fijo (gridW/nC × gridH/nR) en alto siempre,
+      // y en ancho también salvo un tope máximo en px (maxCellWidth) para que
+      // no queden demasiado anchas cuando hay pocas columnas; el sobrante se
+      // reparte como margen horizontal CENTRADO. El SVG exterior
+      // (svgWidth/svgHeight) NUNCA cambia de tamaño al cambiar el nivel de
+      // agregación — solo cambia cuánto del recuadro llena la grilla.
+      const CH = gridH / nR;
+      const maxCellWidth = o.maxCellWidth != null ? o.maxCellWidth : 56;
+      const CW = Math.min(gridW / nC, maxCellWidth);
+      const offsetX = (gridW - CW * nC) / 2;
+      const offsetY = 0;
       // Fuente: cabe dentro de la celda Y dentro del margen fijo de etiquetas.
       let rowFs = Math.max(5, Math.min(ROW_CAP, Math.floor(CH * 0.82)));
       let colFs = Math.max(5, Math.min(COL_CAP, Math.floor(CW * 0.866 * 0.92)));
       if (rowWpp > 0) rowFs = Math.max(4, Math.min(rowFs, Math.floor((LP - ROW_PAD) / rowWpp)));
       if (colWpp > 0) colFs = Math.max(4, Math.min(colFs, Math.floor((BP - COL_PAD) / (colWpp * sinR))));
       return {
-        TP, LP, BP, CH, CW, rowFs, colFs, gridW: gridWfit, gridH,
-        svgWidth: LP + gridWfit + 16, svgHeight: TP + gridH + BP,
+        TP, LP, BP, CH, CW, rowFs, colFs, gridW, gridH, offsetX, offsetY,
+        svgWidth: LP + gridW + 16, svgHeight: TP + gridH + BP,
       };
     };
   })();
+
+  window.heatmapAxisLabelShort = function (label) {
+    const raw = String(label == null ? "" : label).replace(/\s+/g, " ").trim();
+    if (!raw) return "";
+    const replacements = [
+      [/^Agricultura, ganadería, silvicultura y pesca$/i, "Agro y pesca"],
+      [/^Explotación de minas y canteras$/i, "Minería"],
+      [/^Industrias manufactureras$/i, "Manufactura"],
+      [/^Suministro de electricidad, gas, vapor y aire acondicionado$/i, "Electricidad y gas"],
+      [/^Suministro de agua; evacuación de aguas residuales$/i, "Agua y saneamiento"],
+      [/^Construcción$/i, "Construcción"],
+      [/^Comercio al por mayor y al por menor; reparación de vehículos automotores y motocicletas$/i, "Comercio y reparación"],
+      [/^Transporte y almacenamiento$/i, "Transporte y almac."],
+      [/^Alojamiento y servicio de comidas$/i, "Aloj. y comidas"],
+      [/^Información y comunicaciones$/i, "Información y com."],
+      [/^Actividades financieras y de seguros$/i, "Finanzas y seguros"],
+      [/^Actividades inmobiliarias$/i, "Inmobiliarias"],
+      [/^Actividades profesionales, científicas y técnicas$/i, "Prof. y técnicas"],
+      [/^Actividades de servicios administrativos y de apoyo$/i, "Serv. admin."],
+      [/^Administración pública y defensa; planes de seguridad social de afiliación obligatoria$/i, "Adm. pública"],
+      [/^Enseñanza$/i, "Enseñanza"],
+      [/^Salud humana y asistencia social$/i, "Salud y asistencia"],
+      [/^Actividades artísticas, de entretenimiento y recreativas$/i, "Arte y recreación"],
+      [/^Otras actividades de servicios$/i, "Otros servicios"]
+    ];
+    for (const [re, repl] of replacements) if (re.test(raw)) return repl;
+    const words = raw.split(" ");
+    if (raw.length > 18 && words.length > 1) {
+      const first = words.slice(0, Math.min(2, words.length)).join(" ");
+      if (first.length < raw.length) return first;
+    }
+    return raw.length > 22 ? raw.slice(0, 21).trimEnd() + "…" : raw;
+  };
 
   /* Helper global: tooltip de valor al pasar el cursor sobre una barra de leyenda
      de gradiente (mapas + heatmaps de TODOS los módulos). Estilo único compartido.
@@ -4755,8 +5146,8 @@
 
     <main class="landing-body">
       <div class="embed-landing-title">
-        <h2>¿Qué quieres explorar?</h2>
-        <p>Tres herramientas interactivas para recorrer la economía chilena por territorio y sector.</p>
+        <h2 data-i18n="landingTitle">¿Qué quieres explorar?</h2>
+        <p data-site-i18n="exploreLandingDesc">Tres herramientas interactivas para recorrer la economía chilena por sus sectores y sus territorios.</p>
       </div>
 
       <nav class="landing-grid" aria-label="Secciones">
@@ -4791,7 +5182,7 @@
           </div>
           <div class="landing-card-body">
             <p class="landing-card-question" data-i18n="btn3Q">¿Cómo afectan cambios productivos a distintos sectores y provincias?</p>
-            <p class="landing-card-desc" data-i18n="btn3Detail">Explora cómo se distribuyen sectorial y territorialmente el impacto de cambios productivos.</p>
+            <p class="landing-card-desc" data-i18n="btn3Detail">Explora cómo se distribuye sectorial y territorialmente el impacto de cambios productivos.</p>
             <span class="landing-card-action" data-i18n="landingExplore">Explorar →</span>
           </div>
         </a>
@@ -4846,11 +5237,7 @@
 
         <!-- ── Header verde ── -->
         <div class="m2-header">
-          <div class="m2-badge" data-i18n="m2BadgeLabel">Caracterización · Economía de Chile</div>
-          <button class="module-controls-toggle panel-controls-toggle" type="button" aria-expanded="true" aria-controls="module-2-controls">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10"></path><path d="M18 7h2"></path><circle cx="16" cy="7" r="2"></circle><path d="M4 17h2"></path><path d="M10 17h10"></path><circle cx="8" cy="17" r="2"></circle></svg>
-            <span>Ocultar controles</span>
-          </button>
+          <button class="module-controls-toggle panel-controls-toggle panel-close-btn" type="button" aria-expanded="true" aria-controls="module-2-controls" aria-label="Ocultar controles" title="Ocultar controles">×</button>
         </div>
 
         <!-- ── Scroll body ── -->
@@ -4874,7 +5261,7 @@
             <div class="m3-q-cards m2-analysis-cards">
               <button type="button" class="m3-q-card active" data-m2-analysis="distribution">
                 <div class="m3-q-title">Distribución</div>
-                <div class="m3-q-sub">¿Cuánto aporta cada zona al total?</div>
+                <div class="m3-q-sub">¿Cuánto representa cada territorio del total?</div>
               </button>
               <button type="button" class="m3-q-card" data-m2-analysis="dependency_territorial">
                 <div class="m3-q-title">Dependencia territorial</div>
@@ -4983,9 +5370,9 @@
       <!-- ═══ RIGHT: tabs + viz ═══ -->
       <div class="np-viz-col">
         <div class="module-tabs" aria-label="Vistas del módulo 2">
-          <button type="button" class="module-tab active" data-view="geo"><span class="tab-kicker" data-i18n="m2TabKicker">Caracterización</span><span class="tab-axis" data-i18n="axisGeo">Territorial</span></button>
-          <button type="button" class="module-tab" data-view="sector"><span class="tab-kicker" data-i18n="m2TabKicker">Caracterización</span><span class="tab-axis" data-i18n="axisSec">Sectorial</span></button>
-          <button type="button" class="module-tab" data-view="matrix"><span class="tab-kicker" data-i18n="m2TabKicker">Caracterización</span><span class="tab-axis" data-i18n="axisCell">Territorial–Sectorial</span></button>
+          <button type="button" class="module-tab active" data-view="geo"><span class="tab-axis" data-i18n="axisGeo">Territorios</span></button>
+          <button type="button" class="module-tab" data-view="sector"><span class="tab-axis" data-i18n="axisSec">Sectores</span></button>
+          <button type="button" class="module-tab" data-view="matrix"><span class="tab-axis" data-i18n="axisCell">Territorios - Sectores</span></button>
         </div>
         <div class="module-two-body">
           <div class="module-two-view active" data-view-panel="geo">
@@ -4993,9 +5380,14 @@
             <div class="geo-layout">
                 <div class="viz-shell">
                 <div class="figure-actions" data-export-view="geo">
-                  <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
-                  </button>
+                  <div class="figure-action-row">
+                    <button class="figure-expand-btn" type="button" aria-label="Ampliar figura" title="Ampliar figura" data-figure-expand-toggle>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M21 16v3a2 2 0 0 1-2 2h-3"></path><path d="M3 8v11h11"></path></svg>
+                    </button>
+                    <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
+                    </button>
+                  </div>
                   <div class="figure-download-menu" aria-hidden="true">
                     <button class="figure-download-option" type="button" data-export-format="png">PNG</button>
                     <button class="figure-download-option" type="button" data-export-format="pdf">PDF</button>
@@ -5004,10 +5396,10 @@
                 <div class="map-stage">
                     <svg id="map-chile" viewBox="0 0 860 620" aria-label="Mapa de Chile"></svg>
                     <div class="macro-legend geo-legend" id="geo-legend"></div>
-                  </div>
-                  <div class="near-zero-legend">
-                    <span><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0 (bajo el umbral visible)</span></span>
-                    <span><i style="background:#f3f5f8;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">Sin datos o valor 0</span></span>
+                    <div class="near-zero-legend" id="geo-nz-legend" hidden>
+                      <span class="nz-gray" hidden><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0</span></span>
+                      <span class="nz-zero" hidden><i style="background:#ffffff;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">=0</span></span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -5019,9 +5411,14 @@
             <div class="sector-layout">
               <div class="viz-shell">
                 <div class="figure-actions" data-export-view="sector">
-                  <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
-                  </button>
+                  <div class="figure-action-row">
+                    <button class="figure-expand-btn" type="button" aria-label="Ampliar figura" title="Ampliar figura" data-figure-expand-toggle>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M21 16v3a2 2 0 0 1-2 2h-3"></path><path d="M3 8v11h11"></path></svg>
+                    </button>
+                    <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
+                    </button>
+                  </div>
                   <div class="figure-download-menu" aria-hidden="true">
                     <button class="figure-download-option" type="button" data-export-format="png">PNG</button>
                     <button class="figure-download-option" type="button" data-export-format="pdf">PDF</button>
@@ -5041,21 +5438,26 @@
           <section class="analysis-block">
             <div class="viz-shell heatmap-shell">
               <div class="figure-actions" data-export-view="matrix">
-                <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
-                </button>
+                <div class="figure-action-row">
+                  <button class="figure-expand-btn" type="button" aria-label="Ampliar figura" title="Ampliar figura" data-figure-expand-toggle>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M21 16v3a2 2 0 0 1-2 2h-3"></path><path d="M3 8v11h11"></path></svg>
+                  </button>
+                  <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
+                  </button>
+                </div>
                 <div class="figure-download-menu" aria-hidden="true">
                   <button class="figure-download-option" type="button" data-export-format="png">PNG</button>
                   <button class="figure-download-option" type="button" data-export-format="pdf">PDF</button>
                 </div>
               </div>
               <div class="matrix-figure" id="matrix-figure">
-                <svg id="matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg>
+                <div class="matrix-scroll"><svg id="matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg></div>
                 <div class="matrix-legend-vertical" id="matrix-legend"></div>
-              </div>
-              <div class="near-zero-legend">
-                <span><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0 (bajo el umbral visible)</span></span>
-                <span><i style="background:#ffffff;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">Sin datos o valor 0</span></span>
+                <div class="near-zero-legend" id="matrix-nz-legend" hidden>
+                  <span class="nz-gray" hidden><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0</span></span>
+                  <span class="nz-zero" hidden><i style="background:#ffffff;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">=0</span></span>
+                </div>
               </div>
             </div>
           </section>
@@ -5100,27 +5502,23 @@
       <div class="control-bar np-panel m3-panel" id="module-3-controls">
 
         <!-- ── Fixed: perspective header ── -->
-        <div class="m3-header">
+          <div class="m3-header">
           <div class="m3-panel-headline">
-            <div class="m3-badge" data-i18n="m3BadgeLabel">Cadenas de valor · Perspectiva</div>
-            <button class="module-controls-toggle panel-controls-toggle" type="button" aria-expanded="true" aria-controls="module-3-controls">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10"></path><path d="M18 7h2"></path><circle cx="16" cy="7" r="2"></circle><path d="M4 17h2"></path><path d="M10 17h10"></path><circle cx="8" cy="17" r="2"></circle></svg>
-              <span>Ocultar controles</span>
-            </button>
+            <button class="module-controls-toggle panel-controls-toggle panel-close-btn" type="button" aria-expanded="true" aria-controls="module-3-controls" aria-label="Ocultar controles" title="Ocultar controles">×</button>
           </div>
           <div class="m3-persp-row">
-            <button type="button" class="m3-persp-btn active" data-m3-persp="provider" data-i18n="m3PerspBtnProvider">Proveedor</button>
-            <button type="button" class="m3-persp-btn" data-m3-persp="client" data-i18n="m3PerspBtnClient">Cliente</button>
+            <button type="button" class="m3-persp-btn active" data-m3-persp="provider" data-i18n="m3PerspBtnProvider">Ver clientes</button>
+            <button type="button" class="m3-persp-btn" data-m3-persp="client" data-i18n="m3PerspBtnClient">Ver proveedores</button>
           </div>
         </div>
 
         <!-- ── Scrollable body ── -->
         <div class="m3-scroll">
 
-          <!-- 1. Mercado de interés -->
+          <!-- 1. Productores de interés -->
           <div class="filter-stack">
           <div class="m3-sec">
-            <div class="m3-sec-label" data-i18n="m3MarketLabel">1 · Define tu mercado</div>
+            <div class="m3-sec-label" data-i18n="m3MarketLabel">1 · Elige los productores</div>
             <p class="m3-sec-instruction" data-i18n="m3MarketInstruction"></p>
             <div class="m3-subfield">
             <div class="m3-sec-hdr">
@@ -5148,7 +5546,7 @@
 
           <!-- Characterization -->
           <div class="m3-sec m3-charc-sec">
-            <div class="m3-sec-label m3-charc-label" data-i18n="m3CharcLabel">Estructura productiva del mercado</div>
+            <div class="m3-sec-label m3-charc-label" data-i18n="m3CharcLabel">Perfil de los productores</div>
             <p class="m3-sec-instruction" data-i18n="m3CharcInstruction"></p>
             <div class="m3-kpi-block" id="m3-kpi-block"></div>
           </div>
@@ -5247,11 +5645,6 @@
             </div>
           </div>
 
-          <!-- Resultado · Flujo de la selección -->
-          <div class="m3-sec m3-result-sec">
-            <div class="m3-sec-label" data-i18n="m3FlowLabel">Resultado · Flujo de la selección</div>
-            <div class="selection-summary m3-flujo-summary" id="m3-selection-summary"></div>
-          </div>
         </div><!-- end m3-scroll -->
 
         <!-- Hidden selects -->
@@ -5285,9 +5678,9 @@
       <!-- ══ Right: tabs + viz ══ -->
       <div class="np-viz-col">
         <div class="module-tabs" aria-label="Vistas del módulo 3">
-          <button type="button" class="module-tab module3-tab active" data-module3-view="geo"><span class="tab-kicker" data-i18n="m3TabKicker">Encadenamientos</span><span class="tab-axis" data-i18n="axisGeo">Territorial</span></button>
-          <button type="button" class="module-tab module3-tab" data-module3-view="sector"><span class="tab-kicker" data-i18n="m3TabKicker">Encadenamientos</span><span class="tab-axis" data-i18n="axisSec">Sectorial</span></button>
-          <button type="button" class="module-tab module3-tab" data-module3-view="matrix"><span class="tab-kicker" data-i18n="m3TabKicker">Encadenamientos</span><span class="tab-axis" data-i18n="axisCell">Territorial–Sectorial</span></button>
+          <button type="button" class="module-tab module3-tab active" data-module3-view="geo"><span class="tab-axis" data-i18n="axisGeo">Territorios</span></button>
+          <button type="button" class="module-tab module3-tab" data-module3-view="sector"><span class="tab-axis" data-i18n="axisSec">Sectores</span></button>
+          <button type="button" class="module-tab module3-tab" data-module3-view="matrix"><span class="tab-axis" data-i18n="axisCell">Territorios - Sectores</span></button>
         </div>
 
         <div class="module-two-view module-three-view active" data-module3-view-panel="geo">
@@ -5295,9 +5688,14 @@
             <div class="geo-layout">
               <div class="viz-shell">
                 <div class="figure-actions" data-export-scope="module3" data-export-view="geo">
-                  <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
-                  </button>
+                  <div class="figure-action-row">
+                    <button class="figure-expand-btn" type="button" aria-label="Ampliar figura" title="Ampliar figura" data-figure-expand-toggle>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M21 16v3a2 2 0 0 1-2 2h-3"></path><path d="M3 8v11h11"></path></svg>
+                    </button>
+                    <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
+                    </button>
+                  </div>
                   <div class="figure-download-menu" aria-hidden="true">
                     <button class="figure-download-option" type="button" data-export-format="png">PNG</button>
                     <button class="figure-download-option" type="button" data-export-format="pdf">PDF</button>
@@ -5306,10 +5704,10 @@
                 <div class="map-stage">
                   <svg id="m3-map-chile" viewBox="0 0 860 620" aria-label="Mapa de Chile"></svg>
                   <div class="macro-legend geo-legend" id="m3-geo-legend"></div>
-                </div>
-                <div class="near-zero-legend">
-                  <span><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0 (bajo el umbral visible)</span></span>
-                  <span><i style="background:#ffffff;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">Sin datos o valor 0</span></span>
+                  <div class="near-zero-legend" id="m3-geo-nz-legend" hidden>
+                    <span class="nz-gray" hidden><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0</span></span>
+                    <span class="nz-zero" hidden><i style="background:#ffffff;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">=0</span></span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -5320,9 +5718,14 @@
             <div class="sector-layout">
               <div class="viz-shell">
                 <div class="figure-actions" data-export-scope="module3" data-export-view="sector">
-                  <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
-                  </button>
+                  <div class="figure-action-row">
+                    <button class="figure-expand-btn" type="button" aria-label="Ampliar figura" title="Ampliar figura" data-figure-expand-toggle>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M21 16v3a2 2 0 0 1-2 2h-3"></path><path d="M3 8v11h11"></path></svg>
+                    </button>
+                    <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
+                    </button>
+                  </div>
                   <div class="figure-download-menu" aria-hidden="true">
                     <button class="figure-download-option" type="button" data-export-format="png">PNG</button>
                     <button class="figure-download-option" type="button" data-export-format="pdf">PDF</button>
@@ -5341,21 +5744,26 @@
           <section class="analysis-block">
             <div class="viz-shell heatmap-shell">
               <div class="figure-actions" data-export-scope="module3" data-export-view="matrix">
-                <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
-                </button>
+                <div class="figure-action-row">
+                  <button class="figure-expand-btn" type="button" aria-label="Ampliar figura" title="Ampliar figura" data-figure-expand-toggle>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M21 16v3a2 2 0 0 1-2 2h-3"></path><path d="M3 8v11h11"></path></svg>
+                  </button>
+                  <button class="figure-download-btn" type="button" aria-label="Descargar figura" data-export-toggle>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="m8.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M5 18.5h14"></path></svg>
+                  </button>
+                </div>
                 <div class="figure-download-menu" aria-hidden="true">
                   <button class="figure-download-option" type="button" data-export-format="png">PNG</button>
                   <button class="figure-download-option" type="button" data-export-format="pdf">PDF</button>
                 </div>
               </div>
               <div class="matrix-figure" id="m3-matrix-figure">
-                <svg id="m3-matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg>
+                <div class="matrix-scroll"><svg id="m3-matrix-svg" class="matrix-svg" aria-label="Caracterización territorial - sectorial"></svg></div>
                 <div class="matrix-legend-vertical" id="m3-matrix-legend"></div>
-              </div>
-              <div class="near-zero-legend">
-                <span><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0 (bajo el umbral visible)</span></span>
-                <span><i style="background:#ffffff;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">Sin datos o valor 0</span></span>
+                <div class="near-zero-legend" id="m3-matrix-nz-legend" hidden>
+                  <span class="nz-gray" hidden><i style="background:#dcdcdc"></i><span data-i18n="legendNearZero">≈0</span></span>
+                  <span class="nz-zero" hidden><i style="background:#ffffff;border:1px solid rgba(34,30,124,0.18)"></i><span data-i18n="legendZero">=0</span></span>
+                </div>
               </div>
             </div>
           </section>
@@ -5418,15 +5826,37 @@
       is(value, total, thrPct) {
         return total > 0 && value > 0 && (value / total * 100) < thrPct;
       },
-      // Fragmento HTML compartido para explicar, junto a cada leyenda de mapa
-      // o heatmap, qué significan las celdas gris (censura por umbral) vs las
-      // celdas de valor 0 / sin dato (color varía por figura: se pasa zeroColor).
-      legendHtml(zeroColor, texts) {
-        const t = texts || { near: "≈0", zero: "0" };
-        return `<div class="near-zero-legend">
-          <span><i style="background:${this.GRAY}"></i>${t.near}</span>
-          <span><i style="background:${zeroColor};border:1px solid rgba(34,30,124,0.18)"></i>${t.zero}</span>
-        </div>`;
+      // Posiciona la leyenda de censura justo debajo de la barra de leyenda
+      // (mismo offsetParent: .map-stage / .matrix-figure). El id de la barra
+      // se deriva del id de la leyenda de censura quitando "-nz" (convencion
+      // usada en las 6 figuras: "geo-nz-legend" -> "geo-legend", etc.).
+      _reposition(nzEl, legendEl) {
+        if (!nzEl || !legendEl) return;
+        nzEl.style.left = legendEl.offsetLeft + "px";
+        nzEl.style.top = (legendEl.offsetTop + legendEl.offsetHeight + 6) + "px";
+      },
+      // Muestra/oculta cada entrada de la leyenda (gris = hay celdas censuradas
+      // en ESTE render; blanco/cero = hay celdas en 0 o sin dato en ESTE
+      // render), y oculta el contenedor entero si ninguna de las dos aplica.
+      updateLegend(id, anyGray, anyZero) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const grayEl = el.querySelector(".nz-gray");
+        const zeroEl = el.querySelector(".nz-zero");
+        if (grayEl) grayEl.hidden = !anyGray;
+        if (zeroEl) zeroEl.hidden = !anyZero;
+        el.hidden = !anyGray && !anyZero;
+        const legendEl = document.getElementById(id.replace("-nz-legend", "-legend"));
+        this._reposition(el, legendEl);
+        if (legendEl && !el._nzRO && typeof ResizeObserver !== "undefined") {
+          const ro = new ResizeObserver(() => this._reposition(el, legendEl));
+          ro.observe(legendEl);
+          el._nzRO = ro;
+        }
+        if (legendEl && !el._nzResizeBound) {
+          window.addEventListener("resize", () => this._reposition(el, legendEl));
+          el._nzResizeBound = true;
+        }
       }
     };
   </script>
@@ -5582,10 +6012,10 @@
         pageTitle: "Explore | Cuentas Económicas Desagregadas para Chile",
         headerTitle: "Cuentas Económicas Desagregadas de Chile",
         landingTitle: "¿Qué quieres explorar?",
-        landingDesc: 'Desagregación de la actividad económica a nivel sectorial y geográfico, consistentes con Cuentas Nacionales del Banco Central de Chile. Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre CORFO y el BID a partir de microdatos administrativos del SII, encuestas y fuentes globales de datos de comercio.',
+        landingDesc: 'Desagregación de la actividad económica a nivel sectorial y geográfico, consistente con las Cuentas Nacionales del Banco Central de Chile (BCCh). Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), a partir de microdatos administrativos del Servicio de Impuestos Internos (SII), encuestas y fuentes globales de datos de comercio.',
         citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.',
         citationLabel: "Metodología, construcción y aplicaciones — cita el paper",
-        btn1: "Caracterización Geográfica y Sectorial de la Actividad Económica",
+        btn1: "La Economía a través de sus sectores y sus territorios",
         btn1Q: "¿Dónde producen los sectores económicos?",
         btn1Detail: "Explora cómo se distribuye el PIB, empleo y ventas a través de sectores y provincias.",
         btn2: "Geografía de las Cadenas de Valor",
@@ -5593,18 +6023,18 @@
         btn2Detail: "Identifica los principales socios comerciales de cada provincia-sector y qué tan relevantes son para ellos.",
         btn3: "Impacto Sectorial y Geográfico de la Productividad",
         btn3Q: "¿Cómo afectan cambios productivos a distintos sectores y provincias?",
-        btn3Detail: "Explora cómo se distribuyen sectorial y territorialmente el impacto de cambios productivos.",
+        btn3Detail: "Explora cómo se distribuye sectorial y territorialmente el impacto de cambios productivos.",
         btn4: "Descarga de Datos",
         btn4Q: "Descarga los datos completos",
         btn4Detail: "Accede a los archivos CSV, XLSX y la documentación técnica para usar estos datos en tu propio análisis.",
         landingExplore: "Explorar →",
-                module2HeaderTitle: "Caracterización Geográfica y Sectorial de la Actividad Económica",
+        module2HeaderTitle: "La Economía a través de sus sectores y sus territorios",
         module3HeaderTitle: "Geografía de las Cadenas de Valor",
         module4HeaderTitle: "Impacto Sectorial y Geográfico de la Productividad",
         module5HeaderTitle: "Descarga de Datos",
         m5BackLabel: "Volver al inicio",
         m5HeroTitle: "Datos Abiertos",
-        m5IntroShort: 'Un objetivo central del proyecto de colaboración entre CORFO y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual.',
+        m5IntroShort: 'Un objetivo central del proyecto de colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual, para la investigación y análisis de las políticas públicas.',
         m5IntroShort2: 'A continuación se presentan los cuatro archivos disponibles correspondientes a las Cuentas Económicas Desagregadas 2022.',
         m5CiteColLabel: "Acceso a la fuente",
         m5CiteTag: "Uso obligatorio de cita — para usar estos datos, cita el siguiente paper",
@@ -5621,7 +6051,7 @@
         m5Download: "Descargar",
         m5IntroTitle: "Introducción",
         m5IntroBody: `
-          <p>Un objetivo central del proyecto de colaboración entre CORFO y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026) para la Subdirección de Análisis y Data Territorial, es que los datos generados constituyan un bien público, de libre acceso y actualización anual.</p>
+          <p>Un objetivo central del proyecto de colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026) para la Subdirección de Análisis y Data Territorial, es que los datos generados constituyan un bien público, de libre acceso y actualización anual, para la investigación y análisis de las políticas públicas.</p>
           <p>A continuación, se presentan los archivos disponibles para descarga correspondientes a las Cuentas Económicas Desagregadas 2022:</p>
           <ol>
             <li><strong>Descriptor de Variables:</strong> Incluye, para cada base de datos, una descripción general de las variables contenidas.</li>
@@ -5673,8 +6103,8 @@
         m2UnitHelpDependencyRelative: "Índice relativo compara esa dependencia con la participación nacional de referencia para la misma variable.",
         m2UnitShareOption: "Porcentaje (%)",
         m2UnitRelativeOption: "Índice relativo",
-        legendNearZero: "≈0 (bajo el umbral visible)",
-        legendZero: "Sin datos o valor 0",
+        legendNearZero: "≈0",
+        legendZero: "=0",
         m2MeasureLabel: "Medida",
         m2UnitLabel: "Unidad",
         m2AggregationLabel: "Agregación",
@@ -5722,9 +6152,9 @@
         m2TabSector: "Caracterización sectorial",
         m2TabMatrix: "Caracterización territorial - sectorial",
         m2TabKicker: "Caracterización",
-        axisGeo: "Territorial",
-        axisSec: "Sectorial",
-        axisCell: "Territorial–Sectorial",
+        axisGeo: "Territorios",
+        axisSec: "Sectores",
+        axisCell: "Territorios - Sectores",
         m2SectorFocusLabel: "Sector seleccionado",
         m2SectorTopProvinceLabel: "Provincia principal",
         m2SectorHHILabel: "Concentración territorial",
@@ -5737,10 +6167,10 @@
         pageTitle: "Explore | Disaggregated Economic Accounts for Chile",
         headerTitle: "Disaggregated Economic Accounts of Chile",
         landingTitle: "What do you want to explore?",
-        landingDesc: 'Disaggregation of economic activity at the sectoral and geographic level, consistent with the National Accounts of the Central Bank of Chile. Produced by Huneeus &amp; Del Valle (2026) in a collaboration between CORFO and the IDB using administrative microdata from the Chilean IRS, surveys, and global trade data sources.',
+        landingDesc: 'Disaggregation of economic activity at the sectoral and geographic level, consistent with the National Accounts of the Central Bank of Chile (BCCh). Produced by Huneeus &amp; Del Valle (2026) in a collaboration between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), using administrative microdata from the Chilean Internal Revenue Service (SII), surveys, and global trade data sources.',
         citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.',
         citationLabel: "Methodology, construction and applications — cite the paper",
-        btn1: "Geographic and Sectoral Characterization of Economic Activity",
+        btn1: "The Economy across Sectors and Territories",
         btn1Q: "Where do economic sectors produce?",
         btn1Detail: "Explore how GDP, employment and sales are distributed across sectors and provinces.",
         btn2: "Geography of Value Chains",
@@ -5753,13 +6183,13 @@
         btn4Q: "Download the complete dataset",
         btn4Detail: "Access CSV, XLSX files and technical documentation to use this data in your own analysis.",
         landingExplore: "Explore →",
-                module2HeaderTitle: "Geographic and Sectoral Characterization of Economic Activity",
+        module2HeaderTitle: "The Economy across Sectors and Territories",
         module3HeaderTitle: "Geography of Value Chains",
         module4HeaderTitle: "Sectoral and Geographic Impact of Productivity",
         module5HeaderTitle: "Data Downloads",
         m5BackLabel: "Back to top",
         m5HeroTitle: "Open Data",
-        m5IntroShort: 'A central objective of the collaboration project between CORFO and the Inter-American Development Bank (IDB), developed by Huneeus &amp; Del Valle (2026), is that the generated data constitute a public good, freely accessible and updated annually.',
+        m5IntroShort: 'A central objective of the collaboration project between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), developed by Huneeus &amp; Del Valle (2026), is that the generated data constitute a public good, freely accessible and updated annually for research and public-policy analysis.',
         m5IntroShort2: 'The four files available for the 2022 Disaggregated Economic Accounts are presented below.',
         m5CiteColLabel: "Source access",
         m5CiteTag: "Citation required — to use these data, cite the following paper",
@@ -5776,7 +6206,7 @@
         m5Download: "Download",
         m5IntroTitle: "Introduction",
         m5IntroBody: `
-          <p>A central objective of the collaboration between CORFO and the Inter-American Development Bank (IDB), developed by Huneeus &amp; Del Valle (2026) for the Territorial Analysis and Data Subdirectorate, is that the generated data should be a public good, freely accessible and updated annually.</p>
+          <p>A central objective of the collaboration between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), developed by Huneeus &amp; Del Valle (2026) for the Territorial Analysis and Data Subdirectorate, is that the generated data should be a public good, freely accessible and updated annually for research and public-policy analysis.</p>
           <p>The files available for download corresponding to the 2022 Geographically Disaggregated Economic Accounts are listed below:</p>
           <ol>
             <li><strong>Variable Descriptor:</strong> Provides a general description of the variables contained in each database.</li>
@@ -5828,8 +6258,8 @@
         m2UnitHelpDependencyRelative: "Relative index compares that dependency with the national reference share for the same variable.",
         m2UnitShareOption: "Percentage (%)",
         m2UnitRelativeOption: "Relative index",
-        legendNearZero: "≈0 (below visible threshold)",
-        legendZero: "No data or value 0",
+        legendNearZero: "≈0",
+        legendZero: "=0",
         m2MeasureLabel: "Measure",
         m2UnitLabel: "Unit",
         m2AggregationLabel: "Aggregation",
@@ -5877,9 +6307,9 @@
         m2TabSector: "Sectoral characterization",
         m2TabMatrix: "Territorial-sectoral characterization",
         m2TabKicker: "Characterization",
-        axisGeo: "Territorial",
-        axisSec: "Sectoral",
-        axisCell: "Territorial–Sectoral",
+        axisGeo: "Territories",
+        axisSec: "Sectors",
+        axisCell: "Territories - Sectors",
         m2SectorFocusLabel: "Selected sector",
         m2SectorTopProvinceLabel: "Top province",
         m2SectorHHILabel: "Territorial concentration",
@@ -6092,8 +6522,8 @@
       domar_weight: {
         label_es: "Peso de Domar",
         label_en: "Domar weight",
-        unit_es: "% del PIB",
-        unit_en: "% of GDP",
+        unit_es: "Impacto en PIB ante shock de productividad de 10%",
+        unit_en: "GDP impact from a 10% productivity shock",
         isDerived: true
       }
     });
@@ -6111,7 +6541,7 @@
       importacion: { es: "Importaciones: compras de bienes y servicios desde el resto del mundo.", en: "Imports: purchases of goods and services from the rest of the world." },
       remun: { es: "Remuneraciones: pago a los trabajadores (sueldos y salarios) de la unidad.", en: "Compensation: payments to workers (wages and salaries) in the unit." },
       productividad_laboral: { es: "Productividad laboral: PIB por trabajador (valor agregado dividido por el empleo).", en: "Labor productivity: GDP per worker (value added divided by employment)." },
-      domar_weight: { es: "Peso de Domar: ventas totales del productor divididas por el PIB nacional. Bajo el teorema de Hulten, en una econom\u00eda eficiente equivale al efecto sobre el PIB de un shock de productividad en ese productor; con distorsiones es solo una aproximaci\u00f3n.", en: "Domar weight: the producer's total sales divided by national GDP. By Hulten's theorem, in an efficient economy it equals the effect on GDP of a productivity shock to that producer; with distortions it is only an approximation." }
+      domar_weight: { es: "Peso de Domar (λ): ventas totales del productor divididas por el PIB nacional. Bajo el teorema de Hulten, es una aproximación de primer orden del efecto de un shock de productividad sobre el PIB agregado. Esta visualización muestra 10 × λ: el cambio porcentual aproximado del PIB agregado ante un aumento de productividad de 10% en el productor.", en: "Domar weight (λ): the producer's total sales divided by national GDP. Under Hulten's theorem, it is a first-order approximation of the effect of a productivity shock on aggregate GDP. This visualization shows 10 × λ: the approximate percentage change in aggregate GDP following a 10% productivity increase in the producer." }
     };
     const usdConcordanceRate = 782.7243428447406;
     const visualZeroThresholdClp = 100000000;
@@ -6361,7 +6791,7 @@
       if (mode === "share") return `${(value * 100).toFixed(1)}%`;
       if (mode === "relative") return new Intl.NumberFormat(state.lang === "es" ? "es-CL" : "en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
       if (mode === "hhi") return (value * 10000).toFixed(0);
-      if (metricKey === "domar_weight") return `${(value * 100).toFixed(2)}%`;
+      if (metricKey === "domar_weight") return `${(value * 10).toFixed(3)}%`;
       if (metricKey === "empleo") return new Intl.NumberFormat(state.lang === "es" ? "es-CL" : "en-US", { maximumFractionDigits: 0 }).format(value);
       if (metricKey === "productividad_laboral") {
         // ES: M$/trabajador (divide by 10^6), EN: USD/trabajador (divide by exchange rate)
@@ -6381,7 +6811,9 @@
       if (unitMode === "relative") return state.lang === "es" ? "Índice relativo" : "Relative index";
       if (metricKey === "empleo") return state.lang === "es" ? "personas" : "jobs";
       if (metricKey === "productividad_laboral") return state.lang === "es" ? "Billones de CLP por trabajador" : "USD per worker";
-      if (metricKey === "domar_weight") return "";
+      if (metricKey === "domar_weight") return state.lang === "es"
+        ? (variant === "compact" ? "PIB · shock 10%" : "Variación del PIB ante un shock de productividad de 10%")
+        : (variant === "compact" ? "GDP · 10% shock" : "GDP change from a 10% productivity shock");
       if (state.lang === "es") return variant === "compact" ? "bill. CLP" : "Billones de CLP";
       return "MUSD$";
     }
@@ -6390,7 +6822,9 @@
       const formatted = formatValue(value, metricKey, unitMode);
       if (unitMode === "share") return state.lang === "es" ? `${formatted} Porcentaje (%)` : `${formatted} Percentage (%)`;
       if (unitMode === "relative") return state.lang === "es" ? `${formatted} Índice relativo` : `${formatted} Relative index`;
-      if (metricKey === "domar_weight") return formatted;
+      if (metricKey === "domar_weight") return state.lang === "es"
+        ? `${formatted} cambio en el PIB (shock de productividad de 10%)`
+        : `${formatted} GDP change (10% productivity shock)`;
       return `${formatted} ${getValueUnitLabel(metricKey, unitMode, "compact")}`;
     }
 
@@ -6472,7 +6906,9 @@
     function analysisCardSubtitle(mode) {
       const isEs = state.lang === "es";
       if (mode === "distribution") {
-        return isEs ? "\u00BFCu\u00E1nto aporta cada zona al total?" : "How much does each zone contribute to the total?";
+        if (state.view === "geo") return isEs ? "¿Cuánto representa cada territorio del total?" : "What share of the total does each territory represent?";
+        if (state.view === "sector") return isEs ? "¿Cuánto representa cada sector del total?" : "What share of the total does each sector represent?";
+        return isEs ? "¿Cuánto representa cada combinación territorio-sector del total?" : "What share of the total does each territory-sector combination represent?";
       }
       if (mode === "dependency_territorial") {
         return isEs
@@ -6579,7 +7015,11 @@
         b.classList.toggle('active', b.dataset.m2Unit === state.unit);
         if (b.dataset.m2Unit === 'value') {
           const _vt = b.querySelector('.m3-q-title') || b;
-          _vt.textContent = isEmpleo ? (isEs ? 'Empleos' : 'Jobs') : isLP ? (isEs ? 'Billones de CLP por trabajador' : 'MUSD$/job') : isDomar ? (isEs ? '% del PIB' : '% of GDP') : (isEs ? 'Monto en Billones de CLP' : 'Amount MUSD$');
+          _vt.textContent = isEmpleo ? (isEs ? 'Empleos' : 'Jobs') : isLP ? (isEs ? 'Billones de CLP por trabajador' : 'MUSD$/job') : isDomar ? (isEs ? 'Variación del PIB ante un shock de productividad de 10%' : 'GDP change from a 10% productivity shock') : (isEs ? 'Monto en Billones de CLP' : 'Amount MUSD$');
+          const _vs = b.querySelector('.m3-q-sub');
+          if (_vs) _vs.textContent = isDomar
+            ? (isEs ? 'Cambio porcentual aproximado del PIB agregado' : 'Approximate percentage change in aggregate GDP')
+            : (isEs ? 'Valor absoluto' : 'Absolute value');
         }
       });
       if (!unitTrigger || !unitMenu) return;
@@ -6596,6 +7036,9 @@
     }
 
     function unitHelpText() {
+      if (state.metric === "domar_weight") return state.lang === "es"
+        ? "Muestra 10 × λ: el cambio porcentual aproximado del PIB agregado ante un aumento de productividad de 10% en el productor."
+        : "Shows 10 × λ: the approximate percentage change in aggregate GDP following a 10% productivity increase in the producer.";
       if (state.unit === "value") {
         return state.lang === "es"
           ? (state.lang === "es" ? copy[state.lang].m2UnitHelpValue : copy[state.lang].m2UnitHelpValueEn)
@@ -6607,6 +7050,9 @@
     }
 
     function unitOptionHelpText(value) {
+      if (state.metric === "domar_weight") return state.lang === "es"
+        ? "Muestra 10 × λ: el cambio porcentual aproximado del PIB agregado ante un aumento de productividad de 10% en el productor."
+        : "Shows 10 × λ: the approximate percentage change in aggregate GDP following a 10% productivity increase in the producer.";
       if (value === "value") {
         return state.lang === "es" ? copy[state.lang].m2UnitHelpValue : copy[state.lang].m2UnitHelpValueEn;
       }
@@ -7312,9 +7758,15 @@ function selectionCountLabel(type, level, count) {
       const nationalTotal = metricSum(rows) || 0;
       const share = nationalTotal > 0 ? selectedTotal / nationalTotal : 0;
       const metric = metricLabel(state.metric);
+      const summaryMetric = state.metric === "domar_weight"
+        ? (state.lang === "es" ? "Impacto sobre el PIB agregado" : "Aggregate GDP impact")
+        : metric;
       const valueText = formatValue(selectedTotal, state.metric, "value");
       const shareText = formatValue(share, state.metric, "share");
       const unitLabel = getValueUnitLabel();
+      const summaryUnitHtml = state.metric === "domar_weight"
+        ? ""
+        : `<span class="np-kpi-unit"> ${escapeHtml(unitLabel)}</span>`;
       const scope = buildSelectionScope();
       const summarySubject = buildSelectionSubject();
       const workingRows = filterRows(getWorkingRows());
@@ -7461,17 +7913,25 @@ function selectionCountLabel(type, level, count) {
       }
       const _kpiExp = state.selectionSummaryOpen ? "true" : "false";
       if (!scope) {
-        const totalMeaning = state.lang === "es"
-          ? `Valor nacional total para <strong>${escapeHtml(metric)}</strong>.`
-          : `National total value for <strong>${escapeHtml(metric)}</strong>.`;
-        selectionSummary.innerHTML = `<div class="selection-summary-head np-kpi-card" role="button" tabindex="0" aria-expanded="${_kpiExp}"><div class="np-kpi-sub">${state.lang === "es" ? "TOTAL NACIONAL" : "NATIONAL TOTAL"}</div><div class="np-kpi-ttl">${escapeHtml(metric)}</div><div class="np-kpi-num">${escapeHtml(valueText)}<span class="np-kpi-unit"> ${escapeHtml(unitLabel)}</span></div><div class="np-kpi-share">${totalMeaning}</div>${detailIcon}</div>${state.selectionSummaryOpen ? detailBodyHtml : ""}`;
+        const totalMeaning = state.metric === "domar_weight"
+          ? (state.lang === "es"
+            ? "Cambio aproximado del PIB agregado ante un aumento de productividad de 10% aplicado a la selección."
+            : "Approximate aggregate GDP change from a 10% productivity increase applied to the selection.")
+          : (state.lang === "es"
+            ? `Valor nacional total para <strong>${escapeHtml(metric)}</strong>.`
+            : `National total value for <strong>${escapeHtml(metric)}</strong>.`);
+        selectionSummary.innerHTML = `<div class="selection-summary-head np-kpi-card" role="button" tabindex="0" aria-expanded="${_kpiExp}"><div class="np-kpi-sub">${state.lang === "es" ? "TOTAL NACIONAL" : "NATIONAL TOTAL"}</div><div class="np-kpi-ttl">${escapeHtml(summaryMetric)}</div><div class="np-kpi-num">${escapeHtml(valueText)}${summaryUnitHtml}</div><div class="np-kpi-share">${totalMeaning}</div>${detailIcon}</div>${state.selectionSummaryOpen ? detailBodyHtml : ""}`;
         return;
       }
       const _scopeLbl = escapeHtml(state.lang === "es" ? scope.es : scope.en);
-      const selectionMeaning = state.lang === "es"
-        ? `Representa <strong>${escapeHtml(shareText)}</strong> del total nacional de <strong>${escapeHtml(metric)}</strong>.`
-        : `Represents <strong>${escapeHtml(shareText)}</strong> of the national total for <strong>${escapeHtml(metric)}</strong>.`;
-      selectionSummary.innerHTML = `<div class="selection-summary-head np-kpi-card" role="button" tabindex="0" aria-expanded="${_kpiExp}"><div class="np-kpi-sub">${_scopeLbl}</div><div class="np-kpi-ttl">${escapeHtml(metric)}</div><div class="np-kpi-num">${escapeHtml(valueText)}<span class="np-kpi-unit"> ${escapeHtml(unitLabel)}</span></div><div class="np-kpi-share">${selectionMeaning}</div>${detailIcon}</div>${state.selectionSummaryOpen ? detailBodyHtml : ""}`;
+      const selectionMeaning = state.metric === "domar_weight"
+        ? (state.lang === "es"
+          ? "Cambio aproximado del PIB agregado ante un aumento de productividad de 10% aplicado a la selección."
+          : "Approximate aggregate GDP change from a 10% productivity increase applied to the selection.")
+        : (state.lang === "es"
+          ? `Representa <strong>${escapeHtml(shareText)}</strong> del total nacional de <strong>${escapeHtml(metric)}</strong>.`
+          : `Represents <strong>${escapeHtml(shareText)}</strong> of the national total for <strong>${escapeHtml(metric)}</strong>.`);
+      selectionSummary.innerHTML = `<div class="selection-summary-head np-kpi-card" role="button" tabindex="0" aria-expanded="${_kpiExp}"><div class="np-kpi-sub">${_scopeLbl}</div><div class="np-kpi-ttl">${escapeHtml(summaryMetric)}</div><div class="np-kpi-num">${escapeHtml(valueText)}${summaryUnitHtml}</div><div class="np-kpi-share">${selectionMeaning}</div>${detailIcon}</div>${state.selectionSummaryOpen ? detailBodyHtml : ""}`;
     }
 
     function buildGeoLegend(scale, values, legendId = "geo-legend") {
@@ -7491,7 +7951,7 @@ function selectionCountLabel(type, level, count) {
       });
       const verticalSamples = [...samples].reverse();
       legend.innerHTML = `
-        <div class="geo-legend-unit">${escapeHtml(getValueUnitLabel(state.metric, state.unit))}</div>
+        <div class="geo-legend-unit">${escapeHtml(getValueUnitLabel(state.metric, state.unit, "full"))}</div>
         <div class="geo-legend-bar" aria-hidden="true" data-min="${minValue}" data-max="${maxValue}"></div>
         <div class="geo-legend-scale">
           ${verticalSamples.map((value) => `<span data-value="${value}">${escapeHtml(formatValue(value, state.metric, state.unit))}</span>`).join("")}
@@ -7508,69 +7968,8 @@ function selectionCountLabel(type, level, count) {
       if (!bar) return;
       const samplesDesc = Array.from(labels).map((label) => Number(label.dataset.value || 0)).filter((value) => value > 0);
 
-      const legendTitle = () => {
-        if (state.unit === "share") {
-          return state.lang === "es" ? "Valor:" : "Value:";
-        }
-        return state.lang === "es" ? "Valor:" : "Value:";
-      };
-
-      const legendUnit = () => {
-        if (state.unit === "share") return "";
-        return getValueUnitLabel(state.metric, state.unit);
-      };
-
-      const restorePinnedHover = () => {
-        if (!state.hoverCard.pinned) {
-          hideHoverCard(true);
-          return;
-        }
-        if (state.hoverCard.kind === "geo" && state.hoverCard.key) {
-          hoverCard.innerHTML = getGeoHoverHtml(metricByProvince, state.hoverCard.key);
-          hoverCard.classList.add("is-visible", "is-pinned");
-          return;
-        }
-        if (state.hoverCard.kind === "sector" && state.hoverCard.key) {
-          hoverCard.innerHTML = getSectorHoverHtml(state.hoverCard.key);
-          hoverCard.classList.add("is-visible", "is-pinned");
-          return;
-        }
-        hideHoverCard(true);
-      };
-
-      const showLegendValue = (value, event) => {
-        hoverCard.innerHTML = `
-          <div class="hover-line"><strong>${legendTitle()}</strong> <span>${escapeHtml(formatValue(value, state.metric, state.unit))}${legendUnit() ? ` ${escapeHtml(legendUnit())}` : ""}</span></div>
-        `;
-        hoverCard.classList.add("is-compact");
-        hoverCard.classList.remove("is-pinned");
-        hoverCard.classList.add("is-visible");
-        positionHoverCard(event.clientX, event.clientY);
-      };
-
-      bar.onmouseenter = (event) => {
-        const minValue = Number(bar.dataset.min || 0);
-        const maxValue = Number(bar.dataset.max || 0);
-        if (!(minValue > 0) || !(maxValue > 0)) return;
-        const rect = bar.getBoundingClientRect();
-        const ratio = rect.height <= 0 ? 0 : Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
-        const t = 1 - ratio;
-        const value = minValue * Math.pow(maxValue / minValue, t);
-        showLegendValue(value, event);
-      };
-      bar.onmousemove = (event) => {
-        const minValue = Number(bar.dataset.min || 0);
-        const maxValue = Number(bar.dataset.max || 0);
-        if (!(minValue > 0) || !(maxValue > 0)) return;
-        const rect = bar.getBoundingClientRect();
-        const ratio = rect.height <= 0 ? 0 : Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
-        const t = 1 - ratio;
-        const value = minValue * Math.pow(maxValue / minValue, t);
-        showLegendValue(value, event);
-      };
-      bar.onmouseleave = () => {
-        restorePinnedHover();
-      };
+      // El hover de la barra lo maneja attachLegendReadout(), compartido por
+      // las figuras. Aquí se conservan solamente los clics para filtrar rangos.
       bar.onclick = (event) => {
         const minValue = Number(bar.dataset.min || 0);
         const maxValue = Number(bar.dataset.max || 0);
@@ -7595,17 +7994,6 @@ function selectionCountLabel(type, level, count) {
       };
 
       labels.forEach((label) => {
-        label.onmouseenter = (event) => {
-          const value = Number(label.dataset.value || 0);
-          if (value > 0) showLegendValue(value, event);
-        };
-        label.onmousemove = (event) => {
-          const value = Number(label.dataset.value || 0);
-          if (value > 0) showLegendValue(value, event);
-        };
-        label.onmouseleave = () => {
-          restorePinnedHover();
-        };
         label.onclick = () => {
           const value = Number(label.dataset.value || 0);
           if (!(value > 0) || !samplesDesc.length) return;
@@ -7631,7 +8019,7 @@ function selectionCountLabel(type, level, count) {
       const samplesDesc = Array.from(labels).map((label) => Number(label.dataset.value || 0)).filter((value) => value > 0);
 
       const legendTitle = () => state.lang === "es" ? "Valor:" : "Value:";
-      const legendUnit = () => (unitMode === "share" || unitMode === "relative") ? "" : getValueUnitLabel(state.metric, unitMode);
+      const legendUnit = () => (unitMode === "share" || unitMode === "relative") ? "" : getValueUnitLabel(state.metric, unitMode, "full");
 
       const restorePinnedHover = () => {
         if (!state.hoverCard.pinned) {
@@ -7755,13 +8143,20 @@ function selectionCountLabel(type, level, count) {
         return minValue * Math.pow(maxValue / minValue, t);
       }).reverse();
       legendEl.innerHTML = `
-        <div class="matrix-legend-unit">${escapeHtml(getValueUnitLabel(state.metric, unitMode))}</div>
+        <div class="matrix-legend-unit">${escapeHtml(getValueUnitLabel(state.metric, unitMode, "full"))}</div>
         <div class="matrix-legend-bar-vertical" aria-hidden="true" data-min="${minValue}" data-max="${maxValue}"></div>
         <div class="matrix-legend-scale-vertical">
           ${samples.map((value) => `<span data-value="${value}">${escapeHtml(formatValue(value, state.metric, unitMode))}</span>`).join("")}
         </div>
       `;
       window.attachLegendReadout(legendEl.querySelector(".matrix-legend-bar-vertical"), minValue, maxValue, (v) => formatValue(v, state.metric, unitMode));
+      // El título (.matrix-legend-unit) es position:absolute (para no empujar
+      // la barra hacia abajo) y por eso NO cuenta para el ancho del elemento
+      // flex en el layout (.matrix-figure centra svg+leyenda como grupo). Sin
+      // esto, el layout solo ve el ancho de la barra+números y el título
+      // puede quedar recortado por fuera del contenedor.
+      const titleEl = legendEl.querySelector(".matrix-legend-unit");
+      legendEl.style.minWidth = titleEl ? Math.ceil(titleEl.offsetWidth) + "px" : "";
       // Alinear el alto de la leyenda con el alto REAL del heatmap renderizado
       // mediante el helper compartido robusto (mismo criterio en M2/M3/M4).
       if (legendEl.classList.contains("matrix-legend-vertical")) {
@@ -8054,6 +8449,7 @@ function selectionCountLabel(type, level, count) {
       svg.selectAll("*").remove();
       const projection = d3.geoMercator().fitExtent([[6, 6], [_mH - 6, _mH - 6]], _fc);
       const path = d3.geoPath(projection);
+      let _geoAnyGray = false, _geoAnyZero = false;
       svg.selectAll("path")
           .data(geoFeatures)
           .enter()
@@ -8071,8 +8467,8 @@ function selectionCountLabel(type, level, count) {
           .attr("tabindex", 0)
           .attr("fill", (d) => {
             const value = metricByProvince.get(d.properties.CUT_PROV) || 0;
-            if (value <= 0) return "#f3f5f8";
-            if (_geoNearZeroOn && window.NearZero.is(value, _geoTotal, window.NearZero.GEO_THR)) return window.NearZero.GRAY;
+            if (value <= 0) { _geoAnyZero = true; return "#f3f5f8"; }
+            if (_geoNearZeroOn && window.NearZero.is(value, _geoTotal, window.NearZero.GEO_THR)) { _geoAnyGray = true; return window.NearZero.GRAY; }
             return colorForValue(value);
           })
           .attr("stroke", "rgba(34,30,124,0.32)")
@@ -8114,6 +8510,7 @@ function selectionCountLabel(type, level, count) {
           _svgNode.setAttribute("viewBox", `${_b[0][0] - _pad} ${_b[0][1] - _pad} ${_b[1][0] - _b[0][0] + 2 * _pad} ${_b[1][1] - _b[0][1] + 2 * _pad}`);
           _svgNode.style.cssText = "display:block;height:100%;width:auto;max-width:100%";
           buildGeoLegend(colorForValue, _geoScaleVals.length ? _geoScaleVals : values);
+          window.NearZero.updateLegend("geo-nz-legend", _geoAnyGray, _geoAnyZero);
         }
 
     function renderGeoView() {
@@ -8203,7 +8600,7 @@ function selectionCountLabel(type, level, count) {
         const _cf = _sc?.colorForValue || (() => "#cccccc");
         const _entries = [..._seen.entries()].filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1])
           .map(([nm, v]) => ({ name: nm, valueText: formatValue(v, state.metric, state.unit), color: _cf(v) }));
-        const _unitSuffix = getValueUnitLabel(state.metric, state.unit);
+        const _unitSuffix = getValueUnitLabel(state.metric, state.unit, "full");
         RankRailKit.fill("module-2", "geo", state.lang === "es" ? "Territorios Top" : "Top territories", _entries, state.lang, _unitSuffix);
       }
     }
@@ -8232,7 +8629,7 @@ function selectionCountLabel(type, level, count) {
       const maxValue = d3.max(sectorAgg, (d) => d[state.unit]) || 1;
       document.getElementById("macro-legend").innerHTML = uniqueSectorOptions("industry").map((item) => `<span><i style="background:${industryColorForCode(item.value)}"></i>${item.label}</span>`).join("");
       const _sectorBarsUnitEl = document.getElementById("sector-bars-unit");
-      if (_sectorBarsUnitEl) _sectorBarsUnitEl.textContent = getValueUnitLabel(state.metric, state.unit);
+      if (_sectorBarsUnitEl) _sectorBarsUnitEl.textContent = getValueUnitLabel(state.metric, state.unit, "full");
       document.getElementById("sector-bars").innerHTML = sectorAgg.map((d) => {
         const meta = sectors.find((item) => String(item[sectorCodeFieldForLevel(state.sectorLevel)]) === String(d.key));
         const color = industryColorForCode(meta?.cod_industria || d.key);
@@ -8255,7 +8652,7 @@ function selectionCountLabel(type, level, count) {
         const _entries = sectorAgg.filter((d) => d[state.unit] > 0).map((d) => {
           return { name: sectorLabel(state.sectorLevel, d.key), valueText: formatValue(d[state.unit], state.metric, state.unit), color: _secCf(d[state.unit]) };
         });
-        const _unitSuffix2 = getValueUnitLabel(state.metric, state.unit);
+        const _unitSuffix2 = getValueUnitLabel(state.metric, state.unit, "full");
         RankRailKit.fill("module-2", "sector", state.lang === "es" ? "Sectores Top" : "Top sectors", _entries, state.lang, _unitSuffix2);
       }
     }
@@ -8294,27 +8691,55 @@ function selectionCountLabel(type, level, count) {
         const _cells = [];
         rowKeys.forEach((r) => colKeys.forEach((c) => { const v = matrixMap.get(r)?.get(c) || 0; if (v > 0) _cells.push([r + " \u00b7 " + sectorLabel(state.sectorLevel, c), v]); }));
         _cells.sort((a, b) => b[1] - a[1]);
-        const _unitSuffix3 = getValueUnitLabel(state.metric, state.unit);
+        const _unitSuffix3 = getValueUnitLabel(state.metric, state.unit, "full");
         RankRailKit.fill("module-2", "matrix", state.lang === "es" ? "Combinaciones Top" : "Top combinations", _cells.map(([nm, v]) => ({ name: nm, valueText: formatValue(v, state.metric, state.unit), color: colorForValue(v) })), state.lang, _unitSuffix3);
       }
       const figureEl = document.getElementById("matrix-figure");
       const svgEl = document.getElementById("matrix-svg");
       const legendEl = document.getElementById("matrix-legend");
       const isMobileHeatmap = window.matchMedia && window.matchMedia("(max-width: 820px)").matches;
-      const panelWidth = Math.max(320, figureEl?.clientWidth || 900);
-      const panelHeightRaw = figureEl?.clientHeight || (isMobileHeatmap ? 450 : 520);
-      const panelHeightCap = isMobileHeatmap ? Math.max(360, Math.min(460, window.innerHeight - 320)) : Infinity;
+      const mobileContentScaleW = isMobileHeatmap ? 0.80 : 1;
+      const panelWidth = isMobileHeatmap
+        ? Math.max(376, figureEl?.clientWidth || 0)
+        : Math.max(320, figureEl?.clientWidth || 900);
+      const panelHeightRaw = isMobileHeatmap
+        ? Math.max(212, figureEl?.clientHeight || 0)
+        : (figureEl?.clientHeight || 520);
+      const panelHeightCap = Infinity;
       const panelHeight = Math.max(220, Math.min(panelHeightRaw, panelHeightCap));
       const reservedBottom = 0;
       // ── Geometría idéntica al Módulo 4: celdas no cuadradas + viewBox ajustado
       //    al contenido + escala para llenar el cuadro (preserveAspectRatio meet). ──
-      const contW = Math.max(220, panelWidth - 84);
+      // El contenido de la leyenda (título + números) se construye ANTES de
+      // reservar el ancho para el SVG, y no después: así "offsetWidth" mide el
+      // ancho real de ESTE render (con el título/valores actuales), no el del
+      // render anterior (que podía quedar desactualizado o en 0 si la leyenda
+      // estaba oculta), evitando que quede recortada o se separe del heatmap.
+      // Se reconstruye una segunda vez más abajo para alinear su alto exacto
+      // con la grilla ya renderizada.
+      buildMatrixLegendVertical(colorForValue, _matScaleVals.length ? _matScaleVals : values, legendEl, matrixUnit);
+      // El título ("BILLONES DE CLP", etc.) es position:absolute (para no
+      // empujar la barra/números) y por eso NO cuenta en el offsetWidth del
+      // contenedor: hay que medirlo aparte y quedarnos con el más ancho.
+      // OJO: la reserva usa SOLO el ancho del título (estable para un mismo
+      // metric/unidad) y un piso fijo — nunca "legendEl.offsetWidth" del
+      // contenedor completo, porque ese incluye la columna de números, que
+      // cambia de ancho según los dígitos de cada nivel de agregación y
+      // volvería a hacer que el SVG cambiara de tamaño al re-agrupar.
+      const legendTitleW = legendEl?.querySelector(".matrix-legend-unit")?.offsetWidth || 0;
+      // En móvil la leyenda es una fila independiente debajo de la matriz;
+      // reservarle ancho lateral encoge innecesariamente las celdas.
+      const legendReserve = isMobileHeatmap ? 0 : 14 + Math.max(70, legendTitleW);
+      const contW = Math.max(220, Math.floor((panelWidth - legendReserve) * mobileContentScaleW));
       const contH = Math.max(220, panelHeight - 14);
       const _fit = window.fitHeatmapGeometry({
         contW, contH, nRows: rowKeys.length, nCols: colKeys.length,
         rowLabels: rowKeys,
-        colLabels: colKeys.map((c) => sectorLabel(state.sectorLevel, c)),
-        rotDeg: 66, rowFamily: "Verdana, Geneva, sans-serif", colFamily: "Verdana, Geneva, sans-serif",
+        colLabels: colKeys.map((c) => isMobileHeatmap && window.heatmapAxisLabelShort ? window.heatmapAxisLabelShort(sectorLabel(state.sectorLevel, c)) : sectorLabel(state.sectorLevel, c)),
+        rotDeg: isMobileHeatmap ? 82 : 66,
+        leftPadMin: isMobileHeatmap ? 64 : undefined,
+        bottomPadMin: isMobileHeatmap ? 84 : undefined,
+        rowFamily: "Verdana, Geneva, sans-serif", colFamily: "Verdana, Geneva, sans-serif",
       });
       const leftLabelWidth = _fit.LP;
       const bottomLabelHeight = _fit.BP;
@@ -8323,8 +8748,11 @@ function selectionCountLabel(type, level, count) {
       const cellW = _fit.CW;
       const gridWidth = colKeys.length * cellW;
       const gridHeight = rowKeys.length * cellH;
-      const gridLeft = leftLabelWidth;
-      const gridTop = topPad;
+      // offsetX/offsetY centran la grilla (posiblemente más chica que el
+      // recuadro fijo, por el aspecto casi-cuadrado de las celdas) dentro del
+      // mismo recuadro; el SVG exterior no cambia de tamaño.
+      const gridLeft = leftLabelWidth + (_fit.offsetX || 0);
+      const gridTop = topPad + (_fit.offsetY || 0);
       const gridBottom = gridTop + gridHeight;
       const legendGap = 14;
       const legendLeft = gridLeft + gridWidth + legendGap;
@@ -8339,7 +8767,7 @@ function selectionCountLabel(type, level, count) {
       // siempre el mismo tamaño en pantalla; al cambiar de agrupación sólo crecen
       // o se encogen las celdas, no el recuadro. La geometría de la grilla se
       // publica en dataset para que la leyenda mida exactamente su alto.
-      svgEl.dataset.gridTop = topPad;
+      svgEl.dataset.gridTop = gridTop;
       svgEl.dataset.gridHeight = gridHeight;
       svgEl.style.cssText = `display:block;overflow:visible;align-self:flex-start;width:${Math.round(svgWidth)}px;height:${Math.round(svgHeight)}px`;
 
@@ -8347,6 +8775,7 @@ function selectionCountLabel(type, level, count) {
       // Tamaño de letra dinámico (mismo estándar que M4)
       const _rowFs = _fit.rowFs;
       const _colFs = _fit.colFs;
+      let _matAnyGray = false, _matAnyZero = false;
       rowKeys.forEach((rowKey, rowIndex) => {
         const y = gridTop + rowIndex * cellH;
         const labelY = y + cellH / 2;
@@ -8354,7 +8783,10 @@ function selectionCountLabel(type, level, count) {
         colKeys.forEach((colKey, colIndex) => {
           const x = gridLeft + colIndex * cellW;
           const value = matrixMap.get(rowKey)?.get(colKey) || 0;
-          const fill = value <= 0 ? "#ffffff" : (_matNearZeroOn && window.NearZero.is(value, _matTotal, window.NearZero.MATRIX_THR) ? window.NearZero.GRAY : colorForValue(value));
+          const isNearZero = value > 0 && _matNearZeroOn && window.NearZero.is(value, _matTotal, window.NearZero.MATRIX_THR);
+          if (value <= 0) _matAnyZero = true;
+          if (isNearZero) _matAnyGray = true;
+          const fill = value <= 0 ? "#ffffff" : (isNearZero ? window.NearZero.GRAY : colorForValue(value));
           const cellKey = matrixHoverKey(rowKey, colKey);
           const isActive = state.hoverCard.pinned && state.hoverCard.kind === "matrix" && state.hoverCard.key === cellKey;
           const isHovered = !state.hoverCard.pinned && state.hoverMatrixKey === cellKey;
@@ -8365,10 +8797,13 @@ function selectionCountLabel(type, level, count) {
       });
 
       const labelOffset = 3;
+      const labelRotation = isMobileHeatmap ? -82 : -66;
       colKeys.forEach((colKey, colIndex) => {
         const labelX = gridLeft + (colIndex + 1) * cellW - 1;
         const labelY = gridBottom + labelOffset;
-        parts.push(`<text class="matrix-col-label" x="${labelX}" y="${labelY}" transform="rotate(-66 ${labelX} ${labelY})" style="font-size:${_colFs}px">${escapeHtml(sectorLabel(state.sectorLevel, colKey))}</text>`);
+        const fullColLabel = sectorLabel(state.sectorLevel, colKey);
+        const dispColLabel = isMobileHeatmap && window.heatmapAxisLabelShort ? window.heatmapAxisLabelShort(fullColLabel) : fullColLabel;
+        parts.push(`<text class="matrix-col-label" x="${labelX}" y="${labelY}" transform="rotate(${labelRotation} ${labelX} ${labelY})" style="font-size:${_colFs}px"><title>${escapeHtml(fullColLabel)}</title>${escapeHtml(dispColLabel)}</text>`);
       });
 
       svgEl.innerHTML = parts.join("");
@@ -8402,6 +8837,7 @@ function selectionCountLabel(type, level, count) {
         });
       });
       buildMatrixLegendVertical(colorForValue, _matScaleVals.length ? _matScaleVals : values, legendEl, matrixUnit);
+      window.NearZero.updateLegend("matrix-nz-legend", _matAnyGray, _matAnyZero);
       attachMatrixLegendHover(matrixUnit);
       if (state.hoverCard.pinned && state.hoverCard.kind === "matrix" && state.hoverCard.key) {
         const { rowKey, colKey } = parseMatrixHoverKey(state.hoverCard.key);
@@ -8444,6 +8880,151 @@ function selectionCountLabel(type, level, count) {
       if (view === "matrix") return document.querySelector('.module-two-view[data-view-panel="matrix"] .matrix-figure');
       return null;
     }
+
+    let figureExpandState = null;
+
+    function getFigureExpandTarget(view, scope = "module2", actions) {
+      const localTarget = actions?.closest(
+        ".map-stage, .viz-shell, .matrix-figure, .m4d-map-box, .m4d-bars-col, .m4d-hm-figure"
+      );
+      if (localTarget) return localTarget;
+      return getExportTarget(view, scope);
+    }
+
+    function getFigureExpandKind(view) {
+      return view === "geo" ? "geo" : view === "sector" ? "sector" : "matrix";
+    }
+
+    function ensureFigureExpandStage() {
+      let stage = document.getElementById("figure-expand-stage");
+      if (stage) return stage;
+      stage = document.createElement("div");
+      stage.id = "figure-expand-stage";
+      stage.className = "figure-expand-stage";
+      stage.setAttribute("aria-hidden", "true");
+      const closeBtn = document.createElement("button");
+      closeBtn.type = "button";
+      closeBtn.className = "figure-expand-close";
+      closeBtn.setAttribute("aria-label", "Cerrar figura ampliada");
+      closeBtn.textContent = "×";
+      closeBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        closeFigureExpand();
+      });
+      stage.addEventListener("click", (event) => {
+        if (event.target === stage) {
+          closeFigureExpand();
+        }
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && figureExpandState) {
+          event.preventDefault();
+          closeFigureExpand();
+        }
+      });
+      // El cierre debe ser hermano del fondo. La figura se eleva sobre el
+      // fondo modal y el botón tiene que quedar por encima de ambos.
+      document.body.append(stage, closeBtn);
+      return stage;
+    }
+
+    function redrawExpandedFigure(view, scope) {
+      if (scope === "module3") {
+        window.module3RenderAll?.();
+        return;
+      }
+      if (scope === "module4") {
+        window.module4RedrawAll?.();
+        return;
+      }
+      if (view === "geo") renderGeoView();
+      else if (view === "sector") renderSectorView();
+      else renderMatrixView();
+    }
+
+    function fitExpandedSectorBars(target, view) {
+      if (view !== "sector" || !target) return;
+      const rows = target.querySelectorAll(".m4d-bar-row");
+      if (!rows.length) return;
+      const unit = target.querySelector(".bar-chart-unit");
+      const legend = target.querySelector(".split-footer-controls, .m4d-ind-legend");
+      const reserved = 34 + (unit?.offsetHeight || 0) + (legend?.offsetHeight || 0);
+      const usableHeight = Math.max(180, target.clientHeight - reserved);
+      const rowHeight = Math.max(10, Math.min(18, Math.floor((usableHeight - ((rows.length - 1) * 2)) / rows.length)));
+      target.style.setProperty("--expanded-bar-row-h", `${rowHeight}px`);
+      target.style.setProperty("--expanded-bar-label-size", `${Math.max(8.5, Math.min(11, rowHeight - 3))}px`);
+    }
+
+    function updateFigureExpandButton(button, expanded) {
+      if (!button) return;
+      const lang = state.lang === "en" ? "en" : "es";
+      button.classList.toggle("is-active", expanded);
+      button.setAttribute("aria-pressed", expanded ? "true" : "false");
+      const labels = expanded
+        ? { es: "Reducir figura", en: "Exit expanded view" }
+        : { es: "Ampliar figura", en: "Expand figure" };
+      button.setAttribute("aria-label", labels[lang]);
+      button.setAttribute("title", labels[lang]);
+    }
+
+    function closeFigureExpand() {
+      if (!figureExpandState) return;
+      const { target, context, button, view, scope } = figureExpandState;
+      figureExpandState = null;
+      document.body.classList.remove("figure-expanded");
+      const stage = document.getElementById("figure-expand-stage");
+      if (stage) stage.setAttribute("aria-hidden", "true");
+      if (stage) stage.dataset.figureKind = "";
+      target?.classList.remove("is-figure-expanded");
+      target?.style.removeProperty("--expanded-bar-row-h");
+      target?.style.removeProperty("--expanded-bar-label-size");
+      context?.classList.remove("is-figure-expand-context");
+      updateFigureExpandButton(button, false);
+      requestAnimationFrame(() => redrawExpandedFigure(view, scope));
+      setTimeout(() => redrawExpandedFigure(view, scope), 120);
+    }
+
+    function openFigureExpand(actions, button, view, scope) {
+      const target = getFigureExpandTarget(view, scope, actions);
+      if (!target) return;
+      if (figureExpandState && figureExpandState.target === target) {
+        closeFigureExpand();
+        return;
+      }
+      if (figureExpandState) closeFigureExpand();
+      const stage = ensureFigureExpandStage();
+      stage.dataset.figureKind = getFigureExpandKind(view);
+      const context = target.closest(".module-two-shell, .m4-shell");
+      context?.classList.add("is-figure-expand-context");
+      target.classList.add("is-figure-expanded");
+      stage.setAttribute("aria-hidden", "false");
+      document.body.classList.add("figure-expanded");
+      figureExpandState = { target, context, button, view, scope };
+      fitExpandedSectorBars(target, view);
+      updateFigureExpandButton(button, true);
+      actions.classList.remove("is-open");
+      requestAnimationFrame(() => {
+        redrawExpandedFigure(view, scope);
+        fitExpandedSectorBars(target, view);
+        window.dispatchEvent(new Event("resize"));
+      });
+      setTimeout(() => {
+        redrawExpandedFigure(view, scope);
+        fitExpandedSectorBars(target, view);
+        window.dispatchEvent(new Event("resize"));
+      }, 90);
+      // D3 mide los contenedores una vez que el navegador termina de
+      // recomponer la capa fija. Repetimos la medición al estabilizarse el
+      // layout para que leyendas, ejes y mapas no conserven el tamaño previo.
+      [280, 620].forEach((delay) => setTimeout(() => {
+        if (figureExpandState?.target !== target) return;
+        redrawExpandedFigure(view, scope);
+        fitExpandedSectorBars(target, view);
+        window.dispatchEvent(new Event("resize"));
+      }, delay));
+    }
+    window.closeFigureExpand = closeFigureExpand;
 
     function cropCanvasToContent(canvas, padding = 10) {
       const ctx = canvas.getContext("2d", { willReadFrequently: true });
@@ -8596,12 +9177,14 @@ function selectionCountLabel(type, level, count) {
 
     function initFigureExports() {
       document.querySelectorAll(".figure-actions").forEach((actions) => {
-        if (actions.dataset.exportWired) return;
-        actions.dataset.exportWired = "1";
         const toggle = actions.querySelector("[data-export-toggle]");
+        const expand = actions.querySelector("[data-figure-expand-toggle]");
         const options = actions.querySelectorAll("[data-export-format]");
         const view = actions.dataset.exportView;
         const scope = actions.dataset.exportScope || "module2";
+        if (expand) updateFigureExpandButton(expand, figureExpandState?.target && figureExpandState.target === getFigureExpandTarget(view, scope));
+        if (actions.dataset.exportWired) return;
+        actions.dataset.exportWired = "1";
         toggle?.addEventListener("click", (event) => {
           event.preventDefault();
           event.stopPropagation();
@@ -8609,6 +9192,11 @@ function selectionCountLabel(type, level, count) {
             if (node !== actions) node.classList.remove("is-open");
           });
           actions.classList.toggle("is-open");
+        });
+        expand?.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          openFigureExpand(actions, expand, view, scope);
         });
         options.forEach((option) => {
           option.addEventListener("click", async (event) => {
@@ -8619,10 +9207,16 @@ function selectionCountLabel(type, level, count) {
           });
         });
       });
-      document.addEventListener("click", (event) => {
-        if (event.target.closest(".figure-actions")) return;
-        document.querySelectorAll(".figure-actions.is-open").forEach((node) => node.classList.remove("is-open"));
-      });
+      if (!window.__figureExportGlobalWired) {
+        document.addEventListener("click", (event) => {
+          if (event.target.closest(".figure-actions")) return;
+          document.querySelectorAll(".figure-actions.is-open").forEach((node) => node.classList.remove("is-open"));
+        });
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && figureExpandState) closeFigureExpand();
+        });
+        window.__figureExportGlobalWired = true;
+      }
     }
     window.initFigureExports = initFigureExports;
 
@@ -8666,7 +9260,13 @@ function selectionCountLabel(type, level, count) {
         const key = node.dataset.i18nHtml;
         if (copy[lang][key]) node.innerHTML = copy[lang][key];
       });
-      langButtons.forEach((button) => button.classList.toggle("active", button.dataset.lang === lang));
+      langButtons.forEach((button) => {
+        const selected = button.dataset.lang === lang;
+        button.classList.toggle("active", selected);
+        button.classList.toggle("on", selected);
+        button.classList.toggle("off", !selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
       buildMetricSelect();
       unitSelect.options[0].text = lang === "es" ? "Billones de CLP" : "MUSD$";
       unitSelect.options[1].text = lang === "es" ? "Porcentaje (%)" : "Percentage (%)";
@@ -9238,10 +9838,10 @@ function selectionCountLabel(type, level, count) {
       }, { passive: true });
     }
   </script>
-  <script src="web_materiales/data/module3_app.js?v=23"></script>
+  <script src="web_materiales/data/module3_app.js?v=24"></script>
   <script src="vendor/katex/katex.min.js"></script>
   <script src="web_materiales/data/module4_engine.js?v=2"></script>
-  <script src="web_materiales/data/module4_app.js?v=22"></script>
+  <script src="web_materiales/data/module4_app.js?v=23"></script>
   <script>
     /* ── np-panel helpers ── */
     (function(){
@@ -9596,6 +10196,16 @@ function selectionCountLabel(type, level, count) {
       backdrop.className = 'mob-drawer-backdrop';
       document.body.appendChild(backdrop);
 
+      // El cierre vive al nivel del documento para quedar siempre sobre el
+      // backdrop, aun cuando cada módulo cree su propio contexto de capas.
+      var drawerClose = document.createElement('button');
+      drawerClose.className = 'mob-drawer-close';
+      drawerClose.type = 'button';
+      drawerClose.setAttribute('aria-label', 'Cerrar controles');
+      drawerClose.innerHTML = '\u00d7';
+      drawerClose.addEventListener('click', closeDrawer);
+      document.body.appendChild(drawerClose);
+
       // Un único botón flotante, cuyo módulo objetivo sigue al scroll
       var fab = document.createElement('button');
       fab.className = 'mob-ctrl-fab';
@@ -9618,21 +10228,15 @@ function selectionCountLabel(type, level, count) {
         document.querySelectorAll('.np-panel.is-drawer-open, .m4d-controls.is-drawer-open')
           .forEach(function (p) { p.classList.remove('is-drawer-open'); });
         backdrop.classList.remove('is-active');
+        drawerClose.classList.remove('is-active');
       }
       function openDrawer() {
         if (!currentSec) return;
         var p = panelOf(currentSec);
         if (!p) return;
-        if (!p.querySelector('.mob-drawer-close')) {
-          var c = document.createElement('button');
-          c.className = 'mob-drawer-close';
-          c.setAttribute('aria-label', 'Cerrar controles');
-          c.innerHTML = '\u00d7';
-          c.addEventListener('click', closeDrawer);
-          p.insertBefore(c, p.firstChild);
-        }
         p.classList.add('is-drawer-open');
         backdrop.classList.add('is-active');
+        drawerClose.classList.add('is-active');
       }
       fab.addEventListener('click', openDrawer);
       backdrop.addEventListener('click', closeDrawer);
@@ -9815,14 +10419,15 @@ function selectionCountLabel(type, level, count) {
         padding-top: 50px !important;
       }
       .mob-drawer-close {
-        position: absolute; top: 9px; right: 11px;
+        position: fixed; top: 9px; left: calc(min(86vw, 350px) - 45px);
         width: 34px; height: 34px; border-radius: 50%;
         border: none; cursor: pointer;
         background: rgba(0, 0, 0, .07); color: #333;
         font-size: 21px; line-height: 1;
-        display: flex; align-items: center; justify-content: center;
-        z-index: 3;
+        display: none !important; align-items: center; justify-content: center;
+        z-index: 121;
       }
+      .mob-drawer-close.is-active { display: flex !important; }
       .mob-drawer-backdrop {
         position: fixed; inset: 0;
         background: rgba(15, 14, 40, .44);
@@ -9841,6 +10446,17 @@ function selectionCountLabel(type, level, count) {
       #module-2 .module-tab .tab-axis, #module-3 .module-tab .tab-axis, #module-4 .m4d-tab .tab-axis { font-size: 12px !important; font-weight: 700 !important; }
       #module-2 .module-two-view.active, #module-3 .module-two-view.active { overflow: hidden !important; }
       #module-2 .analysis-block, #module-3 .analysis-block { height: 100% !important; overflow: hidden !important; }
+      #module-3 .geo-layout,
+      #module-3 .geo-layout .map-stage {
+        min-height: 0 !important;
+        height: 100% !important;
+      }
+      /* La vista Top sustituye al rail lateral: en móvil no se reserva su ancho. */
+      #module-2 .np-viz-col.rank-collapsed .analysis-block,
+      #module-3 .np-viz-col.rank-collapsed .analysis-block {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
       #module-2 .module-two-view[data-view-panel="matrix"].active,
       #module-3 .module-three-view[data-module3-view-panel="matrix"].active {
         overflow-y: auto !important;
@@ -9873,7 +10489,24 @@ function selectionCountLabel(type, level, count) {
         margin: 0 auto !important;
         padding-bottom: 8px !important;
       }
-      #module-4 .m4d-map-box, #module-4 .m4d-bars-col, #module-4 .m4d-hm-figure { min-height: 0 !important; height: calc(100vh - var(--mobile-topbar-h) - var(--mobile-tabs-h) - var(--mobile-actions-h) - 26px - var(--mobile-figure-gap)) !important; padding: 7px 9px 8px !important; }
+      #module-4 .m4d-map-box, #module-4 .m4d-bars-col, #module-4 .m4d-hm-figure {
+        min-height: 0 !important;
+        height: clamp(390px, calc(100vh - var(--mobile-topbar-h) - var(--mobile-tabs-h) - var(--mobile-actions-h) - (var(--mobile-viz-gap) * 2) - var(--mobile-figure-gap)), 470px) !important;
+        width: calc(100% - 18px) !important;
+        padding: 7px 9px 8px !important;
+      }
+      /* Cuando la matriz está activa, el módulo acompaña su marco compacto en
+         vez de reservar el alto de pantalla usado por mapas y barras. */
+      #module-4.m4-new:has(.m4d-panel[data-panel="cell"].active),
+      .explore-inline #module-4 .m4-shell:has(.m4d-panel[data-panel="cell"].active),
+      #module-4 .m4d-vizcol:has(.m4d-panel[data-panel="cell"].active),
+      #module-4 .m4d-panel[data-panel="cell"].active,
+      #module-4 .m4d-hero:has(.m4d-hm-figure) {
+        height: auto !important;
+        min-height: 0 !important;
+        flex-basis: auto !important;
+        flex-grow: 0 !important;
+      }
       #module-2 .map-stage svg, #module-3 .map-stage svg {
         flex: 1 1 auto !important;
         min-height: 0 !important;
@@ -9984,9 +10617,45 @@ function selectionCountLabel(type, level, count) {
         align-items: center !important;
         justify-content: flex-start !important;
       }
-      #module-2 .matrix-figure > svg, #module-3 .matrix-figure > svg {
-        margin-left: auto !important;
-        margin-right: auto !important;
+      #module-2 .matrix-figure,
+      #module-3 .matrix-figure,
+      #module-4 .m4d-hm-figure {
+        align-items: stretch !important;
+        overflow: hidden !important;
+      }
+      /* En M4 el SVG ancho no debe ensanchar la página: sólo su visor admite
+         desplazamiento horizontal y vertical. */
+      #module-4 .m4d-vizcol,
+      #module-4 .m4d-panel,
+      #module-4 .m4d-hero,
+      #module-4 .m4d-hm-figure {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+      }
+      #module-4 .m4d-hm-figure {
+        flex: 1 1 0 !important;
+      }
+      #module-2 .matrix-scroll,
+      #module-3 .matrix-scroll,
+      #module-4 .m4d-hm-scroll {
+        display: flex !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        overflow: auto !important;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+      }
+      #module-2 .matrix-scroll > svg,
+      #module-3 .matrix-scroll > svg,
+      #module-4 .m4d-hm-scroll > svg {
+        max-width: none !important;
+        max-height: none !important;
+        flex: 0 0 auto !important;
+        margin: 0 !important;
       }
       .bar-chart-unit, #module-4 .bar-chart-unit { display: block !important; padding: 0 6px 4px !important; font-size: 0.64rem !important; line-height: 1.1 !important; white-space: normal !important; overflow: visible !important; text-overflow: clip !important; }
       #module-4 .m4d-rail { display: none !important; }
@@ -9996,6 +10665,8 @@ function selectionCountLabel(type, level, count) {
       #module-4 .m4d-bar-track, #module-3 .m4d-bar-track, #module-2 .m4d-bar-track { height: 11px !important; }
       #module-4 .m4d-bar-value, #module-3 .m4d-bar-value, #module-2 .m4d-bar-value { font-size: 8.5px !important; }
       .figure-actions { display: none !important; }
+      .module-controls-reopen,
+      .module-controls-backdrop { display: none !important; }
       .mob-ctrl-fab, .mob-top-fab {
         position: fixed !important;
         top: auto !important;
@@ -10929,6 +11600,10 @@ function selectionCountLabel(type, level, count) {
           if (toggle) {
             const label = toggle.querySelector("span");
             const collapsed = section.classList.contains("controls-collapsed");
+            toggle.setAttribute("aria-label", lang === "en"
+              ? (collapsed ? "Show controls" : "Hide controls")
+              : (collapsed ? "Mostrar controles" : "Ocultar controles"));
+            toggle.setAttribute("title", toggle.getAttribute("aria-label"));
             if (label) {
               label.textContent = collapsed
                 ? (lang === "en" ? "Show controls" : "Mostrar controles")
@@ -11023,47 +11698,66 @@ function selectionCountLabel(type, level, count) {
 </div>
 </section>
 
+<style id="__registry-form-css">
+  .contact-fab{display:none!important}
+  .explore-inline .panel-close-btn{width:30px;min-width:30px;height:30px;min-height:30px;padding:0;border-radius:50%;font:700 1.25rem/1 var(--ds-font-ui)}
+  .explore-inline .m2-header,.explore-inline .m3-panel-headline,.explore-inline #module-4 .m4d-panel-header{justify-content:flex-end}
+  .explore-inline .m3-q-sub .m3-q-ask{display:block;margin-top:3px}
+  .explore-inline .module-tab,.explore-inline #module-4 .m4d-tab{justify-content:center}
+  .registry-card{margin:40px auto 0;max-width:700px;text-align:left;background:#fff;border:1px solid var(--ds-color-line);border-radius:8px;box-shadow:0 22px 54px rgba(34,30,124,.10);padding:34px 36px 30px}
+  .registry-eyebrow{margin:0 0 20px;font:800 .72rem var(--ds-font-data);letter-spacing:.14em;text-transform:uppercase;color:var(--ds-color-brand)}
+  .registry-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .registry-field{display:block;font-weight:700;font-size:.86rem;color:var(--ds-color-text)}
+  .registry-field.full{grid-column:1 / -1}
+  .registry-field span,.registry-legend{display:block;margin:0 0 7px}
+  .registry-field input,.registry-field select,.registry-field textarea{width:100%;box-sizing:border-box;min-height:50px;padding:0 15px;border:1px solid var(--ds-color-line);border-radius:8px;font:400 .95rem var(--ds-font-ui);color:var(--ds-color-text);background:#fff}
+  .registry-field textarea{height:132px;padding:13px 15px;resize:vertical}
+  .registry-choices{border:0;margin:20px 0 0;padding:0}
+  .registry-choice-row{display:flex;flex-wrap:wrap;gap:9px}
+  .registry-choice{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 11px;border:1px solid var(--ds-color-line);border-radius:7px;font-size:.88rem;font-weight:600;cursor:pointer}
+  .registry-choice input{accent-color:var(--ds-color-brand)}
+  .registry-submit{width:100%;margin-top:24px;height:52px;padding:0 26px;border:1px solid var(--ds-color-brand);border-radius:8px;background:var(--ds-color-brand);color:#fff;font:800 .98rem var(--ds-font-ui);cursor:pointer}
+  .registry-submit:disabled{opacity:.6;cursor:wait}
+  .registry-status{min-height:1.4em;margin:14px 0 0;font-size:.86rem;line-height:1.5;color:var(--ds-color-muted)}
+  .registry-status.is-error{color:#a21d36}.registry-status.is-success{color:#176338}
+  .registry-note{margin:16px 0 0;font-size:.82rem;line-height:1.5;color:var(--ds-color-muted)}
+  @media (max-width:640px){.registry-card{padding:26px 20px 22px}.registry-grid{grid-template-columns:1fr}.registry-field.full{grid-column:auto}}
+</style>
+
 <!-- ============ DATOS ============ -->
 <section id="datos" class="sec-pad">
   <div class="wrap">
-    <h1 class="display">Descarga los Datos</h1>
+    <h1 class="display" data-site-i18n="dataTitle">Descarga los Datos</h1>
     <div style="margin:24px auto 0;max-width:66ch;font-size:1.01rem;line-height:1.65;color:var(--ds-color-muted)">
-      <p style="margin:0">Un objetivo central del proyecto de colaboración entre CORFO y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual.</p>
-      <p style="margin:16px 0 0">Los datos se construyen para las <strong style="color:var(--ds-color-text);font-weight:700">56 provincias</strong> de Chile y la totalidad de los sectores, divididos en <strong style="color:var(--ds-color-text);font-weight:700">46 sectores</strong>.</p>
+      <p data-site-i18n="dataIntro" style="margin:0">Un objetivo central del proyecto de colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual, para la investigación y análisis de las políticas públicas.</p>
+      <p data-site-i18n-html="dataCoverage" style="margin:16px 0 0">Los datos se construyen para las <strong style="color:var(--ds-color-text);font-weight:700">56 provincias</strong> de Chile y la totalidad de los sectores, divididos en <strong style="color:var(--ds-color-text);font-weight:700">46 sectores</strong>.</p>
     </div>
 
-    <div style="margin:40px auto 0;max-width:680px;text-align:left;background:#fff;border:1px solid var(--ds-color-line);border-radius:16px;box-shadow:0 22px 54px rgba(34,30,124,.10);padding:34px 36px 30px">
-      <p style="margin:0 0 20px;font:800 .72rem 'DM Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--ds-color-brand)">Completa tus datos para descargar</p>
-
-      <label style="display:block;font-weight:700;font-size:.86rem;color:var(--ds-color-text);margin:0 0 7px">Nombre</label>
-      <input placeholder="Nombre y apellido" style="width:100%;box-sizing:border-box;height:50px;padding:0 15px;border:1px solid var(--ds-color-line);border-radius:9px;font:400 .95rem 'DM Sans';color:var(--ds-color-text);background:#fff">
-
-      <label style="display:block;font-weight:700;font-size:.86rem;color:var(--ds-color-text);margin:20px 0 7px">Institución</label>
-      <input placeholder="Universidad, ministerio, empresa…" style="width:100%;box-sizing:border-box;height:50px;padding:0 15px;border:1px solid var(--ds-color-line);border-radius:9px;font:400 .95rem 'DM Sans';color:var(--ds-color-text);background:#fff">
-
-      <label style="display:block;font-weight:700;font-size:.86rem;color:var(--ds-color-text);margin:20px 0 9px">Uso de los datos</label>
-      <div style="display:flex;flex-wrap:wrap;gap:9px">
-        <button type="button" class="uso-pill" data-uso="Investigación">Investigación</button>
-        <button type="button" class="uso-pill" data-uso="Políticas Públicas">Políticas Públicas</button>
-        <button type="button" class="uso-pill" data-uso="Consultoría">Consultoría</button>
-        <button type="button" class="uso-pill" data-uso="Otros">Otros</button>
+    <form id="download-registration-form" class="registry-card" data-registry-kind="downloads" novalidate>
+      <input type="hidden" name="formulario" value="descargas">
+      <input type="hidden" name="idioma" value="es">
+      <p class="registry-eyebrow" data-site-i18n="downloadFormTitle">Completa tus datos para descargar</p>
+      <div class="registry-grid">
+        <label class="registry-field"><span data-site-i18n="fieldFirstName">Nombre</span><input name="nombre" required autocomplete="given-name"></label>
+        <label class="registry-field"><span data-site-i18n="fieldLastName">Apellido</span><input name="apellido" required autocomplete="family-name"></label>
+        <label class="registry-field"><span data-site-i18n="fieldInstitutionType">Tipo de institución</span><select name="tipo_institucion" required><option value="" data-site-i18n="selectPrompt">Selecciona una opción</option><option value="Universidad" data-site-i18n="institutionUniversity">Universidad</option><option value="Gobierno" data-site-i18n="institutionGovernment">Gobierno</option><option value="Empresa" data-site-i18n="institutionCompany">Empresa</option><option value="Otros" data-site-i18n="institutionOther">Otros</option></select></label>
+        <label class="registry-field"><span data-site-i18n="fieldInstitution">Nombre de la institución</span><input name="institucion" required autocomplete="organization"></label>
+        <label class="registry-field full"><span data-site-i18n="fieldEmail">Correo electrónico</span><input name="correo" type="email" required autocomplete="email" placeholder="nombre@institucion.cl"></label>
+        <label class="registry-field full"><span data-site-i18n="fieldDataUse">Uso de los datos</span><select name="uso_datos" required><option value="" data-site-i18n="selectPrompt">Selecciona una opción</option><option value="Investigación" data-site-i18n="useResearch">Investigación</option><option value="Políticas públicas" data-site-i18n="usePublicPolicy">Políticas públicas</option><option value="Consultoría" data-site-i18n="useConsulting">Consultoría</option><option value="Otros" data-site-i18n="institutionOther">Otros</option></select></label>
+        <label class="registry-field full" data-other-field="uso_datos" hidden><span data-site-i18n="fieldOtherUse">Especifica el uso</span><input name="uso_otro"></label>
       </div>
-      <input id="uso-otros" placeholder="Especifica el uso" style="display:none;width:100%;box-sizing:border-box;height:50px;margin-top:11px;padding:0 15px;border:1px solid var(--ds-color-line);border-radius:9px;font:400 .95rem 'DM Sans';color:var(--ds-color-text);background:#fff">
-
-      <label style="display:block;font-weight:700;font-size:.86rem;color:var(--ds-color-text);margin:20px 0 7px">Correo</label>
-      <input placeholder="nombre@institucion.cl" style="width:100%;box-sizing:border-box;height:50px;padding:0 15px;border:1px solid var(--ds-color-line);border-radius:9px;font:400 .95rem 'DM Sans';color:var(--ds-color-text);background:#fff">
-
-      <button style="width:100%;margin-top:24px;height:52px;padding:0 26px;border:1px solid var(--ds-color-brand);border-radius:9px;background:var(--ds-color-brand);color:#fff;font:800 .98rem 'DM Sans';cursor:pointer">Descargar →</button>
-      <p style="margin:16px 0 0;font-size:.82rem;line-height:1.5;color:var(--ds-color-muted)">Usamos tus datos únicamente para llevar estadísticas de uso y avisarte de actualizaciones importantes. · <a href="#" style="color:var(--ds-color-brand);font-weight:700;text-decoration:none">Licencia</a> · <a href="#" style="color:var(--ds-color-brand);font-weight:700;text-decoration:none">Cómo citar</a></p>
-    </div>
+      <button class="registry-submit" type="submit" data-site-i18n="downloadSubmit">Registrar solicitud de descarga</button>
+      <p class="registry-status" aria-live="polite"></p>
+      <p class="registry-note" data-site-i18n="downloadNote">Usaremos estos datos únicamente para llevar estadísticas de uso y avisarte de actualizaciones importantes.</p>
+    </form>
   </div>
 </section>
 
 <!-- ============ CITACIÓN ============ -->
 <section id="citacion" class="sec-pad">
   <div class="wrap">
-    <h2 class="display">Citación</h2>
-    <p style="margin:0 auto 22px;max-width:62ch;color:var(--ds-color-muted);line-height:1.6">Para usar estos datos, cita el siguiente paper:</p>
+    <h2 class="display" data-site-i18n="citationTitle">Citación</h2>
+    <p data-site-i18n="citationLead" style="margin:0 auto 22px;max-width:62ch;color:var(--ds-color-muted);line-height:1.6">Para usar estos datos, cita el siguiente trabajo de investigación:</p>
     <div style="max-width:680px;margin:0 auto;text-align:left">
       <div style="padding:18px 20px;border-left:3px solid var(--ds-color-accent);border-radius:0 8px 8px 0;background:#fff7ec;color:#5b4626;line-height:1.55">
         <p style="margin:0;font-style:italic">Huneeus, F., &amp; Del Valle, M. (2026). The Geographic and Sectoral Impact of Productivity.</p>
@@ -11081,28 +11775,28 @@ function selectionCountLabel(type, level, count) {
 <!-- ============ RESEARCH PAPER ============ -->
 <section id="research-paper" class="sec-pad">
   <div style="max-width:1120px;margin:0 auto;padding:0 44px">
-    <h2 class="display" style="text-align:center;margin-bottom:34px">Research Paper</h2>
+    <h2 class="display" data-site-i18n="researchTitle" style="text-align:center;margin-bottom:34px">Trabajo de Investigación</h2>
     <div class="paper-card">
 
       <a class="paper-thumb" href="https://www.fedehuneeus.com/s/HdV.pdf" target="_blank" rel="noopener">
         <img src="uploads/paper_HdV_page1.png" alt="The Geographic and Sectoral Impact of Productivity — primera página">
-        <span class="open-pdf">Abrir PDF</span>
+        <span class="open-pdf" data-site-i18n="openPdf">Abrir PDF</span>
       </a>
 
       <div>
         <h3 style="margin:0;font-family:var(--ds-font-display);font-weight:700;font-size:1.7rem;line-height:1.12;color:var(--ds-color-brand)">The Geographic and Sectoral Impact of Productivity</h3>
         <p style="margin:12px 0 0;font-size:1.02rem;color:var(--ds-color-muted)">Federico Huneeus &nbsp;·&nbsp; Miguel Del Valle</p>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:18px 0;padding:14px 0;border-top:1px solid var(--ds-color-line);border-bottom:1px solid var(--ds-color-line)">
-          <span style="font:700 .7rem 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ds-color-muted)">Working paper</span>
+          <span data-site-i18n="workingPaper" style="font:700 .7rem 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ds-color-muted)">Documento de trabajo</span>
           <span style="width:1px;height:14px;background:var(--ds-color-line)"></span>
           <span style="color:var(--ds-color-text);font-weight:600;font-size:.9rem">2026</span>
         </div>
         <p style="margin:0;color:var(--ds-color-text);line-height:1.62;font-size:.96rem;text-align:justify">To understand the geographic and sectoral impact of productivity, we build, to our knowledge, the first input-output matrix disaggregated at the geographic level within a country using unique administrative data harmonized to match national accounts. We use Chilean data to calibrate a state-of-the-art general equilibrium quantitative trade model with production networks, labor mobility, firm selection, international and domestic trade, congestion of fixed factors, and knowledge diffusion. We consider two applications. First, we study the aggregate effects of local productivity shocks. We show that location-sector interactions are crucial: locations and sectors separately account for less than half of the dispersion in GDP elasticities from location-sector-specific productivity shocks. Geography-specific input-output linkages explain 17% of the dispersion, mainly due to the role played by small and influential markets. Second, we analyze the exit of a large steel plant. We show that geographically disaggregated production linkages substantially increase the propagation of the plant exit.</p>
         <p style="margin:18px 0 0;font-size:.92rem;line-height:1.55;color:var(--ds-color-muted)"><span style="font:700 .7rem 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ds-color-brand)">Keywords&nbsp;&nbsp;</span>Productivity, spatial economics, geographic distribution, input-output linkages, trade, labor mobility.</p>
         <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:26px">
-          <a class="paper-btn primary" href="https://www.fedehuneeus.com/s/HdV.pdf" target="_blank" rel="noopener">Descargar PDF</a>
-          <a class="paper-btn ghost" href="https://www.fedehuneeus.com/" target="_blank" rel="noopener">Ver en el sitio ↗</a>
-          <a class="paper-btn ghost" href="#citacion">Cómo citar</a>
+          <a class="paper-btn primary" data-site-i18n="downloadPdf" href="https://www.fedehuneeus.com/s/HdV.pdf" target="_blank" rel="noopener">Descargar PDF</a>
+          <a class="paper-btn ghost" data-site-i18n="viewPaperSite" href="https://www.fedehuneeus.com/" target="_blank" rel="noopener">Ver en el sitio ↗</a>
+          <a class="paper-btn ghost" data-site-i18n="howToCite" href="#citacion">Cómo citar</a>
         </div>
       </div>
 
@@ -11113,21 +11807,23 @@ function selectionCountLabel(type, level, count) {
 <!-- ============ RESEARCH TEAM ============ -->
 <section id="research-team" class="sec-pad">
   <div class="wrap">
-    <h2 class="display" style="margin-bottom:30px">Research Team</h2>
+    <h2 class="display" data-site-i18n="teamTitle" style="margin-bottom:30px">Equipo de Investigación</h2>
     <div style="display:flex;justify-content:center;gap:90px;flex-wrap:wrap">
       <div style="display:flex;flex-direction:column;align-items:center;gap:16px;width:200px">
-        <img src="uploads/fede_huneeus.jpg" alt="Federico Huneeus" style="width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:center 28%">
+        <div style="width:150px;height:150px;border-radius:50%;overflow:hidden">
+          <img src="uploads/fede_huneeus.png" alt="Federico Huneeus" style="width:100%;height:100%;object-fit:cover;object-position:center 28%;transform:scale(1.14);transform-origin:center 38%">
+        </div>
         <div style="text-align:center">
           <a href="https://www.fedehuneeus.com/" target="_blank" rel="noopener" style="font:700 1.12rem 'DM Sans';color:var(--ds-color-brand);text-decoration:underline;text-underline-offset:4px">Federico Huneeus</a>
-          <p style="margin:6px 0 0;color:var(--ds-color-muted);font-size:.9rem">Senior Economist</p>
+          <p data-site-i18n="teamRoleSenior" style="margin:6px 0 0;color:var(--ds-color-muted);font-size:.9rem">Economista senior</p>
           <p style="margin:2px 0 0;color:var(--ds-color-muted);font-size:.86rem">Duke University</p>
         </div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:16px;width:200px">
         <img src="uploads/miguel_delvalle-51927405.JPG" alt="Miguel Del Valle" style="width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:center">
         <div style="text-align:center">
-          <a href="https://www.linkedin.com/in/madelvallef/" target="_blank" rel="noopener" style="font:700 1.12rem 'DM Sans';color:var(--ds-color-brand);text-decoration:underline;text-underline-offset:4px">Miguel Del Valle</a>
-          <p style="margin:6px 0 0;color:var(--ds-color-muted);font-size:.9rem">Research Assistant</p>
+          <a href="https://madelvallef.github.io/" target="_blank" rel="noopener" style="font:700 1.12rem 'DM Sans';color:var(--ds-color-brand);text-decoration:underline;text-underline-offset:4px">Miguel Del Valle</a>
+          <p data-site-i18n="teamRoleAssistant" style="margin:6px 0 0;color:var(--ds-color-muted);font-size:.9rem;white-space:nowrap">Asistente de investigación</p>
           <p style="margin:2px 0 0;color:var(--ds-color-muted);font-size:.86rem">Universidad de Chile</p>
         </div>
       </div>
@@ -11135,30 +11831,92 @@ function selectionCountLabel(type, level, count) {
   </div>
 </section>
 
+<!-- ============ CONTACTO ============ -->
+<section id="contacto" class="sec-pad">
+  <div class="wrap">
+    <h2 class="display" data-site-i18n="contactTitle">Contacto</h2>
+    <p data-site-i18n="contactLead" style="margin:0 auto;max-width:62ch;color:var(--ds-color-muted);line-height:1.6">Escríbenos para consultas sobre los datos, las visualizaciones o el trabajo de investigación.</p>
+    <form id="contact-registration-form" class="registry-card" data-registry-kind="contact" novalidate>
+      <input type="hidden" name="formulario" value="contacto">
+      <input type="hidden" name="idioma" value="es">
+      <p class="registry-eyebrow" data-site-i18n="contactFormTitle">Cuéntanos cómo podemos ayudarte</p>
+      <div class="registry-grid">
+        <label class="registry-field"><span data-site-i18n="fieldFirstName">Nombre</span><input name="nombre" required autocomplete="given-name"></label>
+        <label class="registry-field"><span data-site-i18n="fieldLastName">Apellido</span><input name="apellido" required autocomplete="family-name"></label>
+        <label class="registry-field"><span data-site-i18n="fieldInstitutionType">Tipo de institución</span><select name="tipo_institucion" required><option value="" data-site-i18n="selectPrompt">Selecciona una opción</option><option value="Universidad" data-site-i18n="institutionUniversity">Universidad</option><option value="Gobierno" data-site-i18n="institutionGovernment">Gobierno</option><option value="Empresa" data-site-i18n="institutionCompany">Empresa</option><option value="Otros" data-site-i18n="institutionOther">Otros</option></select></label>
+        <label class="registry-field"><span data-site-i18n="fieldInstitution">Nombre de la institución</span><input name="institucion" required autocomplete="organization"></label>
+        <label class="registry-field full"><span data-site-i18n="fieldEmail">Correo electrónico</span><input name="correo" type="email" required autocomplete="email" placeholder="nombre@institucion.cl"></label>
+      </div>
+      <fieldset class="registry-choices" data-required-group="motivos_contacto">
+        <legend class="registry-legend" data-site-i18n="fieldContactReason">Motivo del contacto</legend>
+        <div class="registry-choice-row">
+          <label class="registry-choice"><input type="checkbox" name="motivos_contacto" value="Datos"><span data-site-i18n="reasonData">Datos</span></label>
+          <label class="registry-choice"><input type="checkbox" name="motivos_contacto" value="Visualización"><span data-site-i18n="reasonVisualization">Visualización</span></label>
+          <label class="registry-choice"><input type="checkbox" name="motivos_contacto" value="Trabajo de Investigación"><span data-site-i18n="reasonResearch">Trabajo de Investigación</span></label>
+          <label class="registry-choice"><input type="checkbox" name="motivos_contacto" value="Otros" data-other-toggle="motivos_contacto"><span data-site-i18n="institutionOther">Otros</span></label>
+        </div>
+      </fieldset>
+      <label class="registry-field full" data-other-field="motivos_contacto" hidden style="margin-top:18px"><span data-site-i18n="fieldOtherReason">Especifica el motivo</span><input name="motivo_otro"></label>
+      <label class="registry-field full" style="margin-top:20px"><span data-site-i18n="fieldMessage">Mensaje</span><textarea name="mensaje" required></textarea></label>
+      <button class="registry-submit" type="submit" data-site-i18n="contactSubmit">Enviar consulta</button>
+      <p class="registry-status" aria-live="polite"></p>
+      <p class="registry-note" data-site-i18n="contactNote">Usaremos tu información únicamente para responder esta consulta.</p>
+    </form>
+  </div>
+</section>
+
 <!-- ============ ACKNOWLEDGEMENTS ============ -->
 <section id="acknowledgements" class="sec-pad">
-  <div class="wrap">
-    <h2 class="display" style="margin-bottom:18px">Agradecimientos</h2>
-    <p style="margin:0 auto 32px;max-width:72ch;color:var(--ds-color-muted);line-height:1.65">Agradecemos a CORFO por impulsar esta iniciativa y facilitar el acceso a datos administrativos anonimizados del Servicio de Impuestos Internos (SII) de Chile. Este trabajo también contó con el apoyo del Banco Interamericano de Desarrollo (BID) en el marco del proyecto RG-T3976-P002, a través de su División de Competitividad, Tecnología e Innovación. El financiador no tuvo rol en el diseño del estudio, ni en la recolección, análisis, interpretación de los datos, redacción o decisión de publicar.</p>
+  <div class="wrap" style="max-width:1120px">
+    <h2 class="display" data-site-i18n="ackTitle" style="margin-bottom:18px">Agradecimientos</h2>
+    <p data-site-i18n="ackText" style="margin:0 auto 32px;max-width:none;color:var(--ds-color-muted);line-height:1.65">Agradecemos a la Corporación de Fomento de la Producción (CORFO) por impulsar esta iniciativa. Agradecemos también al Servicio de Impuestos Internos (SII) por facilitar el acceso a datos administrativos anonimizados. La información aquí contenida es de carácter tributario proveniente de autodeclaraciones de los contribuyentes presentadas ante el SII; por lo que la veracidad de dichos datos no es responsabilidad del Servicio. Este trabajo contó con el apoyo del Banco Interamericano de Desarrollo (BID) en el marco del proyecto RG-T3976-P002, a través de su División de Competitividad, Tecnología e Innovación. El financiador no tuvo rol en el diseño del estudio, ni en la recolección, análisis, interpretación de los datos, redacción o decisión de publicar.</p>
     <div style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap">
       <img src="web_materiales/logo_corfo2024/logo_corfo2024_navy_trim.png" alt="CORFO" style="height:60px;width:auto">
       <img src="web_materiales/logo_iadb/IDB-Logo.png" alt="Inter-American Development Bank" style="height:86px;width:auto">
     </div>
-    <p style="margin:44px auto 0;max-width:680px;padding-top:22px;border-top:1px solid var(--ds-color-line);font-size:.85rem;color:var(--ds-color-muted)">© Cuentas Económicas Desagregadas para Chile · CORFO–BID, 2026.</p>
+    <p data-site-i18n="footerCopyright" style="margin:44px auto 0;max-width:680px;padding-top:22px;border-top:1px solid var(--ds-color-line);font-size:.85rem;color:var(--ds-color-muted)">© Cuentas Económicas Desagregadas para Chile · CORFO–BID, 2026.</p>
   </div>
 </section>
 
+<script src="web_materiales/js/form-registry-config.js"></script>
+<script src="web_materiales/js/form-registry.js"></script>
 <script>
-  // Selector "Uso de los datos" + revelado de "Otros"
-  var pills = document.querySelectorAll('.uso-pill');
-  var otros = document.getElementById('uso-otros');
-  pills.forEach(function(b){
-    b.addEventListener('click', function(){
-      pills.forEach(function(x){ x.classList.remove('is-on'); });
-      b.classList.add('is-on');
-      otros.style.display = (b.dataset.uso === 'Otros') ? 'block' : 'none';
-    });
-  });
+  window.CED_SITE_COPY = {
+    es: {
+      brand:"CED CORFO", navExplore:"Explorar", navData:"Datos", navResearch:"Trabajo de Investigación", navContact:"Contacto",
+      homeTitle:"Cuentas Económicas Desagregadas para Chile", homeExploreQuestion:"¿Cómo se distribuye la economía por sector y territorios?", homeExploreAction:"Explorar los datos →", homeDataQuestion:"¿Quieres usar los datos para tu propio análisis?", homeDataAction:"Descarga los datos →", homeResearchQuestion:"¿Cómo se construyen y aplican estos datos?", homeResearchAction:"Leer el trabajo →", exploreLandingDesc:"Tres herramientas interactivas para recorrer la economía chilena por sus sectores y sus territorios.",
+      dataTitle:"Descarga los Datos", dataIntro:"Un objetivo central del proyecto de colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus & Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual, para la investigación y análisis de las políticas públicas.", dataCoverage:"Los datos se construyen para las <strong style=\"color:var(--ds-color-text);font-weight:700\">56 provincias</strong> de Chile y la totalidad de los sectores, divididos en <strong style=\"color:var(--ds-color-text);font-weight:700\">46 sectores</strong>.",
+      downloadFormTitle:"Completa tus datos para descargar", fieldFirstName:"Nombre", fieldLastName:"Apellido", fieldInstitutionType:"Tipo de institución", fieldInstitution:"Nombre de la institución", fieldEmail:"Correo electrónico", selectPrompt:"Selecciona una opción", institutionUniversity:"Universidad", institutionGovernment:"Gobierno", institutionCompany:"Empresa", institutionOther:"Otros", fieldDataUse:"Uso de los datos", useResearch:"Investigación", usePublicPolicy:"Políticas públicas", useConsulting:"Consultoría", fieldOtherUse:"Especifica el uso", downloadSubmit:"Registrar solicitud de descarga", downloadNote:"Usaremos estos datos únicamente para llevar estadísticas de uso y avisarte de actualizaciones importantes.",
+      citationTitle:"Citación", citationLead:"Para usar estos datos, cita el siguiente trabajo de investigación:", researchTitle:"Trabajo de Investigación", openPdf:"Abrir PDF", workingPaper:"Documento de trabajo", downloadPdf:"Descargar PDF", viewPaperSite:"Ver en el sitio ↗", howToCite:"Cómo citar", teamTitle:"Equipo de Investigación", teamRoleSenior:"Economista senior", teamRoleAssistant:"Asistente de investigación",
+      contactTitle:"Contacto", contactLead:"Escríbenos para consultas sobre los datos, las visualizaciones o el trabajo de investigación.", contactFormTitle:"Cuéntanos cómo podemos ayudarte", fieldContactReason:"Motivo del contacto", reasonData:"Datos", reasonVisualization:"Visualización", reasonResearch:"Trabajo de Investigación", fieldOtherReason:"Especifica el motivo", fieldMessage:"Mensaje", contactSubmit:"Enviar consulta", contactNote:"Usaremos tu información únicamente para responder esta consulta.",
+      ackTitle:"Agradecimientos", ackText:"Agradecemos a la Corporación de Fomento de la Producción (CORFO) por impulsar esta iniciativa. Agradecemos también al Servicio de Impuestos Internos (SII) por facilitar el acceso a datos administrativos anonimizados. La información aquí contenida es de carácter tributario proveniente de autodeclaraciones de los contribuyentes presentadas ante el SII; por lo que la veracidad de dichos datos no es responsabilidad del Servicio. Este trabajo contó con el apoyo del Banco Interamericano de Desarrollo (BID) en el marco del proyecto RG-T3976-P002, a través de su División de Competitividad, Tecnología e Innovación. El financiador no tuvo rol en el diseño del estudio, ni en la recolección, análisis, interpretación de los datos, redacción o decisión de publicar.", footerCopyright:"© Cuentas Económicas Desagregadas para Chile · CORFO–BID, 2026."
+    },
+    en: {
+      brand:"CED CORFO", navExplore:"Explore", navData:"Data", navResearch:"Research Paper", navContact:"Contact",
+      homeTitle:"Disaggregated Economic Accounts for Chile", homeExploreQuestion:"How is the economy distributed across sectors and territories?", homeExploreAction:"Explore the data →", homeDataQuestion:"Do you want to use the data for your own analysis?", homeDataAction:"Download the data →", homeResearchQuestion:"How are these data constructed and applied?", homeResearchAction:"Read the paper →", exploreLandingDesc:"Three interactive tools to explore the Chilean economy across its sectors and territories.",
+      dataTitle:"Download Data", dataIntro:"A central objective of the collaboration project between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), developed by Huneeus & Del Valle (2026), is that the generated data constitute a public good, freely accessible and updated annually for research and public-policy analysis.", dataCoverage:"The data cover <strong style=\"color:var(--ds-color-text);font-weight:700\">56 provinces</strong> in Chile and all productive activity, disaggregated into <strong style=\"color:var(--ds-color-text);font-weight:700\">46 sectors</strong>.",
+      downloadFormTitle:"Complete your information to download", fieldFirstName:"First name", fieldLastName:"Last name", fieldInstitutionType:"Institution type", fieldInstitution:"Institution name", fieldEmail:"Email address", selectPrompt:"Select an option", institutionUniversity:"University", institutionGovernment:"Government", institutionCompany:"Company", institutionOther:"Other", fieldDataUse:"Intended use of the data", useResearch:"Research", usePublicPolicy:"Public policy", useConsulting:"Consulting", fieldOtherUse:"Specify the intended use", downloadSubmit:"Register download request", downloadNote:"We use this information only to keep usage statistics and notify you about important updates.",
+      citationTitle:"Citation", citationLead:"To use these data, cite the following research paper:", researchTitle:"Research Paper", openPdf:"Open PDF", workingPaper:"Working paper", downloadPdf:"Download PDF", viewPaperSite:"View on website ↗", howToCite:"How to cite", teamTitle:"Research Team", teamRoleSenior:"Senior Economist", teamRoleAssistant:"Research Assistant",
+      contactTitle:"Contact", contactLead:"Write to us with questions about the data, visualizations, or research paper.", contactFormTitle:"Tell us how we can help", fieldContactReason:"Reason for contact", reasonData:"Data", reasonVisualization:"Visualization", reasonResearch:"Research Paper", fieldOtherReason:"Specify the reason", fieldMessage:"Message", contactSubmit:"Send inquiry", contactNote:"We use this information only to respond to your inquiry.",
+      ackTitle:"Acknowledgements", ackText:"We thank the Production Development Corporation (CORFO) for promoting this initiative. We also thank the Chilean Internal Revenue Service (SII) for facilitating access to anonymized administrative data. The information contained herein is tax information obtained from taxpayers' self-reported declarations submitted to the SII; therefore, the accuracy of these data is not the responsibility of the Service. This work received support from the Inter-American Development Bank (IDB) under project RG-T3976-P002 through its Competitiveness, Technology and Innovation Division. The funder had no role in the study design, data collection, analysis, interpretation, writing, or decision to publish.", footerCopyright:"© Disaggregated Economic Accounts for Chile · CORFO–IDB, 2026."
+    }
+  };
+  (function () {
+    function applySiteCopy(lang) {
+      var dictionary = window.CED_SITE_COPY[lang] || window.CED_SITE_COPY.es;
+      document.querySelectorAll('[data-site-i18n]').forEach(function (node) {
+        var value = dictionary[node.dataset.siteI18n];
+        if (value !== undefined) node.textContent = value;
+      });
+      document.querySelectorAll('[data-site-i18n-html]').forEach(function (node) {
+        var value = dictionary[node.dataset.siteI18nHtml];
+        if (value !== undefined) node.innerHTML = value;
+      });
+    }
+    applySiteCopy(document.documentElement.lang === 'en' ? 'en' : 'es');
+    new MutationObserver(function () { applySiteCopy(document.documentElement.lang === 'en' ? 'en' : 'es'); })
+      .observe(document.documentElement, { attributes:true, attributeFilter:['lang'] });
+  })();
 
   // Scroll-spy: resalta la sección activa en el header
   var navLinks = document.querySelectorAll('.site-header a[href^="#"]');
@@ -11168,7 +11926,7 @@ function selectionCountLabel(type, level, count) {
     navLinks.forEach(function(a){ a.classList.remove('active'); });
     if(byId[id]) byId[id].classList.add('active');
   }
-  var spyIds = ['home','explorar','datos','research-paper'];
+  var spyIds = ['home','explorar','datos','research-paper','contacto'];
   var spy = new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting) setActive(e.target.id); });
   }, { rootMargin:'-45% 0px -50% 0px', threshold:0 });
@@ -11178,4 +11936,3 @@ function selectionCountLabel(type, level, count) {
 
 </body>
 </html>
-
