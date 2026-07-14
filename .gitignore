@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .thumbnail
+.codex-remote-attachments/
 
 # Material interno, iteraciones y capturas: nunca publicar en GitHub.
 operacion/

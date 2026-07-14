@@ -6839,6 +6839,10 @@
     }
 
     function allowedAnalysisModes(view = state.view) {
+      // Productividad laboral es una medida de nivel (PIB por trabajador).
+      // Se puede distribuir y comparar con el promedio nacional, pero las
+      // dependencias requieren variables aditivas como PIB, empleo o ventas.
+      if (state.metric === "productividad_laboral") return ["distribution"];
       if (view === "geo") return ["distribution", "dependency_territorial"];
       if (view === "sector") return ["distribution", "dependency_sectorial"];
       return ["distribution", "dependency_territorial", "dependency_sectorial"];
@@ -6959,17 +6963,22 @@
     function allowedDistributionUnitModes() {
       const isLP = state.metric === "productividad_laboral";
       const isDomar = state.metric === "domar_weight";
-      if (isDomar || isLP) return ["value"];
+      // El Peso de Domar se interpreta como una elasticidad. La productividad
+      // laboral, en cambio, admite una lectura relativa frente al promedio
+      // nacional, pero no una participación porcentual del total.
+      if (isDomar) return ["value"];
+      if (isLP) return ["value", "relative"];
       return ["value", "share", "relative"];
     }
 
     function allowedUnitModes() {
       const allowed = allowedDistributionUnitModes();
-      // El Índice Relativo (LQ) solo tiene sentido en los análisis de
-      // dependencia (territorial y sectorial); en distribución se oculta.
+      // El Índice Relativo compara la distribución seleccionada con el
+      // referente nacional; se ofrece dentro de Distribución, no en las
+      // lecturas de dependencia.
       return state.analysis === "distribution"
-        ? allowed.filter((mode) => mode !== "relative")
-        : allowed;
+        ? allowed
+        : allowed.filter((mode) => mode !== "relative");
     }
 
     function dependencyUnitTitle(mode) {
