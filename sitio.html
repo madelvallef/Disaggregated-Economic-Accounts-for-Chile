@@ -67,10 +67,10 @@
   .research-paper-wrap{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,44px)}
   .research-paper-title{text-align:center;margin:0 0 clamp(24px,3vw,34px)}
   .paper-card{display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);grid-template-areas:"header header" "thumb body";column-gap:clamp(32px,3.4vw,44px);row-gap:clamp(20px,2.5vw,30px);align-items:start;text-align:left;background:#fff;border:1px solid var(--ds-color-line);border-radius:12px;padding:clamp(24px,3.2vw,36px)}
-  .paper-header{grid-area:header;max-width:76ch}
+  .paper-header{grid-area:header;max-width:76ch;margin:0 auto;text-align:center}
   .paper-title{margin:0 0 8px;font-family:var(--ds-font-display);font-weight:700;font-size:clamp(1.55rem,2.2vw,1.9rem);line-height:1.12;color:var(--ds-color-brand);text-wrap:balance}
   .paper-byline{margin:0;color:var(--ds-color-muted);font-size:.98rem;line-height:1.45}
-  .paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 0;color:var(--ds-color-muted);font-size:.86rem;line-height:1.35}
+  .paper-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:14px 0 0;color:var(--ds-color-muted);font-size:.86rem;line-height:1.35}
   .paper-meta-type{font-weight:700}.paper-meta-separator{color:var(--ds-color-line)}.paper-meta-year{color:var(--ds-color-text);font-weight:700}
   .paper-thumb{grid-area:thumb;position:relative;display:flex;flex-direction:column;align-self:stretch;width:100%;justify-self:center;border-radius:9px;overflow:hidden;border:1px solid var(--ds-color-line);background:#fff;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
   .paper-thumb:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(34,30,124,.14)}
@@ -10745,11 +10745,20 @@ function selectionCountLabel(type, level, count) {
         display: flex !important;
         flex: 1 1 auto !important;
         min-height: 0 !important;
-        overflow: auto !important;
+        overflow: hidden !important;
         overscroll-behavior: contain;
         -webkit-overflow-scrolling: touch;
         align-items: flex-start !important;
         justify-content: flex-start !important;
+      }
+      /* M4 has inner padding while M2/M3 do not. Reserve that extra space so
+         its 406px mobile matrix and horizontal legend fit without scrolling. */
+      #module-4 .m4d-hm-figure {
+        height: 498px !important;
+        flex: 0 0 498px !important;
+      }
+      #module-4 .m4d-hm-figure .m4d-hm-scroll {
+        flex: 0 0 var(--m4-mobile-matrix-height, auto) !important;
       }
       #module-2 .matrix-scroll > svg,
       #module-3 .matrix-scroll > svg,

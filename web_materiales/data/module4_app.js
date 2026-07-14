@@ -387,6 +387,8 @@
       const contH = isMobileHeatmap
         ? mobileMatrixHeight
         : Math.max(220, (cont.clientHeight || 500) - 14);
+      if (isMobileHeatmap) cont.style.setProperty("--m4-mobile-matrix-height", Math.round(contH) + "px");
+      else cont.style.removeProperty("--m4-mobile-matrix-height");
       const _fit = window.fitHeatmapGeometry({
         contW, contH, nRows: M.nR, nCols: M.nC,
         rowLabels: M.rows, colLabels: M.colLabels.map((label) => isMobileHeatmap && window.heatmapAxisLabelShort ? window.heatmapAxisLabelShort(label) : label),
