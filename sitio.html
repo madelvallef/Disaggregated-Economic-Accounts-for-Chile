@@ -30,10 +30,12 @@
   .site-nav a:hover{color:#fff;background:rgba(255,255,255,.12)}
   .site-nav a.active{color:#fff;background:rgba(255,255,255,.16)}
   .site-header .brand a.active{color:#fff;text-decoration:underline;text-underline-offset:5px}
+  .header-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
   .lang{display:flex;gap:3px;padding-left:14px;margin-left:8px;border-left:1px solid rgba(255,255,255,.28)}
   .lang button{border:0;background:transparent;font:800 .82rem 'DM Sans';cursor:pointer}
   .lang button.on{color:#fff;text-decoration:underline;text-underline-offset:5px}
   .lang button.off{color:rgba(255,255,255,.7)}
+  .mobile-menu-toggle{display:none}
 
   /* ---- Secciones ---- */
   section{scroll-margin-top:74px}
@@ -4772,7 +4774,8 @@
   }
 
   .site-header .site-nav a:focus-visible,
-  .site-header .lang button:focus-visible {
+  .site-header .lang button:focus-visible,
+  .site-header .mobile-menu-toggle:focus-visible {
     outline-color: #fff;
     outline-offset: -3px;
   }
@@ -4815,38 +4818,63 @@
     }
 
     .site-header .site-nav {
-      flex: 1 1 auto;
-      min-width: 0;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 10px;
+      left: 10px;
+      z-index: 60;
+      display: flex;
+      flex: none;
       width: auto;
-      min-height: 44px;
+      min-height: 0;
       margin: 0 !important;
-      padding: 0;
+      padding: 8px;
       gap: 2px;
-      overflow-x: auto;
-      overscroll-behavior-x: contain;
-      scrollbar-width: none;
+      overflow: visible;
+      border: 1px solid var(--ds-color-line);
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 6px 12px rgba(34,30,124,.14);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-5px);
+      transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
     }
 
-    .site-header .site-nav::-webkit-scrollbar { display: none; }
+    .site-header.mobile-nav-open .site-nav {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
 
     .site-header .site-nav > a {
-      flex: 0 0 auto;
+      flex: 0 0 44px;
       min-height: 44px;
-      padding: 0 10px !important;
-      display: inline-flex;
+      padding: 0 14px !important;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 0.82rem !important;
+      justify-content: flex-start;
+      border-radius: 7px;
+      color: var(--ds-color-brand);
+      font-size: .94rem !important;
       line-height: 1.2;
-      white-space: nowrap;
+      white-space: normal;
       text-align: left;
     }
+
+    .site-header .site-nav > a:hover,
+    .site-header .site-nav > a.active { color: var(--ds-color-brand); background: rgba(34,30,124,.08); }
+
+    .site-header .header-actions { margin-left: auto; gap: 4px; }
 
     .site-header .lang {
       flex: 0 0 auto;
       min-height: 44px;
       margin-left: 0;
-      padding-left: 7px;
+      padding-left: 0;
+      border-left: 0;
       display: inline-flex;
       align-items: center;
     }
@@ -4857,6 +4885,23 @@
       padding: 0 5px;
       font-size: 0.78rem;
     }
+
+    .site-header .mobile-menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      border-radius: 7px;
+      color: #fff;
+      background: transparent;
+      font: 400 1.65rem/1 system-ui, sans-serif;
+      cursor: pointer;
+    }
+
+    .site-header.mobile-nav-open .mobile-menu-toggle { background: rgba(255,255,255,.13); }
 
     section { scroll-margin-top: var(--site-header-mobile-height); }
     .explore-inline { --sitio-header-h: var(--site-header-mobile-height); }
@@ -4915,13 +4960,18 @@
   <div class="brand">
     <a href="#home" data-site-i18n="brand">CED CORFO</a>
   </div>
-  <nav class="site-nav">
+  <nav class="site-nav" id="site-navigation" aria-label="Navegación principal">
     <a href="#explorar" data-site-i18n="navExplore">Explorar</a>
     <a href="#datos" data-site-i18n="navData">Datos</a>
     <a href="#research-paper" data-site-i18n="navResearch">Trabajo de Investigación</a>
     <a href="#contacto" data-site-i18n="navContact">Contacto</a>
-    <span class="lang"><button class="on" data-lang="es">ES</button><button class="off" data-lang="en">EN</button></span>
   </nav>
+  <div class="header-actions">
+    <span class="lang"><button class="on" data-lang="es">ES</button><button class="off" data-lang="en">EN</button></span>
+    <button class="mobile-menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="Abrir navegación" data-mobile-menu-toggle>
+      <span aria-hidden="true">☰</span>
+    </button>
+  </div>
 </header>
 
 <!-- ============ HOME ============ -->
@@ -11912,7 +11962,7 @@ function selectionCountLabel(type, level, count) {
 <script>
   window.CED_SITE_COPY = {
     es: {
-      brand:"CED CORFO", navExplore:"Explorar", navData:"Datos", navResearch:"Trabajo de Investigación", navContact:"Contacto",
+      brand:"CED CORFO", navExplore:"Explorar", navData:"Datos", navResearch:"Trabajo de Investigación", navContact:"Contacto", mobileNavLabel:"Navegación principal", mobileNavOpen:"Abrir navegación", mobileNavClose:"Cerrar navegación",
       homeTitle:"Cuentas Económicas Desagregadas para Chile", homeExploreQuestion:"¿Cómo se distribuye la economía por sector y territorios?", homeExploreAction:"Explorar los datos →", homeDataQuestion:"¿Quieres usar los datos para tu propio análisis?", homeDataAction:"Descarga los datos →", homeResearchQuestion:"¿Cómo se construyen y aplican estos datos?", homeResearchAction:"Leer el trabajo →", exploreLandingDesc:"Tres herramientas interactivas para recorrer la economía chilena por sus sectores y sus territorios.",
       dataTitle:"Descarga los Datos", dataIntro:"Un objetivo central del proyecto de colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus & Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual, para la investigación y análisis de las políticas públicas.", dataCoverage:"Los datos se construyen para las <strong style=\"color:var(--ds-color-text);font-weight:700\">56 provincias</strong> de Chile y la totalidad de los sectores, divididos en <strong style=\"color:var(--ds-color-text);font-weight:700\">46 sectores</strong>.",
       downloadFormTitle:"Completa tus datos para descargar", fieldFirstName:"Nombre", fieldLastName:"Apellido", fieldInstitutionType:"Tipo de institución", fieldInstitution:"Nombre de la institución", fieldEmail:"Correo electrónico", selectPrompt:"Selecciona una opción", institutionUniversity:"Universidad", institutionGovernment:"Gobierno", institutionCompany:"Empresa", institutionOther:"Otros", fieldDataUse:"Uso de los datos", useResearch:"Investigación", usePublicPolicy:"Políticas públicas", useConsulting:"Consultoría", fieldOtherUse:"Especifica el uso", downloadSubmit:"Registrar solicitud de descarga", downloadNote:"Usaremos estos datos únicamente para llevar estadísticas de uso y avisarte de actualizaciones importantes.",
@@ -11921,7 +11971,7 @@ function selectionCountLabel(type, level, count) {
       ackTitle:"Agradecimientos", ackText:"Agradecemos a la Corporación de Fomento de la Producción (CORFO) por impulsar esta iniciativa. Agradecemos también al Servicio de Impuestos Internos (SII) por facilitar el acceso a datos administrativos anonimizados. La información aquí contenida es de carácter tributario proveniente de autodeclaraciones de los contribuyentes presentadas ante el SII; por lo que la veracidad de dichos datos no es responsabilidad del Servicio. Este trabajo contó con el apoyo del Banco Interamericano de Desarrollo (BID) en el marco del proyecto RG-T3976-P002, a través de su División de Competitividad, Tecnología e Innovación. El financiador no tuvo rol en el diseño del estudio, ni en la recolección, análisis, interpretación de los datos, redacción o decisión de publicar.", footerCopyright:"© Cuentas Económicas Desagregadas para Chile · CORFO–BID, 2026."
     },
     en: {
-      brand:"CED CORFO", navExplore:"Explore", navData:"Data", navResearch:"Research Paper", navContact:"Contact",
+      brand:"CED CORFO", navExplore:"Explore", navData:"Data", navResearch:"Research Paper", navContact:"Contact", mobileNavLabel:"Main navigation", mobileNavOpen:"Open navigation", mobileNavClose:"Close navigation",
       homeTitle:"Disaggregated Economic Accounts for Chile", homeExploreQuestion:"How is the economy distributed across sectors and territories?", homeExploreAction:"Explore the data →", homeDataQuestion:"Do you want to use the data for your own analysis?", homeDataAction:"Download the data →", homeResearchQuestion:"How are these data constructed and applied?", homeResearchAction:"Read the paper →", exploreLandingDesc:"Three interactive tools to explore the Chilean economy across its sectors and territories.",
       dataTitle:"Download Data", dataIntro:"A central objective of the collaboration project between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), developed by Huneeus & Del Valle (2026), is that the generated data constitute a public good, freely accessible and updated annually for research and public-policy analysis.", dataCoverage:"The data cover <strong style=\"color:var(--ds-color-text);font-weight:700\">56 provinces</strong> in Chile and all productive activity, disaggregated into <strong style=\"color:var(--ds-color-text);font-weight:700\">46 sectors</strong>.",
       downloadFormTitle:"Complete your information to download", fieldFirstName:"First name", fieldLastName:"Last name", fieldInstitutionType:"Institution type", fieldInstitution:"Institution name", fieldEmail:"Email address", selectPrompt:"Select an option", institutionUniversity:"University", institutionGovernment:"Government", institutionCompany:"Company", institutionOther:"Other", fieldDataUse:"Intended use of the data", useResearch:"Research", usePublicPolicy:"Public policy", useConsulting:"Consulting", fieldOtherUse:"Specify the intended use", downloadSubmit:"Register download request", downloadNote:"We use this information only to keep usage statistics and notify you about important updates.",
@@ -11960,6 +12010,55 @@ function selectionCountLabel(type, level, count) {
     entries.forEach(function(e){ if(e.isIntersecting) setActive(e.target.id); });
   }, { rootMargin:'-45% 0px -50% 0px', threshold:0 });
   spyIds.forEach(function(id){ var el = document.getElementById(id); if(el) spy.observe(el); });
+
+  (function () {
+    var header = document.querySelector('.site-header');
+    var navigation = document.querySelector('#site-navigation');
+    var toggle = document.querySelector('[data-mobile-menu-toggle]');
+    if (!header || !navigation || !toggle) return;
+
+    function dictionary() {
+      return window.CED_SITE_COPY[document.documentElement.lang] || window.CED_SITE_COPY.es;
+    }
+
+    function setMenuOpen(open, focusToggle) {
+      header.classList.toggle('mobile-nav-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? dictionary().mobileNavClose : dictionary().mobileNavOpen);
+      navigation.setAttribute('aria-label', dictionary().mobileNavLabel);
+      var icon = toggle.querySelector('[aria-hidden="true"]');
+      if (icon) icon.textContent = open ? '×' : '☰';
+      if (!open && focusToggle) toggle.focus();
+    }
+
+    toggle.addEventListener('click', function () {
+      setMenuOpen(!header.classList.contains('mobile-nav-open'), false);
+    });
+
+    navigation.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () { setMenuOpen(false, false); });
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!header.classList.contains('mobile-nav-open')) return;
+      if (!header.contains(event.target)) setMenuOpen(false, false);
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && header.classList.contains('mobile-nav-open')) {
+        event.preventDefault();
+        setMenuOpen(false, true);
+      }
+    });
+
+    var media = window.matchMedia('(min-width: 821px)');
+    media.addEventListener('change', function (event) {
+      if (event.matches) setMenuOpen(false, false);
+    });
+    new MutationObserver(function () { setMenuOpen(header.classList.contains('mobile-nav-open'), false); })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+    setMenuOpen(false, false);
+  })();
 </script>
 
 

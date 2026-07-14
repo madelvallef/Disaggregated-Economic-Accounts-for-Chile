@@ -106,6 +106,15 @@ async function run() {
           headerLayoutOk: (() => {
             const brand = document.querySelector(".site-header .brand").getBoundingClientRect();
             const nav = document.querySelector(".site-header .site-nav").getBoundingClientRect();
+            if (window.matchMedia("(max-width: 820px)").matches) {
+              const actions = document.querySelector(".site-header .header-actions").getBoundingClientRect();
+              const toggle = document.querySelector("[data-mobile-menu-toggle]").getBoundingClientRect();
+              const navStyle = getComputedStyle(document.querySelector(".site-header .site-nav"));
+              return actions.left >= brand.right - 1
+                && toggle.width >= 44
+                && toggle.height >= 44
+                && navStyle.visibility === "hidden";
+            }
             return nav.left >= brand.right - 1;
           })(),
         };
@@ -134,13 +143,32 @@ async function run() {
           return {
             lang: document.documentElement.lang,
             hasExplore: [...nav.querySelectorAll("a")].some((link) => link.textContent.trim() === "Explore"),
-            mobileInline: navRect.left >= brand.right - 1,
+            mobileHeaderClear: (() => {
+              const actions = document.querySelector(".site-header .header-actions").getBoundingClientRect();
+              const toggle = document.querySelector("[data-mobile-menu-toggle]").getBoundingClientRect();
+              return actions.left >= brand.right - 1 && toggle.width >= 44 && toggle.height >= 44;
+            })(),
+            panelClosed: getComputedStyle(nav).visibility === "hidden",
             overflowX: document.documentElement.scrollWidth - window.innerWidth,
           };
         });
         assert(englishState.lang === "en" && englishState.hasExplore, "mobile: cambio a EN incompleto");
-        assert(englishState.mobileInline, "mobile: header EN solapa la marca y la navegacion");
+        assert(englishState.mobileHeaderClear, "mobile: header EN solapa la marca y las acciones");
+        assert(englishState.panelClosed, "mobile: menu de navegacion debe iniciar cerrado");
         assert(englishState.overflowX <= 2, `mobile EN: overflow horizontal de ${englishState.overflowX}px`);
+
+        const menuToggle = page.locator("[data-mobile-menu-toggle]");
+        await menuToggle.click();
+        await page.waitForFunction(() => {
+          const header = document.querySelector(".site-header");
+          const nav = document.querySelector("#site-navigation");
+          return header.classList.contains("mobile-nav-open")
+            && getComputedStyle(nav).visibility === "visible";
+        });
+        assert(await menuToggle.getAttribute("aria-expanded") === "true", "mobile: menu no abre");
+        assert(await page.locator("#site-navigation").getByText("Explore", { exact: true }).isVisible(), "mobile: menu EN no traduce enlaces");
+        await page.keyboard.press("Escape");
+        assert(await menuToggle.getAttribute("aria-expanded") === "false", "mobile: Escape no cierra el menu");
 
         const spanish = page.locator('.site-header [data-lang="es"]');
         assert(await spanish.count() === 1, "mobile: selector ES no es unico");
