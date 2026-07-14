@@ -8809,7 +8809,11 @@ function selectionCountLabel(type, level, count) {
       // reservarle ancho lateral encoge innecesariamente las celdas.
       const legendReserve = isMobileHeatmap ? 0 : 14 + Math.max(70, legendTitleW);
       const contW = Math.max(220, Math.floor((panelWidth - legendReserve) * mobileContentScaleW));
-      const contH = Math.max(220, panelHeight - 14);
+      // Keep the matrix in a stable, fully visible mobile canvas. Measuring a
+      // growing flex item here causes a resize/render feedback loop and makes
+      // the green heatmap taller on every pass.
+      const mobileMatrixHeight = Math.max(300, Math.min(420, Math.round(contW * 1.353)));
+      const contH = isMobileHeatmap ? mobileMatrixHeight : Math.max(220, panelHeight - 14);
       const _fit = window.fitHeatmapGeometry({
         contW, contH, nRows: rowKeys.length, nCols: colKeys.length,
         rowLabels: rowKeys,
@@ -9418,6 +9422,26 @@ function selectionCountLabel(type, level, count) {
           });
           _ro.observe(_mapStageEl);
           _ro.observe(_svgMapEl);
+        }
+
+        // The matrix enters after its tab becomes visible. Re-render after the
+        // final layout pass so its geometry uses the same available height as M3.
+        const _matrixFigureEl = document.getElementById("matrix-figure");
+        if (_matrixFigureEl) {
+          let _matrixResizeTimer = null;
+          let _matrixResizeReady = false;
+          const _matrixRo = new ResizeObserver(() => {
+            if (!_matrixResizeReady) {
+              _matrixResizeReady = true;
+              return;
+            }
+            clearTimeout(_matrixResizeTimer);
+            _matrixResizeTimer = setTimeout(() => {
+              const _matrixPanel = module2Section?.querySelector('[data-view-panel="matrix"]');
+              if (_matrixPanel?.classList.contains("active")) renderMatrixView();
+            }, 80);
+          });
+          _matrixRo.observe(_matrixFigureEl);
         }
       }
       if (!state.geoSelection.macrozone.length && !state.geoSelection.region.length && !state.geoSelection.province.length) {

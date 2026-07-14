@@ -374,13 +374,18 @@
       if (el.hmLegend) el.hmLegend.style.minWidth = legendWidth + "px";
 
       const mobileContentScaleW = isMobileHeatmap ? 0.80 : 1;
-      const figureInnerWidth = Math.max(220, (cont.clientWidth || 0) - 24);
+      // Keep the same mobile geometry as M2/M3. The legend becomes a row below
+      // the matrix on small screens, so it must not consume horizontal space.
+      const panelWidth = isMobileHeatmap
+        ? Math.max(376, cont.clientWidth || 0)
+        : Math.max(320, cont.clientWidth || 900);
       const legendReserve = isMobileHeatmap ? 0 : 14 + legendWidth;
-      const contW = isMobileHeatmap
-        ? Math.max(220, Math.floor((figureInnerWidth - 60) * mobileContentScaleW))
-        : Math.max(220, figureInnerWidth - legendReserve);
+      const contW = Math.max(220, Math.floor((panelWidth - legendReserve) * mobileContentScaleW));
+      // A bounded portrait canvas keeps all labels visible at once on a phone,
+      // rather than turning the matrix into a narrow, scrollable column.
+      const mobileMatrixHeight = Math.max(300, Math.min(420, Math.round(contW * 1.353)));
       const contH = isMobileHeatmap
-        ? Math.max(220, (cont.clientHeight || 0) - 14)
+        ? mobileMatrixHeight
         : Math.max(220, (cont.clientHeight || 500) - 14);
       const _fit = window.fitHeatmapGeometry({
         contW, contH, nRows: M.nR, nCols: M.nC,
@@ -434,7 +439,17 @@
       window.NearZero?.updateLegend("m4d-hm-nz-legend", _matAnyGray, _matAnyZero);
       // La barra de leyenda mide exactamente el alto del ÁREA DE CELDAS (sin las
       // etiquetas del eje X) y se alinea con el borde superior de la grilla.
-      if (el.hmLegend) { el.hmLegend.style.alignSelf = "flex-start"; el.hmLegend.style.marginTop = TP + "px"; el.hmLegend.style.height = Math.round(GRID_H) + "px"; }
+      if (el.hmLegend) {
+        if (isMobileHeatmap) {
+          el.hmLegend.style.alignSelf = "";
+          el.hmLegend.style.marginTop = "";
+          el.hmLegend.style.height = "";
+        } else {
+          el.hmLegend.style.alignSelf = "flex-start";
+          el.hmLegend.style.marginTop = TP + "px";
+          el.hmLegend.style.height = Math.round(GRID_H) + "px";
+        }
+      }
       // ranking de combinaciones
       const entries = [];
       for (let r = 0; r < M.nR; r++) for (let c = 0; c < M.nC; c++) { const v = M.grid[r * M.nC + c]; if (v > 0) entries.push([`${M.rows[r]} · ${M.colLabels[c]}`, v]); }
