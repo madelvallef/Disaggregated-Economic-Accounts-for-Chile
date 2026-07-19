@@ -4725,12 +4725,14 @@
     #module-4 .m4d-kpi-val { font-size: 21px; }
     #module-4 .m4d-controls { gap: 12px; padding: 12px; }
   }
-  @container (max-width: 390px) {
-    #module-4 .m4d-bd-key { gap: 4px; }
-    #module-4 .m4d-bd-key span { display: grid; grid-template-columns: 4px minmax(0, 1fr); grid-template-rows: auto auto; gap: 0 4px; font-size: .52rem; }
-    #module-4 .m4d-bd-key i { grid-row: 1 / span 2; grid-column: 1; height: 30px; }
-    #module-4 .m4d-bd-key em { grid-row: 1; grid-column: 2; align-self: end; }
-    #module-4 .m4d-bd-key b { grid-row: 2; grid-column: 2; justify-self: start; margin: 2px 0 0; font-size: .92rem; }
+  @container (max-width: 460px) {
+    /* En el panel compacto, cada componente ocupa dos líneas. El porcentaje
+       deja de competir horizontalmente con etiquetas como "Exposición directa". */
+    #module-4 .m4d-bd-key { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+    #module-4 .m4d-bd-key span { display: grid; grid-template-columns: 4px minmax(0, 1fr); grid-template-rows: auto auto; gap: 2px 5px; align-items: start; font-size: .62rem; }
+    #module-4 .m4d-bd-key i { grid-row: 1 / span 2; grid-column: 1; height: 100%; min-height: 34px; }
+    #module-4 .m4d-bd-key em { grid-row: 1; grid-column: 2; min-width: 0; line-height: 1.16; }
+    #module-4 .m4d-bd-key b { grid-row: 2; grid-column: 2; justify-self: start; margin: 0; font-size: .94rem; line-height: 1; }
   }
   @media (max-width: 820px) {
     #module-4 .m4d-bd-key { display: grid; grid-template-columns: 1fr; gap: 7px; }
@@ -4977,7 +4979,7 @@
 <!-- ============ HOME ============ -->
 <section id="home">
   <h1 class="display" data-site-i18n="homeTitle">Cuentas Económicas Desagregadas para Chile</h1>
-  <p data-i18n-html="landingDesc" style="margin:0;max-width:66ch;font-size:1.02rem;line-height:1.65;color:var(--ds-color-muted)">Desagregación de la actividad económica a nivel sectorial y geográfico, consistente con las Cuentas Nacionales del Banco Central de Chile (BCCh). Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), a partir de microdatos administrativos del Servicio de Impuestos Internos (SII), encuestas y fuentes globales de datos de comercio.</p>
+  <p data-i18n-html="landingDesc" style="margin:0;max-width:66ch;font-size:1.02rem;line-height:1.65;color:var(--ds-color-muted)">Desagregación de la actividad económica a nivel sectorial y geográfico, consistente con las Cuentas Nacionales del Banco Central de Chile (BCCh) para el año 2022. Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), a partir de microdatos administrativos del Servicio de Impuestos Internos (SII), encuestas y fuentes globales de datos de comercio.</p>
   <div class="hero-cards">
     <a href="#explorar" class="hero-card primary">
       <span data-site-i18n="homeExploreQuestion" style="font-weight:600;font-size:1.06rem;line-height:1.32;color:#fff">¿Cómo se distribuye la economía por sector y territorios?</span>
@@ -5575,14 +5577,14 @@
           <div class="m3-panel-headline">
             <button class="module-controls-toggle panel-controls-toggle panel-close-btn" type="button" aria-expanded="true" aria-controls="module-3-controls" aria-label="Ocultar controles" title="Ocultar controles">×</button>
           </div>
-          <div class="m3-persp-row">
-            <button type="button" class="m3-persp-btn active" data-m3-persp="provider" data-i18n="m3PerspBtnProvider">Ver clientes</button>
-            <button type="button" class="m3-persp-btn" data-m3-persp="client" data-i18n="m3PerspBtnClient">Ver proveedores</button>
-          </div>
         </div>
 
         <!-- ── Scrollable body ── -->
         <div class="m3-scroll">
+            <div class="m3-persp-row">
+            <button type="button" class="m3-persp-btn active" data-m3-persp="provider" data-i18n="m3PerspBtnProvider">Clientes</button>
+            <button type="button" class="m3-persp-btn" data-m3-persp="client" data-i18n="m3PerspBtnClient">Proveedores</button>
+          </div>
 
           <!-- 1. Productores de interés -->
           <div class="filter-stack">
@@ -6081,7 +6083,7 @@
         pageTitle: "Explore | Cuentas Económicas Desagregadas para Chile",
         headerTitle: "Cuentas Económicas Desagregadas de Chile",
         landingTitle: "¿Qué quieres explorar?",
-        landingDesc: 'Desagregación de la actividad económica a nivel sectorial y geográfico, consistente con las Cuentas Nacionales del Banco Central de Chile (BCCh). Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), a partir de microdatos administrativos del Servicio de Impuestos Internos (SII), encuestas y fuentes globales de datos de comercio.',
+        landingDesc: 'Desagregación de la actividad económica a nivel sectorial y geográfico, consistente con las Cuentas Nacionales del Banco Central de Chile (BCCh) para el año 2022. Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), a partir de microdatos administrativos del Servicio de Impuestos Internos (SII), encuestas y fuentes globales de datos de comercio.',
         citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.',
         citationLabel: "Metodología, construcción y aplicaciones — cita el paper",
         btn1: "La Economía a través de sus sectores y sus territorios",
@@ -6236,7 +6238,7 @@
         pageTitle: "Explore | Disaggregated Economic Accounts for Chile",
         headerTitle: "Disaggregated Economic Accounts of Chile",
         landingTitle: "What do you want to explore?",
-        landingDesc: 'Disaggregation of economic activity at the sectoral and geographic level, consistent with the National Accounts of the Central Bank of Chile (BCCh). Produced by Huneeus &amp; Del Valle (2026) in a collaboration between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), using administrative microdata from the Chilean Internal Revenue Service (SII), surveys, and global trade data sources.',
+        landingDesc: 'Disaggregation of economic activity at the sectoral and geographic level, consistent with the 2022 National Accounts of the Central Bank of Chile (BCCh). Produced by Huneeus &amp; Del Valle (2026) in a collaboration between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), using administrative microdata from the Chilean Internal Revenue Service (SII), surveys, and global trade data sources.',
         citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.',
         citationLabel: "Methodology, construction and applications — cite the paper",
         btn1: "The Economy across Sectors and Territories",
@@ -6591,8 +6593,8 @@
       domar_weight: {
         label_es: "Peso de Domar",
         label_en: "Domar weight",
-        unit_es: "Impacto en PIB ante shock de productividad de 10%",
-        unit_en: "GDP impact from a 10% productivity shock",
+        unit_es: "Peso de Domar",
+        unit_en: "Domar weight",
         isDerived: true
       }
     });
@@ -6610,7 +6612,7 @@
       importacion: { es: "Importaciones: compras de bienes y servicios desde el resto del mundo.", en: "Imports: purchases of goods and services from the rest of the world." },
       remun: { es: "Remuneraciones: pago a los trabajadores (sueldos y salarios) de la unidad.", en: "Compensation: payments to workers (wages and salaries) in the unit." },
       productividad_laboral: { es: "Productividad laboral: PIB por trabajador (valor agregado dividido por el empleo).", en: "Labor productivity: GDP per worker (value added divided by employment)." },
-      domar_weight: { es: "Peso de Domar (λ): ventas totales del productor divididas por el PIB nacional. Bajo el teorema de Hulten, es una aproximación de primer orden del efecto de un shock de productividad sobre el PIB agregado. Esta visualización muestra 10 × λ: el cambio porcentual aproximado del PIB agregado ante un aumento de productividad de 10% en el productor.", en: "Domar weight (λ): the producer's total sales divided by national GDP. Under Hulten's theorem, it is a first-order approximation of the effect of a productivity shock on aggregate GDP. This visualization shows 10 × λ: the approximate percentage change in aggregate GDP following a 10% productivity increase in the producer." }
+      domar_weight: { es: "Peso de Domar: ventas totales del productor divididas por el PIB nacional. Bajo Hulten (1978), corresponde a la elasticidad del PIB agregado frente a un aumento marginal de la productividad del productor. Esta visualización muestra el indicador directamente, sin reescalarlo.", en: "Domar weight: the producer's total sales divided by national GDP. Under Hulten (1978), it is the aggregate GDP elasticity to a marginal productivity increase in that producer. This visualization shows the indicator directly, without rescaling it." }
     };
     const usdConcordanceRate = 782.7243428447406;
     const visualZeroThresholdClp = 100000000;
@@ -6860,7 +6862,7 @@
       if (mode === "share") return `${(value * 100).toFixed(1)}%`;
       if (mode === "relative") return new Intl.NumberFormat(state.lang === "es" ? "es-CL" : "en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
       if (mode === "hhi") return (value * 10000).toFixed(0);
-      if (metricKey === "domar_weight") return `${(value * 10).toFixed(3)}%`;
+      if (metricKey === "domar_weight") return new Intl.NumberFormat(state.lang === "es" ? "es-CL" : "en-US", { minimumFractionDigits: 3, maximumFractionDigits: 3 }).format(value);
       if (metricKey === "empleo") return new Intl.NumberFormat(state.lang === "es" ? "es-CL" : "en-US", { maximumFractionDigits: 0 }).format(value);
       if (metricKey === "productividad_laboral") {
         // ES: M$/trabajador (divide by 10^6), EN: USD/trabajador (divide by exchange rate)
@@ -6880,9 +6882,7 @@
       if (unitMode === "relative") return state.lang === "es" ? "Índice relativo" : "Relative index";
       if (metricKey === "empleo") return state.lang === "es" ? "personas" : "jobs";
       if (metricKey === "productividad_laboral") return state.lang === "es" ? "Billones de CLP por trabajador" : "USD per worker";
-      if (metricKey === "domar_weight") return state.lang === "es"
-        ? (variant === "compact" ? "PIB · shock 10%" : "Variación del PIB ante un shock de productividad de 10%")
-        : (variant === "compact" ? "GDP · 10% shock" : "GDP change from a 10% productivity shock");
+      if (metricKey === "domar_weight") return state.lang === "es" ? "Peso de Domar" : "Domar weight";
       if (state.lang === "es") return variant === "compact" ? "bill. CLP" : "Billones de CLP";
       return "MUSD$";
     }
@@ -6892,8 +6892,8 @@
       if (unitMode === "share") return state.lang === "es" ? `${formatted} Porcentaje (%)` : `${formatted} Percentage (%)`;
       if (unitMode === "relative") return state.lang === "es" ? `${formatted} Índice relativo` : `${formatted} Relative index`;
       if (metricKey === "domar_weight") return state.lang === "es"
-        ? `${formatted} cambio en el PIB (shock de productividad de 10%)`
-        : `${formatted} GDP change (10% productivity shock)`;
+        ? `${formatted} Peso de Domar`
+        : `${formatted} Domar weight`;
       return `${formatted} ${getValueUnitLabel(metricKey, unitMode, "compact")}`;
     }
 
@@ -7093,10 +7093,10 @@
         b.classList.toggle('active', b.dataset.m2Unit === state.unit);
         if (b.dataset.m2Unit === 'value') {
           const _vt = b.querySelector('.m3-q-title') || b;
-          _vt.textContent = isEmpleo ? (isEs ? 'Empleos' : 'Jobs') : isLP ? (isEs ? 'Billones de CLP por trabajador' : 'MUSD$/job') : isDomar ? (isEs ? 'Variación del PIB ante un shock de productividad de 10%' : 'GDP change from a 10% productivity shock') : (isEs ? 'Monto en Billones de CLP' : 'Amount MUSD$');
+          _vt.textContent = isEmpleo ? (isEs ? 'Empleos' : 'Jobs') : isLP ? (isEs ? 'Billones de CLP por trabajador' : 'MUSD$/job') : isDomar ? (isEs ? 'Peso de Domar' : 'Domar weight') : (isEs ? 'Monto en Billones de CLP' : 'Amount MUSD$');
           const _vs = b.querySelector('.m3-q-sub');
           if (_vs) _vs.textContent = isDomar
-            ? (isEs ? 'Cambio porcentual aproximado del PIB agregado' : 'Approximate percentage change in aggregate GDP')
+            ? (isEs ? 'Elasticidad del PIB agregado' : 'Aggregate GDP elasticity')
             : (isEs ? 'Valor absoluto' : 'Absolute value');
         }
       });
@@ -7115,8 +7115,8 @@
 
     function unitHelpText() {
       if (state.metric === "domar_weight") return state.lang === "es"
-        ? "Muestra 10 × λ: el cambio porcentual aproximado del PIB agregado ante un aumento de productividad de 10% en el productor."
-        : "Shows 10 × λ: the approximate percentage change in aggregate GDP following a 10% productivity increase in the producer.";
+        ? "Muestra directamente el Peso de Domar: la elasticidad del PIB agregado frente a un aumento marginal de productividad en el productor."
+        : "Shows the Domar weight directly: the aggregate GDP elasticity to a marginal productivity increase in the producer.";
       if (state.unit === "value") {
         return state.lang === "es"
           ? (state.lang === "es" ? copy[state.lang].m2UnitHelpValue : copy[state.lang].m2UnitHelpValueEn)
@@ -7129,8 +7129,8 @@
 
     function unitOptionHelpText(value) {
       if (state.metric === "domar_weight") return state.lang === "es"
-        ? "Muestra 10 × λ: el cambio porcentual aproximado del PIB agregado ante un aumento de productividad de 10% en el productor."
-        : "Shows 10 × λ: the approximate percentage change in aggregate GDP following a 10% productivity increase in the producer.";
+        ? "Muestra directamente el Peso de Domar: la elasticidad del PIB agregado frente a un aumento marginal de productividad en el productor."
+        : "Shows the Domar weight directly: the aggregate GDP elasticity to a marginal productivity increase in the producer.";
       if (value === "value") {
         return state.lang === "es" ? copy[state.lang].m2UnitHelpValue : copy[state.lang].m2UnitHelpValueEn;
       }
@@ -7837,7 +7837,7 @@ function selectionCountLabel(type, level, count) {
       const share = nationalTotal > 0 ? selectedTotal / nationalTotal : 0;
       const metric = metricLabel(state.metric);
       const summaryMetric = state.metric === "domar_weight"
-        ? (state.lang === "es" ? "Impacto sobre el PIB agregado" : "Aggregate GDP impact")
+        ? (state.lang === "es" ? "Peso de Domar" : "Domar weight")
         : metric;
       const valueText = formatValue(selectedTotal, state.metric, "value");
       const shareText = formatValue(share, state.metric, "share");
@@ -7865,16 +7865,19 @@ function selectionCountLabel(type, level, count) {
         sectorEntries.map(([sectorKey, value]) => ({ geoKey, sectorKey, value }))
       ).sort((a, b) => b.value - a.value);
       const exclusionText = buildSelectionExclusionText();
+      const nationalShareMeta = state.metric === "domar_weight" ? "" : `
+          <div class="selection-detail-meta-item">
+            <span class="selection-detail-meta-label">${state.lang === "es" ? "Participaci\u00f3n nacional" : "National share"}</span>
+            <span class="selection-detail-meta-value">${escapeHtml(shareText)}</span>
+          </div>
+      `;
       const detailMetaHtml = `
         <div class="selection-detail-meta">
           <div class="selection-detail-meta-item">
             <span class="selection-detail-meta-label">${state.lang === "es" ? "Valor seleccionado" : "Selected value"}</span>
             <span class="selection-detail-meta-value">${escapeHtml(valueText)} ${escapeHtml(unitLabel)}</span>
           </div>
-          <div class="selection-detail-meta-item">
-            <span class="selection-detail-meta-label">${state.lang === "es" ? "Participaci\u00f3n nacional" : "National share"}</span>
-            <span class="selection-detail-meta-value">${escapeHtml(shareText)}</span>
-          </div>
+          ${nationalShareMeta}
           <div class="selection-detail-meta-item">
             <span class="selection-detail-meta-label">${state.lang === "es" ? `Selección activa por ${aggregationLevelLabel("geo", state.geoLevel, false)}` : `Active selection by ${aggregationLevelLabel("geo", state.geoLevel, false)}`}</span>
             <span class="selection-detail-meta-value">${escapeHtml(selectionCountLabel("geo", state.geoLevel, geoCount))}</span>
@@ -7993,8 +7996,8 @@ function selectionCountLabel(type, level, count) {
       if (!scope) {
         const totalMeaning = state.metric === "domar_weight"
           ? (state.lang === "es"
-            ? "Cambio aproximado del PIB agregado ante un aumento de productividad de 10% aplicado a la selección."
-            : "Approximate aggregate GDP change from a 10% productivity increase applied to the selection.")
+            ? "Elasticidad del PIB agregado frente a un aumento marginal de productividad aplicado a la selección."
+            : "Aggregate GDP elasticity to a marginal productivity increase applied to the selection.")
           : (state.lang === "es"
             ? `Valor nacional total para <strong>${escapeHtml(metric)}</strong>.`
             : `National total value for <strong>${escapeHtml(metric)}</strong>.`);
@@ -8004,8 +8007,8 @@ function selectionCountLabel(type, level, count) {
       const _scopeLbl = escapeHtml(state.lang === "es" ? scope.es : scope.en);
       const selectionMeaning = state.metric === "domar_weight"
         ? (state.lang === "es"
-          ? "Cambio aproximado del PIB agregado ante un aumento de productividad de 10% aplicado a la selección."
-          : "Approximate aggregate GDP change from a 10% productivity increase applied to the selection.")
+          ? "Elasticidad del PIB agregado frente a un aumento marginal de productividad aplicado a la selección."
+          : "Aggregate GDP elasticity to a marginal productivity increase applied to the selection.")
         : (state.lang === "es"
           ? `Representa <strong>${escapeHtml(shareText)}</strong> del total nacional de <strong>${escapeHtml(metric)}</strong>.`
           : `Represents <strong>${escapeHtml(shareText)}</strong> of the national total for <strong>${escapeHtml(metric)}</strong>.`);
@@ -11060,7 +11063,8 @@ function selectionCountLabel(type, level, count) {
 
     .explore-inline {
       --sitio-header-h: 74px;
-      --explore-title-h: 96px;
+      /* Reserva equivalente al título visible del módulo en escritorio. */
+      --explore-title-h: 76px;
       --module-bg: var(--ds-color-canvas);
       background: var(--ds-color-canvas);
     }
@@ -11089,20 +11093,42 @@ function selectionCountLabel(type, level, count) {
     .explore-inline #module-2 {
       --module-accent: #27753f;
       --module-bg: #eef5f0;
-      background: linear-gradient(180deg, #eef5f0 0%, #eef5f0 88%, #eaf4f4 100%);
+      background: linear-gradient(
+        180deg,
+        var(--ds-color-canvas) 0,
+        #eef5f0 clamp(72px, 8vh, 104px),
+        #eef5f0 88%,
+        #eaf4f4 100%
+      );
+      margin-bottom: 0;
     }
 
     .explore-inline #module-3 {
       --module-accent: #0e5f66;
       --module-bg: #eaf4f4;
       background: linear-gradient(180deg, #eaf4f4 0%, #eaf4f4 88%, #f3eef8 100%);
+      margin-bottom: 0;
     }
 
     .explore-inline #module-4 {
       --module-accent: #7038a8;
       --module-bg: #f3eef8;
-      background: linear-gradient(180deg, #f3eef8 0%, #f3eef8 86%, var(--ds-color-canvas) 100%);
-      margin-bottom: clamp(54px, 8vh, 92px);
+      background: linear-gradient(180deg, #f3eef8 0%, #f3eef8 84%, var(--ds-color-canvas) 100%);
+      margin-bottom: 0;
+    }
+
+    @media (min-width: 821px) {
+      .explore-inline #module-2,
+      .explore-inline #module-3,
+      .explore-inline #module-4 {
+        /* Espacio de transición real, no un margen transparente: conserva el
+           alto de la figura y prolonga el degradado hasta el siguiente módulo. */
+        --explore-module-gap: clamp(96px, 10vh, 128px);
+        box-sizing: border-box;
+        height: calc(100svh - var(--sitio-header-h) + var(--explore-module-gap)) !important;
+        min-height: calc(100svh - var(--sitio-header-h) + var(--explore-module-gap)) !important;
+        padding-bottom: var(--explore-module-gap) !important;
+      }
     }
 
     .explore-inline .embed-mod-title {
@@ -11193,15 +11219,15 @@ function selectionCountLabel(type, level, count) {
     .explore-inline #module-2 .module-two-shell,
     .explore-inline #module-3 .module-two-shell,
     .explore-inline #module-4 .m4-shell {
-      height: clamp(
+      /* La figura debe ocupar el alto disponible de la pantalla. El antiguo
+         tope de 720px dejaba una franja vacía en monitores altos. */
+      height: max(
         520px,
-        calc(100svh - var(--sitio-header-h) - var(--explore-title-h)),
-        720px
+        calc(100svh - var(--sitio-header-h) - var(--explore-title-h))
       ) !important;
-      flex: 0 0 clamp(
+      flex: 0 0 max(
         520px,
-        calc(100svh - var(--sitio-header-h) - var(--explore-title-h)),
-        720px
+        calc(100svh - var(--sitio-header-h) - var(--explore-title-h))
       ) !important;
       min-height: 0 !important;
       border: 0;
@@ -11811,8 +11837,19 @@ function selectionCountLabel(type, level, count) {
 
 <style id="__registry-form-css">
   .contact-fab{display:none!important}
-  .explore-inline .panel-close-btn{width:30px;min-width:30px;height:30px;min-height:30px;padding:0;border-radius:50%;font:700 1.25rem/1 var(--ds-font-ui)}
-  .explore-inline .m2-header,.explore-inline .m3-panel-headline,.explore-inline #module-4 .m4d-panel-header{justify-content:flex-end}
+  @media (min-width:821px){.explore-inline #module-2 .m2-panel,.explore-inline #module-3 .m3-panel,.explore-inline #module-4 .m4d-controls{position:relative!important}}
+  .explore-inline .m2-header,.explore-inline .m3-header,.explore-inline #module-4 .m4d-panel-header{position:absolute!important;top:12px;right:12px;z-index:3;display:block!important;padding:0!important;background:transparent!important}
+  .explore-inline .m3-panel-headline{display:block!important}
+  .explore-inline .panel-close-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;min-width:32px;height:32px;min-height:32px;padding:0;border:0;border-radius:50%;font:700 1.15rem/1 var(--ds-font-ui);box-shadow:0 5px 15px rgba(20,18,60,.28)}
+  .explore-inline #module-2 .panel-close-btn{background:#27753f;color:#fff;border-color:#1e5c3a}
+  .explore-inline #module-3 .panel-close-btn{background:#0d6b73;color:#fff;border-color:#0b4f55}
+  .explore-inline #module-4 .panel-close-btn{background:#7038a8;color:#fff;border-color:#5c2d8a}
+  .explore-inline .panel-close-btn:focus-visible{outline:3px solid rgba(32,166,241,.55);outline-offset:2px}
+  .explore-inline #module-2 .m2-scroll,.explore-inline #module-3 .m3-scroll,.explore-inline #module-4 .m4d-scroll{padding-top:14px!important}
+  .explore-inline #module-3 .m3-persp-row{margin:0 42px 16px 0;background:#eef6f6;border:1px solid rgba(11,79,85,.18);border-radius:8px;padding:3px;gap:3px}
+  .explore-inline #module-3 .m3-persp-btn.active{background:#0b4f55;color:#fff;box-shadow:none}
+  .explore-inline #module-3 .m3-persp-btn:not(.active){color:#0b4f55;background:transparent}
+  @media (max-width:820px){.explore-inline .panel-close-btn{width:34px;min-width:34px;height:34px;min-height:34px}}
   .explore-inline .m3-q-sub .m3-q-ask{display:block;margin-top:3px}
   .explore-inline .module-tab,.explore-inline #module-4 .m4d-tab{justify-content:center}
   .registry-card{margin:40px auto 0;max-width:700px;text-align:left;background:#fff;border:1px solid var(--ds-color-line);border-radius:8px;box-shadow:0 22px 54px rgba(34,30,124,.10);padding:34px 36px 30px}
@@ -11857,29 +11894,10 @@ function selectionCountLabel(type, level, count) {
         <label class="registry-field full"><span data-site-i18n="fieldDataUse">Uso de los datos</span><select name="uso_datos" required><option value="" data-site-i18n="selectPrompt">Selecciona una opción</option><option value="Investigación" data-site-i18n="useResearch">Investigación</option><option value="Políticas públicas" data-site-i18n="usePublicPolicy">Políticas públicas</option><option value="Consultoría" data-site-i18n="useConsulting">Consultoría</option><option value="Otros" data-site-i18n="institutionOther">Otros</option></select></label>
         <label class="registry-field full" data-other-field="uso_datos" hidden><span data-site-i18n="fieldOtherUse">Especifica el uso</span><input name="uso_otro"></label>
       </div>
-      <button class="registry-submit" type="submit" data-site-i18n="downloadSubmit">Registrar solicitud de descarga</button>
+      <button class="registry-submit" type="submit" data-site-i18n="downloadSubmit">Descargar</button>
       <p class="registry-status" aria-live="polite"></p>
       <p class="registry-note" data-site-i18n="downloadNote">Usaremos estos datos únicamente para llevar estadísticas de uso y avisarte de actualizaciones importantes.</p>
     </form>
-  </div>
-</section>
-
-<!-- ============ CITACIÓN ============ -->
-<section id="citacion" class="sec-pad">
-  <div class="wrap">
-    <h2 class="display" data-site-i18n="citationTitle">Citación</h2>
-    <p data-site-i18n="citationLead" style="margin:0 auto 22px;max-width:62ch;color:var(--ds-color-muted);line-height:1.6">Para usar estos datos, cita el siguiente trabajo de investigación:</p>
-    <div style="max-width:680px;margin:0 auto;text-align:left">
-      <div style="padding:18px 20px;border-left:3px solid var(--ds-color-accent);border-radius:0 8px 8px 0;background:#fff7ec;color:#5b4626;line-height:1.55">
-        <p style="margin:0;font-style:italic">Huneeus, F., &amp; Del Valle, M. (2026). The Geographic and Sectoral Impact of Productivity.</p>
-      </div>
-      <pre style="margin:16px 0 0;overflow:auto;padding:18px 20px;border-radius:8px;background:#101222;color:#f3f3f3;font:.82rem/1.55 'DM Mono',monospace">@unpublished{huneeus_delvalle_2026_productivity,
-  author = {Huneeus, F. and Del Valle, M.},
-  title  = {The Geographic and Sectoral Impact of Productivity},
-  year   = {2026},
-  note   = {Unpublished manuscript}
-}</pre>
-    </div>
   </div>
 </section>
 
@@ -11907,11 +11925,29 @@ function selectionCountLabel(type, level, count) {
         <p class="paper-keywords"><span class="paper-keywords-label" data-site-i18n="researchKeywordsLabel">Palabras clave</span>&nbsp;&nbsp;<span data-site-i18n="researchKeywords">Productividad, economía espacial, distribución geográfica, encadenamientos insumo-producto, comercio, movilidad laboral.</span></p>
         <div class="paper-actions">
           <a class="paper-btn primary" data-site-i18n="downloadPdf" href="https://www.fedehuneeus.com/s/HdV.pdf" target="_blank" rel="noopener">Descargar PDF</a>
-          <a class="paper-btn ghost" data-site-i18n="viewPaperSite" href="https://www.fedehuneeus.com/" target="_blank" rel="noopener">Ver en el sitio ↗</a>
           <a class="paper-btn ghost" data-site-i18n="howToCite" href="#citacion">Cómo citar</a>
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ============ CITACIÓN ============ -->
+<section id="citacion" class="sec-pad">
+  <div class="wrap">
+    <h2 class="display" data-site-i18n="citationTitle">Citación</h2>
+    <p data-site-i18n="citationLead" style="margin:0 auto 22px;max-width:62ch;color:var(--ds-color-muted);line-height:1.6">Para usar estos datos, cita el siguiente trabajo de investigación:</p>
+    <div style="max-width:680px;margin:0 auto;text-align:left">
+      <div style="padding:18px 20px;border-left:3px solid var(--ds-color-accent);border-radius:0 8px 8px 0;background:#fff7ec;color:#5b4626;line-height:1.55">
+        <p style="margin:0;font-style:italic">Huneeus, F., &amp; Del Valle, M. (2026). The Geographic and Sectoral Impact of Productivity.</p>
+      </div>
+      <pre style="margin:16px 0 0;overflow:auto;padding:18px 20px;border-radius:8px;background:#101222;color:#f3f3f3;font:.82rem/1.55 'DM Mono',monospace">@unpublished{huneeus_delvalle_2026_productivity,
+  author = {Huneeus, F. and Del Valle, M.},
+  title  = {The Geographic and Sectoral Impact of Productivity},
+  year   = {2026},
+  note   = {Unpublished manuscript}
+}</pre>
     </div>
   </div>
 </section>
@@ -11998,8 +12034,8 @@ function selectionCountLabel(type, level, count) {
       brand:"CED CORFO", navExplore:"Explorar", navData:"Datos", navResearch:"Trabajo de Investigación", navContact:"Contacto", mobileNavLabel:"Navegación principal", mobileNavOpen:"Abrir navegación", mobileNavClose:"Cerrar navegación",
       homeTitle:"Cuentas Económicas Desagregadas para Chile", homeExploreQuestion:"¿Cómo se distribuye la economía por sector y territorios?", homeExploreAction:"Explorar los datos →", homeDataQuestion:"¿Quieres usar los datos para tu propio análisis?", homeDataAction:"Descarga los datos →", homeResearchQuestion:"¿Cómo se construyen y aplican estos datos?", homeResearchAction:"Leer el trabajo →", exploreLandingDesc:"Tres herramientas interactivas para recorrer la economía chilena por sus sectores y sus territorios.",
       dataTitle:"Descarga los Datos", dataIntro:"Un objetivo central del proyecto de colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus & Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual, para la investigación y análisis de las políticas públicas.", dataCoverage:"Los datos se construyen para las <strong style=\"color:var(--ds-color-text);font-weight:700\">56 provincias</strong> de Chile y la totalidad de los sectores, divididos en <strong style=\"color:var(--ds-color-text);font-weight:700\">46 sectores</strong>.",
-      downloadFormTitle:"Completa tus datos para descargar", fieldFirstName:"Nombre", fieldLastName:"Apellido", fieldInstitutionType:"Tipo de institución", fieldInstitution:"Nombre de la institución", fieldEmail:"Correo electrónico", selectPrompt:"Selecciona una opción", institutionUniversity:"Universidad", institutionGovernment:"Gobierno", institutionCompany:"Empresa", institutionOther:"Otros", fieldDataUse:"Uso de los datos", useResearch:"Investigación", usePublicPolicy:"Políticas públicas", useConsulting:"Consultoría", fieldOtherUse:"Especifica el uso", downloadSubmit:"Registrar solicitud de descarga", downloadNote:"Usaremos estos datos únicamente para llevar estadísticas de uso y avisarte de actualizaciones importantes.",
-      citationTitle:"Citación", citationLead:"Para usar estos datos, cita el siguiente trabajo de investigación:", researchTitle:"Trabajo de Investigación", openPdf:"Abrir PDF", workingPaper:"Documento de trabajo", researchAbstractLabel:"Resumen", researchAbstract:"Para comprender el impacto geográfico y sectorial de la productividad, construimos, hasta donde sabemos, la primera matriz insumo-producto desagregada geográficamente dentro de un país utilizando datos administrativos únicos armonizados con las cuentas nacionales. Usamos datos de Chile para calibrar un modelo cuantitativo de comercio de equilibrio general de frontera, con redes de producción, movilidad laboral, selección de empresas, comercio internacional y doméstico, congestión de factores fijos y difusión del conocimiento. Consideramos dos aplicaciones. Primero, estudiamos los efectos agregados de shocks locales de productividad. Mostramos que las interacciones ubicación-sector son cruciales: por separado, las ubicaciones y los sectores explican menos de la mitad de la dispersión de las elasticidades del PIB ante shocks de productividad específicos por ubicación-sector. Los encadenamientos insumo-producto específicos de cada geografía explican 17% de esa dispersión, principalmente por el papel de mercados pequeños e influyentes. Segundo, analizamos el cierre de una gran planta siderúrgica. Mostramos que los encadenamientos productivos geográficamente desagregados aumentan sustancialmente la propagación del cierre de la planta.", researchKeywordsLabel:"Palabras clave", researchKeywords:"Productividad, economía espacial, distribución geográfica, encadenamientos insumo-producto, comercio, movilidad laboral.", downloadPdf:"Descargar PDF", viewPaperSite:"Ver en el sitio ↗", howToCite:"Cómo citar", teamTitle:"Equipo de Investigación", teamRoleSenior:"Economista senior", teamRoleAssistant:"Asistente de investigación",
+      downloadFormTitle:"Completa tus datos para descargar", fieldFirstName:"Nombre", fieldLastName:"Apellido", fieldInstitutionType:"Tipo de institución", fieldInstitution:"Nombre de la institución", fieldEmail:"Correo electrónico", selectPrompt:"Selecciona una opción", institutionUniversity:"Universidad", institutionGovernment:"Gobierno", institutionCompany:"Empresa", institutionOther:"Otros", fieldDataUse:"Uso de los datos", useResearch:"Investigación", usePublicPolicy:"Políticas públicas", useConsulting:"Consultoría", fieldOtherUse:"Especifica el uso", downloadSubmit:"Descargar", downloadNote:"Usaremos estos datos únicamente para llevar estadísticas de uso y avisarte de actualizaciones importantes.",
+      citationTitle:"Citación", citationLead:"Para usar estos datos, cita el siguiente trabajo de investigación:", researchTitle:"Trabajo de Investigación", openPdf:"Abrir PDF", workingPaper:"Documento de trabajo", researchAbstractLabel:"Resumen", researchAbstract:"Para comprender el impacto geográfico y sectorial de la productividad, construimos, hasta donde sabemos, la primera matriz insumo-producto desagregada geográficamente dentro de un país utilizando datos administrativos únicos armonizados con las cuentas nacionales. Usamos datos de Chile para calibrar un modelo cuantitativo de comercio de equilibrio general de frontera, con redes de producción, movilidad laboral, selección de empresas, comercio internacional y doméstico, congestión de factores fijos y difusión del conocimiento. Consideramos dos aplicaciones. Primero, estudiamos los efectos agregados de shocks locales de productividad. Mostramos que las interacciones ubicación-sector son cruciales: por separado, las ubicaciones y los sectores explican menos de la mitad de la dispersión de las elasticidades del PIB ante shocks de productividad específicos por ubicación-sector. Los encadenamientos insumo-producto específicos de cada geografía explican 17% de esa dispersión, principalmente por el papel de mercados pequeños e influyentes. Segundo, analizamos el cierre de una gran planta siderúrgica. Mostramos que los encadenamientos productivos geográficamente desagregados aumentan sustancialmente la propagación del cierre de la planta.", researchKeywordsLabel:"Palabras clave", researchKeywords:"Productividad, economía espacial, distribución geográfica, encadenamientos insumo-producto, comercio, movilidad laboral.", downloadPdf:"Descargar PDF", howToCite:"Cómo citar", teamTitle:"Equipo de Investigación", teamRoleSenior:"Economista senior", teamRoleAssistant:"Asistente de investigación",
       contactTitle:"Contacto", contactLead:"Escríbenos para consultas sobre los datos, las visualizaciones o el trabajo de investigación.", contactFormTitle:"Cuéntanos cómo podemos ayudarte", fieldContactReason:"Motivo del contacto", reasonData:"Datos", reasonVisualization:"Visualización", reasonResearch:"Trabajo de Investigación", fieldOtherReason:"Especifica el motivo", fieldMessage:"Mensaje", contactSubmit:"Enviar consulta", contactNote:"Usaremos tu información únicamente para responder esta consulta.",
       ackTitle:"Agradecimientos", ackText:"Agradecemos a la Corporación de Fomento de la Producción (CORFO) por impulsar esta iniciativa. Agradecemos también al Servicio de Impuestos Internos (SII) por facilitar el acceso a datos administrativos anonimizados. La información aquí contenida es de carácter tributario proveniente de autodeclaraciones de los contribuyentes presentadas ante el SII; por lo que la veracidad de dichos datos no es responsabilidad del Servicio. Este trabajo contó con el apoyo del Banco Interamericano de Desarrollo (BID) en el marco del proyecto RG-T3976-P002, a través de su División de Competitividad, Tecnología e Innovación. El financiador no tuvo rol en el diseño del estudio, ni en la recolección, análisis, interpretación de los datos, redacción o decisión de publicar.", footerCopyright:"© Cuentas Económicas Desagregadas para Chile · CORFO–BID, 2026."
     },
@@ -12007,8 +12043,8 @@ function selectionCountLabel(type, level, count) {
       brand:"CED CORFO", navExplore:"Explore", navData:"Data", navResearch:"Research Paper", navContact:"Contact", mobileNavLabel:"Main navigation", mobileNavOpen:"Open navigation", mobileNavClose:"Close navigation",
       homeTitle:"Disaggregated Economic Accounts for Chile", homeExploreQuestion:"How is the economy distributed across sectors and territories?", homeExploreAction:"Explore the data →", homeDataQuestion:"Do you want to use the data for your own analysis?", homeDataAction:"Download the data →", homeResearchQuestion:"How are these data constructed and applied?", homeResearchAction:"Read the paper →", exploreLandingDesc:"Three interactive tools to explore the Chilean economy across its sectors and territories.",
       dataTitle:"Download Data", dataIntro:"A central objective of the collaboration project between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), developed by Huneeus & Del Valle (2026), is that the generated data constitute a public good, freely accessible and updated annually for research and public-policy analysis.", dataCoverage:"The data cover <strong style=\"color:var(--ds-color-text);font-weight:700\">56 provinces</strong> in Chile and all productive activity, disaggregated into <strong style=\"color:var(--ds-color-text);font-weight:700\">46 sectors</strong>.",
-      downloadFormTitle:"Complete your information to download", fieldFirstName:"First name", fieldLastName:"Last name", fieldInstitutionType:"Institution type", fieldInstitution:"Institution name", fieldEmail:"Email address", selectPrompt:"Select an option", institutionUniversity:"University", institutionGovernment:"Government", institutionCompany:"Company", institutionOther:"Other", fieldDataUse:"Intended use of the data", useResearch:"Research", usePublicPolicy:"Public policy", useConsulting:"Consulting", fieldOtherUse:"Specify the intended use", downloadSubmit:"Register download request", downloadNote:"We use this information only to keep usage statistics and notify you about important updates.",
-      citationTitle:"Citation", citationLead:"To use these data, cite the following research paper:", researchTitle:"Research Paper", openPdf:"Open PDF", workingPaper:"Working paper", researchAbstractLabel:"Abstract", researchAbstract:"To understand the geographic and sectoral impact of productivity, we build, to our knowledge, the first input-output matrix disaggregated at the geographic level within a country using unique administrative data harmonized to match national accounts. We use Chilean data to calibrate a state-of-the-art general equilibrium quantitative trade model with production networks, labor mobility, firm selection, international and domestic trade, congestion of fixed factors, and knowledge diffusion. We consider two applications. First, we study the aggregate effects of local productivity shocks. We show that location-sector interactions are crucial: locations and sectors separately account for less than half of the dispersion in GDP elasticities from location-sector-specific productivity shocks. Geography-specific input-output linkages explain 17% of the dispersion, mainly due to the role played by small and influential markets. Second, we analyze the exit of a large steel plant. We show that geographically disaggregated production linkages substantially increase the propagation of the plant exit.", researchKeywordsLabel:"Keywords", researchKeywords:"Productivity, spatial economics, geographic distribution, input-output linkages, trade, labor mobility.", downloadPdf:"Download PDF", viewPaperSite:"View on website ↗", howToCite:"How to cite", teamTitle:"Research Team", teamRoleSenior:"Senior Economist", teamRoleAssistant:"Research Assistant",
+      downloadFormTitle:"Complete your information to download", fieldFirstName:"First name", fieldLastName:"Last name", fieldInstitutionType:"Institution type", fieldInstitution:"Institution name", fieldEmail:"Email address", selectPrompt:"Select an option", institutionUniversity:"University", institutionGovernment:"Government", institutionCompany:"Company", institutionOther:"Other", fieldDataUse:"Intended use of the data", useResearch:"Research", usePublicPolicy:"Public policy", useConsulting:"Consulting", fieldOtherUse:"Specify the intended use", downloadSubmit:"Download", downloadNote:"We use this information only to keep usage statistics and notify you about important updates.",
+      citationTitle:"Citation", citationLead:"To use these data, cite the following research paper:", researchTitle:"Research Paper", openPdf:"Open PDF", workingPaper:"Working paper", researchAbstractLabel:"Abstract", researchAbstract:"To understand the geographic and sectoral impact of productivity, we build, to our knowledge, the first input-output matrix disaggregated at the geographic level within a country using unique administrative data harmonized to match national accounts. We use Chilean data to calibrate a state-of-the-art general equilibrium quantitative trade model with production networks, labor mobility, firm selection, international and domestic trade, congestion of fixed factors, and knowledge diffusion. We consider two applications. First, we study the aggregate effects of local productivity shocks. We show that location-sector interactions are crucial: locations and sectors separately account for less than half of the dispersion in GDP elasticities from location-sector-specific productivity shocks. Geography-specific input-output linkages explain 17% of the dispersion, mainly due to the role played by small and influential markets. Second, we analyze the exit of a large steel plant. We show that geographically disaggregated production linkages substantially increase the propagation of the plant exit.", researchKeywordsLabel:"Keywords", researchKeywords:"Productivity, spatial economics, geographic distribution, input-output linkages, trade, labor mobility.", downloadPdf:"Download PDF", howToCite:"How to cite", teamTitle:"Research Team", teamRoleSenior:"Senior Economist", teamRoleAssistant:"Research Assistant",
       contactTitle:"Contact", contactLead:"Write to us with questions about the data, visualizations, or research paper.", contactFormTitle:"Tell us how we can help", fieldContactReason:"Reason for contact", reasonData:"Data", reasonVisualization:"Visualization", reasonResearch:"Research Paper", fieldOtherReason:"Specify the reason", fieldMessage:"Message", contactSubmit:"Send inquiry", contactNote:"We use this information only to respond to your inquiry.",
       ackTitle:"Acknowledgements", ackText:"We thank the Production Development Corporation (CORFO) for promoting this initiative. We also thank the Chilean Internal Revenue Service (SII) for facilitating access to anonymized administrative data. The information contained herein is tax information obtained from taxpayers' self-reported declarations submitted to the SII; therefore, the accuracy of these data is not the responsibility of the Service. This work received support from the Inter-American Development Bank (IDB) under project RG-T3976-P002 through its Competitiveness, Technology and Innovation Division. The funder had no role in the study design, data collection, analysis, interpretation, writing, or decision to publish.", footerCopyright:"© Disaggregated Economic Accounts for Chile · CORFO–IDB, 2026."
     }

@@ -45,6 +45,26 @@ function copyFile(sourcePath, destinationPath) {
   fs.copyFileSync(sourcePath, destinationPath);
 }
 
+// El aviso de encoding al inicio de sitio.html es una nota de desarrollo: sirve a
+// quien edita el archivo, no a quien visita el sitio. Se elimina al publicar para
+// no exponer instrucciones internas ni rutas del repositorio en el HTML publico.
+function stripDevNotice(html) {
+  const notice = /<!--[\s\S]*?ENCODING WARNING[\s\S]*?-->\r?\n?/;
+  if (!notice.test(html)) {
+    throw new Error(
+      "No se encontro el aviso de encoding en sitio.html: revisar scripts/build.js.",
+    );
+  }
+  return html.replace(notice, "");
+}
+
+function buildPage(sourcePath, destinationPath) {
+  assertExists(sourcePath);
+  const html = fs.readFileSync(sourcePath, "utf8");
+  fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
+  fs.writeFileSync(destinationPath, stripDevNotice(html), "utf8");
+}
+
 function assertPageUsesDesignSystem(pagePath) {
   const html = fs.readFileSync(pagePath, "utf8");
   if (!html.includes(`href="${designSystemHref}"`)) {
@@ -148,7 +168,7 @@ for (const entry of fs.readdirSync(distDir)) {
   const sourcePagePath = path.join(projectRoot, sourcePage);
   assertPageUsesDesignSystem(sourcePagePath);
   assertSitioIntegrity(sourcePagePath);
-  copyFile(sourcePagePath, path.join(distDir, "index.html"));
+  buildPage(sourcePagePath, path.join(distDir, "index.html"));
 }
 
 for (const directory of publicDirectories) {

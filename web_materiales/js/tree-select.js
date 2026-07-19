@@ -14,8 +14,8 @@
 (function (global) {
   function normalize(text) {
     // Quita marcas diacriticas combinantes (codepoints 0x0300-0x036f) tras
-    // NFD, sin usar un literal de rango Unicode en el regex (evita que un
-    // editor con encoding CP1252 lo corrompa; ver AGENTS.md).
+    // NFD, sin usar un literal de rango Unicode en el regex: un editor que
+    // guarde este archivo en CP1252 corromperia ese literal.
     const decomposed = String(text == null ? "" : text).normalize("NFD").toLowerCase();
     let out = "";
     for (const ch of decomposed) {

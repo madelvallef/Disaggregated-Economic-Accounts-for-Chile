@@ -19,12 +19,12 @@
   const T = {
     es: {
       title: "Impacto productivo nacional",
-      intro: "El teorema de Hulten establece que el Domar weight de un productor es una buena aproximación de primer orden de su efecto sobre el PIB agregado ante un shock de productividad. A continuación, observa qué porcentaje de ese impacto se transmite aguas abajo a los productores de la economía hasta llegar a la demanda final.",
+      intro: "La elasticidad del PIB agregado frente a un aumento marginal de la productividad de un productor corresponde, en la literatura económica, a su Domar weight (Hulten, 1978). Las vistas muestran cómo se distribuye ese efecto a lo largo de la cadena de valor hasta la demanda final.",
       producerTitle: "Elige los productores",
-      producerTheory: "El teorema de Hulten establece que el <b>Domar weight</b> de los productores aproxima, a primer orden, su <b>efecto sobre el PIB agregado</b> ante un shock de productividad.",
-      producerInstr: "Selecciona la <b>provincia</b> y el <b>sector</b> del productor para ver ese impacto y cómo se transmite aguas abajo, hasta la demanda final, entre los demás productores <b>expuestos directa e indirectamente</b> a él a través de los distintos <b>sectores</b> y/o <b>territorios</b>.",
+      producerTheory: "La <b>elasticidad del PIB agregado</b> frente a un <b>aumento marginal de la productividad</b> de un productor corresponde, en la literatura económica, a su <b>Domar weight</b> (Hulten, 1978).",
+      producerInstr: "Selecciona la <b>provincia</b> y el <b>sector</b> del productor para ver esa <b>elasticidad</b> y cómo se distribuye su efecto a lo largo de la <b>cadena de valor</b>, desde sus <b>clientes directos</b> hasta los productores alcanzados por <b>vínculos sucesivos</b> y la <b>demanda final</b>.",
       profileTitle: "Impacto en el PIB nacional",
-      profileScenario: (producer) => `Ante un aumento de productividad de <b>+10%</b> en ${producer}, el PIB nacional varía en:`,
+      profileScenario: (producer) => `Ante un aumento de productividad de <b>1%</b> en ${producer}, el PIB nacional varía en:`,
       componentInstr: "Elige qué parte del impacto del productor quieres visualizar.",
       qTotal: "¿Cómo se distribuye el impacto completo?",
       qOwn: "¿Qué parte corresponde al componente propio?",
@@ -44,7 +44,7 @@
       compOwnSub: "Solo la producción directa del productor",
       compDirectSub: "Cadena directa (primer eslabón)",
       compIndirectSub: "Cadenas sucesivas de la economía",
-      method: "Para más detalle", unitPercent: "Porcentaje\u00A0(%)",
+      method: "Detalle metodológico", unitPercent: "Porcentaje\u00A0(%)",
       legendNearZero: "≈0", legendZero: "=0",
       tabGeo: "Distribución territorial del impacto", tabSec: "Distribución sectorial del impacto", tabCell: "Distribución territorial-sectorial del impacto",
       tabKicker: "", axisGeo: "Territorios", axisSec: "Sectores", axisCell: "Territorios - Sectores",
@@ -56,19 +56,19 @@
       hcUnitTerr: "territorios", hcUnitSec: "sectores", hcUnitComb: "combinaciones",
       tagOwn: "· propio", tagDir: "· vínculo directo", tagInd: "· vínculo indirecto",
       noResults: "Sin resultados",
-      infoTotal: "El impacto nacional completo del productor seleccionado. Es la suma de los tres componentes y representa 100% de la descomposición.",
-      infoOwn: "Término propio (b′I): la parte asociada al productor seleccionado como componente de demanda final.",
-      infoDir: "Exposición directa (b′Ω): impacto que se transmite aguas abajo mediante un solo eslabón productivo.",
-      infoInd: "Exposición indirecta [b′(Ω² + Ω³ + …)]: impacto que se transmite mediante dos o más eslabones productivos."
+      infoTotal: "El efecto completo de un aumento de productividad en el productor seleccionado. Es la suma de los tres componentes y representa 100% de la descomposición.",
+      infoOwn: "La parte del efecto asociada directamente al productor seleccionado.",
+      infoDir: "La parte que llega a sus clientes directos en el primer paso de la cadena de valor.",
+      infoInd: "La parte que continúa hacia otros productores mediante vínculos sucesivos de la cadena de valor."
     },
     en: {
       title: "National productive impact",
-      intro: "Hulten's theorem states that a producer's Domar weight is a good first-order approximation of its effect on aggregate GDP following a productivity shock. The views below show what share of that impact travels downstream across the economy to final demand.",
+      intro: "In the economics literature, the elasticity of aggregate GDP to a marginal productivity increase in a producer is its Domar weight (Hulten, 1978). The views show how that effect is distributed along the value chain to final demand.",
       producerTitle: "Choose the producers",
-      producerTheory: "Hulten's theorem states that producers' <b>Domar weights</b> provide a first-order approximation of their <b>effect on aggregate GDP</b> following a productivity shock.",
-      producerInstr: "Select the <b>province</b> and <b>sector</b> of the producer to see that impact and how it travels downstream to final demand, through the other producers <b>directly and indirectly exposed</b> to it across <b>sectors</b> and/or <b>territories</b>.",
+      producerTheory: "In the economics literature, the <b>elasticity of aggregate GDP</b> to a <b>marginal productivity increase</b> in a producer is its <b>Domar weight</b> (Hulten, 1978).",
+      producerInstr: "Select the producer's <b>province</b> and <b>sector</b> to see that <b>elasticity</b> and how its effect is distributed along the <b>value chain</b>, from <b>direct customers</b> to producers reached through <b>successive links</b> and <b>final demand</b>.",
       profileTitle: "Impact on national GDP",
-      profileScenario: (producer) => `Following a <b>+10%</b> productivity increase in ${producer}, national GDP changes by:`,
+      profileScenario: (producer) => `Following a <b>1%</b> productivity increase in ${producer}, national GDP changes by:`,
       componentInstr: "Choose which part of the producer's impact you want to visualize.",
       qTotal: "How is the complete impact distributed?",
       qOwn: "What share corresponds to the own component?",
@@ -88,7 +88,7 @@
       compOwnSub: "Producer's own direct production only",
       compDirectSub: "Direct chain (first link)",
       compIndirectSub: "Successive chains of the economy",
-      method: "More detail", unitPercent: "Percentage\u00A0(%)",
+      method: "Methodological detail", unitPercent: "Percentage\u00A0(%)",
       legendNearZero: "≈0", legendZero: "=0",
       tabGeo: "Territorial distribution of impact", tabSec: "Sectoral distribution of impact", tabCell: "Territorial-sectoral distribution of impact",
       tabKicker: "", axisGeo: "Territories", axisSec: "Sectors", axisCell: "Territories - Sectors",
@@ -100,10 +100,10 @@
       hcUnitTerr: "territories", hcUnitSec: "sectors", hcUnitComb: "combinations",
       tagOwn: "· own", tagDir: "· direct link", tagInd: "· indirect link",
       noResults: "No results",
-      infoTotal: "The selected producer's complete national impact. It is the sum of the three components and represents 100% of the decomposition.",
-      infoOwn: "Own term (b′I): the share associated with the selected producer as a final-demand component.",
-      infoDir: "Direct exposure (b′Ω): impact transmitted downstream through one production link.",
-      infoInd: "Indirect exposure [b′(Ω² + Ω³ + …)]: impact transmitted through two or more production links."
+      infoTotal: "The complete effect of a productivity increase in the selected producer. It is the sum of the three components and represents 100% of the decomposition.",
+      infoOwn: "The part of the effect associated directly with the selected producer.",
+      infoDir: "The part that reaches its direct customers in the first step of the value chain.",
+      infoInd: "The part that continues to other producers through successive value-chain links."
     }
   };
   function isEs() { return state.lang === "es"; }
@@ -506,9 +506,9 @@
 
     // ── Header: Domar weight + composición ───────────────────────────────
     function renderHeader() {
-      const impact = fmtScenarioPct(E.lambda[st.j] * 10);
+      const impact = fmtScenarioPct(E.lambda[st.j]);
       el.profileScenario.innerHTML = t().profileScenario(escapeHtml(producerLabel()));
-      el.impactVal.textContent = `+${impact}`;
+      el.impactVal.textContent = impact;
       const sm = E.summary(st.dec);
       const k = t();
       const segs = [[k.own, sm.ownPct, "#b89cd6"], [k.direct, sm.directPct, "#7038a8"], [k.indirect, sm.indirectPct, "#3d1a63"]];

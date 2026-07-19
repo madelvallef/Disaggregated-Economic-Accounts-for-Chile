@@ -423,8 +423,8 @@
     const myAct = es ? (prov ? "ventas" : "compras") : (prov ? "sales" : "purchases");
     const _t = {
       m3BadgeLabel:         es ? "Cadenas de valor · Perspectiva"              : "Value chains · Perspective",
-      m3PerspBtnProvider:   es ? "Ver clientes"                                : "View clients",
-      m3PerspBtnClient:     es ? "Ver proveedores"                             : "View suppliers",
+      m3PerspBtnProvider:   es ? "Clientes"                                    : "Clients",
+      m3PerspBtnClient:     es ? "Proveedores"                                 : "Suppliers",
       m3MarketLabel:        es ? "1 · Elige los productores"                   : "1 · Choose the producers",
       m3MarketInstruction:  es ? `Selecciona la ubicación y el sector de los productores cuyos ${cpPl} quieres explorar.` : `Select the location and sector of the producers whose ${cpPl} you want to explore.`,
       m3CharcLabel:         es ? "Perfil de los productores"                   : "Producers' profile",

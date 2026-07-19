@@ -1,4 +1,12 @@
 (function () {
+  // Los datos son un bien publico: el registro sirve para estadisticas de uso,
+  // no como control de acceso. Por eso la descarga se entrega igual aunque el
+  // endpoint de registro no este configurado o falle.
+  const DOWNLOAD_FILES = {
+    es: "downloads/es_chile_2022_dea_cuentas_economicas.zip",
+    en: "downloads/en_chile_2022_dea_economic_accounts.zip"
+  };
+
   function language() {
     return document.documentElement.lang === "en" ? "en" : "es";
   }
@@ -10,9 +18,20 @@
       unavailable: en ? "The registration service has not been configured yet." : "El servicio de registro aún no está configurado.",
       sending: en ? "Sending information…" : "Enviando información…",
       success: en ? "Your information was registered successfully." : "Tu información fue registrada correctamente.",
-      failed: en ? "We could not register your information. Please try again later." : "No fue posible registrar tu información. Inténtalo nuevamente más tarde."
+      failed: en ? "We could not register your information. Please try again later." : "No fue posible registrar tu información. Inténtalo nuevamente más tarde.",
+      downloadReady: en ? "Your information was registered. The download will start automatically." : "Tu información fue registrada. La descarga comenzará automáticamente.",
+      downloadOnly: en ? "We could not register your information, but the download will start automatically." : "No fue posible registrar tu información, pero la descarga comenzará automáticamente."
     };
     return copy[key];
+  }
+
+  function startDownload() {
+    const link = document.createElement("a");
+    link.href = DOWNLOAD_FILES[language()];
+    link.download = "";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   }
 
   function status(form, text, state) {
@@ -72,32 +91,46 @@
       }
       if (!form.reportValidity()) return;
 
+      const isDownload = kind === "downloads";
       const endpoint = window.CED_FORM_ENDPOINTS?.[kind];
-      if (!endpoint) {
+      if (!endpoint && !isDownload) {
         status(form, message("unavailable"), "error");
         return;
       }
 
       const button = form.querySelector('[type="submit"]');
       if (button) button.disabled = true;
-      status(form, message("sending"));
-      try {
-        const response = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payloadFor(form, kind))
-        });
-        if (!response.ok) throw new Error("Registry endpoint returned " + response.status);
+
+      let registered = false;
+      if (endpoint) {
+        status(form, message("sending"));
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payloadFor(form, kind))
+          });
+          if (!response.ok) throw new Error("Registry endpoint returned " + response.status);
+          registered = true;
+        } catch (error) {
+          console.error("CED registry submission failed", error);
+        }
+      }
+
+      if (registered) {
         form.reset();
         toggleOtherField(form, "uso_datos");
         toggleOtherField(form, "motivos_contacto");
-        status(form, message("success"), "success");
-      } catch (error) {
-        console.error("CED registry submission failed", error);
-        status(form, message("failed"), "error");
-      } finally {
-        if (button) button.disabled = false;
       }
+
+      if (isDownload) {
+        status(form, message(registered ? "downloadReady" : "downloadOnly"), registered ? "success" : "error");
+        startDownload();
+      } else {
+        status(form, message(registered ? "success" : "failed"), registered ? "success" : "error");
+      }
+
+      if (button) button.disabled = false;
     });
   }
 
