@@ -5049,16 +5049,13 @@
       const BP = Math.min(170, Math.max(bottomPadMin, Math.floor(o.contH * 0.22)));
       const gridW = Math.max(40, o.contW - LP - 16);
       const gridH = Math.max(40, o.contH - TP - BP);
-      // Celdas: llenan el recuadro fijo (gridW/nC × gridH/nR) en alto siempre,
-      // y en ancho también salvo un tope máximo en px (maxCellWidth) para que
-      // no queden demasiado anchas cuando hay pocas columnas; el sobrante se
-      // reparte como margen horizontal CENTRADO. El SVG exterior
-      // (svgWidth/svgHeight) NUNCA cambia de tamaño al cambiar el nivel de
-      // agregación — solo cambia cuánto del recuadro llena la grilla.
+      // Celdas: llenan el recuadro fijo (gridW/nC × gridH/nR) tanto en alto
+      // como en ancho. El SVG exterior (svgWidth/svgHeight) nunca cambia al
+      // modificar el nivel de agregación: sólo cambia el tamaño de las celdas.
+      // Así, Industria no deja una grilla angosta dentro del mismo contenedor.
       const CH = gridH / nR;
-      const maxCellWidth = o.maxCellWidth != null ? o.maxCellWidth : 56;
-      const CW = Math.min(gridW / nC, maxCellWidth);
-      const offsetX = (gridW - CW * nC) / 2;
+      const CW = gridW / nC;
+      const offsetX = 0;
       const offsetY = 0;
       // Fuente: cabe dentro de la celda Y dentro del margen fijo de etiquetas.
       let rowFs = Math.max(5, Math.min(ROW_CAP, Math.floor(CH * 0.82)));
@@ -6398,6 +6395,7 @@
       metric: "valor_agregado",
       unit: "value",
       lastDistributionUnit: "value",
+      relativeExample: null,
       geoLevel: "province",
       sectorLevel: "activity",
       geoSelection: {
@@ -7698,11 +7696,16 @@ function selectionCountLabel(type, level, count) {
     }
 
     function getMatrixHoverHtml(rowKey, colKey) {
-      const working = filterRows(getWorkingRows());
+      const referenceRows = getWorkingRows();
+      const working = filterRows(referenceRows);
       const matrixUnit = isDependencyAnalysis() ? state.unit : state.unit;
       const key = matrixHoverKey(rowKey, colKey);
-      const orientation = dependencyOrientation();
-      const metricMaps = buildMatrixMetricMaps(working, orientation, matrixUnit);
+      const orientation = isDependencyAnalysis() ? dependencyOrientation() : "geo";
+      const metricMaps = buildMatrixMetricMaps(
+        matrixUnit === "relative" && !isDependencyAnalysis() ? referenceRows : working,
+        orientation,
+        matrixUnit
+      );
       const rawCellValue = metricMaps.valueMap.get(key) || 0;
       const rowShare = metricMaps.rowShareMap.get(key) || 0;
       const colShare = metricMaps.colShareMap.get(key) || 0;
@@ -7956,7 +7959,7 @@ function selectionCountLabel(type, level, count) {
       }
 
       if (state.unit === "relative") {
-        const relativeValue = selectionRelativeSummaryValue(working, selectedRows);
+        const relativeValue = selectionRelativeSummaryValue(getWorkingRows(), selectedRows);
         const relativeValueText = formatValue(relativeValue, state.metric, "relative");
         const relativeScopeLabel = !scope
           ? (state.lang === "es" ? "TOTAL NACIONAL" : "NATIONAL TOTAL")
@@ -8488,37 +8491,102 @@ function selectionCountLabel(type, level, count) {
     }
 
     function applyDependencyExampleSelection() {
+      state.relativeExample = null;
       if (state.analysis === "dependency_territorial") {
-        const mineriaOption = uniqueSectorOptions("pibr13").find((item) => normalizeSearchText(item.label) === "mineria");
-        if (mineriaOption) {
-          const mineriaRows = rows.filter((row) => String(row.cod_PIBR13) === String(mineriaOption.value));
-          const mineriaIndustry = mineriaRows.length ? String(mineriaRows[0].cod_industria) : null;
-          const mineriaActivities = uniqueSectorOptions("activity", mineriaRows).map((item) => item.value);
-          state.sectorSelection.industry = mineriaIndustry ? [mineriaIndustry] : [];
-          state.sectorSelection.pibr13 = [String(mineriaOption.value)];
-          state.sectorSelection.activity = mineriaActivities;
-          syncSectorSelections("industry");
-          syncSectorSelections("pibr13");
-        }
+        selectMiningExample();
         return;
       }
 
       if (state.analysis === "dependency_sectorial") {
-        const antofagastaRow = rows.find((row) => normalizeSearchText(row.nom_provincia) === "antofagasta");
-        if (antofagastaRow) {
-          state.geoSelection.macrozone = [antofagastaRow.nom_macrozona];
-          state.geoSelection.region = [antofagastaRow.nom_region];
-          state.geoSelection.province = [antofagastaRow.nom_provincia];
-          syncGeoSelections("macrozone");
-          syncGeoSelections("region");
-        }
+        selectAntofagastaExample();
       }
+    }
+
+    function hasSpecificGeoSelection() {
+      const level = state.geoSelection.province.length
+        ? "province"
+        : state.geoSelection.region.length
+          ? "region"
+          : state.geoSelection.macrozone.length
+            ? "macrozone"
+            : null;
+      if (!level) return false;
+      const visibleLocations = locations.filter((location) => Number(location.cod_ubicacion) !== 57);
+      const allCount = level === "province"
+        ? uniqueSorted(visibleLocations, "nom_provincia", "cod_provincia_sort").length
+        : level === "region"
+          ? uniqueSorted(visibleLocations, "nom_region", "cod_region_sort").length
+          : uniqueSorted(visibleLocations, "nom_macrozona", "cod_region_sort").length;
+      return state.geoSelection[level].length < allCount;
+    }
+
+    function hasSpecificSectorSelection() {
+      const level = state.sectorSelection.activity.length
+        ? "activity"
+        : state.sectorSelection.pibr13.length
+          ? "pibr13"
+          : state.sectorSelection.industry.length
+            ? "industry"
+            : null;
+      if (!level) return false;
+      return state.sectorSelection[level].length < uniqueSectorOptions(level).length;
+    }
+
+    function selectMiningExample() {
+      const mineriaOption = uniqueSectorOptions("pibr13").find((item) => normalizeSearchText(item.label) === "mineria");
+      if (!mineriaOption) return false;
+      const mineriaRows = rows.filter((row) => String(row.cod_PIBR13) === String(mineriaOption.value));
+      const mineriaIndustry = mineriaRows.length ? String(mineriaRows[0].cod_industria) : null;
+      const mineriaActivities = uniqueSectorOptions("activity", mineriaRows).map((item) => item.value);
+      state.sectorSelection.industry = mineriaIndustry ? [mineriaIndustry] : [];
+      state.sectorSelection.pibr13 = [String(mineriaOption.value)];
+      state.sectorSelection.activity = mineriaActivities;
+      return true;
+    }
+
+    function selectAntofagastaExample() {
+      const antofagastaRow = rows.find((row) => normalizeSearchText(row.nom_provincia) === "antofagasta");
+      if (!antofagastaRow) return false;
+      state.geoSelection.macrozone = [antofagastaRow.nom_macrozona];
+      state.geoSelection.region = [antofagastaRow.nom_region];
+      state.geoSelection.province = [antofagastaRow.nom_provincia];
+      return true;
+    }
+
+    function syncRelativeExampleForView(view = state.view) {
+      if (state.analysis !== "distribution" || state.unit !== "relative") return false;
+      let changed = false;
+
+      // El mapa y las barras requieren una selección de referencia; el
+      // heatmap compara cada celda visible con el referente nacional.
+      if (state.relativeExample === "mining" && view !== "geo") {
+        clearAllSector();
+        state.relativeExample = null;
+        changed = true;
+      }
+      if (state.relativeExample === "antofagasta" && view !== "sector") {
+        clearAllGeo();
+        state.relativeExample = null;
+        changed = true;
+      }
+
+      if (view === "geo" && !hasSpecificSectorSelection() && selectMiningExample()) {
+        state.relativeExample = "mining";
+        changed = true;
+      }
+      if (view === "sector" && !hasSpecificGeoSelection() && selectAntofagastaExample()) {
+        state.relativeExample = "antofagasta";
+        changed = true;
+      }
+
+      if (changed) updateFilterOptions();
+      return changed;
     }
 
     function drawChileMap(metricByProvince) {
       const values = Array.from(metricByProvince.values()).filter((v) => v > 0);
       const _geoTotal = values.reduce((a, b) => a + b, 0);
-      const _geoNearZeroOn = state.metric !== "productividad_laboral";
+      const _geoNearZeroOn = state.metric !== "productividad_laboral" && state.unit !== "relative";
       const _geoScaleVals = _geoNearZeroOn ? values.filter((v) => !window.NearZero.is(v, _geoTotal, window.NearZero.GEO_THR)) : values;
       const scale = buildWarmContinuousScale(_geoScaleVals.length ? _geoScaleVals : values);
       const colorForValue = scale?.colorForValue || (() => "#f3f5f8");
@@ -8739,15 +8807,20 @@ function selectionCountLabel(type, level, count) {
     }
 
     function renderMatrixView() {
-      const working = filterRows(getWorkingRows());
+      const referenceRows = getWorkingRows();
+      const working = filterRows(referenceRows);
       const matrixUnit = state.unit;
       const rowKeys = Array.from(new Map(working.map((d) => [d.geoGroup, d.geoOrder])).entries()).sort((a, b) => a[1] - b[1]).map(([key]) => key);
       const colKeys = Array.from(new Map(working.map((d) => [d.sectorGroup, d.sectorOrder])).entries()).sort((a, b) => a[1] - b[1]).map(([key]) => key);
-      const matrixMetricMaps = isDependencyAnalysis()
-        ? buildMatrixMetricMaps(working, dependencyOrientation(), matrixUnit)
+      const matrixMetricMaps = isDependencyAnalysis() || matrixUnit === "relative"
+        ? buildMatrixMetricMaps(
+            matrixUnit === "relative" && !isDependencyAnalysis() ? referenceRows : working,
+            isDependencyAnalysis() ? dependencyOrientation() : "geo",
+            matrixUnit
+          )
         : null;
       const filteredTotal = Math.max(1, metricSum(working));
-      const matrixMap = isDependencyAnalysis()
+      const matrixMap = isDependencyAnalysis() || matrixUnit === "relative"
         ? buildMatrixDisplayMap(rowKeys, colKeys, matrixMetricMaps.unitMap)
         : d3.rollup(
             working,
@@ -8764,7 +8837,7 @@ function selectionCountLabel(type, level, count) {
       const values = [];
       rowKeys.forEach((r) => colKeys.forEach((c) => values.push(matrixMap.get(r)?.get(c) || 0)));
       const _matTotal = values.reduce((a, b) => a + b, 0);
-      const _matNearZeroOn = state.metric !== "productividad_laboral";
+      const _matNearZeroOn = state.metric !== "productividad_laboral" && matrixUnit !== "relative";
       const _matScaleVals = _matNearZeroOn ? values.filter((v) => v > 0 && !window.NearZero.is(v, _matTotal, window.NearZero.MATRIX_THR)) : values.filter((v) => v > 0);
       const scale = buildWarmContinuousScale(_matScaleVals.length ? _matScaleVals : values);
       const colorForValue = scale?.colorForValue || (() => "#c9c9c9");
@@ -9317,6 +9390,7 @@ function selectionCountLabel(type, level, count) {
       normalizeAnalysisForView(view);
       const allowed = allowedUnitModes();
       if (!allowed.includes(state.unit)) state.unit = allowed[0];
+      syncRelativeExampleForView(view);
       tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.view === view));
       panels.forEach((panel) => panel.classList.toggle("active", panel.dataset.viewPanel === view));
       moduleTwoShell?.classList.toggle("matrix-compact", view === "matrix");
@@ -9330,7 +9404,10 @@ function selectionCountLabel(type, level, count) {
         requestAnimationFrame(alignGeoLegendToMap);
         setTimeout(alignGeoLegendToMap, 60);
         setTimeout(alignGeoLegendToMap, 220);
+      } else if (view === "sector") {
+        renderSectorView();
       }
+      renderSelectionSummary();
     }
 
     function applyLanguage(lang) {
@@ -9601,6 +9678,11 @@ function selectionCountLabel(type, level, count) {
       unitSelect.addEventListener("change", (e) => {
         state.unit = e.target.value;
         state.lastDistributionUnit = state.unit;
+        if (state.unit === "relative") {
+          syncRelativeExampleForView();
+        } else {
+          state.relativeExample = null;
+        }
         syncAnalysisUi();
         renderModule2();
       });
@@ -9680,6 +9762,7 @@ function selectionCountLabel(type, level, count) {
           } else {
             return;
           }
+          state.relativeExample = null;
           updateFilterOptions();
           renderModule2();
         });
@@ -9689,6 +9772,7 @@ function selectionCountLabel(type, level, count) {
         const group = input.dataset.filterGroup;
         const value = input.value;
         const isChecked = input.checked;
+        state.relativeExample = null;
 
         if (group === "geo-macrozone") {
           const previous = [...state.geoSelection.macrozone];
