@@ -19,10 +19,9 @@
   const T = {
     es: {
       title: "Impacto productivo nacional",
-      intro: "La elasticidad del PIB agregado frente a un aumento marginal de la productividad de un productor corresponde, en la literatura económica, a su Domar weight (Hulten, 1978). Las vistas muestran cómo se distribuye ese efecto a lo largo de la cadena de valor hasta la demanda final.",
+      producerIntro: "<b>Elasticidad que se muestra:</b> Cómo cambia el <b>PIB nacional</b> frente a un <b>aumento marginal de la productividad</b> de un territorio y/o sector. Esta elasticidad corresponde, en la literatura económica, al <b>Domar weight</b> (Hulten, 1978).",
       producerTitle: "Elige los productores",
-      producerTheory: "La <b>elasticidad del PIB agregado</b> frente a un <b>aumento marginal de la productividad</b> de un productor corresponde, en la literatura económica, a su <b>Domar weight</b> (Hulten, 1978).",
-      producerInstr: "Selecciona la <b>provincia</b> y el <b>sector</b> del productor para ver esa <b>elasticidad</b> y cómo se distribuye su efecto a lo largo de la <b>cadena de valor</b>, desde sus <b>clientes directos</b> hasta los productores alcanzados por <b>vínculos sucesivos</b> y la <b>demanda final</b>.",
+      producerInstr: "Selecciona el <b>territorio</b> y el <b>sector</b> del productor para ver esa <b>elasticidad</b> y cómo se distribuye su efecto a lo largo de la <b>cadena de valor</b>, desde sus <b>clientes directos</b> hasta los productores alcanzados por <b>vínculos sucesivos</b> y la <b>demanda final</b>.",
       profileTitle: "Impacto en el PIB nacional",
       profileScenario: (producer) => `Ante un aumento de productividad de <b>1%</b> en ${producer}, el PIB nacional varía en:`,
       componentInstr: "Elige qué parte del impacto del productor quieres visualizar.",
@@ -33,7 +32,7 @@
       detail: "Ajusta el detalle",
       detailInstr: "Escoge con qué nivel de agregación territorial y sectorial se muestra el impacto en el mapa.",
       aggGeoSub: "Territorio", aggSecSub: "Sector",
-      producer: "Productor de referencia", location: "Provincia", sector: "Sector",       locPh: "Escriba o elija una provincia…", secPh: "Escriba o elija un sector…",
+      producer: "Productor de referencia", location: "Territorio", sector: "Sector",       locPh: "Escriba o elija un territorio…", secPh: "Escriba o elija un sector…",
       composition: "Así se descompone ese impacto nacional",
       own: "Componente propio", direct: "Exposición directa", indirect: "Exposición indirecta", total: "Impacto total",
       viz: "Visualización", aggGeo: "Nivel de agregación · Territorio", aggSec: "Nivel de agregación · Sector",
@@ -63,10 +62,9 @@
     },
     en: {
       title: "National productive impact",
-      intro: "In the economics literature, the elasticity of aggregate GDP to a marginal productivity increase in a producer is its Domar weight (Hulten, 1978). The views show how that effect is distributed along the value chain to final demand.",
+      producerIntro: "<b>Displayed elasticity:</b> How <b>national GDP</b> changes in response to a <b>marginal productivity increase</b> in a territory and/or sector. In the economics literature, this elasticity is the <b>Domar weight</b> (Hulten, 1978).",
       producerTitle: "Choose the producers",
-      producerTheory: "In the economics literature, the <b>elasticity of aggregate GDP</b> to a <b>marginal productivity increase</b> in a producer is its <b>Domar weight</b> (Hulten, 1978).",
-      producerInstr: "Select the producer's <b>province</b> and <b>sector</b> to see that <b>elasticity</b> and how its effect is distributed along the <b>value chain</b>, from <b>direct customers</b> to producers reached through <b>successive links</b> and <b>final demand</b>.",
+      producerInstr: "Select the producer's <b>territory</b> and <b>sector</b> to see that <b>elasticity</b> and how its effect is distributed along the <b>value chain</b>, from <b>direct customers</b> to producers reached through <b>successive links</b> and <b>final demand</b>.",
       profileTitle: "Impact on national GDP",
       profileScenario: (producer) => `Following a <b>1%</b> productivity increase in ${producer}, national GDP changes by:`,
       componentInstr: "Choose which part of the producer's impact you want to visualize.",
@@ -77,7 +75,7 @@
       detail: "Adjust the detail",
       detailInstr: "Choose the territorial and sectoral aggregation level at which the impact appears on the map.",
       aggGeoSub: "Territory", aggSecSub: "Sector",
-      producer: "Reference producer", location: "Province", sector: "Sector",       locPh: "Type or choose a province…", secPh: "Type or choose a sector…",
+      producer: "Reference producer", location: "Territory", sector: "Sector",       locPh: "Type or choose a territory…", secPh: "Type or choose a sector…",
       composition: "This is how that national impact breaks down",
       own: "Own component", direct: "Direct exposure", indirect: "Indirect exposure", total: "Total impact",
       viz: "Visualization", aggGeo: "Aggregation level · Territory", aggSec: "Aggregation level · Sector",
@@ -560,9 +558,9 @@
             <button class="module-controls-toggle panel-controls-toggle panel-close-btn" type="button" aria-expanded="true" aria-controls="module-4-controls" aria-label="${isEs() ? "Ocultar controles" : "Hide controls"}" title="${isEs() ? "Ocultar controles" : "Hide controls"}">×</button>
           </div>
           <div class="m4d-scroll">
+          <p class="m4d-panel-intro">${k.producerIntro}</p>
           <div class="m4d-cgroup">
             <div class="m4d-clabel">1 · ${k.producerTitle}</div>
-            <p class="m4d-instruction m4d-producer-theory">${k.producerTheory}</p>
             <p class="m4d-instruction">${k.producerInstr}</p>
             <label class="m4d-field"><span>${k.location}</span>
               <div class="ts-mount" id="m4d-geo-select"></div>

@@ -131,6 +131,59 @@ async function run() {
       if (viewport.name === "desktop") {
         const spread = Math.max(...state.shellHeights) - Math.min(...state.shellHeights);
         assert(spread <= 2, `desktop: alturas M2/M3/M4 no coinciden (${state.shellHeights.join("/")})`);
+
+        await page.locator("#module-4").scrollIntoViewIfNeeded();
+        await page.waitForTimeout(250);
+        const producerChange = await page.evaluate(async () => {
+          const selectedTerritory = document.getElementById("m4d-sel-prov");
+          const selectedSector = document.getElementById("m4d-sel-sec");
+          const impact = document.getElementById("m4d-impact");
+          const map = document.getElementById("m4d-map");
+          const tabs = [...document.querySelectorAll("#module-4 .m4d-tab")];
+          const bars = document.getElementById("m4d-bars");
+          const heatmap = document.getElementById("m4d-hm");
+          if (!selectedTerritory || !selectedSector || !impact || !map || !bars || !heatmap || tabs.length !== 3) return null;
+
+          const renderView = async (index, element) => {
+            tabs[index].click();
+            await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+            return element.innerHTML;
+          };
+
+          const before = {
+            territory: selectedTerritory.value,
+            sector: selectedSector.value,
+            impact: impact.textContent.trim(),
+            map: map.innerHTML,
+            bars: await renderView(1, bars),
+            heatmap: await renderView(2, heatmap),
+          };
+          tabs[0].click();
+          await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+          selectedTerritory.value = "Antofagasta";
+          selectedTerritory.dispatchEvent(new Event("change", { bubbles: true }));
+          await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+          return {
+            before,
+            after: {
+              territory: selectedTerritory.value,
+              sector: selectedSector.value,
+              impact: impact.textContent.trim(),
+              map: map.innerHTML,
+              bars: await renderView(1, bars),
+              heatmap: await renderView(2, heatmap),
+            },
+          };
+        });
+        assert(producerChange, "desktop: no se encontraron los controles de productor M4");
+        if (producerChange) {
+          assert(producerChange.after.territory === "Antofagasta", "desktop: M4 no acepta cambiar el territorio");
+          assert(producerChange.after.sector === producerChange.before.sector, "desktop: M4 cambió el sector al seleccionar un territorio");
+          assert(producerChange.after.impact !== producerChange.before.impact, "desktop: M4 no actualiza la elasticidad al cambiar territorio");
+          assert(producerChange.after.map !== producerChange.before.map, "desktop: M4 no actualiza el mapa al cambiar territorio");
+          assert(producerChange.after.bars !== producerChange.before.bars, "desktop: M4 no actualiza las barras al cambiar territorio");
+          assert(producerChange.after.heatmap !== producerChange.before.heatmap, "desktop: M4 no actualiza el heatmap al cambiar territorio");
+        }
       } else {
         const english = page.locator('.site-header [data-lang="en"]');
         assert(await english.count() === 1, "mobile: selector EN no es unico");

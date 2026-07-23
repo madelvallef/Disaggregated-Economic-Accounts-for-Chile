@@ -2595,10 +2595,10 @@
 
     .m5-card:hover { filter: brightness(1.12); transform: translateX(2px); }
 
-    .m5-card-green  { background: linear-gradient(90deg,#16452e88,rgba(255,255,255,0.02)); border-left: 3px solid #1e5c3a; }
-    .m5-card-teal   { background: linear-gradient(90deg,#083840aa,rgba(255,255,255,0.02)); border-left: 3px solid #0b4f55; }
-    .m5-card-purple { background: linear-gradient(90deg,#431f6688,rgba(255,255,255,0.02)); border-left: 3px solid #5c2d8a; }
-    .m5-card-blue   { background: linear-gradient(90deg,#19166688,rgba(255,255,255,0.02)); border-left: 3px solid #221e7c; }
+    .m5-card-green  { background: linear-gradient(90deg,#16452e88,rgba(255,255,255,0.02)); }
+    .m5-card-teal   { background: linear-gradient(90deg,#083840aa,rgba(255,255,255,0.02)); }
+    .m5-card-purple { background: linear-gradient(90deg,#431f6688,rgba(255,255,255,0.02)); }
+    .m5-card-blue   { background: linear-gradient(90deg,#19166688,rgba(255,255,255,0.02)); }
 
     .m5-card-num {
       display: flex;
@@ -3673,7 +3673,7 @@
     .m3-panel { --p2c:#0b4f55; --p2bg:rgba(11,79,85,0.05); --p2bd:rgba(11,79,85,0.30); --p2dv:rgba(11,79,85,0.16); --p2lb:rgba(11,79,85,0.80); --p2bt:rgba(11,79,85,0.70); }
     /* Secciones como fichas */
     .m2-panel .m3-sec, .m3-panel .m3-sec {
-      background: var(--p2bg); border-left: 3px solid var(--p2c); border-bottom: none;
+      background: var(--p2bg); border: 1px solid var(--p2bd); border-bottom: 1px solid var(--p2bd);
       border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; }
     .m2-panel .m3-subsec, .m3-panel .m3-subsec {
       margin-top: 8px;
@@ -4466,7 +4466,7 @@
     padding: 9px 11px; border: 1px solid rgba(92,45,138,0.30); border-radius: 7px; background: #fff; cursor: pointer; }
   #module-4 .m4d-select:focus { outline: 2px solid rgba(92,45,138,.35); border-color: var(--m4-color); }
 
-  #module-4 .m4d-kpi { background: #fcfaff; border: 1px solid #eee9f2; border-left: 3px solid var(--m4-color); border-radius: 8px; padding: 13px; display: flex; flex-direction: column; gap: 0; }
+  #module-4 .m4d-kpi { background: #fcfaff; border: 1px solid #eee9f2; border-top: 2px solid var(--m4-color); border-radius: 8px; padding: 13px; display: flex; flex-direction: column; gap: 0; }
   #module-4 .m4d-kpi-top { display: block; margin: 0 0 15px; }
   #module-4 .m4d-kpi-lbl { display: none; }
   #module-4 .m4d-kpi-val { display: block; margin: 0; color: var(--m4-deep, #45206f); font-family: var(--font-data); font-size: 2.5rem; font-weight: 800; line-height: 1; text-align: center; }
@@ -4545,7 +4545,7 @@
   #module-4 .m4d-instruction { font-family: var(--font-ui); font-size: var(--control-copy-size); line-height: var(--control-copy-line-height); color: var(--corfo-muted); margin: 0 0 11px; }
   #module-4 .m4d-instruction:last-of-type { margin-bottom: 0; }
   #module-4 .m4d-instruction b { color: var(--m4-deep, #45206f); font-weight: 750; }
-  #module-4 .m4d-panel-intro { margin: 0 0 10px; padding: 10px 11px; border-left: 3px solid var(--m4-color); border-radius: 0 8px 8px 0; background: rgba(92,45,138,.05); color: var(--corfo-text); font-family: var(--font-ui); font-size: 0.67rem; line-height: 1.5; }
+  #module-4 .m4d-panel-intro { margin: 0 0 10px; padding: 10px 11px; border: 1px solid rgba(92,45,138,.18); border-top: 2px solid var(--m4-color); border-radius: 8px; background: rgba(92,45,138,.05); color: var(--corfo-text); font-family: var(--font-ui); font-size: 0.67rem; line-height: 1.5; }
   #module-4 .m4d-profile-scenario { margin: 9px 0 11px; color: #40374d; font-family: var(--font-ui); font-size: .76rem; line-height: 1.55; }
   #module-4 .m4d-profile-scenario b { color: var(--m4-deep, #45206f); font-weight: 800; }
   #module-4 .m3-q-card { cursor: pointer; }
@@ -4553,7 +4553,7 @@
   #module-4 .m3-q-card .m3-q-title { display: flex; align-items: center; gap: 6px; }
   #module-4 .m4d-kpi-title { display: block; margin: 0 0 8px; color: var(--m4-color); font-family: var(--font-data); font-size: .65rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
   #module-4 .m4d-sublbl { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--corfo-muted); opacity: 0.85; margin: 0 0 5px; }
-  #module-4 .m4d-unit-note { background: rgba(92,45,138,0.05); border-left: 3px solid var(--m4-color); border-radius: 8px; padding: 9px 11px; font-size: 0.62rem; line-height: 1.45; color: var(--corfo-muted); display: block; }
+  #module-4 .m4d-unit-note { background: rgba(92,45,138,0.05); border: 1px solid rgba(92,45,138,.18); border-top: 2px solid var(--m4-color); border-radius: 8px; padding: 9px 11px; font-size: 0.62rem; line-height: 1.45; color: var(--corfo-muted); display: block; }
   #module-4 .m4d-unit-note .ntag { font-weight: 800; text-transform: uppercase; font-size: 9px; letter-spacing: .06em; color: var(--m4-color); margin-right: 4px; }
   #module-4 .m3-q-card.active { border-color: var(--m4-color); background: rgba(92,45,138,0.06); }
   #module-4 .m3-q-card.active .m3-q-title { color: var(--m4-color); }
@@ -4570,6 +4570,7 @@
     border-radius: 14px !important;
     padding: 12px !important;
   }
+  .citation-reference { padding:18px 20px; border:1px solid rgba(229,145,42,.28); border-top:2px solid var(--ds-color-accent); border-radius:8px; background:#fff7ec; color:#5b4626; line-height:1.55; }
   #module-3 .geo-layout .map-stage,
   #module-3 .sector-layout .viz-shell,
   #module-3 .viz-shell.heatmap-shell {
@@ -4982,7 +4983,7 @@
   <p data-i18n-html="landingDesc" style="margin:0;max-width:66ch;font-size:1.02rem;line-height:1.65;color:var(--ds-color-muted)">Desagregación de la actividad económica a nivel sectorial y geográfico, consistente con las Cuentas Nacionales del Banco Central de Chile (BCCh) para el año 2022. Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), a partir de microdatos administrativos del Servicio de Impuestos Internos (SII), encuestas y fuentes globales de datos de comercio.</p>
   <div class="hero-cards">
     <a href="#explorar" class="hero-card primary">
-      <span data-site-i18n="homeExploreQuestion" style="font-weight:600;font-size:1.06rem;line-height:1.32;color:#fff">¿Cómo se distribuye la economía por sector y territorios?</span>
+      <span data-site-i18n="homeExploreQuestion" style="font-weight:600;font-size:1.06rem;line-height:1.32;color:#fff">¿Cómo se distribuye la economía por sector y territorio?</span>
       <span data-site-i18n="homeExploreAction" style="margin-top:auto;font-weight:800;font-size:.94rem;color:var(--ds-color-accent)">Explorar los datos →</span>
     </a>
     <a href="#datos" class="hero-card plain">
@@ -5226,7 +5227,7 @@
           </div>
           <div class="landing-card-body">
             <p class="landing-card-question" data-i18n="btn1Q">¿Dónde producen los sectores económicos?</p>
-            <p class="landing-card-desc" data-i18n="btn1Detail">Explora cómo se distribuye el PIB, empleo y ventas a través de sectores y provincias.</p>
+            <p class="landing-card-desc" data-i18n="btn1Detail">Explora cómo se distribuye el PIB, empleo y ventas a través de sectores y territorios.</p>
             <span class="landing-card-action" data-i18n="landingExplore">Explorar →</span>
           </div>
         </a>
@@ -5238,7 +5239,7 @@
           </div>
           <div class="landing-card-body">
             <p class="landing-card-question" data-i18n="btn2Q">¿Quiénes son los clientes y proveedores de cada territorio?</p>
-            <p class="landing-card-desc" data-i18n="btn2Detail">Identifica los principales socios comerciales de cada provincia-sector y qué tan relevantes son para ellos.</p>
+            <p class="landing-card-desc" data-i18n="btn2Detail">Identifica los principales socios comerciales de cada territorio-sector y qué tan relevantes son para ellos.</p>
             <span class="landing-card-action" data-i18n="landingExplore">Explorar →</span>
           </div>
         </a>
@@ -5282,7 +5283,7 @@
         </div>
       </div>
 
-      <h2 class="header-title module-header-title" data-i18n="module2HeaderTitle">Caracterización geográfica y sectorial de la actividad económica de Chile</h2>
+      <h2 class="header-title module-header-title" data-i18n="module2HeaderTitle">La Economía por Sector y Territorio</h2>
 
       <div class="header-actions">
         <a class="module-back-btn" href="#home">
@@ -6083,12 +6084,12 @@
         landingDesc: 'Desagregación de la actividad económica a nivel sectorial y geográfico, consistente con las Cuentas Nacionales del Banco Central de Chile (BCCh) para el año 2022. Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), a partir de microdatos administrativos del Servicio de Impuestos Internos (SII), encuestas y fuentes globales de datos de comercio.',
         citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.',
         citationLabel: "Metodología, construcción y aplicaciones — cita el paper",
-        btn1: "La Economía a través de sus sectores y sus territorios",
+        btn1: "La Economía por Sector y Territorio",
         btn1Q: "¿Dónde producen los sectores económicos?",
-        btn1Detail: "Explora cómo se distribuye el PIB, empleo y ventas a través de sectores y provincias.",
+        btn1Detail: "Explora cómo se distribuye el PIB, empleo y ventas a través de sectores y territorios.",
         btn2: "Geografía de las Cadenas de Valor",
         btn2Q: "¿Quiénes son los clientes y proveedores de cada territorio?",
-        btn2Detail: "Identifica los principales socios comerciales de cada provincia-sector y qué tan relevantes son para ellos.",
+        btn2Detail: "Identifica los principales socios comerciales de cada territorio-sector y qué tan relevantes son para ellos.",
         btn3: "Impacto Sectorial y Geográfico de la Productividad",
         btn3Q: "¿Cómo afectan cambios productivos a distintos sectores y provincias?",
         btn3Detail: "Explora cómo se distribuye sectorial y territorialmente el impacto de cambios productivos.",
@@ -6096,7 +6097,7 @@
         btn4Q: "Descarga los datos completos",
         btn4Detail: "Accede a los archivos CSV, XLSX y la documentación técnica para usar estos datos en tu propio análisis.",
         landingExplore: "Explorar →",
-        module2HeaderTitle: "La Economía a través de sus sectores y sus territorios",
+        module2HeaderTitle: "La Economía por Sector y Territorio",
         module3HeaderTitle: "Geografía de las Cadenas de Valor",
         module4HeaderTitle: "Impacto Sectorial y Geográfico de la Productividad",
         module5HeaderTitle: "Descarga de Datos",
@@ -6238,12 +6239,12 @@
         landingDesc: 'Disaggregation of economic activity at the sectoral and geographic level, consistent with the 2022 National Accounts of the Central Bank of Chile (BCCh). Produced by Huneeus &amp; Del Valle (2026) in a collaboration between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), using administrative microdata from the Chilean Internal Revenue Service (SII), surveys, and global trade data sources.',
         citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.',
         citationLabel: "Methodology, construction and applications — cite the paper",
-        btn1: "The Economy across Sectors and Territories",
+        btn1: "The Economy by Sector and Territory",
         btn1Q: "Where do economic sectors produce?",
-        btn1Detail: "Explore how GDP, employment and sales are distributed across sectors and provinces.",
+        btn1Detail: "Explore how GDP, employment and sales are distributed across sectors and territories.",
         btn2: "Geography of Value Chains",
         btn2Q: "Who are the main clients and suppliers of each territory?",
-        btn2Detail: "Identify the main trading partners of each province-sector and how relevant they are for them.",
+        btn2Detail: "Identify the main trading partners of each territory-sector and how relevant they are for them.",
         btn3: "Sectoral and Geographic Impact of Productivity",
         btn3Q: "How do productivity changes affect different sectors and provinces?",
         btn3Detail: "Explore how the impact of productivity changes is distributed sectorally and territorially.",
@@ -6251,7 +6252,7 @@
         btn4Q: "Download the complete dataset",
         btn4Detail: "Access CSV, XLSX files and technical documentation to use this data in your own analysis.",
         landingExplore: "Explore →",
-        module2HeaderTitle: "The Economy across Sectors and Territories",
+        module2HeaderTitle: "The Economy by Sector and Territory",
         module3HeaderTitle: "Geography of Value Chains",
         module4HeaderTitle: "Sectoral and Geographic Impact of Productivity",
         module5HeaderTitle: "Data Downloads",
@@ -12023,7 +12024,7 @@ function selectionCountLabel(type, level, count) {
     <h2 class="display" data-site-i18n="citationTitle">Citación</h2>
     <p data-site-i18n="citationLead" style="margin:0 auto 22px;max-width:62ch;color:var(--ds-color-muted);line-height:1.6">Para usar estos datos, cita el siguiente trabajo de investigación:</p>
     <div style="max-width:680px;margin:0 auto;text-align:left">
-      <div style="padding:18px 20px;border-left:3px solid var(--ds-color-accent);border-radius:0 8px 8px 0;background:#fff7ec;color:#5b4626;line-height:1.55">
+      <div class="citation-reference">
         <p style="margin:0;font-style:italic">Huneeus, F., &amp; Del Valle, M. (2026). The Geographic and Sectoral Impact of Productivity.</p>
       </div>
       <pre style="margin:16px 0 0;overflow:auto;padding:18px 20px;border-radius:8px;background:#101222;color:#f3f3f3;font:.82rem/1.55 'DM Mono',monospace">@unpublished{huneeus_delvalle_2026_productivity,
@@ -12116,7 +12117,7 @@ function selectionCountLabel(type, level, count) {
   window.CED_SITE_COPY = {
     es: {
       brand:"CED CORFO", navExplore:"Explorar", navData:"Datos", navResearch:"Trabajo de Investigación", navContact:"Contacto", mobileNavLabel:"Navegación principal", mobileNavOpen:"Abrir navegación", mobileNavClose:"Cerrar navegación",
-      homeTitle:"Cuentas Económicas Desagregadas para Chile", homeExploreQuestion:"¿Cómo se distribuye la economía por sector y territorios?", homeExploreAction:"Explorar los datos →", homeDataQuestion:"¿Quieres usar los datos para tu propio análisis?", homeDataAction:"Descarga los datos →", homeResearchQuestion:"¿Cómo se construyen y aplican estos datos?", homeResearchAction:"Leer el trabajo →", exploreLandingDesc:"Tres herramientas interactivas para recorrer la economía chilena por sus sectores y sus territorios.",
+      homeTitle:"Cuentas Económicas Desagregadas para Chile", homeExploreQuestion:"¿Cómo se distribuye la economía por sector y territorio?", homeExploreAction:"Explorar los datos →", homeDataQuestion:"¿Quieres usar los datos para tu propio análisis?", homeDataAction:"Descarga los datos →", homeResearchQuestion:"¿Cómo se construyen y aplican estos datos?", homeResearchAction:"Leer el trabajo →", exploreLandingDesc:"Tres herramientas interactivas para recorrer la economía chilena por sus sectores y sus territorios.",
       dataTitle:"Descarga los Datos", dataIntro:"Un objetivo central del proyecto de colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus & Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual, para la investigación y análisis de las políticas públicas.", dataCoverage:"Los datos se construyen para el año 2022, cubriendo las <strong style=\"color:var(--ds-color-text);font-weight:700\">56 provincias</strong> de Chile y la totalidad de los sectores, divididos en <strong style=\"color:var(--ds-color-text);font-weight:700\">46 sectores</strong>.",
       downloadFormTitle:"Completa tus datos para descargar", fieldFirstName:"Nombre", fieldLastName:"Apellido", fieldInstitutionType:"Tipo de institución", fieldInstitution:"Nombre de la institución", fieldEmail:"Correo electrónico", selectPrompt:"Selecciona una opción", institutionUniversity:"Universidad", institutionGovernment:"Gobierno", institutionCompany:"Empresa", institutionOther:"Otros", fieldDataUse:"Uso de los datos", useResearch:"Investigación", usePublicPolicy:"Políticas públicas", useConsulting:"Consultoría", fieldOtherUse:"Especifica el uso", downloadSubmit:"Descargar", downloadNote:"Usaremos estos datos únicamente para llevar estadísticas de uso y avisarte de actualizaciones importantes.",
       citationTitle:"Citación", citationLead:"Para usar estos datos, cita el siguiente trabajo de investigación:", researchTitle:"Trabajo de Investigación", openPdf:"Abrir PDF", workingPaper:"Documento de trabajo", researchAbstractLabel:"Resumen", researchAbstract:"Para comprender el impacto geográfico y sectorial de la productividad, construimos, hasta donde sabemos, la primera matriz insumo-producto desagregada geográficamente dentro de un país utilizando datos administrativos únicos armonizados con las cuentas nacionales. Usamos datos de Chile para calibrar un modelo cuantitativo de comercio de equilibrio general de frontera, con redes de producción, movilidad laboral, selección de empresas, comercio internacional y doméstico, congestión de factores fijos y difusión del conocimiento. Consideramos dos aplicaciones. Primero, estudiamos los efectos agregados de shocks locales de productividad. Mostramos que las interacciones ubicación-sector son cruciales: por separado, las ubicaciones y los sectores explican menos de la mitad de la dispersión de las elasticidades del PIB ante shocks de productividad específicos por ubicación-sector. Los encadenamientos insumo-producto específicos de cada geografía explican 17% de esa dispersión, principalmente por el papel de mercados pequeños e influyentes. Segundo, analizamos el cierre de una gran planta siderúrgica. Mostramos que los encadenamientos productivos geográficamente desagregados aumentan sustancialmente la propagación del cierre de la planta.", researchKeywordsLabel:"Palabras clave", researchKeywords:"Productividad, economía espacial, distribución geográfica, encadenamientos insumo-producto, comercio, movilidad laboral.", downloadPdf:"Descargar PDF", howToCite:"Cómo citar", teamTitle:"Equipo de Investigación", teamRoleSenior:"Economista senior", teamRoleAssistant:"Asistente de investigación",
