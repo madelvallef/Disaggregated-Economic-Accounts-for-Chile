@@ -13,3 +13,7 @@ M4 Panel Control - Version final.html
 m4-panel-control.html
 AGENTS.md
 CLAUDE.md
+
+# CSV espaciales crudos para la entrega TI; superan el limite de 100 MB de GitHub.
+downloads/*spatial_io_flows.csv
+downloads/*flujos_io_espaciales.csv

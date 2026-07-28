@@ -19,11 +19,11 @@
   const T = {
     es: {
       title: "Impacto productivo nacional",
-      producerIntro: "<b>Elasticidad que se muestra:</b> Cómo cambia el <b>PIB nacional</b> frente a un <b>aumento marginal de la productividad</b> de un territorio y/o sector. Esta elasticidad corresponde, en la literatura económica, al <b>Domar weight</b> (Hulten, 1978).",
+      producerIntro: "<p>El <b>Domar weight</b> resume la respuesta del <b>PIB nacional</b> ante un aumento marginal de la productividad de un productor (Hulten, 1978). Su valor corresponde a la elasticidad del PIB agregado asociada a ese productor.</p>",
       producerTitle: "Elige los productores",
-      producerInstr: "Selecciona el <b>territorio</b> y el <b>sector</b> del productor para ver esa <b>elasticidad</b> y cómo se distribuye su efecto a lo largo de la <b>cadena de valor</b>, desde sus <b>clientes directos</b> hasta los productores alcanzados por <b>vínculos sucesivos</b> y la <b>demanda final</b>.",
+      producerInstr: "Selecciona un <b>territorio</b> y un <b>sector</b> para definir el productor de referencia. Luego podrás ver esa <b>elasticidad</b> y cómo su impacto se distribuye entre <b>territorios</b>, <b>sectores</b> y combinaciones <b>territorio-sector</b> de la economía.",
       profileTitle: "Impacto en el PIB nacional",
-      profileScenario: (producer) => `Ante un aumento de productividad de <b>1%</b> en ${producer}, el PIB nacional varía en:`,
+      profileScenario: (producer) => `Ante un aumento de productividad de <b>1%</b> en ${producer}, el PIB nacional aumenta en:`,
       componentInstr: "Elige qué parte del impacto del productor quieres visualizar.",
       qTotal: "¿Cómo se distribuye el impacto completo?",
       qOwn: "¿Qué parte corresponde al componente propio?",
@@ -58,15 +58,17 @@
       infoTotal: "El efecto completo de un aumento de productividad en el productor seleccionado. Es la suma de los tres componentes y representa 100% de la descomposición.",
       infoOwn: "La parte del efecto asociada directamente al productor seleccionado.",
       infoDir: "La parte que llega a sus clientes directos en el primer paso de la cadena de valor.",
-      infoInd: "La parte que continúa hacia otros productores mediante vínculos sucesivos de la cadena de valor."
+      infoInd: "La parte que continúa hacia otros productores mediante vínculos sucesivos de la cadena de valor.",
+      nearZeroImpact: "El impacto no es cero: es positivo, pero tan pequeño frente al tamaño de la economía que se redondea a 0,000%.",
+      exactZeroImpact: "Esta combinación se muestra como 0,000% porque no registra una contribución positiva al PIB nacional en los datos seleccionados."
     },
     en: {
       title: "National productive impact",
-      producerIntro: "<b>Displayed elasticity:</b> How <b>national GDP</b> changes in response to a <b>marginal productivity increase</b> in a territory and/or sector. In the economics literature, this elasticity is the <b>Domar weight</b> (Hulten, 1978).",
+      producerIntro: "<p>The <b>Domar weight</b> summarizes the response of <b>national GDP</b> to a marginal productivity increase by a producer (Hulten, 1978). Its value is the aggregate GDP elasticity associated with that producer.</p>",
       producerTitle: "Choose the producers",
-      producerInstr: "Select the producer's <b>territory</b> and <b>sector</b> to see that <b>elasticity</b> and how its effect is distributed along the <b>value chain</b>, from <b>direct customers</b> to producers reached through <b>successive links</b> and <b>final demand</b>.",
+      producerInstr: "Select a <b>territory</b> and a <b>sector</b> to define the reference producer. You can then see that <b>elasticity</b> and how its impact is distributed across the economy's <b>territories</b>, <b>sectors</b>, and <b>territory-sector</b> combinations.",
       profileTitle: "Impact on national GDP",
-      profileScenario: (producer) => `Following a <b>1%</b> productivity increase in ${producer}, national GDP changes by:`,
+      profileScenario: (producer) => `Following a <b>1%</b> productivity increase in ${producer}, national GDP increases by:`,
       componentInstr: "Choose which part of the producer's impact you want to visualize.",
       qTotal: "How is the complete impact distributed?",
       qOwn: "What share corresponds to the own component?",
@@ -101,7 +103,9 @@
       infoTotal: "The complete effect of a productivity increase in the selected producer. It is the sum of the three components and represents 100% of the decomposition.",
       infoOwn: "The part of the effect associated directly with the selected producer.",
       infoDir: "The part that reaches its direct customers in the first step of the value chain.",
-      infoInd: "The part that continues to other producers through successive value-chain links."
+      infoInd: "The part that continues to other producers through successive value-chain links.",
+      nearZeroImpact: "The impact is not zero: it is positive, but so small relative to the size of the economy that it rounds to 0.000%.",
+      exactZeroImpact: "This combination is shown as 0.000% because it has no positive contribution to national GDP in the selected data."
     }
   };
   function isEs() { return state.lang === "es"; }
@@ -117,8 +121,14 @@
     return fmtPctNum(v) + "%";
   }
   function fmtScenarioPct(v) {
-    if (!(v > 0)) return "0%";
+    if (!(v > 0)) return isEs() ? "0,000%" : "0.000%";
     return v.toFixed(3).replace(".", isEs() ? "," : ".") + "%";
+  }
+  function scenarioState(v) {
+    const n = Number(v);
+    if (n > 0 && Number(n.toFixed(3)) === 0) return "below-precision";
+    if (n === 0) return "exact-zero";
+    return "normal";
   }
 
   Promise.resolve(window.spatialIoNetworkDataPromise || window.spatialIoNetworkData).then(nd => {
@@ -504,9 +514,18 @@
 
     // ── Header: Domar weight + composición ───────────────────────────────
     function renderHeader() {
-      const impact = fmtScenarioPct(E.lambda[st.j]);
+      const lambda = E.lambda[st.j];
+      const impact = fmtScenarioPct(lambda);
       el.profileScenario.innerHTML = t().profileScenario(escapeHtml(producerLabel()));
-      el.impactVal.textContent = impact;
+      const scenarioKind = scenarioState(lambda);
+      const markedZero = scenarioKind !== "normal";
+      const impactHelp = scenarioKind === "exact-zero" ? t().exactZeroImpact : t().nearZeroImpact;
+      el.impactVal.innerHTML = markedZero ? `${impact}<sup class="m4d-near-zero-mark" aria-hidden="true">*</sup>` : impact;
+      el.impactVal.dataset.nearZero = markedZero ? "1" : "0";
+      el.impactVal.dataset.nearZeroKind = scenarioKind;
+      el.impactVal.tabIndex = markedZero ? 0 : -1;
+      el.impactVal.setAttribute("aria-label", markedZero ? `${impact} ${impactHelp}` : impact);
+      el.impactVal.title = markedZero ? impactHelp : "";
       const sm = E.summary(st.dec);
       const k = t();
       const segs = [[k.own, sm.ownPct, "#b89cd6"], [k.direct, sm.directPct, "#7038a8"], [k.indirect, sm.indirectPct, "#3d1a63"]];
@@ -558,7 +577,7 @@
             <button class="module-controls-toggle panel-controls-toggle panel-close-btn" type="button" aria-expanded="true" aria-controls="module-4-controls" aria-label="${isEs() ? "Ocultar controles" : "Hide controls"}" title="${isEs() ? "Ocultar controles" : "Hide controls"}">×</button>
           </div>
           <div class="m4d-scroll">
-          <p class="m4d-panel-intro">${k.producerIntro}</p>
+          <div class="m4d-panel-intro">${k.producerIntro}</div>
           <div class="m4d-cgroup">
             <div class="m4d-clabel">1 · ${k.producerTitle}</div>
             <p class="m4d-instruction">${k.producerInstr}</p>
@@ -671,6 +690,22 @@
         method: shell.querySelector("#m4d-method")
       };
 
+      const showNearZeroImpact = () => {
+        if (el.impactVal.dataset.nearZero !== "1") return;
+        const rect = el.impactVal.getBoundingClientRect();
+        const help = el.impactVal.dataset.nearZeroKind === "exact-zero" ? t().exactZeroImpact : t().nearZeroImpact;
+        showHC(`<div class="m4d-hc-info">${help}</div>`, rect.right, rect.top + rect.height / 2);
+      };
+      const hideNearZeroImpact = () => {
+        if (el.impactVal.dataset.nearZero !== "1") return;
+        hideHC();
+      };
+      el.impactVal.addEventListener("mouseenter", showNearZeroImpact);
+      el.impactVal.addEventListener("mouseleave", hideNearZeroImpact);
+      el.impactVal.addEventListener("focus", showNearZeroImpact);
+      el.impactVal.addEventListener("blur", hideNearZeroImpact);
+      el.impactVal.addEventListener("click", showNearZeroImpact);
+
       // default selects = productor de mayor Domar weight
       const g = E.nodeGrid[st.j];
       el.selProv.value = g.loc.nom_provincia;
@@ -693,7 +728,14 @@
               el.selProv.value = value;
               el.selProv.dispatchEvent(new Event("change", { bubbles: true }));
             },
-            i18n: () => ({ search: k.locPh, noResults: isEs() ? "Sin resultados" : "No results" }),
+            selectableLevels: ["province"],
+            i18n: () => ({
+              search: k.locPh,
+              singleHint: isEs()
+                ? "Selecciona una provincia individual. Macrozona y región sólo organizan la búsqueda."
+                : "Select one individual province. Macrozone and region only organize the search.",
+              noResults: isEs() ? "Sin resultados" : "No results"
+            }),
           })
         : null;
       m4TreeSelectGeo?.setValue(g.loc.nom_provincia);
@@ -707,7 +749,14 @@
               el.selSec.value = label;
               el.selSec.dispatchEvent(new Event("change", { bubbles: true }));
             },
-            i18n: () => ({ search: k.secPh, noResults: isEs() ? "Sin resultados" : "No results" }),
+            selectableLevels: ["activity"],
+            i18n: () => ({
+              search: k.secPh,
+              singleHint: isEs()
+                ? "Selecciona una actividad individual. Industria y sector sólo organizan la búsqueda."
+                : "Select one individual activity. Industry and sector only organize the search.",
+              noResults: isEs() ? "Sin resultados" : "No results"
+            }),
           })
         : null;
       m4TreeSelectSector?.setValue(E.secLabel("activity", E.activityList[g.col]));

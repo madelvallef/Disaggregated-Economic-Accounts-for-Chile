@@ -52,6 +52,7 @@
       onSelect = null,
       onAfterToggle = null,
       showActions = true,
+      selectableLevels = null,
       i18n = () => ({}),
     } = opts;
 
@@ -71,6 +72,7 @@
           <input type="search" class="ts-search" autocomplete="off" spellcheck="false">
           <div class="ts-actions"></div>
         </div>
+        <div class="ts-single-hint" hidden></div>
         <div class="ts-tree" role="tree"></div>
         <div class="ts-empty" hidden></div>
       </div>
@@ -83,6 +85,7 @@
     const pop = root.querySelector(".ts-pop");
     const searchInput = root.querySelector(".ts-search");
     const actionsEl = root.querySelector(".ts-actions");
+    const singleHintEl = root.querySelector(".ts-single-hint");
     const treeEl = root.querySelector(".ts-tree");
     const emptyEl = root.querySelector(".ts-empty");
 
@@ -97,6 +100,10 @@
       return groupPrefix ? `${groupPrefix}-${level}` : level;
     }
 
+    function canSelect(level) {
+      return !selectableLevels || selectableLevels.includes(level);
+    }
+
     function renderNodeHtml(node, level, depth) {
       const levelKey = levels[level];
       const hasKids = node.children && node.children.length > 0;
@@ -106,7 +113,9 @@
              <input type="checkbox" data-filter-group="${escapeHtml(group)}" value="${escapeHtml(String(node.value))}">
              <span class="ts-lbl">${escapeHtml(node.label)}</span>
            </label>`
-        : `<button type="button" class="ts-opt" data-ts-level="${escapeHtml(levelKey)}" data-ts-value="${escapeHtml(String(node.value))}" data-ts-label="${escapeHtml(node.label)}">${escapeHtml(node.label)}</button>`;
+        : canSelect(levelKey)
+          ? `<button type="button" class="ts-opt" data-ts-level="${escapeHtml(levelKey)}" data-ts-value="${escapeHtml(String(node.value))}" data-ts-label="${escapeHtml(node.label)}">${escapeHtml(node.label)}</button>`
+          : `<span class="ts-group-label" aria-disabled="true">${escapeHtml(node.label)}</span>`;
       const toggleBtn = hasKids
         ? `<button type="button" class="ts-tog" tabindex="-1" aria-expanded="false"><svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></button>`
         : `<span class="ts-tog ts-tog-spacer"></span>`;
@@ -183,11 +192,11 @@
       let anyVisible = false;
       if (!term) {
         treeEl.querySelectorAll(".ts-node").forEach((el) => { el.hidden = false; });
-        treeEl.querySelectorAll(".ts-lbl, .ts-opt").forEach((el) => { el.innerHTML = escapeHtml(el.textContent); });
+          treeEl.querySelectorAll(".ts-lbl, .ts-opt, .ts-group-label").forEach((el) => { el.innerHTML = escapeHtml(el.textContent); });
         anyVisible = true;
       } else {
         const matchCache = new Map();
-        const selfMatches = (el) => normalize(el.dataset.tsNodeValue + " " + (el.querySelector(":scope > .ts-row .ts-lbl, :scope > .ts-row .ts-opt")?.textContent || "")).includes(term);
+          const selfMatches = (el) => normalize(el.dataset.tsNodeValue + " " + (el.querySelector(":scope > .ts-row .ts-lbl, :scope > .ts-row .ts-opt, :scope > .ts-row .ts-group-label")?.textContent || "")).includes(term);
         const descendantMatches = (el) => {
           if (matchCache.has(el)) return matchCache.get(el);
           let found = selfMatches(el);
@@ -213,7 +222,7 @@
             }
           }
         });
-        treeEl.querySelectorAll(".ts-lbl, .ts-opt").forEach((el) => {
+        treeEl.querySelectorAll(".ts-lbl, .ts-opt, .ts-group-label").forEach((el) => {
           const raw = el.textContent;
           if (!normalize(raw).includes(term)) { el.innerHTML = escapeHtml(raw); return; }
           const idx = normalize(raw).indexOf(term);
@@ -235,6 +244,11 @@
         const clearBtn = actionsEl.querySelector('[data-ts-act="clear"]');
         if (allBtn) allBtn.textContent = t.all || "Todos";
         if (clearBtn) clearBtn.textContent = t.clear || "Limpiar";
+        singleHintEl.hidden = true;
+      } else {
+        const hint = t.singleHint || "";
+        singleHintEl.textContent = hint;
+        singleHintEl.hidden = !hint;
       }
       summaryEl.textContent = labelSummary();
     }

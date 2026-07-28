@@ -2006,6 +2006,13 @@
     .ts-tools { display: flex; align-items: center; gap: 6px; padding: 8px; border-bottom: 1px solid rgba(34,30,124,0.08); flex: 0 0 auto; }
     .ts-search { flex: 1; min-width: 0; border: 1px solid rgba(34,30,124,0.16); border-radius: 6px; padding: 5px 8px; font: inherit; font-size: 0.72rem; color: var(--corfo-text); }
     .ts-search:focus { outline: none; border-color: var(--corfo-blue); }
+    .ts-single-hint {
+      padding: 7px 9px 6px;
+      border-bottom: 1px solid rgba(34,30,124,0.08);
+      color: var(--corfo-muted);
+      font-size: 0.64rem;
+      line-height: 1.35;
+    }
     .ts-actions { display: flex; gap: 4px; flex: 0 0 auto; }
     .ts-act {
       font-family: var(--font-ui) !important; font-weight: 800; font-size: 0.6rem;
@@ -2031,6 +2038,7 @@
     .ts-lbl { font-size: 0.71rem; color: var(--corfo-text); line-height: 1.2; white-space: normal; }
     .ts-opt { flex: 1; min-width: 0; text-align: left; background: none; border: none; padding: 5px 4px; font-size: 0.71rem; color: var(--corfo-text); cursor: pointer; border-radius: 4px; font-family: inherit; }
     .ts-opt:hover { background: rgba(34,30,124,0.06); }
+    .ts-group-label { flex: 1; min-width: 0; padding: 5px 4px; font-size: 0.71rem; font-weight: 700; color: var(--corfo-muted); line-height: 1.2; }
     .ts-children { display: flex; flex-direction: column; border-left: 1.5px solid rgba(34,30,124,0.10); margin-left: 8px; }
     .ts-children[hidden] { display: none; }
     .ts-hit { background: rgba(255, 214, 92, 0.55); border-radius: 2px; padding: 0 1px; }
@@ -4546,12 +4554,16 @@
   #module-4 .m4d-instruction:last-of-type { margin-bottom: 0; }
   #module-4 .m4d-instruction b { color: var(--m4-deep, #45206f); font-weight: 750; }
   #module-4 .m4d-panel-intro { margin: 0 0 10px; padding: 10px 11px; border: 1px solid rgba(92,45,138,.18); border-top: 2px solid var(--m4-color); border-radius: 8px; background: rgba(92,45,138,.05); color: var(--corfo-text); font-family: var(--font-ui); font-size: 0.67rem; line-height: 1.5; }
+  #module-4 .m4d-panel-intro p { margin: 0; }
+  #module-4 .m4d-panel-intro p + p { margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(92,45,138,.13); }
   #module-4 .m4d-profile-scenario { margin: 9px 0 11px; color: #40374d; font-family: var(--font-ui); font-size: .76rem; line-height: 1.55; }
   #module-4 .m4d-profile-scenario b { color: var(--m4-deep, #45206f); font-weight: 800; }
   #module-4 .m3-q-card { cursor: pointer; }
   #module-4 .m3-q-card:focus-visible { outline: 2px solid rgba(92,45,138,.42); outline-offset: 2px; }
   #module-4 .m3-q-card .m3-q-title { display: flex; align-items: center; gap: 6px; }
   #module-4 .m4d-kpi-title { display: block; margin: 0 0 8px; color: var(--m4-color); font-family: var(--font-data); font-size: .65rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+  #module-4 .m4d-near-zero-mark { margin-left: 2px; color: var(--m4-color); font-family: var(--font-ui); font-size: .55em; vertical-align: super; }
+  #module-4 .m4d-kpi-val[data-near-zero="1"] { cursor: help; }
   #module-4 .m4d-sublbl { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--corfo-muted); opacity: 0.85; margin: 0 0 5px; }
   #module-4 .m4d-unit-note { background: rgba(92,45,138,0.05); border: 1px solid rgba(92,45,138,.18); border-top: 2px solid var(--m4-color); border-radius: 8px; padding: 9px 11px; font-size: 0.62rem; line-height: 1.45; color: var(--corfo-muted); display: block; }
   #module-4 .m4d-unit-note .ntag { font-weight: 800; text-transform: uppercase; font-size: 9px; letter-spacing: .06em; color: var(--m4-color); margin-right: 4px; }
@@ -4968,6 +4980,7 @@
     <a href="#datos" data-site-i18n="navData">Datos</a>
     <a href="#research-paper" data-site-i18n="navResearch">Trabajo de Investigación</a>
     <a href="#contacto" data-site-i18n="navContact">Contacto</a>
+    <a href="#otros-esfuerzos" data-site-i18n="navOtherEfforts">Otros Esfuerzos</a>
   </nav>
   <div class="header-actions">
     <span class="lang"><button class="on" data-lang="es">ES</button><button class="off" data-lang="en">EN</button></span>
@@ -5881,7 +5894,7 @@
   <script src="vendor/html2canvas.min.js"></script>
   <script src="vendor/jspdf.umd.min.js"></script>
   <script src="web_materiales/data/module2_distribution.js"></script>
-  <script src="web_materiales/js/tree-select.js?v=1"></script>
+  <script src="web_materiales/js/tree-select.js?v=2"></script>
   <script src="web_materiales/data/spatial_io_flows_data.js?v=2"></script>
   <script src="web_materiales/data/spatial_io_network_data.js?v=2"></script>
   <script id="__near-zero-kit">
@@ -10414,9 +10427,13 @@ function selectionCountLabel(type, level, count) {
       function panelOf(sec) {
         return document.querySelector('#' + sec + ' .np-panel, #' + sec + ' .m4d-controls');
       }
-      function closeDrawer() {
-        document.querySelectorAll('.np-panel.is-drawer-open, .m4d-controls.is-drawer-open')
-          .forEach(function (p) { p.classList.remove('is-drawer-open'); });
+  function closeDrawer() {
+    document.querySelectorAll('.np-panel.is-drawer-open, .m4d-controls.is-drawer-open')
+          .forEach(function (p) {
+            p.classList.remove('is-drawer-open');
+            var owner = p.closest('.module-section');
+            if (owner) owner.classList.remove('mobile-drawer-active');
+          });
         backdrop.classList.remove('is-active');
         drawerClose.classList.remove('is-active');
       }
@@ -10425,6 +10442,8 @@ function selectionCountLabel(type, level, count) {
         var p = panelOf(currentSec);
         if (!p) return;
         p.classList.add('is-drawer-open');
+        var owner = p.closest('.module-section');
+        if (owner) owner.classList.add('mobile-drawer-active');
         backdrop.classList.add('is-active');
         drawerClose.classList.add('is-active');
       }
@@ -10615,9 +10634,28 @@ function selectionCountLabel(type, level, count) {
         background: rgba(0, 0, 0, .07); color: #333;
         font-size: 21px; line-height: 1;
         display: none !important; align-items: center; justify-content: center;
-        z-index: 121;
+        z-index: 140;
       }
       .mob-drawer-close.is-active { display: flex !important; }
+      .explore-inline .module-section.mobile-drawer-active {
+        position: relative !important;
+        z-index: 130 !important;
+      }
+      #module-2 .np-panel:not(.is-drawer-open),
+      #module-3 .np-panel:not(.is-drawer-open),
+      #module-4 .m4d-controls:not(.is-drawer-open) {
+        pointer-events: none !important;
+        visibility: hidden !important;
+      }
+      #module-2 .np-panel.is-drawer-open,
+      #module-3 .np-panel.is-drawer-open,
+      #module-4 .m4d-controls.is-drawer-open {
+        pointer-events: auto !important;
+        visibility: visible !important;
+        touch-action: pan-y;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+      }
       .mob-drawer-backdrop {
         position: fixed; inset: 0;
         background: rgba(15, 14, 40, .44);
@@ -11937,6 +11975,30 @@ function selectionCountLabel(type, level, count) {
   @media (max-width:820px){.explore-inline .panel-close-btn{width:34px;min-width:34px;height:34px;min-height:34px}}
   .explore-inline .m3-q-sub .m3-q-ask{display:block;margin-top:3px}
   .explore-inline .module-tab,.explore-inline #module-4 .m4d-tab{justify-content:center}
+  .other-efforts-wrap { max-width: 860px; }
+  .other-efforts-wrap > .display { text-align: center; }
+  .other-efforts-wrap > p { max-width: 62ch; margin: 0 auto 32px; text-align: center; color: var(--ds-color-muted); font-size: 1.05rem; line-height: 1.65; }
+  .other-efforts-links { border-top: 1.5px solid var(--ds-color-brand); width: min(840px, 100%); margin: 0 auto; }
+  .other-efforts-links-head,
+  .other-effort-link { display: grid; grid-template-columns: 500px minmax(200px, 1fr); align-items: center; gap: 0; }
+  .other-efforts-links-head { padding: 9px 0; border-bottom: 1px solid var(--ds-color-line); }
+  .other-efforts-links-head span { font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: rgba(34,30,124,.5); }
+  .other-effort-link { position: relative; padding: 20px 0; border-bottom: 1px solid var(--ds-color-line); color: inherit; text-decoration: none; transition: background 160ms ease; }
+  .other-effort-link:hover, .other-effort-link:focus-visible { background: rgba(34,30,124,.035); outline: none; }
+  .other-effort-link::before { content: ""; position: absolute; left: -18px; top: 0; bottom: 0; width: 2px; background: var(--ds-color-accent); transform: scaleY(0); transition: transform 180ms ease; }
+  .other-effort-link:hover::before, .other-effort-link:focus-visible::before { transform: scaleY(1); }
+  .other-effort-name { font-size: 1rem; font-weight: 700; color: var(--ds-color-brand); line-height: 1.3; }
+  .other-effort-url { font-size: .78rem; color: var(--ds-color-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .other-efforts-links-head span, .other-effort-link > div { padding-left: 28px; }
+  .other-efforts-links-head span:first-child, .other-effort-link > div:first-child { padding-left: 0; }
+  .other-efforts-links-head span:nth-child(2), .other-effort-link > div:nth-child(2) { border-left: 1px solid var(--ds-color-line); margin-left: 28px; align-self: stretch; display: flex; align-items: center; }
+  @media (max-width: 760px) {
+    .other-efforts-links-head { display: none; }
+    .other-effort-link { grid-template-columns: 1fr; gap: 8px; padding: 18px 0; }
+    .other-effort-link > div { padding-left: 0; }
+    .other-effort-link > div:nth-child(2) { border-left: none; margin-left: 0; }
+  }
+  @media (max-width: 560px) { .other-efforts-wrap > p { font-size: .98rem; } }
   .registry-card{margin:40px auto 0;max-width:700px;text-align:left;background:#fff;border:1px solid var(--ds-color-line);border-radius:8px;box-shadow:0 22px 54px rgba(34,30,124,.10);padding:34px 36px 30px}
   .registry-eyebrow{margin:0 0 20px;font:800 .72rem var(--ds-font-data);letter-spacing:.14em;text-transform:uppercase;color:var(--ds-color-brand)}
   .registry-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
@@ -12098,6 +12160,25 @@ function selectionCountLabel(type, level, count) {
   </div>
 </section>
 
+<!-- ============ OTROS ESFUERZOS ============ -->
+<section id="otros-esfuerzos" class="sec-pad">
+  <div class="wrap other-efforts-wrap">
+    <h2 class="display" data-site-i18n="otherEffortsTitle">Otros Esfuerzos</h2>
+    <p data-site-i18n="otherEffortsLead">Este trabajo se enmarca en un esfuerzo mundial por construir y medir cuentas económicas desagregadas. Entre otras iniciativas, puedes conocer:</p>
+    <nav class="other-efforts-links" aria-label="Iniciativas relacionadas">
+      <div class="other-efforts-links-head"><span data-site-i18n="otherEffortsColInitiative">Iniciativa</span><span data-site-i18n="otherEffortsColSource">Fuente</span></div>
+      <a class="other-effort-link" href="https://www.disaggregatedaccounts.com/" target="_blank" rel="noopener">
+        <div><span class="other-effort-name" data-site-i18n="otherEffortsDisaggregated">Cuentas Económicas Desagregadas de Dinamarca</span></div>
+        <div class="other-effort-url">disaggregatedaccounts.com</div>
+      </a>
+      <a class="other-effort-link" href="https://www.oecd.org/en/data/datasets/inter-country-input-output-tables.html" target="_blank" rel="noopener">
+        <div><span class="other-effort-name" data-site-i18n="otherEffortsOecd">Tablas de Insumo-Producto Interpaíses</span></div>
+        <div class="other-effort-url">oecd.org</div>
+      </a>
+    </nav>
+  </div>
+</section>
+
 <!-- ============ ACKNOWLEDGEMENTS ============ -->
 <section id="acknowledgements" class="sec-pad">
   <div class="wrap" style="max-width:1120px">
@@ -12116,21 +12197,21 @@ function selectionCountLabel(type, level, count) {
 <script>
   window.CED_SITE_COPY = {
     es: {
-      brand:"CED CORFO", navExplore:"Explorar", navData:"Datos", navResearch:"Trabajo de Investigación", navContact:"Contacto", mobileNavLabel:"Navegación principal", mobileNavOpen:"Abrir navegación", mobileNavClose:"Cerrar navegación",
+      brand:"CED CORFO", navExplore:"Explorar", navData:"Datos", navResearch:"Trabajo de Investigación", navContact:"Contacto", navOtherEfforts:"Otros Esfuerzos", mobileNavLabel:"Navegación principal", mobileNavOpen:"Abrir navegación", mobileNavClose:"Cerrar navegación",
       homeTitle:"Cuentas Económicas Desagregadas para Chile", homeExploreQuestion:"¿Cómo se distribuye la economía por sector y territorio?", homeExploreAction:"Explorar los datos →", homeDataQuestion:"¿Quieres usar los datos para tu propio análisis?", homeDataAction:"Descarga los datos →", homeResearchQuestion:"¿Cómo se construyen y aplican estos datos?", homeResearchAction:"Leer el trabajo →", exploreLandingDesc:"Tres herramientas interactivas para recorrer la economía chilena por sus sectores y sus territorios.",
       dataTitle:"Descarga los Datos", dataIntro:"Un objetivo central del proyecto de colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus & Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual, para la investigación y análisis de las políticas públicas.", dataCoverage:"Los datos se construyen para el año 2022, cubriendo las <strong style=\"color:var(--ds-color-text);font-weight:700\">56 provincias</strong> de Chile y la totalidad de los sectores, divididos en <strong style=\"color:var(--ds-color-text);font-weight:700\">46 sectores</strong>.",
       downloadFormTitle:"Completa tus datos para descargar", fieldFirstName:"Nombre", fieldLastName:"Apellido", fieldInstitutionType:"Tipo de institución", fieldInstitution:"Nombre de la institución", fieldEmail:"Correo electrónico", selectPrompt:"Selecciona una opción", institutionUniversity:"Universidad", institutionGovernment:"Gobierno", institutionCompany:"Empresa", institutionOther:"Otros", fieldDataUse:"Uso de los datos", useResearch:"Investigación", usePublicPolicy:"Políticas públicas", useConsulting:"Consultoría", fieldOtherUse:"Especifica el uso", downloadSubmit:"Descargar", downloadNote:"Usaremos estos datos únicamente para llevar estadísticas de uso y avisarte de actualizaciones importantes.",
       citationTitle:"Citación", citationLead:"Para usar estos datos, cita el siguiente trabajo de investigación:", researchTitle:"Trabajo de Investigación", openPdf:"Abrir PDF", workingPaper:"Documento de trabajo", researchAbstractLabel:"Resumen", researchAbstract:"Para comprender el impacto geográfico y sectorial de la productividad, construimos, hasta donde sabemos, la primera matriz insumo-producto desagregada geográficamente dentro de un país utilizando datos administrativos únicos armonizados con las cuentas nacionales. Usamos datos de Chile para calibrar un modelo cuantitativo de comercio de equilibrio general de frontera, con redes de producción, movilidad laboral, selección de empresas, comercio internacional y doméstico, congestión de factores fijos y difusión del conocimiento. Consideramos dos aplicaciones. Primero, estudiamos los efectos agregados de shocks locales de productividad. Mostramos que las interacciones ubicación-sector son cruciales: por separado, las ubicaciones y los sectores explican menos de la mitad de la dispersión de las elasticidades del PIB ante shocks de productividad específicos por ubicación-sector. Los encadenamientos insumo-producto específicos de cada geografía explican 17% de esa dispersión, principalmente por el papel de mercados pequeños e influyentes. Segundo, analizamos el cierre de una gran planta siderúrgica. Mostramos que los encadenamientos productivos geográficamente desagregados aumentan sustancialmente la propagación del cierre de la planta.", researchKeywordsLabel:"Palabras clave", researchKeywords:"Productividad, economía espacial, distribución geográfica, encadenamientos insumo-producto, comercio, movilidad laboral.", downloadPdf:"Descargar PDF", howToCite:"Cómo citar", teamTitle:"Equipo de Investigación", teamRoleSenior:"Economista senior", teamRoleAssistant:"Asistente de investigación",
-      contactTitle:"Contacto", contactLead:"Escríbenos para consultas sobre los datos, las visualizaciones o el trabajo de investigación.", contactFormTitle:"Cuéntanos cómo podemos ayudarte", fieldContactReason:"Motivo del contacto", reasonData:"Datos", reasonVisualization:"Visualización", reasonResearch:"Trabajo de Investigación", fieldOtherReason:"Especifica el motivo", fieldMessage:"Mensaje", contactSubmit:"Enviar consulta", contactNote:"Usaremos tu información únicamente para responder esta consulta.",
+      contactTitle:"Contacto", contactLead:"Escríbenos para consultas sobre los datos, las visualizaciones o el trabajo de investigación.", contactFormTitle:"Cuéntanos cómo podemos ayudarte", fieldContactReason:"Motivo del contacto", reasonData:"Datos", reasonVisualization:"Visualización", reasonResearch:"Trabajo de Investigación", fieldOtherReason:"Especifica el motivo", fieldMessage:"Mensaje", contactSubmit:"Enviar consulta", contactNote:"Usaremos tu información únicamente para responder esta consulta.", otherEffortsTitle:"Otros Esfuerzos", otherEffortsLead:"Este trabajo se enmarca en un esfuerzo mundial por construir y medir cuentas económicas desagregadas. Entre otras iniciativas, puedes conocer:", otherEffortsColInitiative:"Iniciativa", otherEffortsColSource:"Fuente", otherEffortsDisaggregated:"Cuentas Económicas Desagregadas de Dinamarca", otherEffortsOecd:"Tablas de Insumo-Producto Interpaíses",
       ackTitle:"Agradecimientos", ackText:"Agradecemos a la Corporación de Fomento de la Producción (CORFO) por impulsar esta iniciativa. Agradecemos también al Servicio de Impuestos Internos (SII) por facilitar el acceso a datos administrativos anonimizados. La información aquí contenida es de carácter tributario proveniente de autodeclaraciones de los contribuyentes presentadas ante el SII; por lo que la veracidad de dichos datos no es responsabilidad del Servicio. Este trabajo contó con el apoyo del Banco Interamericano de Desarrollo (BID) en el marco del proyecto RG-T3976-P002, a través de su División de Competitividad, Tecnología e Innovación. El financiador no tuvo rol en el diseño del estudio, ni en la recolección, análisis, interpretación de los datos, redacción o decisión de publicar.", footerCopyright:"© Cuentas Económicas Desagregadas para Chile · CORFO–BID, 2026."
     },
     en: {
-      brand:"CED CORFO", navExplore:"Explore", navData:"Data", navResearch:"Research Paper", navContact:"Contact", mobileNavLabel:"Main navigation", mobileNavOpen:"Open navigation", mobileNavClose:"Close navigation",
+      brand:"CED CORFO", navExplore:"Explore", navData:"Data", navResearch:"Research Paper", navContact:"Contact", navOtherEfforts:"Related efforts", mobileNavLabel:"Main navigation", mobileNavOpen:"Open navigation", mobileNavClose:"Close navigation",
       homeTitle:"Disaggregated Economic Accounts for Chile", homeExploreQuestion:"How is the economy distributed across sectors and territories?", homeExploreAction:"Explore the data →", homeDataQuestion:"Do you want to use the data for your own analysis?", homeDataAction:"Download the data →", homeResearchQuestion:"How are these data constructed and applied?", homeResearchAction:"Read the paper →", exploreLandingDesc:"Three interactive tools to explore the Chilean economy across its sectors and territories.",
       dataTitle:"Download Data", dataIntro:"A central objective of the collaboration project between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), developed by Huneeus & Del Valle (2026), is that the generated data constitute a public good, freely accessible and updated annually for research and public-policy analysis.", dataCoverage:"The data cover 2022 and include <strong style=\"color:var(--ds-color-text);font-weight:700\">56 provinces</strong> in Chile and all productive activity, disaggregated into <strong style=\"color:var(--ds-color-text);font-weight:700\">46 sectors</strong>.",
       downloadFormTitle:"Complete your information to download", fieldFirstName:"First name", fieldLastName:"Last name", fieldInstitutionType:"Institution type", fieldInstitution:"Institution name", fieldEmail:"Email address", selectPrompt:"Select an option", institutionUniversity:"University", institutionGovernment:"Government", institutionCompany:"Company", institutionOther:"Other", fieldDataUse:"Intended use of the data", useResearch:"Research", usePublicPolicy:"Public policy", useConsulting:"Consulting", fieldOtherUse:"Specify the intended use", downloadSubmit:"Download", downloadNote:"We use this information only to keep usage statistics and notify you about important updates.",
       citationTitle:"Citation", citationLead:"To use these data, cite the following research paper:", researchTitle:"Research Paper", openPdf:"Open PDF", workingPaper:"Working paper", researchAbstractLabel:"Abstract", researchAbstract:"To understand the geographic and sectoral impact of productivity, we build, to our knowledge, the first input-output matrix disaggregated at the geographic level within a country using unique administrative data harmonized to match national accounts. We use Chilean data to calibrate a state-of-the-art general equilibrium quantitative trade model with production networks, labor mobility, firm selection, international and domestic trade, congestion of fixed factors, and knowledge diffusion. We consider two applications. First, we study the aggregate effects of local productivity shocks. We show that location-sector interactions are crucial: locations and sectors separately account for less than half of the dispersion in GDP elasticities from location-sector-specific productivity shocks. Geography-specific input-output linkages explain 17% of the dispersion, mainly due to the role played by small and influential markets. Second, we analyze the exit of a large steel plant. We show that geographically disaggregated production linkages substantially increase the propagation of the plant exit.", researchKeywordsLabel:"Keywords", researchKeywords:"Productivity, spatial economics, geographic distribution, input-output linkages, trade, labor mobility.", downloadPdf:"Download PDF", howToCite:"How to cite", teamTitle:"Research Team", teamRoleSenior:"Senior Economist", teamRoleAssistant:"Research Assistant",
-      contactTitle:"Contact", contactLead:"Write to us with questions about the data, visualizations, or research paper.", contactFormTitle:"Tell us how we can help", fieldContactReason:"Reason for contact", reasonData:"Data", reasonVisualization:"Visualization", reasonResearch:"Research Paper", fieldOtherReason:"Specify the reason", fieldMessage:"Message", contactSubmit:"Send inquiry", contactNote:"We use this information only to respond to your inquiry.",
+      contactTitle:"Contact", contactLead:"Write to us with questions about the data, visualizations, or research paper.", contactFormTitle:"Tell us how we can help", fieldContactReason:"Reason for contact", reasonData:"Data", reasonVisualization:"Visualization", reasonResearch:"Research Paper", fieldOtherReason:"Specify the reason", fieldMessage:"Message", contactSubmit:"Send inquiry", contactNote:"We use this information only to respond to your inquiry.", otherEffortsTitle:"Related efforts", otherEffortsLead:"This work is part of a global effort to build and measure disaggregated economic accounts. Other initiatives include:", otherEffortsColInitiative:"Initiative", otherEffortsColSource:"Source", otherEffortsDisaggregated:"Disaggregated Accounts for Denmark", otherEffortsOecd:"Inter-Country Input-Output Tables",
       ackTitle:"Acknowledgements", ackText:"We thank the Production Development Corporation (CORFO) for promoting this initiative. We also thank the Chilean Internal Revenue Service (SII) for facilitating access to anonymized administrative data. The information contained herein is tax information obtained from taxpayers' self-reported declarations submitted to the SII; therefore, the accuracy of these data is not the responsibility of the Service. This work received support from the Inter-American Development Bank (IDB) under project RG-T3976-P002 through its Competitiveness, Technology and Innovation Division. The funder had no role in the study design, data collection, analysis, interpretation, writing, or decision to publish.", footerCopyright:"© Disaggregated Economic Accounts for Chile · CORFO–IDB, 2026."
     }
   };
@@ -12159,7 +12240,7 @@ function selectionCountLabel(type, level, count) {
     navLinks.forEach(function(a){ a.classList.remove('active'); });
     if(byId[id]) byId[id].classList.add('active');
   }
-  var spyIds = ['home','explorar','datos','research-paper','contacto'];
+  var spyIds = ['home','explorar','datos','research-paper','contacto','otros-esfuerzos'];
   var spy = new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting) setActive(e.target.id); });
   }, { rootMargin:'-45% 0px -50% 0px', threshold:0 });
