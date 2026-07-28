@@ -11989,7 +11989,11 @@ function selectionCountLabel(type, level, count) {
   .explore-inline #module-3 .m3-persp-row{margin:0 42px 16px 0;background:#eef6f6;border:1px solid rgba(11,79,85,.18);border-radius:8px;padding:3px;gap:3px}
   .explore-inline #module-3 .m3-persp-btn.active{background:#0b4f55;color:#fff;box-shadow:none}
   .explore-inline #module-3 .m3-persp-btn:not(.active){color:#0b4f55;background:transparent}
-  @media (max-width:820px){.explore-inline .panel-close-btn{width:34px;min-width:34px;height:34px;min-height:34px}}
+  @media (max-width:820px){
+    /* El drawer móvil ya tiene un único cierre propio, alineado con el borde
+       del panel. Ocultar el cierre interno evita dos X superpuestas. */
+    .explore-inline .panel-close-btn{display:none!important}
+  }
   .explore-inline .m3-q-sub .m3-q-ask{display:block;margin-top:3px}
   .explore-inline .module-tab,.explore-inline #module-4 .m4d-tab{justify-content:center}
   .other-efforts-wrap { max-width: 860px; }

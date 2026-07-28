@@ -1,13 +1,13 @@
 # Entrega para TI - Cuentas Economicas Desagregadas de Chile
 
-**Version del paquete:** 27 de julio de 2026
+**Version del paquete:** 28 de julio de 2026
 **Proyecto:** Cuentas Economicas Desagregadas de Chile (CORFO - BID)
 **Contacto tecnico:** Miguel Del Valle
 **Destino previsto:** una subruta de `https://dataterritorios.corfo.cl/`
 
 ## 1. Que se entrega
 
-El archivo `CED-cuentas-desagregadas_TI_2026-07-27.zip` contiene una carpeta unica,
+El archivo `CED-cuentas-desagregadas_TI_2026-07-28.zip` contiene una carpeta unica,
 `CED-cuentas-desagregadas/`. Su contenido debe copiarse completo al directorio publico
 que TI defina. El sitio es estatico: no requiere base de datos, login, servidor de
 aplicacion, tareas programadas ni acceso a datos en tiempo real.
@@ -29,8 +29,8 @@ Todas las rutas del sitio son relativas. Por ejemplo, puede alojarse sin cambios
 
 ## 2. Tamano y contenido de datos
 
-El paquete comprimido pesa aproximadamente **136.81 MiB** (143,456,130 bytes). Una vez
-descomprimido ocupa aproximadamente **478.91 MiB** (502,174,856 bytes). La mayor parte corresponde a los
+El paquete comprimido pesa aproximadamente **136.81 MiB** (143,456,507 bytes). Una vez
+descomprimido ocupa aproximadamente **478.91 MiB** (502,175,719 bytes). La mayor parte corresponde a los
 flujos espaciales de insumo-producto incluidos en `downloads/`:
 
 | Recurso | Tamano aproximado |
@@ -52,7 +52,7 @@ archivos estaticos de al menos 203 MB.
 
 ## 3. Publicacion
 
-1. Descomprimir `CED-cuentas-desagregadas_TI_2026-07-27.zip`.
+1. Descomprimir `CED-cuentas-desagregadas_TI_2026-07-28.zip`.
 2. Copiar el contenido de `CED-cuentas-desagregadas/` a la subruta publica definida.
 3. Verificar que `index.html` abra y que las rutas relativas a `web_materiales/`,
    `vendor/`, `downloads/` y `uploads/` respondan correctamente.
@@ -125,8 +125,8 @@ El sitio no requiere:
 
 ## 7. Integridad del paquete
 
-SHA-256 de `CED-cuentas-desagregadas_TI_2026-07-27.zip`:
+SHA-256 de `CED-cuentas-desagregadas_TI_2026-07-28.zip`:
 
 ```text
-147FE4BCFC59925D7F528B833F715C2148A55FB52E937520C824FF4E8EC8874B
+55D9ABC8FA507A502E6774589952D12854038AD037E908C72E4A1A2151CA4FE9
 ```
