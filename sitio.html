@@ -16,8 +16,8 @@
 <style>
   *{box-sizing:border-box}
   :root,html{color-scheme:only light!important}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--ds-color-canvas);color:var(--ds-color-text);font-family:"DM Sans",system-ui,sans-serif}
+  html{scroll-behavior:smooth;overflow-x:clip;background:var(--ds-color-canvas)}
+  body{margin:0;width:100%;max-width:100%;background:var(--ds-color-canvas);color:var(--ds-color-text);font-family:"DM Sans",system-ui,sans-serif;overflow-x:clip}
   a{color:var(--ds-color-brand)}
   a:hover{color:var(--ds-color-accent)}
 
@@ -116,9 +116,9 @@
       font-family: var(--font-ui);
     }
 
-    body {
-      overflow-x: hidden;
-    }
+      body {
+        overflow-x: clip;
+      }
 
     .landing {
       min-height: 100vh;
@@ -10419,10 +10419,12 @@ function selectionCountLabel(type, level, count) {
       var currentSec = null;
 
       function syncMobileActionViewport() {
-        var h = document.documentElement.clientHeight || window.innerHeight || 844;
-        document.documentElement.style.setProperty('--mobile-actions-top', Math.max(0, h - 55) + 'px');
-        document.documentElement.style.setProperty('--mobile-contact-top', Math.max(0, h - 66) + 'px');
-        document.documentElement.style.setProperty('--mobile-layout-offset', Math.max(0, (window.innerHeight || h) - h) + 'px');
+        // Los botones usan bottom + safe-area directamente. No los desplazamos
+        // con visualViewport: en Android ese valor cambia cuando aparece la
+        // barra del navegador y los empuja hacia la mitad de la pantalla.
+        document.documentElement.style.setProperty('--mobile-actions-top', 'auto');
+        document.documentElement.style.setProperty('--mobile-contact-top', 'auto');
+        document.documentElement.style.setProperty('--mobile-layout-offset', '0px');
       }
       function panelOf(sec) {
         return document.querySelector('#' + sec + ' .np-panel, #' + sec + ' .m4d-controls');
@@ -10475,10 +10477,6 @@ function selectionCountLabel(type, level, count) {
       var t;
       window.addEventListener('scroll', function () { clearTimeout(t); t = setTimeout(updateFab, 60); }, { passive: true });
       window.addEventListener('resize', function () { syncMobileActionViewport(); updateFab(); }, { passive: true });
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', syncMobileActionViewport, { passive: true });
-        window.visualViewport.addEventListener('scroll', syncMobileActionViewport, { passive: true });
-      }
       window.addEventListener('hashchange', function () { closeDrawer(); setTimeout(updateFab, 400); });
       window.addEventListener('load', function () { syncMobileActionViewport(); setTimeout(updateFab, 300); });
       syncMobileActionViewport();
@@ -10904,6 +10902,20 @@ function selectionCountLabel(type, level, count) {
       .figure-actions { display: none !important; }
       .module-controls-reopen,
       .module-controls-backdrop { display: none !important; }
+      /* El viewport móvil es la superficie completa de la página. Los
+         elementos complejos conservan sus scrollbars internos, pero nunca
+         deben ensanchar html/body ni dejar una banda vacía a la derecha. */
+      html, body, .page-shell, .landing, .module-section,
+      #module-1, #module-2, #module-3, #module-4, #module-5 {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+      }
+      html, body { overflow-x: clip !important; background: var(--ds-color-canvas) !important; }
+      .site-header, .topbar, .module-two-shell, .m4-shell,
+      .module-two-body, .np-viz-col, .m4d-vizcol, .m4d-main,
+      .m4d-panel, .m4d-hero, .m4d-viz { max-width: 100% !important; min-width: 0 !important; }
+
       .mob-ctrl-fab, .mob-top-fab {
         position: fixed !important;
         top: auto !important;
@@ -10911,7 +10923,7 @@ function selectionCountLabel(type, level, count) {
         z-index: 2147483000 !important;
         min-height: 42px !important;
         pointer-events: auto !important;
-        transform: translateY(calc(-1 * var(--mobile-layout-offset, 0px))) translateZ(0);
+        transform: translateZ(0);
       }
       .mob-ctrl-fab {
         left: 14px !important;
@@ -10953,7 +10965,7 @@ function selectionCountLabel(type, level, count) {
       .mobile-top-body .m4d-chip-sw { width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto; }
       .mobile-top-body .m4d-chip-name { flex: 1; min-width: 0; color: var(--corfo-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .mobile-top-body .m4d-chip-val { font-family: var(--font-data); font-size: 0.78rem; color: var(--corfo-muted); flex: 0 0 auto; }
-      .contact-fab { right: 14px !important; top: auto !important; bottom: calc(13px + env(safe-area-inset-bottom, 0px)) !important; padding: 5px !important; border-radius: 999px !important; z-index: 2147482900 !important; transform: translateY(calc(-1 * var(--mobile-layout-offset, 0px))) translateZ(0); }
+       .contact-fab { right: 14px !important; top: auto !important; bottom: calc(13px + env(safe-area-inset-bottom, 0px)) !important; padding: 5px !important; border-radius: 999px !important; z-index: 2147482900 !important; transform: translateZ(0); }
       .contact-fab.is-hidden { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
       body.mobile-top-open .contact-fab { display: none !important; }
       .contact-fab .cf-label, .contact-fab .cf-close { display: none !important; }
