@@ -11996,23 +11996,23 @@ function selectionCountLabel(type, level, count) {
   }
   .explore-inline .m3-q-sub .m3-q-ask{display:block;margin-top:3px}
   .explore-inline .module-tab,.explore-inline #module-4 .m4d-tab{justify-content:center}
-  .other-efforts-wrap { max-width: 860px; }
+  .other-efforts-wrap { max-width: 1180px; }
   .other-efforts-wrap > .display { text-align: center; }
   .other-efforts-wrap > p { max-width: 62ch; margin: 0 auto 32px; text-align: center; color: var(--ds-color-muted); font-size: 1.05rem; line-height: 1.65; }
-  .other-efforts-links { border-top: 1.5px solid var(--ds-color-brand); width: min(840px, 100%); margin: 0 auto; }
+  .other-efforts-links { border-top: 1.5px solid var(--ds-color-brand); width: min(1140px, 100%); margin: 0 auto; }
   .other-efforts-links-head,
-  .other-effort-link { display: grid; grid-template-columns: minmax(0, 1fr) 150px 220px; align-items: center; gap: 0; }
+  .other-effort-link { display: grid; grid-template-columns: minmax(0, 1fr) 170px 330px; align-items: center; gap: 0; }
   .other-efforts-links-head { padding: 9px 0; border-bottom: 1px solid var(--ds-color-line); }
-  .other-efforts-links-head span { font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: rgba(34,30,124,.5); }
+  .other-efforts-links-head span { font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: rgba(34,30,124,.5); text-align: center; }
   .other-effort-link { position: relative; padding: 20px 0; border-bottom: 1px solid var(--ds-color-line); color: inherit; text-decoration: none; transition: background 160ms ease; }
   .other-effort-link:hover, .other-effort-link:focus-visible { background: rgba(34,30,124,.035); outline: none; }
   .other-effort-link::before { content: ""; position: absolute; left: -18px; top: 0; bottom: 0; width: 2px; background: var(--ds-color-accent); transform: scaleY(0); transition: transform 180ms ease; }
   .other-effort-link:hover::before, .other-effort-link:focus-visible::before { transform: scaleY(1); }
   .other-effort-name,
-  .other-effort-country { font-family: var(--ds-font-ui); font-size: 1rem; font-weight: 700; line-height: 1.3; }
+  .other-effort-country { min-width: 0; font-family: var(--ds-font-ui); font-size: 1rem; font-weight: 700; line-height: 1.3; }
   .other-effort-name { color: var(--ds-color-brand); }
-  .other-effort-country { color: var(--ds-color-text); }
-  .other-effort-url { font-family: var(--ds-font-ui); font-size: .78rem; font-weight: 600; color: var(--ds-color-muted); overflow: visible; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; line-height: 1.25; }
+  .other-effort-country { color: var(--ds-color-text); white-space: nowrap; }
+  .other-effort-url { min-width: 0; font-family: var(--ds-font-ui); font-size: .72rem; font-weight: 600; color: var(--ds-color-muted); overflow: visible; text-overflow: clip; white-space: nowrap; line-height: 1.25; }
   .other-efforts-links-head span, .other-effort-link > div { padding-left: 28px; }
   .other-efforts-links-head span:first-child, .other-effort-link > div:first-child { padding-left: 0; }
   .other-efforts-links-head span:nth-child(2), .other-efforts-links-head span:nth-child(3),
@@ -12021,11 +12021,11 @@ function selectionCountLabel(type, level, count) {
   }
   @media (max-width: 760px) {
     .other-efforts-links-head { display: none; }
-    .other-effort-link { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "initiative initiative" "country source"; gap: 8px 14px; padding: 18px 0; text-align: left; }
+    .other-effort-link { grid-template-columns: 1fr; grid-template-areas: "initiative" "country" "source"; gap: 8px; padding: 18px 0; text-align: left; }
     .other-effort-link > div { padding-left: 0; }
     .other-effort-link > div:nth-child(1) { grid-area: initiative; }
     .other-effort-link > div:nth-child(2) { grid-area: country; }
-    .other-effort-link > div:nth-child(3) { grid-area: source; justify-self: end; max-width: 100%; text-align: right; }
+    .other-effort-link > div:nth-child(3) { grid-area: source; justify-self: start; max-width: none; text-align: left; }
     .other-effort-link > div:nth-child(2), .other-effort-link > div:nth-child(3) { border-left: none; margin-left: 0; }
   }
   @media (max-width: 560px) { .other-efforts-wrap > p { font-size: .98rem; } }

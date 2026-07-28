@@ -29,8 +29,8 @@ Todas las rutas del sitio son relativas. Por ejemplo, puede alojarse sin cambios
 
 ## 2. Tamano y contenido de datos
 
-El paquete comprimido pesa aproximadamente **136.81 MiB** (143,456,725 bytes). Una vez
-descomprimido ocupa aproximadamente **478.92 MiB** (502,176,927 bytes). La mayor parte corresponde a los
+El paquete comprimido pesa aproximadamente **136.81 MiB** (143,456,709 bytes). Una vez
+descomprimido ocupa aproximadamente **478.92 MiB** (502,176,944 bytes). La mayor parte corresponde a los
 flujos espaciales de insumo-producto incluidos en `downloads/`:
 
 | Recurso | Tamano aproximado |
@@ -128,5 +128,5 @@ El sitio no requiere:
 SHA-256 de `CED-cuentas-desagregadas_TI_2026-07-28.zip`:
 
 ```text
-60B474F6237A5EB616A23C6EF3AF317EA7BC17B7E5FD6E3BCD1DE12EE43BE29C
+3D7BBAF31AA20DE11AA189C67537A3E04EDF98C27BCF4C7539A46DE68547AC40
 ```
