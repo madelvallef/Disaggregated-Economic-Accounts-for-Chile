@@ -1,7 +1,6 @@
 (function () {
-  // Los datos son un bien publico: el registro sirve para estadisticas de uso,
-  // no como control de acceso. Por eso la descarga se entrega igual aunque el
-  // endpoint de registro no este configurado o falle.
+  // Interruptor temporal para mantener visible el formulario sin entregar los ZIP.
+  const DOWNLOADS_ENABLED = false;
   const DOWNLOAD_FILES = {
     es: "downloads/es_chile_2022_dea_cuentas_economicas.zip",
     en: "downloads/en_chile_2022_dea_economic_accounts.zip"
@@ -14,6 +13,7 @@
   function message(key) {
     const en = language() === "en";
     const copy = {
+      downloadsUnavailable: en ? "Downloads are temporarily unavailable." : "Las descargas no están disponibles temporalmente.",
       chooseReason: en ? "Choose at least one reason for contact." : "Selecciona al menos un motivo de contacto.",
       unavailable: en ? "The registration service has not been configured yet." : "El servicio de registro aún no está configurado.",
       sending: en ? "Sending information…" : "Enviando información…",
@@ -92,6 +92,10 @@
       if (!form.reportValidity()) return;
 
       const isDownload = kind === "downloads";
+      if (isDownload && !DOWNLOADS_ENABLED) {
+        status(form, message("downloadsUnavailable"), "error");
+        return;
+      }
       const endpoint = window.CED_FORM_ENDPOINTS?.[kind];
       if (!endpoint && !isDownload) {
         status(form, message("unavailable"), "error");
