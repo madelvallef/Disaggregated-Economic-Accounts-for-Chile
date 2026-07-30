@@ -3,7 +3,7 @@
 **Version del paquete:** 30 de julio de 2026
 **Proyecto:** Cuentas Economicas Desagregadas de Chile (CORFO - BID)
 **Contacto tecnico:** Miguel Del Valle
-**Destino previsto:** una subruta de `https://dataterritorios.corfo.cl/`
+**Destino previsto:** `https://dataterritorios.corfo.cl/disaggregated-economic-accounts/`
 
 ## 1. Que se entrega
 
@@ -72,25 +72,24 @@ pueden usar cache larga.
 
 ## 4. Registros de descarga y contacto
 
-La navegacion y las visualizaciones no requieren backend. Los formularios pueden registrar
-informacion mediante una URL configurable en
-`web_materiales/js/form-registry-config.js`:
+La navegacion y las visualizaciones no requieren backend. Los formularios registran
+informacion mediante el endpoint configurado en
+`web_materiales/js/form-registry-config.js` (desde jul-2026 viene preconfigurado el
+Google Apps Script definido por TI; puede sobrescribirse con `window.CED_FORM_ENDPOINTS`
+antes de cargar ese archivo):
 
-```js
-window.CED_FORM_ENDPOINTS = {
-  contact: "",
-  downloads: ""
-};
-```
-
-- **Descargas:** la descarga del ZIP correspondiente al idioma activo se inicia siempre,
-  incluso sin endpoint. Configurar `downloads` es opcional y sirve solo para registrar el
-  uso.
-- **Contacto:** requiere configurar `contact` para almacenar las consultas. Si no existe
-  endpoint, el sitio informa que el servicio de registro no esta configurado.
-- Los formularios envian un `POST` con JSON. Incluyen identificador, fecha UTC, idioma,
-  origen y los campos solicitados. Contacto admite multiples motivos: Datos,
-  Visualizacion, Trabajo de Investigacion y Otros.
+- **Registro obligatorio:** el envio del formulario requiere que el endpoint responda
+  `{"status":"ok"}`. Sin registro exitoso no se inicia la descarga.
+- **Descargas:** ademas del registro, la entrega del ZIP depende del interruptor
+  `DOWNLOADS_ENABLED` en `web_materiales/js/form-registry.js` (hoy `false`: se registra
+  el dato y se informa que las descargas estan temporalmente deshabilitadas).
+- Los formularios envian un `POST` `application/x-www-form-urlencoded` (legible en Apps
+  Script via `e.parameter`). Incluyen identificador, fecha UTC, idioma, origen y los
+  campos solicitados. Contacto admite multiples motivos: Datos, Visualizacion, Trabajo
+  de Investigacion y Otros.
+- La CSP de los archivos de cabeceras ya permite `connect-src` hacia
+  `https://script.google.com` y `https://script.googleusercontent.com`; si se cambia el
+  endpoint a otro dominio, actualizar esa directiva.
 
 Se entregan por separado las estructuras de destino:
 

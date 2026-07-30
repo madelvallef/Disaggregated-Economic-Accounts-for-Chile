@@ -7,10 +7,15 @@ salvedades que hay que conocer:
 ## Estado real (jul-2026)
 
 1. **La página SÍ contiene formularios que piden datos personales** (nombre, apellido,
-   institución, correo) en las secciones de descargas y contacto. Hoy **no envían nada**:
-   sus endpoints están vacíos (`form-registry-config.js`) y `DOWNLOADS_ENABLED=false`.
-   ⚠️ **Antes de configurar cualquier endpoint** debe publicarse una política de
-   privacidad enlazada, un checkbox de consentimiento y el responsable del tratamiento.
+   institución, correo) en las secciones de descargas y contacto, y **desde jul-2026 SÍ
+   envían datos**: TI configuró un endpoint de Google Apps Script en
+   `form-registry-config.js` para descargas y contacto (registro obligatorio antes de
+   descargar; `DOWNLOADS_ENABLED=false` sigue bloqueando la entrega del ZIP). Las notas
+   bajo cada formulario declaran el uso y el responsable (CORFO).
+   ⚠️ **Pendiente de CORFO:** publicar una política de privacidad formal enlazada y un
+   checkbox de consentimiento; la nota actual es el mínimo, no el estándar completo.
+   La CSP de los archivos de servidor ya permite `connect-src` hacia
+   `script.google.com` y `script.googleusercontent.com` (necesario para el envío).
 2. **No hay `<meta http-equiv>` de CSP en el HTML** (0 ocurrencias). Las protecciones de
    cabeceras dependen del servidor (ver abajo). En GitHub Pages no se pueden configurar
    cabeceras; `github.io` está en la lista de precarga HSTS del navegador.
