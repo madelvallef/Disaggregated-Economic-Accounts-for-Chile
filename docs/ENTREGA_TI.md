@@ -1,13 +1,13 @@
 # Entrega para TI - Cuentas Economicas Desagregadas de Chile
 
-**Version del paquete:** 28 de julio de 2026
+**Version del paquete:** 30 de julio de 2026
 **Proyecto:** Cuentas Economicas Desagregadas de Chile (CORFO - BID)
 **Contacto tecnico:** Miguel Del Valle
 **Destino previsto:** una subruta de `https://dataterritorios.corfo.cl/`
 
 ## 1. Que se entrega
 
-El archivo `CED-cuentas-desagregadas_TI_2026-07-28.zip` contiene una carpeta unica,
+El archivo `CED-cuentas-desagregadas_TI_2026-07-30.zip` contiene una carpeta unica,
 `CED-cuentas-desagregadas/`. Su contenido debe copiarse completo al directorio publico
 que TI defina. El sitio es estatico: no requiere base de datos, login, servidor de
 aplicacion, tareas programadas ni acceso a datos en tiempo real.
@@ -29,17 +29,17 @@ Todas las rutas del sitio son relativas. Por ejemplo, puede alojarse sin cambios
 
 ## 2. Tamano y contenido de datos
 
-El paquete comprimido pesa aproximadamente **136.81 MiB** (143,456,726 bytes). Una vez
-descomprimido ocupa aproximadamente **478.92 MiB** (502,177,113 bytes). La mayor parte corresponde a los
+El paquete comprimido pesa **125.75 MiB** (131,851,385 bytes). Una vez
+descomprimido ocupa **449.14 MiB** (470,957,773 bytes). La mayor parte corresponde a los
 flujos espaciales de insumo-producto incluidos en `downloads/`:
 
 | Recurso | Tamano aproximado |
 | --- | ---: |
-| `downloads/es_chile_2022_dea_flujos_io_espaciales.csv` | 192 MiB |
+| `downloads/es_chile_2022_dea_flujos_io_espaciales.csv` | 172 MiB |
 | `downloads/en_chile_2022_dea_spatial_io_flows.csv` | 194 MiB |
-| Paquete de descarga en espanol | 29 MiB |
+| Paquete de descarga en espanol | 25 MiB |
 | Paquete de descarga en ingles | 28 MiB |
-| Visualizaciones, fuentes, logos y librerias | 35 MiB |
+| Visualizaciones, fuentes, logos y librerias | 29 MiB |
 
 Los paquetes descargables por idioma contienen cuatro insumos: cuentas economicas en
 CSV, flujos espaciales de insumo-producto en CSV, tabla de correspondencia en XLSX y
@@ -47,12 +47,14 @@ descripcion metodologica en DOCX. Los datos corresponden al **ano 2022**, cubren
 **56 provincias** de Chile y estan desagregados en **46 sectores**.
 
 Los CSV grandes se descargan solamente cuando la persona solicita los datos; no se cargan
-durante la navegacion normal de las visualizaciones. El servidor debe permitir servir
-archivos estaticos de al menos 203 MB.
+durante la navegacion normal de las visualizaciones. Las visualizaciones si descargan en
+segundo plano (~28 MB de datos JS con atributo `defer`; comprimen bien con gzip/brotli),
+sin bloquear el primer render. El servidor debe permitir servir archivos estaticos de al
+menos 203 MB.
 
 ## 3. Publicacion
 
-1. Descomprimir `CED-cuentas-desagregadas_TI_2026-07-28.zip`.
+1. Descomprimir `CED-cuentas-desagregadas_TI_2026-07-30.zip`.
 2. Copiar el contenido de `CED-cuentas-desagregadas/` a la subruta publica definida.
 3. Verificar que `index.html` abra y que las rutas relativas a `web_materiales/`,
    `vendor/`, `downloads/` y `uploads/` respondan correctamente.
@@ -125,8 +127,8 @@ El sitio no requiere:
 
 ## 7. Integridad del paquete
 
-SHA-256 de `CED-cuentas-desagregadas_TI_2026-07-28.zip`:
+SHA-256 de `CED-cuentas-desagregadas_TI_2026-07-30.zip`:
 
 ```text
-8D0DF3149CC03C6BB36FA335C82A291B7A1BBA253A9624BBB29897654C47DA54
+F04CABC50C11854F52866D489046829B7E69F3273EA8484B83251B9D4C0E84E8
 ```
