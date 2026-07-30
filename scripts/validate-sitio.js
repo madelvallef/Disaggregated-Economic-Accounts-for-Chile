@@ -39,7 +39,10 @@ for (const id of requiredIds) {
 }
 
 function hasMojibake(text) {
-  return /(?:Ã[\u0080-\u00BF]|Â[\u0080-\u00BF]|â[\u0080-\u00BF]{1,2})/.test(text);
+  // Familias cubiertas: \u00c3/\u00c2 + continuaci\u00f3n (vocales acentuadas y signos); la familia de
+  // puntuaci\u00f3n tipogr\u00e1fica corrupta \u00e2\u20ac\u0153 / \u00e2\u20ac\u2122 / \u00e2\u20ac\u201c / \u00e2\u20ac\u00a6 (\u00e2 seguido de \u20ac U+20AC u otros
+  // caracteres FUERA de [\u0080-\u00BF]); \u00ce+continuaci\u00f3n (griegas corruptas); y U+FFFD.
+  return /(?:\u00c3[\u0080-\u00BF]|\u00c2[\u0080-\u00BF]|\u00e2[\u0080-\u00BF\u20ac\u2018\u2019\u201c\u201d\u2013\u2014\u2020\u2021\u2022\u2026\u02c6\u2030\u0152\u0153\u2039\u203a\u0160\u0161\u017d\u017e\u0192\u02dc\u2122][\u0080-\u00BF\u20ac\u2018\u2019\u201c\u201d\u2013\u2014\u2020\u2021\u2022\u2026\u02c6\u2030\u0152\u0153\u2039\u203a\u0160\u0161\u017d\u017e\u0192\u02dc\u2122]?|\u00ce[\u0080-\u00BF\u2018\u2019\u201c\u201d]|\uFFFD)/.test(text);
 }
 
 for (const source of mojibakeSources) {
@@ -90,6 +93,13 @@ for (const match of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/scri
   } catch (error) {
     failures.push(`Script inline ${inlineScriptIndex}: ${error.message}`);
   }
+}
+
+// Todo href="#x" debe apuntar a un id existente (evita enlaces fantasma como el
+// href="#module-5" que quedó tras eliminar el módulo 5).
+for (const match of html.matchAll(/\bhref="#([^"]+)"/g)) {
+  const anchor = match[1];
+  if (!ids.has(anchor)) failures.push(`Ancla sin destino: href="#${anchor}" no tiene id correspondiente.`);
 }
 
 for (const match of html.matchAll(/\b(?:src|href)="([^"]+)"/g)) {

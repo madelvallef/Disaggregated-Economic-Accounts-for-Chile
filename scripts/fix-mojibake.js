@@ -77,7 +77,9 @@ const sortedKeys = Array.from(REPLACEMENTS.keys()).sort(
 const escaped = sortedKeys.map((k) => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
 const REPLACE_RE = new RegExp(escaped.join("|"), "g");
 
-// Misma regex que scripts/validate-sitio.js usa para detectar mojibake.
+// Superconjunto amplio de lo que scripts/validate-sitio.js detecta como mojibake
+// (no es literalmente la misma regex: esta acepta cualquier continuación para
+// barrer residuos; la de validate enumera las familias exactas).
 const VALIDATE_RE = /(?:Ã.|Â.|â[-￿]?|Î.)/;
 
 function fixText(text) {

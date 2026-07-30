@@ -1,6 +1,6 @@
 // Generado automaticamente -- no editar manualmente.
 // Fuente: en_chile_2022_dea_spatial_io_edgelist.csv.gz
-// Aristas: 2,060,079 | Tasa: 752 CLP/USD
+// Aristas: 2,060,079 | Tasa: 782.75 CLP/USD (implicita del anclaje al PIB en USD; ver scripts/build-module2-data.js)
 // cod_ubicacion=57: Exterior
 // Para Psi_ij / multiplicador por arista usar nodeIndex/psi/beta de
 // spatial_io_network_data.js (window.spatialIoNetworkDataPromise)
@@ -52,7 +52,7 @@ window.spatialIoFlowsDataPromise = (async function () {
     isIntraregional,
     isIntraprovincial,
     isIntraNode,
-    usdRate: 752,
+    usdRate: 782.75,
     specialLabels: { location: {'57': {es: "Resto del Mundo", en: "Rest of the World"}} }
   };
 })();

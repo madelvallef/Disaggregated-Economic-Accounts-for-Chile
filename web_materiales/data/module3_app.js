@@ -179,9 +179,10 @@
     const isPct = mode === "share" || mode === "share_flow" || mode === "share_production" || mode === "share_counterpart";
     if (isPct) return `${(Number(value || 0) * 100).toFixed(1)}%`;
     const num = Number(value || 0);
-    // "clp" mode: value already in display CLP unit (from econRows/1e9), no conversion needed
+    // "clp" mode: value in Billones de CLP (econRows/1e12). ES muestra billones;
+    // EN convierte a MUSD con la tasa única (1 billón CLP = 1e6/usdRate MUSD).
     if (mode === "clp") {
-      const s2 = num;
+      const s2 = isEs() ? num : num * 1e6 / m2UsdRate;
       return new Intl.NumberFormat(isEs() ? "es-CL" : "en-US", {
         minimumFractionDigits: s2 > 0 && s2 < 10 ? 1 : 0,
         maximumFractionDigits: s2 > 0 && s2 < 10 ? 1 : 0
@@ -644,11 +645,11 @@
     result.kpi = kpi;
 
     // ── Module2-based denominators for % de mi producción and % de la contraparte ──
-    // Both always use ventas_tot — difference is WHOSE ventas_tot:
-    //   share_production  = flow / ventas_tot of MY node (self)
-    //   share_counterpart = flow / ventas_tot of the COUNTERPART node
+    // Both always use produccion_bruta — difference is WHOSE production:
+    //   share_production  = flow / produccion_bruta of MY node (self)
+    //   share_counterpart = flow / produccion_bruta of the COUNTERPART node
     const m2rows = window.module2Data?.econRows || [];
-    const m2scale = m2UsdRate * 1e6; // econRows ventas_tot in raw CLP; flows in USD → divide CLP by (usdRate × 1e6) to get MUSD
+    const m2scale = m2UsdRate * 1e6; // econRows en CLP crudos; flows in USD → divide CLP by (usdRate × 1e6) to get MUSD
     const counterpartGeoTotals    = new Map();
     const counterpartSectorTotals = new Map();
     const counterpartCellTotals   = new Map();
@@ -657,8 +658,8 @@
       const gk  = geoGroupName(Number(row.cod_ubicacion));
       const sk  = sectorGroupCode(Number(row.cod_SECTOR46));
       const ck  = `${gk}|||${sk}`;
-      const vt  = (Number(row.ventas_tot || 0)) / m2scale;
-      // Counterpart totals (ventas_tot grouped by geo/sector)
+      const vt  = (Number(row.produccion_bruta || 0)) / m2scale;
+      // Counterpart totals (produccion_bruta grouped by geo/sector)
       if (gk) {
         counterpartGeoTotals.set(gk,  (counterpartGeoTotals.get(gk)  || 0) + vt);
         counterpartCellTotals.set(ck, (counterpartCellTotals.get(ck) || 0) + vt);
@@ -666,7 +667,7 @@
       if (sk) {
         counterpartSectorTotals.set(sk, (counterpartSectorTotals.get(sk) || 0) + vt);
       }
-      // Self production total (ventas_tot for my selected geo+sector)
+      // Self production total (produccion_bruta for my selected geo+sector)
       if (selfGeoCodes.has(Number(row.cod_ubicacion)) && selfSectorCodes.has(Number(row.cod_SECTOR46))) {
         selfProductionTotal += vt;
       }
@@ -675,13 +676,13 @@
     result.counterpartSectorTotals = counterpartSectorTotals;
     result.counterpartCellTotals   = counterpartCellTotals;
     result.selfProductionTotal     = selfProductionTotal;
-    // Also build productionByGeo and productionBySector (ventas_tot summed over all rows)
+    // Also build productionByGeo and productionBySector (produccion_bruta summed over all rows)
     const productionByGeo    = new Map();
     const productionBySector = new Map();
     for (const row of m2rows) {
       const gk = geoGroupName(Number(row.cod_ubicacion));
       const sk = sectorGroupCode(Number(row.cod_SECTOR46));
-      const vt = (Number(row.ventas_tot || 0)) / m2scale;
+      const vt = (Number(row.produccion_bruta || 0)) / m2scale;
       if (gk) productionByGeo.set(gk, (productionByGeo.get(gk) || 0) + vt);
       if (sk) productionBySector.set(sk, (productionBySector.get(sk) || 0) + vt);
     }
@@ -1067,32 +1068,31 @@
     if (m2rows && m2rows.length) {
       const selfGeoSet = selectedGeoCodes(s.selfGeo);
       const selfSectorSet = selectedSectorCodes(s.selfSector);
-      let ventas_tot=0, ventas_mat=0, ventas_con=0, ventas_int_exp=0, material_tot=0, material_nac=0, material_int=0;
+      let produccion_bruta=0, ventas_intermedias=0, ventas_consumo_final=0, exportaciones=0,
+          insumos_totales=0, insumos_domesticos=0, insumos_importados=0;
       // econRows values are in raw CLP pesos; divide by 1e12 to get Billones de CLP
-      // Supply-use identity: ventas_tot + material_int = ventas_mat + ventas_con + exportacion
-      // (production + imports = intermediate domestic use + final domestic demand + exports)
-      // Also: ventas_mat = material_nac (symmetric I-O national balance)
+      // Supply-use identity: produccion_bruta = ventas_intermedias + ventas_consumo_final + exportaciones
       const scale = 1e12;
       m2rows.forEach(row => {
         const geo = Number(row.cod_ubicacion ?? 0);
         const sec = Number(row.cod_sector ?? 0);
         if (!selfGeoSet.has(geo) || !selfSectorSet.has(sec)) return;
-        ventas_tot   += Number(row.ventas_tot   ?? 0);
-        ventas_mat   += Number(row.ventas_mat   ?? 0); // intermediate domestic sales = material_nac
-        ventas_con   += Number(row.ventas_con   ?? 0); // final domestic demand
-        ventas_int_exp += Number(row.ventas_int ?? 0); // ventas_int = exportaciones
-        material_tot += Number(row.material_tot ?? 0);
-        material_nac += Number(row.material_nac ?? 0);
-        material_int += Number(row.material_int ?? 0); // imported inputs
+        produccion_bruta     += Number(row.produccion_bruta ?? 0);
+        ventas_intermedias   += Number(row.ventas_intermedias ?? 0);
+        ventas_consumo_final += Number(row.ventas_consumo_final ?? 0);
+        exportaciones        += Number(row.exportaciones ?? 0);
+        insumos_totales      += Number(row.insumos_intermedios_totales ?? 0);
+        insumos_domesticos   += Number(row.insumos_intermedios_domesticos ?? 0);
+        insumos_importados   += Number(row.insumos_intermedios_importados ?? 0);
       });
-      if (ventas_tot > 0) {
-        kpi.vendorTotal       = ventas_tot   / scale;
-        kpi.vendorIntermedNac = ventas_mat   / scale; // = material_nac by I-O identity
-        kpi.vendorExport      = ventas_int_exp / scale;
-        kpi.vendorFinalDemand = ventas_con   / scale;
-        kpi.clientTotal       = material_tot / scale;
-        kpi.clientNac         = material_nac / scale;
-        kpi.clientImport      = material_int / scale;
+      if (produccion_bruta > 0) {
+        kpi.vendorTotal       = produccion_bruta     / scale;
+        kpi.vendorIntermedNac = ventas_intermedias   / scale;
+        kpi.vendorExport      = exportaciones        / scale;
+        kpi.vendorFinalDemand = ventas_consumo_final / scale;
+        kpi.clientTotal       = insumos_totales      / scale;
+        kpi.clientNac         = insumos_domesticos   / scale;
+        kpi.clientImport      = insumos_importados   / scale;
       }
     }
     const es = isEs();

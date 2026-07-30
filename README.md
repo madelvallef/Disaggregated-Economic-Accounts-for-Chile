@@ -7,7 +7,7 @@ Sitio web interactivo de las **Cuentas Económicas Desagregadas de Chile**. Perm
 ## Qué incluye
 
 - **Explorar:** caracterización territorial y sectorial, geografía de cadenas de valor e impacto productivo.
-- **Datos:** archivos CSV, XLSX y documentación técnica para descargar.
+- **Datos:** archivos CSV, XLSX y documentación técnica para descargar. *(Estado actual: el formulario de descargas está desactivado — `DOWNLOADS_ENABLED=false` en `web_materiales/js/form-registry.js` — pero los archivos de `downloads/` igualmente se publican en `dist/` y son accesibles por URL directa; en un sitio estático no hay forma de impedirlo.)*
 - **Trabajo de investigación:** cita, equipo de investigación y agradecimientos institucionales.
 - Interfaz bilingüe en español e inglés, sin dependencias externas durante la navegación.
 

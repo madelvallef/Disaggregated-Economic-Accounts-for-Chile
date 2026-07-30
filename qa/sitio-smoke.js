@@ -184,6 +184,29 @@ async function run() {
           assert(producerChange.after.bars !== producerChange.before.bars, "desktop: M4 no actualiza las barras al cambiar territorio");
           assert(producerChange.after.heatmap !== producerChange.before.heatmap, "desktop: M4 no actualiza el heatmap al cambiar territorio");
         }
+
+        // ── Coherencia de idioma y unidades en EN (hallazgos ALTA #2 y #4 de la auditoría) ──
+        const englishBtn = page.locator('.site-header [data-lang="en"]');
+        if (await englishBtn.count() === 1) {
+          await englishBtn.click();
+          await page.waitForTimeout(300);
+          const enState = await page.evaluate(() => {
+            const kpi = document.getElementById("m3-kpi-block");
+            const impactScenario = document.querySelector("#module-4 .m4d-scenario, #m4d-impact")?.parentElement?.textContent || "";
+            const m4Text = document.querySelector("#module-4")?.textContent || "";
+            return {
+              lang: document.documentElement.lang,
+              kpiText: kpi ? kpi.textContent : "",
+              m4HasApprox: /approximately/.test(m4Text),
+              m4HasSpanishHeadline: /aumenta aproximadamente/.test(m4Text),
+            };
+          });
+          assert(enState.lang === "en", "desktop: cambio a EN no aplicado");
+          assert(!/Billones/.test(enState.kpiText), "desktop EN: el KPI de M3 sigue mostrando 'Billones' en ingles");
+          assert(/MUSD\$/.test(enState.kpiText) || enState.kpiText === "", "desktop EN: el KPI de M3 no muestra MUSD$");
+          assert(enState.m4HasApprox, "desktop EN: falta 'approximately' en el titular de M4");
+          assert(!enState.m4HasSpanishHeadline, "desktop EN: titular de M4 quedo en espanol tras click EN");
+        }
       } else {
         const english = page.locator('.site-header [data-lang="en"]');
         assert(await english.count() === 1, "mobile: selector EN no es unico");

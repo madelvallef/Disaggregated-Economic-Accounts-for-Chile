@@ -2443,225 +2443,41 @@
       width: 100%;
     }
 
-    .m5-dark-body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      background:
-        radial-gradient(ellipse at 15% 0%, rgba(34,30,124,0.35), transparent 45%),
-        radial-gradient(ellipse at 85% 90%, rgba(11,79,85,0.22), transparent 45%),
-        #0d0d1a;
-      min-height: 100vh;
-    }
 
-    .m5-topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 52px;
-      height: 64px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      flex-shrink: 0;
-    }
 
-    .m5-topbar .lang-pill button {
-      color: rgba(255,255,255,0.6);
-      font-size: 0.82rem;
-    }
 
-    .m5-topbar .lang-pill button.active {
-      color: #fff;
-      border-bottom-color: rgba(255,255,255,0.8);
-    }
 
-    .m5-topbar-title {
-      font-family: var(--font-display);
-      font-size: clamp(0.9rem, 1.2vw, 1.05rem);
-      font-weight: 700;
-      color: rgba(255,255,255,0.7);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
 
-    .m5-topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
 
     /* Intro band */
-    .m5-intro-band {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 52px;
-      padding: 36px 52px 32px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
 
-    .m5-hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.4rem, 3.5vw, 3.2rem);
-      font-weight: 800;
-      color: #fff;
-      line-height: 1;
-      letter-spacing: -0.03em;
-      margin: 0 0 20px;
-    }
 
-    .m5-intro-text {
-      font-size: clamp(0.92rem, 1.05vw, 1rem);
-      color: rgba(255,255,255,0.5);
-      line-height: 1.7;
-      margin: 0;
-    }
 
     /* Citation column */
-    .m5-cite-col {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
 
-    .m5-cite-label {
-      font-size: 0.58rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.28);
-      font-weight: 600;
-    }
 
-    .m5-cite-box {
-      display: flex;
-      align-items: stretch;
-      background: rgba(241,147,32,0.07);
-      border: 1px solid rgba(241,147,32,0.22);
-      border-radius: 3px;
-      overflow: hidden;
-    }
 
-    .m5-cite-bar {
-      width: 3px;
-      flex-shrink: 0;
-      background: #f19320;
-      opacity: 0.75;
-    }
 
-    .m5-cite-inner {
-      padding: 18px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
 
-    .m5-cite-tag {
-      font-size: 0.62rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: rgba(241,147,32,0.7);
-    }
 
-    .m5-cite-text {
-      font-size: clamp(1rem, 1.1vw, 1.15rem);
-      color: rgba(255,255,255,0.7);
-      line-height: 1.65;
-      font-family: var(--font-ui);
-    }
 
-    .m5-cite-text em { font-style: italic; color: rgba(255,255,255,0.5); }
 
-    .m5-cite-note {
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.32);
-      line-height: 1.6;
-      font-style: italic;
-      margin: 0;
-    }
 
     /* Download cards */
-    .m5-cards {
-      flex: 1;
-      padding: 20px 52px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
 
-    .m5-card {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 88px 1fr auto;
-      align-items: center;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 3px;
-      overflow: hidden;
-      text-decoration: none;
-      color: #fff;
-      transition: filter 0.18s ease, transform 0.16s ease;
-    }
 
-    .m5-card:hover { filter: brightness(1.12); transform: translateX(2px); }
 
-    .m5-card-green  { background: linear-gradient(90deg,#16452e88,rgba(255,255,255,0.02)); }
-    .m5-card-teal   { background: linear-gradient(90deg,#083840aa,rgba(255,255,255,0.02)); }
-    .m5-card-purple { background: linear-gradient(90deg,#431f6688,rgba(255,255,255,0.02)); }
-    .m5-card-blue   { background: linear-gradient(90deg,#19166688,rgba(255,255,255,0.02)); }
 
-    .m5-card-num {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      border-right: 1px solid rgba(255,255,255,0.05);
-      font-family: var(--font-data);
-      font-size: 1.9rem;
-      font-weight: 400;
-      opacity: 0.4;
-      letter-spacing: -0.04em;
-    }
 
-    .m5-card-green  .m5-card-num { color: #1e5c3a; }
-    .m5-card-teal   .m5-card-num { color: #0b4f55; }
-    .m5-card-purple .m5-card-num { color: #5c2d8a; }
-    .m5-card-blue   .m5-card-num { color: #221e7c; }
 
-    .m5-card-info   { padding: 0 28px; }
-    .m5-card-title  { font-size: clamp(1.1rem, 1.35vw, 1.3rem); font-weight: 700; color: rgba(255,255,255,0.95); margin-bottom: 7px; letter-spacing: -0.01em; }
-    .m5-card-sub    { font-size: clamp(0.84rem, 0.95vw, 0.94rem); color: rgba(255,255,255,0.45); line-height: 1.5; }
-    .m5-card-ext    { font-family: var(--font-data); font-size: 0.76rem; color: rgba(255,255,255,0.28); margin-left: 14px; }
 
-    .m5-card-btn {
-      margin: 0 28px;
-      padding: 14px 32px;
-      background: #1e5c3a;
-      border-radius: 3px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      white-space: nowrap;
-    }
 
-    .m5-card-btn-teal   { background: #0b4f55; }
-    .m5-card-btn-purple { background: #5c2d8a; }
-    .m5-card-btn-blue   { background: #221e7c; }
 
     /* Responsive */
     @media (max-width: 1100px) {
-      .m5-intro-band { grid-template-columns: 1fr; gap: 24px; padding: 28px 32px 24px; }
-      .m5-cards      { padding: 18px 32px 24px; }
     }
 
     @media (max-width: 760px) {
-      .m5-card { grid-template-columns: 52px 1fr; }
-      .m5-card-btn { display: none; }
-      .m5-intro-band { padding: 20px 20px 18px; }
-      .m5-cards { padding: 14px 20px 18px; }
     }
 
 
@@ -2948,17 +2764,6 @@
       cursor: pointer;
     }
     .np-act:hover { background: rgba(34,30,124,0.14); }
-    /* Tab badge */
-    .np-tab-badge {
-      font-size: 0.58rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--corfo-blue);
-      background: rgba(114,199,213,0.18);
-      border: 1px solid rgba(114,199,213,0.45);
-      padding: 1px 6px;
-    }
     /* Variable select */
     .np-select-wrap { position: relative; }
     .np-styled-select {
@@ -3740,7 +3545,6 @@
     .m2-panel .np-kpi-share strong { color: var(--m2-color) !important; }
     .m2-panel .selection-summary-head { color: var(--m2-color) !important; }
     .m2-panel .selection-summary-head::after { color: rgba(30,92,58,0.45) !important; }
-    .m2-panel .np-tab-badge { background: rgba(30,92,58,0.1); border-color: rgba(30,92,58,0.25); color: var(--m2-color); }
     /* selection summary green — ficha con acento (igual que M3/M4) */
     .m2-panel .selection-summary {
       background: rgba(30,92,58,0.05) !important;
@@ -5344,7 +5148,7 @@
 
           <!-- 2 · Análisis -->
           <div class="m3-sec" id="analysis-control-group">
-            <div class="m3-sec-label" data-i18n="m2AnalysisSectionLabel">2 · Análisis <span class="np-tab-badge" id="np-analysis-badge" style="margin-left:4px">Territorial</span></div>
+            <div class="m3-sec-label" data-i18n="m2AnalysisSectionLabel">2 · Análisis</div>
             <div class="m3-q-cards m2-analysis-cards">
               <button type="button" class="m3-q-card active" data-m2-analysis="distribution">
                 <div class="m3-q-title">Distribución</div>
@@ -5895,13 +5699,18 @@
   <div class="floating-hover-card" id="module4-hover-card" aria-live="polite"></div>
   <div class="floating-control-help" id="module2-control-help" aria-hidden="true"></div>
 
+  <!-- d3, module2_distribution y tree-select se consumen por los scripts inline durante el
+       parseo: deben permanecer síncronos. Los payloads espaciales (26 MB) y las librerías de
+       exportación llevan defer: se descargan en segundo plano sin bloquear el primer render;
+       sus únicos consumidores (module3_app/module4_*) también llevan defer, y el orden de
+       ejecución entre scripts diferidos respeta el orden del documento. -->
   <script src="vendor/d3.min.js"></script>
-  <script src="vendor/html2canvas.min.js"></script>
-  <script src="vendor/jspdf.umd.min.js"></script>
+  <script defer src="vendor/html2canvas.min.js"></script>
+  <script defer src="vendor/jspdf.umd.min.js"></script>
   <script src="web_materiales/data/module2_distribution.js"></script>
   <script src="web_materiales/js/tree-select.js?v=2"></script>
-  <script src="web_materiales/data/spatial_io_flows_data.js?v=2"></script>
-  <script src="web_materiales/data/spatial_io_network_data.js?v=2"></script>
+  <script defer src="web_materiales/data/spatial_io_flows_data.js?v=2"></script>
+  <script defer src="web_materiales/data/spatial_io_network_data.js?v=2"></script>
   <script id="__near-zero-kit">
     /* Criterio "Cerca de 0 / Near 0": en mapas de calor (territorio y territorio-sector),
        las celdas con participación < umbral respecto al total mostrado se pintan en gris
@@ -6120,42 +5929,6 @@
         module4HeaderTitle: "Impacto Sectorial y Geográfico de la Productividad",
         module5HeaderTitle: "Descarga de Datos",
         m5BackLabel: "Volver al inicio",
-        m5HeroTitle: "Datos Abiertos",
-        m5IntroShort: 'Un objetivo central del proyecto de colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026), es que los datos generados constituyan un bien público, de libre acceso y actualización anual, para la investigación y análisis de las políticas públicas.',
-        m5IntroShort2: 'A continuación se presentan los cuatro archivos disponibles correspondientes a las Cuentas Económicas Desagregadas 2022.',
-        m5CiteColLabel: "Acceso a la fuente",
-        m5CiteTag: "Uso obligatorio de cita — para usar estos datos, cita el siguiente paper",
-        m5CiteText: 'Huneeus, F., &amp; Del Valle, M. (2026).<br><em>The Geographic and Sectoral Impact of Productivity</em>.<br>Unpublished manuscript.',
-        m5CiteNote: "Para mayor información sobre las fuentes, construcción y diversas aplicaciones, revisar el paper.",
-        m5Card1Title: "Descriptor de Variables",
-        m5Card1Sub: 'Descripción de todas las variables contenidas en cada base de datos <span class="m5-card-ext">.xlsx · 42 KB</span>',
-        m5Card2Title: "Información Económica",
-        m5Card2Sub: 'Distribución geográfica y sectorial de la actividad económica 2022 <span class="m5-card-ext">.csv · 8.4 MB</span>',
-        m5Card3Title: "Información de Transacciones",
-        m5Card3Sub: 'Transacciones entre sectores y ubicaciones de origen y destino <span class="m5-card-ext">.csv · 31 MB</span>',
-        m5Card4Title: "Tablas de Correspondencias",
-        m5Card4Sub: 'Códigos de sector y provincia con sus correspondencias <span class="m5-card-ext">.xlsx · 18 KB</span>',
-        m5Download: "Descargar",
-        m5IntroTitle: "Introducción",
-        m5IntroBody: `
-          <p>Un objetivo central del proyecto de colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), desarrollado por Huneeus &amp; Del Valle (2026) para la Subdirección de Análisis y Data Territorial, es que los datos generados constituyan un bien público, de libre acceso y actualización anual, para la investigación y análisis de las políticas públicas.</p>
-          <p>A continuación, se presentan los archivos disponibles para descarga correspondientes a las Cuentas Económicas Desagregadas 2022:</p>
-          <ol>
-            <li><strong>Descriptor de Variables:</strong> Incluye, para cada base de datos, una descripción general de las variables contenidas.</li>
-            <li><strong>Información Económica:</strong> Presenta las variables que caracterizan la distribución geográfica de la actividad económica en Chile durante 2022, desagregada por provincia y por 46 sectores productivos.</li>
-            <li><strong>Información de Transacciones:</strong> Entrega las variables que capturan las transacciones entre sectores y ubicaciones de origen y destino.</li>
-            <li><strong>Tablas de Correspondencias:</strong> Detalla, para cada código de sector y ubicación utilizado, la correspondencia con la provincia y el sector que representan.</li>
-          </ol>
-        `,
-        m5Item1Title: "1. Descriptor de Variables",
-        m5Item1Detail: "Incluye una descripción general de las variables contenidas en cada base de datos.",
-        m5Item2Title: "2. Información Económica",
-        m5Item2Detail: "Presenta la distribución geográfica de la actividad económica en Chile durante 2022.",
-        m5Item3Title: "3. Información de Transacciones",
-        m5Item3Detail: "Contiene las variables que capturan las transacciones entre sectores y ubicaciones.",
-        m5Item4Title: "4. Tablas de Correspondencias",
-        m5Item4Detail: "Descarga agrupada de las tablas de sectores y ubicaciones utilizadas en el dashboard.",
-        m5Notice: "Haz clic en cada recuadro para descargar el archivo correspondiente.",
         m4MetricLabel: "Métrica",
         m4IntroTitle: "¿Qué muestra esta sección?",
         m4IntroBody: "<p>Esta sección está pensada para responder una pregunta simple: si algo cambia en una combinación provincia-sector, ¿cómo se transmite ese cambio al resto de la economía?</p><p>Para hacerlo usamos la inversa de Leontief, una forma estándar de trabajar con la matriz insumo-producto. A diferencia de mirar solo los flujos directos entre proveedor y cliente, esta herramienta incorpora toda la cadena de encadenamientos: el proveedor del proveedor, las rondas sucesivas de compras intermedias y los efectos indirectos que se van acumulando en la red productiva.</p><p>Por eso esta sección no busca medir únicamente relaciones inmediatas, sino el alcance total que puede tener un nodo sobre el conjunto de la economía conectada.</p><p>Dentro de la sección hay dos vistas complementarias. Una muestra el impacto nacional de cada provincia-sector, es decir, cuánto puede influir en el nivel agregado cuando se considera el efecto total que se propaga por toda la red productiva. La otra muestra la influencia de cada provincia-sector en el resto de la economía, identificando cuáles dependen de ese nodo de manera directa o indirecta.</p><div class=\"module-four-intro-callout\"><p>Para evaluar el impacto agregado más relevante, los efectos se ponderan por la importancia de cada componente en la demanda final. Esto permite traducir la red productiva a una medida macroeconómica comparable, dando más peso a lo que realmente sostiene el gasto final y, por tanto, el nivel total de actividad.</p><p>La métrica que ves resume, para cada mercado, cuánto se transmite su actividad al consumo final total cuando se consideran todos los efectos directos e indirectos de la cadena productiva. En simple: si ese mercado cambia su actividad, cuánto cambia el consumo final total una vez que se propagan todos los encadenamientos.</p></div>",
@@ -6275,42 +6048,6 @@
         module4HeaderTitle: "Sectoral and Geographic Impact of Productivity",
         module5HeaderTitle: "Data Downloads",
         m5BackLabel: "Back to top",
-        m5HeroTitle: "Open Data",
-        m5IntroShort: 'A central objective of the collaboration project between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), developed by Huneeus &amp; Del Valle (2026), is that the generated data constitute a public good, freely accessible and updated annually for research and public-policy analysis.',
-        m5IntroShort2: 'The four files available for the 2022 Disaggregated Economic Accounts are presented below.',
-        m5CiteColLabel: "Source access",
-        m5CiteTag: "Citation required — to use these data, cite the following paper",
-        m5CiteText: 'Huneeus, F., &amp; Del Valle, M. (2026).<br><em>The Geographic and Sectoral Impact of Productivity</em>.<br>Unpublished manuscript.',
-        m5CiteNote: "For more information on the sources, construction, and applications, please refer to the paper.",
-        m5Card1Title: "Variable Descriptor",
-        m5Card1Sub: 'Description of all variables contained in each database <span class="m5-card-ext">.xlsx · 42 KB</span>',
-        m5Card2Title: "Economic Information",
-        m5Card2Sub: 'Geographic and sectoral distribution of economic activity in 2022 <span class="m5-card-ext">.csv · 8.4 MB</span>',
-        m5Card3Title: "Transaction Information",
-        m5Card3Sub: 'Transactions between sectors and origin–destination locations <span class="m5-card-ext">.csv · 31 MB</span>',
-        m5Card4Title: "Correspondence Tables",
-        m5Card4Sub: 'Sector and province codes with their correspondences <span class="m5-card-ext">.xlsx · 18 KB</span>',
-        m5Download: "Download",
-        m5IntroTitle: "Introduction",
-        m5IntroBody: `
-          <p>A central objective of the collaboration between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), developed by Huneeus &amp; Del Valle (2026) for the Territorial Analysis and Data Subdirectorate, is that the generated data should be a public good, freely accessible and updated annually for research and public-policy analysis.</p>
-          <p>The files available for download corresponding to the 2022 Geographically Disaggregated Economic Accounts are listed below:</p>
-          <ol>
-            <li><strong>Variable Descriptor:</strong> Provides a general description of the variables contained in each database.</li>
-            <li><strong>Economic Information:</strong> Contains the variables that characterize the geographic distribution of economic activity in Chile during 2022, disaggregated by province and by 46 productive sectors.</li>
-            <li><strong>Transaction Information:</strong> Provides the variables that capture transactions between sectors and origin-destination locations.</li>
-            <li><strong>Correspondence Tables:</strong> Details, for each sector and location code used, the correspondence with the province and sector they represent.</li>
-          </ol>
-        `,
-        m5Item1Title: "1. Variable Descriptor",
-        m5Item1Detail: "Includes a general description of the variables contained in each database.",
-        m5Item2Title: "2. Economic Information",
-        m5Item2Detail: "Shows the geographic distribution of economic activity in Chile during 2022.",
-        m5Item3Title: "3. Transaction Information",
-        m5Item3Detail: "Contains the variables that capture transactions between sectors and locations.",
-        m5Item4Title: "4. Correspondence Tables",
-        m5Item4Detail: "Bundled download of the sector and location tables used in the dashboard.",
-        m5Notice: "Click each box to download the corresponding file.",
         m4MetricLabel: "Metric",
         m4IntroTitle: "What does this section show?",
         m4IntroBody: "<p>This section is designed to answer a simple question: if something changes in a province-sector combination, how does that change propagate through the rest of the economy?</p><p>To do that, we use the Leontief inverse, a standard way of working with the input-output matrix. Unlike looking only at direct buyer-supplier flows, this tool captures the entire chain of linkages: the supplier of the supplier, successive rounds of intermediate purchases, and the indirect effects that accumulate across the production network.</p><p>That is why this section is not about immediate relationships alone, but about the total reach a node can have across a connected economy.</p><p>Inside the section there are two complementary views. One shows the national impact of each province-sector, meaning how much it can influence aggregate activity once the full effect propagating through the network is taken into account. The other shows the influence of each province-sector on the rest of the economy, identifying which nodes depend on it directly or indirectly.</p><div class=\"module-four-intro-callout\"><p>To evaluate the most relevant aggregate impact, the effects are weighted by the importance of each component in final demand. This turns the production network into a comparable macroeconomic measure, giving more weight to what actually sustains final expenditure and, therefore, total activity.</p><p>The metric shown here summarizes, for each market, how much of its activity is transmitted to total final consumption once all direct and indirect production linkages are propagated. In simple terms: if that market changes its activity, how much does total final consumption change after the full network response is taken into account?</p></div>",
@@ -6407,8 +6144,17 @@
       }
     };
 
+    // Idioma inicial: elección guardada > idioma del navegador (en→EN) > ES.
+    function initialLanguage() {
+      try {
+        const saved = localStorage.getItem("ced-lang");
+        if (saved === "es" || saved === "en") return saved;
+      } catch (e) { /* localStorage no disponible (modo privado) */ }
+      const nav = (navigator.language || "").toLowerCase();
+      return nav.startsWith("en") ? "en" : "es";
+    }
     const state = {
-      lang: "es",
+      lang: initialLanguage(),
       view: "geo",
       analysis: "distribution",
       metric: "valor_agregado",
@@ -6446,7 +6192,6 @@
     const textNodes = document.querySelectorAll("[data-i18n]");
     const htmlNodes = document.querySelectorAll("[data-i18n-html]");
     const langButtons = document.querySelectorAll("[data-lang]");
-    const downloadCards = document.querySelectorAll(".downloads-stack .download-card, .m5-cards .m5-card");
     const pageShell = document.querySelector(".page-shell");
     const module2Section = document.getElementById("module-2");
     const tabs = module2Section?.querySelectorAll(".module-tab") || [];
@@ -6478,7 +6223,7 @@
     const matrixModeButtons = document.querySelectorAll("[data-matrix-mode]");
 
     const module2 = window.module2Data;
-    const rawRows = module2.econRows || module2.econ || [];
+    const rawRows = module2.econRows || [];
     const locations = module2.locations;
     const locationByUbicacion = new Map(locations.map((loc) => [String(loc.cod_ubicacion), loc]));
     const locationByProvincia = new Map(locations.map((loc) => [String(loc.cod_provincia), loc]));
@@ -6494,6 +6239,7 @@
         cod_region_sort: locationMeta.cod_region_sort,
         nom_region: locationMeta.nom_region,
         nom_macrozona: locationMeta.nom_macrozona,
+        nom_macrozona_eng: locationMeta.nom_macrozona_eng,
         productividad_laboral: row.empleo > 0 ? row.valor_agregado / row.empleo : 0
       };
     });
@@ -6520,9 +6266,10 @@
         if (!mzMap.get(mz).has(reg)) mzMap.get(mz).set(reg, new Set());
         mzMap.get(mz).get(reg).add(prov);
       });
+      const mzEngByEs = new Map(locations.map((l) => [l.nom_macrozona, l.nom_macrozona_eng]));
       return Array.from(mzMap.entries()).map(([mz, regMap]) => ({
         value: mz,
-        label: mz,
+        label: state.lang === "en" ? (mzEngByEs.get(mz) || mz) : mz,
         children: Array.from(regMap.entries()).map(([reg, provs]) => ({
           value: reg,
           label: reg,
@@ -6599,12 +6346,16 @@
         })
       : null;
 
+    // Única fuente de la unidad de productividad laboral (el código divide por 1e6 en ES
+    // y por usdConcordanceRate en EN — ver formatValue): millones de CLP / USD por trabajador.
+    const LABOR_PRODUCTIVITY_UNIT_ES = "Millones de CLP por trabajador";
+    const LABOR_PRODUCTIVITY_UNIT_EN = "USD per worker";
     const metricMeta = Object.assign({}, module2.metrics, {
       productividad_laboral: {
         label_es: "Productividad laboral",
         label_en: "Labor productivity",
-        unit_es: "Billones de CLP por trabajador",
-        unit_en: "MUSD$/job",
+        unit_es: LABOR_PRODUCTIVITY_UNIT_ES,
+        unit_en: LABOR_PRODUCTIVITY_UNIT_EN,
         isDerived: true
       },
       domar_weight: {
@@ -6621,17 +6372,17 @@
     const metricDescriptions = {
       valor_agregado: { es: "Valor agregado: el aporte de cada combinaci\u00f3n provincia-sector al PIB. Equivale a la producci\u00f3n menos el consumo intermedio.", en: "Value added: each province-sector unit's contribution to GDP. Equals output minus intermediate consumption." },
       empleo: { es: "N\u00famero de personas ocupadas en la combinaci\u00f3n provincia-sector.", en: "Number of people employed in the province-sector unit." },
-      ventas_tot: { es: "Ventas totales: valor de toda la producci\u00f3n vendida (mercado nacional, ventas intermedias y exportaciones).", en: "Total sales: value of all output sold (domestic market, intermediate sales and exports)." },
-      material_tot: { es: "Gastos totales: gasto en insumos y materiales intermedios usados en la producci\u00f3n.", en: "Total inputs: spending on intermediate inputs and materials used in production." },
-      ventas_nac: { es: "Ventas nacionales: ventas dirigidas a la demanda dentro de Chile.", en: "Domestic sales: sales directed to demand within Chile." },
-      ventas_int: { es: "Ventas intermedias: ventas a otros sectores que las utilizan como insumo.", en: "Intermediate sales: sales to other sectors that use them as inputs." },
-      exportacion: { es: "Exportaciones: ventas dirigidas al resto del mundo.", en: "Exports: sales directed to the rest of the world." },
-      importacion: { es: "Importaciones: compras de bienes y servicios desde el resto del mundo.", en: "Imports: purchases of goods and services from the rest of the world." },
-      remun: { es: "Remuneraciones: pago a los trabajadores (sueldos y salarios) de la unidad.", en: "Compensation: payments to workers (wages and salaries) in the unit." },
+      produccion_bruta: { es: "Ventas totales: valor de toda la producci\u00f3n vendida (mercado nacional, ventas intermedias y exportaciones).", en: "Total sales: value of all output sold (domestic market, intermediate sales and exports)." },
+      insumos_intermedios_totales: { es: "Gastos totales: gasto en insumos y materiales intermedios usados en la producci\u00f3n.", en: "Total inputs: spending on intermediate inputs and materials used in production." },
+      ventas_domesticas: { es: "Ventas nacionales: ventas dirigidas a la demanda dentro de Chile.", en: "Domestic sales: sales directed to demand within Chile." },
+      ventas_intermedias: { es: "Ventas intermedias: ventas a otros sectores que las utilizan como insumo.", en: "Intermediate sales: sales to other sectors that use them as inputs." },
+      exportaciones: { es: "Exportaciones: ventas dirigidas al resto del mundo.", en: "Exports: sales directed to the rest of the world." },
+      insumos_intermedios_importados: { es: "Importaciones: compras de insumos y servicios intermedios desde el resto del mundo.", en: "Imports: purchases of intermediate inputs and services from the rest of the world." },
+      remuneraciones: { es: "Remuneraciones: pago a los trabajadores (sueldos y salarios) de la unidad.", en: "Compensation: payments to workers (wages and salaries) in the unit." },
       productividad_laboral: { es: "Productividad laboral: PIB por trabajador (valor agregado dividido por el empleo).", en: "Labor productivity: GDP per worker (value added divided by employment)." },
       domar_weight: { es: "Peso de Domar: ventas totales del productor divididas por el PIB nacional. Bajo Hulten (1978), corresponde a la elasticidad del PIB agregado frente a un aumento marginal de la productividad del productor. Esta visualización muestra el indicador directamente, sin reescalarlo.", en: "Domar weight: the producer's total sales divided by national GDP. Under Hulten (1978), it is the aggregate GDP elasticity to a marginal productivity increase in that producer. This visualization shows the indicator directly, without rescaling it." }
     };
-    const usdConcordanceRate = 782.7243428447406;
+    const usdConcordanceRate = module2.usdRate; // 782.75 — única fuente: module2Data.usdRate (ver scripts/build-module2-data.js)
     const visualZeroThresholdClp = 100000000;
     const macroColors = module2.macroColors;
     const industryColors = {
@@ -6726,7 +6477,7 @@
       }
       if (state.metric === 'domar_weight') {
         // Domar weight is additive: sum of producers' total sales over fixed national GDP.
-        return nationalGdpTotal > 0 ? d3.sum(values, d => d.ventas_tot) / nationalGdpTotal : 0;
+        return nationalGdpTotal > 0 ? d3.sum(values, d => d.produccion_bruta) / nationalGdpTotal : 0;
       }
       return d3.sum(values, d => d[state.metric]);
     }
@@ -6860,7 +6611,10 @@
 
       return rows.map((row) => ({
         ...row,
-        geoGroup: row[geoKey],
+        // Macrozonas: clave interna en ES, display traducido en EN (nom_macrozona_eng del payload)
+        geoGroup: state.geoLevel === "macrozone" && state.lang === "en"
+          ? (row.nom_macrozona_eng || row.nom_macrozona)
+          : row[geoKey],
         geoOrder: state.geoLevel === "macrozone"
           ? macrozoneOrder.get(row.nom_macrozona)
           : state.geoLevel === "region"
@@ -6898,7 +6652,7 @@
       if (unitMode === "share") return state.lang === "es" ? "Porcentaje\u00A0(%)" : "Percentage\u00A0(%)";
       if (unitMode === "relative") return state.lang === "es" ? "Índice relativo" : "Relative index";
       if (metricKey === "empleo") return state.lang === "es" ? "personas" : "jobs";
-      if (metricKey === "productividad_laboral") return state.lang === "es" ? "Billones de CLP por trabajador" : "USD per worker";
+      if (metricKey === "productividad_laboral") return state.lang === "es" ? LABOR_PRODUCTIVITY_UNIT_ES : LABOR_PRODUCTIVITY_UNIT_EN;
       if (metricKey === "domar_weight") return state.lang === "es" ? "Peso de Domar" : "Domar weight";
       if (state.lang === "es") return variant === "compact" ? "bill. CLP" : "Billones de CLP";
       return "MUSD$";
@@ -7110,7 +6864,7 @@
         b.classList.toggle('active', b.dataset.m2Unit === state.unit);
         if (b.dataset.m2Unit === 'value') {
           const _vt = b.querySelector('.m3-q-title') || b;
-          _vt.textContent = isEmpleo ? (isEs ? 'Empleos' : 'Jobs') : isLP ? (isEs ? 'Billones de CLP por trabajador' : 'MUSD$/job') : isDomar ? (isEs ? 'Peso de Domar' : 'Domar weight') : (isEs ? 'Monto en Billones de CLP' : 'Amount MUSD$');
+          _vt.textContent = isEmpleo ? (isEs ? 'Empleos' : 'Jobs') : isLP ? (isEs ? LABOR_PRODUCTIVITY_UNIT_ES : LABOR_PRODUCTIVITY_UNIT_EN) : isDomar ? (isEs ? 'Peso de Domar' : 'Domar weight') : (isEs ? 'Monto en Billones de CLP' : 'Amount MUSD$');
           const _vs = b.querySelector('.m3-q-sub');
           if (_vs) _vs.textContent = isDomar
             ? (isEs ? 'Elasticidad del PIB agregado' : 'Aggregate GDP elasticity')
@@ -9429,10 +9183,48 @@ function selectionCountLabel(type, level, count) {
       renderSelectionSummary();
     }
 
+    // Traducción de atributos de accesibilidad (aria-label / title / alt) fijados en el HTML.
+    // El original ES se conserva en data-es-<attr> la primera vez; luego se alterna por idioma.
+    const ATTR_I18N = {
+      "Descargar figura": "Download figure",
+      "Ampliar figura": "Enlarge figure",
+      "Ocultar controles": "Hide controls",
+      "Ocultar ranking": "Hide ranking",
+      "Mapa de Chile": "Map of Chile",
+      "Vistas del módulo 2": "Module 2 views",
+      "Vistas del módulo 3": "Module 3 views",
+      "Caracterización geográfica y sectorial": "Geographic and sectoral characterization",
+      "Caracterización territorial - sectorial": "Territorial-sectoral characterization",
+      "Cadenas de valor territoriales": "Territorial value chains",
+      "Impacto productivo nacional": "National productive impact",
+      "Iniciativas relacionadas": "Related initiatives",
+      "Navegación principal": "Main navigation",
+      "Abrir navegación": "Open navigation",
+      "Cerrar Top": "Close Top",
+      "Portada": "Cover",
+      "Secciones": "Sections",
+      "The Geographic and Sectoral Impact of Productivity — primera página": "The Geographic and Sectoral Impact of Productivity — first page"
+    };
+    function localizeAttributes(lang) {
+      ["aria-label", "title", "alt"].forEach((attr) => {
+        const dataAttr = "data-es-" + attr.replace(/[^a-z]/g, "");
+        document.querySelectorAll("[" + attr + "]").forEach((el) => {
+          let es = el.getAttribute(dataAttr);
+          if (es === null) {
+            es = el.getAttribute(attr);
+            if (!(es in ATTR_I18N)) return;
+            el.setAttribute(dataAttr, es);
+          }
+          el.setAttribute(attr, lang === "en" ? (ATTR_I18N[es] || es) : es);
+        });
+      });
+    }
     function applyLanguage(lang) {
       state.lang = lang;
+      try { localStorage.setItem("ced-lang", lang); } catch (e) { /* modo privado */ }
       document.documentElement.lang = lang;
       document.title = copy[lang].pageTitle;
+      localizeAttributes(lang);
       textNodes.forEach((node) => {
         const key = node.dataset.i18n;
         if (copy[lang][key]) node.textContent = copy[lang][key];
@@ -9466,7 +9258,8 @@ function selectionCountLabel(type, level, count) {
       });
       syncAggregationControls();
       syncAnalysisUi();
-      syncDownloadLinks();
+      // Las macrozonas tienen version _eng: reconstruir tambien el arbol geografico.
+      treeSelectGeo?.setTree(buildGeoTreeForSelect());
       treeSelectGeo?.setLang();
       // Los nombres de sector/industria/actividad tienen version _eng: hay
       // que reconstruir el arbol (no solo los textos del trigger/popup).
@@ -9476,31 +9269,6 @@ function selectionCountLabel(type, level, count) {
       renderModule2();
     }
 
-    function syncDownloadLinks() {
-      const suffix = state.lang === "es" ? "Es" : "En";
-      downloadCards.forEach((card) => {
-        if (card.dataset.downloadGuard !== "true") {
-          card.addEventListener("click", (event) => {
-            if (card.getAttribute("aria-disabled") === "true") {
-              event.preventDefault();
-              console.warn("[Descargas] Archivo pendiente de publicar:", card.dataset.i18nDl || card.textContent.trim());
-            }
-          });
-          card.dataset.downloadGuard = "true";
-        }
-        if (card.dataset.downloadPending === "true") {
-          card.setAttribute("href", "#module-5");
-          card.removeAttribute("download");
-          card.setAttribute("aria-disabled", "true");
-          return;
-        }
-        const href = card.dataset[`href${suffix}`];
-        const download = card.dataset[`download${suffix}`];
-        if (href) card.setAttribute("href", href);
-        if (download) card.setAttribute("download", download);
-        card.removeAttribute("aria-disabled");
-      });
-    }
 
     function setupModule2() {
       buildMetricSelect();
@@ -9902,7 +9670,7 @@ function selectionCountLabel(type, level, count) {
 
     // Track active module by scroll position (more reliable than IntersectionObserver)
     function updateActiveModule() {
-      const modules = document.querySelectorAll('#module-1, #module-2, #module-3, #module-4, #module-5');
+      const modules = document.querySelectorAll('#module-1, #module-2, #module-3, #module-4');
       const viewportMid = window.innerHeight * 0.4;
       let activeId = null;
       modules.forEach(m => {
@@ -9949,7 +9717,6 @@ function selectionCountLabel(type, level, count) {
         'module-2': { bg: '#1e5c3a', topbar: 'linear-gradient(90deg, #1e5c3a 0%, #256b45 100%)' },
         'module-3': { bg: '#0b4f55', topbar: 'linear-gradient(90deg, #0b4f55 0%, #0e5f66 100%)' },
         'module-4': { bg: '#5c2d8a', topbar: 'linear-gradient(90deg, #5c2d8a 0%, #6e3aa3 100%)' },
-        'module-5': { bg: '#0d0d1a', topbar: 'linear-gradient(90deg, #0d0d1a 0%, #141428 100%)' },
       };
 
       // Create overlay element
@@ -10046,10 +9813,10 @@ function selectionCountLabel(type, level, count) {
       }, { passive: true });
     }
   </script>
-  <script src="web_materiales/data/module3_app.js?v=24"></script>
+  <script defer src="web_materiales/data/module3_app.js?v=24"></script>
   <script src="vendor/katex/katex.min.js"></script>
-  <script src="web_materiales/data/module4_engine.js?v=2"></script>
-  <script src="web_materiales/data/module4_app.js?v=23"></script>
+  <script defer src="web_materiales/data/module4_engine.js?v=2"></script>
+  <script defer src="web_materiales/data/module4_app.js?v=23"></script>
   <script>
     /* ── np-panel helpers ── */
     (function(){
@@ -10072,16 +9839,6 @@ function selectionCountLabel(type, level, count) {
           const sel = document.getElementById('m2-left-sector-level');
           if(sel){ sel.value = val; sel.dispatchEvent(new Event('change',{bubbles:true})); }
         }
-      });
-
-      // ── Analysis tab badge ──
-      document.querySelectorAll('#module-2 .module-tab').forEach(tab=>{
-        tab.addEventListener('click', function(){
-          const badge = document.getElementById('np-analysis-badge');
-          if(!badge) return;
-          const view = this.dataset.view;
-          badge.textContent = view==='geo'?'Territorial': view==='sector'?'Sectorial':'Territorial–Sectorial';
-        });
       });
 
       // ── Accordion tree filter ──
@@ -10218,29 +9975,11 @@ function selectionCountLabel(type, level, count) {
     }
     /* Módulo 5 con la misma altura que el resto: 100vh, sin scrollbar interno —
        el contenido se comprime con clamp() igual que el módulo 1 */
-    #module-5.module-five { height: 100vh; min-height: 100vh; overflow: hidden; }
-    #module-5 .m5-dark-body { height: 100%; min-height: 0 !important; overflow: hidden; }
-    #module-5 .m5-topbar { flex-shrink: 0; }
-    #module-5 .m5-intro-band { flex-shrink: 0; padding: clamp(10px, 2.6vh, 36px) clamp(20px, 3.5vw, 52px) clamp(8px, 2.2vh, 32px); gap: clamp(20px, 3vw, 52px); }
-    #module-5 .m5-hero-title { font-size: clamp(1.3rem, 4.2vh, 3.2rem); margin-bottom: clamp(6px, 1.6vh, 20px); }
-    #module-5 .m5-intro-text { font-size: clamp(0.72rem, 1.5vh, 1rem); line-height: 1.5; }
-    #module-5 .m5-cite-col { gap: clamp(5px, 1vh, 12px); }
-    #module-5 .m5-cite-inner { padding: clamp(6px, 1.5vh, 18px) clamp(10px, 1.6vw, 20px); gap: clamp(3px, 0.8vh, 8px); }
-    #module-5 .m5-cite-text { font-size: clamp(0.72rem, 1.5vh, 1.15rem); line-height: 1.45; }
-    #module-5 .m5-cite-note { font-size: clamp(0.62rem, 1.2vh, 0.82rem); line-height: 1.4; }
-    #module-5 .m5-cards { min-height: 0; padding: clamp(8px, 1.8vh, 20px) clamp(20px, 3.5vw, 52px) clamp(10px, 2.4vh, 28px); gap: clamp(6px, 1.3vh, 14px); }
-    #module-5 .m5-card { min-height: 0; }
-    #module-5 .m5-card-num { font-size: clamp(1rem, 2.4vh, 1.9rem); }
-    #module-5 .m5-card-info { padding: clamp(2px, 0.8vh, 12px) clamp(14px, 2vw, 28px); }
-    #module-5 .m5-card-title { font-size: clamp(0.78rem, 1.7vh, 1.3rem); margin-bottom: clamp(1px, 0.5vh, 7px); line-height: 1.2; }
-    #module-5 .m5-card-sub { font-size: clamp(0.62rem, 1.3vh, 0.94rem); line-height: 1.3; }
-    #module-5 .m5-card-btn { padding: clamp(6px, 1.3vh, 14px) clamp(14px, 2vw, 32px); font-size: clamp(0.68rem, 1.3vh, 0.85rem); }
     .module-header-title { font-size: clamp(0.6rem, 1.4vw, 0.85rem) !important; white-space: normal !important; }
     .header-title { font-size: clamp(0.6rem, 1.4vw, 0.85rem) !important; white-space: nowrap !important; position: relative !important; inset: auto !important; padding: 0 12px !important; }
     #module-2 .topbar .header-title,
     #module-3 .topbar .header-title,
     #module-4 .topbar .header-title,
-    #module-5 .header-title { font-size: clamp(0.85rem, 1.5vw, 1.15rem) !important; }
     #module-1 .header-title { font-size: clamp(1rem, 1.8vw, 1.35rem) !important; }
 
     /* ══ Módulo 4 · Drawer inferior ══════════════════════════════════════ */
@@ -10584,10 +10323,10 @@ function selectionCountLabel(type, level, count) {
       #module-4.m4-new { min-height: 100vh; }
       #module-4.m4-new .m4-shell { height: auto !important; min-height: calc(100vh - var(--mobile-topbar-h)); overflow: visible !important; }
       #module-4 .m4d-main { display: block !important; }
-      .topbar, #module-5 .m5-topbar { min-height: var(--mobile-topbar-h) !important; height: var(--mobile-topbar-h) !important; padding: 5px 10px !important; gap: 6px !important; }
-      .topbar .lang-pill, #module-5 .m5-topbar .lang-pill { flex: 0 0 auto; gap: 6px !important; }
-      .topbar .lang-pill button, #module-5 .m5-topbar .lang-pill button { font-size: 0.7rem !important; line-height: 1 !important; }
-      .header-title, .module-header-title, #module-5 .m5-topbar-title {
+      .topbar { min-height: var(--mobile-topbar-h) !important; height: var(--mobile-topbar-h) !important; padding: 5px 10px !important; gap: 6px !important; }
+      .topbar .lang-pill { flex: 0 0 auto; gap: 6px !important; }
+      .topbar .lang-pill button { font-size: 0.7rem !important; line-height: 1 !important; }
+      .header-title, .module-header-title {
         flex: 1 1 auto !important; min-width: 0 !important; text-align: center !important;
         font-size: clamp(0.58rem, 2.65vw, 0.78rem) !important; line-height: 1.05 !important; letter-spacing: 0 !important;
         display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden !important; padding: 0 4px !important;
@@ -10911,7 +10650,7 @@ function selectionCountLabel(type, level, count) {
          elementos complejos conservan sus scrollbars internos, pero nunca
          deben ensanchar html/body ni dejar una banda vacía a la derecha. */
       html, body, .page-shell, .landing, .module-section,
-      #module-1, #module-2, #module-3, #module-4, #module-5 {
+      #module-1, #module-2, #module-3, #module-4 {
         width: 100% !important;
         max-width: 100% !important;
         min-width: 0 !important;
@@ -10970,213 +10709,15 @@ function selectionCountLabel(type, level, count) {
       .mobile-top-body .m4d-chip-sw { width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto; }
       .mobile-top-body .m4d-chip-name { flex: 1; min-width: 0; color: var(--corfo-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .mobile-top-body .m4d-chip-val { font-family: var(--font-data); font-size: 0.78rem; color: var(--corfo-muted); flex: 0 0 auto; }
-       .contact-fab { right: 14px !important; top: auto !important; bottom: calc(13px + env(safe-area-inset-bottom, 0px)) !important; padding: 5px !important; border-radius: 999px !important; z-index: 2147482900 !important; transform: translateZ(0); }
-      .contact-fab.is-hidden { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
-      body.mobile-top-open .contact-fab { display: none !important; }
-      .contact-fab .cf-label, .contact-fab .cf-close { display: none !important; }
-      .contact-fab .cf-link { padding: 0 !important; gap: 0 !important; }
-      .contact-fab .cf-ico { width: 42px !important; height: 42px !important; }
-      #module-5 .m5-dark-body { overflow-y: auto !important; height: 100vh !important; padding-bottom: 70px !important; }
-      #module-5 .m5-intro-band { display: block !important; padding: 20px !important; }
-      #module-5 .m5-hero-title { font-size: clamp(2rem, 9vw, 2.7rem) !important; }
-      #module-5 .m5-cards { padding: 14px 20px 78px !important; }
-      #module-5 .m5-card { grid-template-columns: 48px 1fr !important; min-height: 72px !important; }
     }
   </style>
 
 
 
-  <!-- ══════════════════════════════════════════════════════════════════
-       BOTÓN FLOTANTE DE CONTACTO  (deriva a Google Forms)
-       ▸ Para activarlo, pega la URL del formulario en CONTACT_FORM_URL ↓↓↓
-       ══════════════════════════════════════════════════════════════════ -->
   
 
-  <style id="__contact-fab-css">
-    .contact-fab {
-      position: fixed;
-      right: 24px;
-      bottom: 24px;
-      z-index: 900;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      color: #241a05;
-      background: var(--ds-color-accent, #f19320);
-      padding: 6px 8px 6px 6px;
-      border-radius: 40px;
-      box-shadow: 0 14px 34px -8px rgba(0, 0, 0, 0.45), 0 0 0 6px rgba(241, 147, 32, 0.12);
-      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
-    }
 
-    .contact-fab:hover {
-      box-shadow: 0 18px 40px -8px rgba(0, 0, 0, 0.5), 0 0 0 8px rgba(241, 147, 32, 0.18);
-    }
 
-    .contact-fab.is-hidden {
-      opacity: 0;
-      transform: translateY(96px) scale(0.9);
-      pointer-events: none;
-    }
-
-    .contact-fab.is-dismissed {
-      display: none;
-    }
-
-    .cf-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: #241a05 !important;
-      background: none !important;
-      border: 0;
-      border-radius: 40px;
-      padding: 7px 8px 7px 9px;
-      font-family: var(--ds-font-ui, "DM Sans", system-ui, sans-serif);
-      font-size: 0.92rem;
-      font-weight: 800;
-      letter-spacing: 0.01em;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .cf-link .cf-ico {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.28);
-    }
-
-    .cf-label {
-      color: inherit !important;
-      background: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-    }
-
-    .cf-close {
-      width: 28px;
-      height: 28px;
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      border: 0;
-      border-radius: 50%;
-      color: #241a05;
-      background: rgba(36, 26, 5, 0.16);
-      cursor: pointer;
-      transition: background 0.18s ease, transform 0.18s ease;
-    }
-
-    .cf-close:hover {
-      background: rgba(36, 26, 5, 0.32);
-      transform: scale(1.08);
-    }
-
-    .cf-close svg {
-      width: 13px;
-      height: 13px;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .contact-fab {
-        transition: opacity 0.25s ease;
-      }
-
-      .contact-fab.is-hidden {
-        transform: none;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .contact-fab {
-        right: 14px;
-        bottom: 14px;
-      }
-
-      .cf-link {
-        gap: 8px;
-        font-size: 0.82rem;
-      }
-
-      .cf-link .cf-ico {
-        width: 26px;
-        height: 26px;
-      }
-    }
-  </style>
-
-  <div class="contact-fab" id="contact-fab">
-    <a class="cf-link" id="contact-fab-link" href="#" target="_blank" rel="noopener" aria-label="Contacto">
-      <span class="cf-ico">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#241a05" stroke-width="1.8" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12 7.7L3 21l1.8-6A8.5 8.5 0 1 1 21 11.5z"></path></svg>
-      </span>
-      <span class="cf-label" data-es="Contacto" data-en="Contact">Contacto</span>
-    </a>
-    <button type="button" class="cf-close" id="contact-fab-close" aria-label="Cerrar" title="Cerrar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
-    </button>
-  </div>
-
-  <script id="__contact-fab-js">
-    (function () {
-      var CONTACT_FORM_URL = "";
-      var fab = document.getElementById("contact-fab");
-      var link = document.getElementById("contact-fab-link");
-      var closeBtn = document.getElementById("contact-fab-close");
-      if (!fab || !link) return;
-
-      if (CONTACT_FORM_URL) {
-        link.setAttribute("href", CONTACT_FORM_URL);
-      } else {
-        link.addEventListener("click", function (event) {
-          event.preventDefault();
-          console.warn("[Contacto] Falta configurar CONTACT_FORM_URL con la URL del Google Form.");
-        });
-      }
-
-      if (closeBtn) {
-        closeBtn.addEventListener("click", function () {
-          fab.classList.add("is-dismissed");
-        });
-      }
-
-      var label = link.querySelector(".cf-label");
-      function syncLabel() {
-        var isEn = document.documentElement.lang === "en";
-        if (label) label.textContent = isEn ? label.dataset.en : label.dataset.es;
-        link.setAttribute("aria-label", isEn ? "Contact" : "Contacto");
-        fab.setAttribute("aria-label", isEn ? "Contact" : "Contacto");
-      }
-
-      syncLabel();
-      new MutationObserver(syncLabel).observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["lang"]
-      });
-
-      var lastY = window.scrollY || 0;
-      var idleTimer = null;
-      function show() { fab.classList.remove("is-hidden"); }
-      function hide() { fab.classList.add("is-hidden"); }
-
-      window.addEventListener("scroll", function () {
-        var y = window.scrollY || 0;
-        if (y < 60) show();
-        else if (y > lastY + 5) hide();
-        else if (y < lastY - 5) show();
-        lastY = y;
-        clearTimeout(idleTimer);
-        idleTimer = setTimeout(show, 900);
-      }, { passive: true });
-    })();
-  </script>
 
   <style id="__sitio-explore-integration-css">
     /* Integracion editorial de Explore dentro del flujo largo de sitio.html. */
@@ -11976,7 +11517,6 @@ function selectionCountLabel(type, level, count) {
 </section>
 
 <style id="__registry-form-css">
-  .contact-fab{display:none!important}
   @media (min-width:821px){.explore-inline #module-2 .m2-panel,.explore-inline #module-3 .m3-panel,.explore-inline #module-4 .m4d-controls{position:relative!important}}
   .explore-inline .m2-header,.explore-inline .m3-header,.explore-inline #module-4 .m4d-panel-header{position:absolute!important;top:12px;right:12px;z-index:3;display:block!important;padding:0!important;background:transparent!important}
   .explore-inline .m3-panel-headline{display:block!important}
@@ -12093,7 +11633,7 @@ function selectionCountLabel(type, level, count) {
         </div>
       </div>
       <a class="paper-thumb" href="https://www.fedehuneeus.com/s/HdV.pdf" target="_blank" rel="noopener">
-        <img src="uploads/paper_HdV_page1.png" alt="The Geographic and Sectoral Impact of Productivity — primera página">
+        <img src="uploads/paper_HdV_page1.png" alt="The Geographic and Sectoral Impact of Productivity — primera página" loading="lazy">
         <span class="open-pdf" data-site-i18n="openPdf">Abrir PDF</span>
       </a>
       <div class="paper-body">
@@ -12136,7 +11676,7 @@ function selectionCountLabel(type, level, count) {
     <div style="display:flex;justify-content:center;gap:90px;flex-wrap:wrap">
       <div style="display:flex;flex-direction:column;align-items:center;gap:16px;width:200px">
         <div style="width:150px;height:150px;border-radius:50%;overflow:hidden">
-          <img src="uploads/fede_huneeus.png" alt="Federico Huneeus" style="width:100%;height:100%;object-fit:cover;object-position:center 28%;transform:scale(1.14);transform-origin:center 38%">
+          <img src="uploads/fede_huneeus.webp" alt="Federico Huneeus" loading="lazy" width="300" height="300" style="width:100%;height:100%;object-fit:cover;object-position:center 28%;transform:scale(1.14);transform-origin:center 38%">
         </div>
         <div style="text-align:center">
           <a href="https://www.fedehuneeus.com/" target="_blank" rel="noopener" style="font:700 1.12rem 'DM Sans';color:var(--ds-color-brand);text-decoration:underline;text-underline-offset:4px">Federico Huneeus</a>
@@ -12145,7 +11685,7 @@ function selectionCountLabel(type, level, count) {
         </div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:16px;width:200px">
-        <img src="uploads/miguel_delvalle-51927405.JPG" alt="Miguel Del Valle" style="width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:center">
+        <img src="uploads/miguel_delvalle.webp" alt="Miguel Del Valle" loading="lazy" width="300" height="300" style="width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:center">
         <div style="text-align:center">
           <a href="https://madelvallef.github.io/" target="_blank" rel="noopener" style="font:700 1.12rem 'DM Sans';color:var(--ds-color-brand);text-decoration:underline;text-underline-offset:4px">Miguel Del Valle</a>
           <p data-site-i18n="teamRoleAssistant" style="margin:6px 0 0;color:var(--ds-color-muted);font-size:.9rem;white-space:nowrap">Asistente de investigación</p>
@@ -12238,12 +11778,12 @@ function selectionCountLabel(type, level, count) {
       ackTitle:"Agradecimientos", ackText:"Agradecemos a la Corporación de Fomento de la Producción (CORFO) por impulsar esta iniciativa. Agradecemos también al Servicio de Impuestos Internos (SII) por facilitar el acceso a datos administrativos anonimizados. La información aquí contenida es de carácter tributario proveniente de autodeclaraciones de los contribuyentes presentadas ante el SII; por lo que la veracidad de dichos datos no es responsabilidad del Servicio. Este trabajo contó con el apoyo del Banco Interamericano de Desarrollo (BID) en el marco del proyecto RG-T3976-P002, a través de su División de Competitividad, Tecnología e Innovación. El financiador no tuvo rol en el diseño del estudio, ni en la recolección, análisis, interpretación de los datos, redacción o decisión de publicar.", footerCopyright:"© Cuentas Económicas Desagregadas para Chile · CORFO–BID, 2026."
     },
     en: {
-      brand:"CED CORFO", navExplore:"Explore", navData:"Data", navResearch:"Research Paper", navContact:"Contact", navOtherEfforts:"Related efforts", mobileNavLabel:"Main navigation", mobileNavOpen:"Open navigation", mobileNavClose:"Close navigation",
+      brand:"CED CORFO", navExplore:"Explore", navData:"Data", navResearch:"Research Paper", navContact:"Contact", navOtherEfforts:"Related Efforts", mobileNavLabel:"Main navigation", mobileNavOpen:"Open navigation", mobileNavClose:"Close navigation",
       homeTitle:"Disaggregated Economic Accounts for Chile", homeExploreQuestion:"How is the economy distributed across sectors and territories?", homeExploreAction:"Explore the data →", homeDataQuestion:"Do you want to use the data for your own analysis?", homeDataAction:"Download the data →", homeResearchQuestion:"How are these data constructed and applied?", homeResearchAction:"Read the paper →", exploreLandingDesc:"Three interactive tools to explore the Chilean economy across its sectors and territories.",
       dataTitle:"Download Data", dataIntro:"A central objective of the collaboration project between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), developed by Huneeus & Del Valle (2026), is that the generated data constitute a public good, freely accessible and updated annually for research and public-policy analysis.", dataCoverage:"The data cover 2022 and include <strong style=\"color:var(--ds-color-text);font-weight:700\">56 provinces</strong> in Chile and all productive activity, disaggregated into <strong style=\"color:var(--ds-color-text);font-weight:700\">46 sectors</strong>.",
       downloadFormTitle:"Complete your information to download", fieldFirstName:"First name", fieldLastName:"Last name", fieldInstitutionType:"Institution type", fieldInstitution:"Institution name", fieldEmail:"Email address", selectPrompt:"Select an option", institutionUniversity:"University", institutionGovernment:"Government", institutionCompany:"Company", institutionOther:"Other", fieldDataUse:"Intended use of the data", useResearch:"Research", usePublicPolicy:"Public policy", useConsulting:"Consulting", fieldOtherUse:"Specify the intended use", downloadSubmit:"Download", downloadNote:"We use this information only to keep usage statistics and notify you about important updates.",
       citationTitle:"Citation", citationLead:"To use these data, cite the following research paper:", researchTitle:"Research Paper", openPdf:"Open PDF", workingPaper:"Working paper", researchAbstractLabel:"Abstract", researchAbstract:"To understand the geographic and sectoral impact of productivity, we build, to our knowledge, the first input-output matrix disaggregated at the geographic level within a country using unique administrative data harmonized to match national accounts. We use Chilean data to calibrate a state-of-the-art general equilibrium quantitative trade model with production networks, labor mobility, firm selection, international and domestic trade, congestion of fixed factors, and knowledge diffusion. We consider two applications. First, we study the aggregate effects of local productivity shocks. We show that location-sector interactions are crucial: locations and sectors separately account for less than half of the dispersion in GDP elasticities from location-sector-specific productivity shocks. Geography-specific input-output linkages explain 17% of the dispersion, mainly due to the role played by small and influential markets. Second, we analyze the exit of a large steel plant. We show that geographically disaggregated production linkages substantially increase the propagation of the plant exit.", researchKeywordsLabel:"Keywords", researchKeywords:"Productivity, spatial economics, geographic distribution, input-output linkages, trade, labor mobility.", downloadPdf:"Download PDF", howToCite:"How to cite", teamTitle:"Research Team", teamRoleSenior:"Senior Economist", teamRoleAssistant:"Research Assistant",
-      contactTitle:"Contact", contactLead:"Write to us with questions about the data, visualizations, or research paper.", contactFormTitle:"Tell us how we can help", fieldContactReason:"Reason for contact", reasonData:"Data", reasonVisualization:"Visualization", reasonResearch:"Research Paper", fieldOtherReason:"Specify the reason", fieldMessage:"Message", contactSubmit:"Send inquiry", contactNote:"We use this information only to respond to your inquiry.", otherEffortsTitle:"Related efforts", otherEffortsLead:"This work is part of a global effort to build and measure disaggregated economic accounts. Other initiatives include:", otherEffortsColInitiative:"Initiative", otherEffortsColCountry:"Country", otherEffortsColSource:"Source", otherEffortsCountryDenmark:"Denmark", otherEffortsCountryMulti:"Multi-country", otherEffortsDisaggregated:"Disaggregated Accounts for Denmark", otherEffortsOecd:"Inter-Country Input-Output Tables",
+      contactTitle:"Contact", contactLead:"Write to us with questions about the data, visualizations, or research paper.", contactFormTitle:"Tell us how we can help", fieldContactReason:"Reason for contact", reasonData:"Data", reasonVisualization:"Visualization", reasonResearch:"Research Paper", fieldOtherReason:"Specify the reason", fieldMessage:"Message", contactSubmit:"Send inquiry", contactNote:"We use this information only to respond to your inquiry.", otherEffortsTitle:"Related Efforts", otherEffortsLead:"This work is part of a global effort to build and measure disaggregated economic accounts. Other initiatives include:", otherEffortsColInitiative:"Initiative", otherEffortsColCountry:"Country", otherEffortsColSource:"Source", otherEffortsCountryDenmark:"Denmark", otherEffortsCountryMulti:"Multi-country", otherEffortsDisaggregated:"Disaggregated Accounts for Denmark", otherEffortsOecd:"Inter-Country Input-Output Tables",
       ackTitle:"Acknowledgements", ackText:"We thank the Production Development Corporation (CORFO) for promoting this initiative. We also thank the Chilean Internal Revenue Service (SII) for facilitating access to anonymized administrative data. The information contained herein is tax information obtained from taxpayers' self-reported declarations submitted to the SII; therefore, the accuracy of these data is not the responsibility of the Service. This work received support from the Inter-American Development Bank (IDB) under project RG-T3976-P002 through its Competitiveness, Technology and Innovation Division. The funder had no role in the study design, data collection, analysis, interpretation, writing, or decision to publish.", footerCopyright:"© Disaggregated Economic Accounts for Chile · CORFO–IDB, 2026."
     }
   };

@@ -33,8 +33,17 @@ jobs:
       - name: Validate sources
         run: npm run validate
 
+      - name: Data assertions (metricas vs CSV, tasas, identidad M4-M2)
+        run: npm run qa:data
+
       - name: Build public site
         run: npm run build
+
+      - name: Install Playwright browser
+        run: npx playwright install chromium --with-deps
+
+      - name: QA intensive (Playwright smoke)
+        run: npm run qa:intensive
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

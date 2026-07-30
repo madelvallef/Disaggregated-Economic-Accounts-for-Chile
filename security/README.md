@@ -1,21 +1,26 @@
 # Seguridad de la página — guía rápida
 
-Esta página es **estática** (sin backend, sin formularios, sin login, sin recogida de
-datos personales), por lo que su superficie de ataque es mínima. Aun así se aplicaron
-los estándares habituales de endurecimiento.
+Esta página es **estática** (sin backend, sin base de datos, sin login). Los cálculos
+corren en el navegador con datos locales. Superficie de ataque mínima, con dos
+salvedades que hay que conocer:
 
-## Lo aplicado en el propio HTML (ya activo)
+## Estado real (jul-2026)
 
-1. **SRI (Subresource Integrity)** en los recursos de CDN (KaTeX). El navegador verifica
-   con un hash criptográfico que el archivo no fue alterado; si no coincide, no lo ejecuta.
-   KaTeX se fijó a la versión **0.16.10** (patch, sin cambios de comportamiento) porque es
-   la versión con hash oficial publicado y verificable.
-2. **Content-Security-Policy (meta)**: restringe desde qué orígenes se puede cargar
-   script/estilo/fuente/imagen. Solo se permiten `self`, `cdn.jsdelivr.net` (KaTeX) y
-   Google Fonts. `object-src 'none'` y `base-uri 'self'` cierran vectores comunes.
-3. **Referrer-Policy** y `referrerpolicy="no-referrer"` en los recursos externos.
+1. **La página SÍ contiene formularios que piden datos personales** (nombre, apellido,
+   institución, correo) en las secciones de descargas y contacto. Hoy **no envían nada**:
+   sus endpoints están vacíos (`form-registry-config.js`) y `DOWNLOADS_ENABLED=false`.
+   ⚠️ **Antes de configurar cualquier endpoint** debe publicarse una política de
+   privacidad enlazada, un checkbox de consentimiento y el responsable del tratamiento.
+2. **No hay `<meta http-equiv>` de CSP en el HTML** (0 ocurrencias). Las protecciones de
+   cabeceras dependen del servidor (ver abajo). En GitHub Pages no se pueden configurar
+   cabeceras; `github.io` está en la lista de precarga HSTS del navegador.
+3. **Sin dependencias externas en runtime**: KaTeX, D3, jsPDF, html2canvas y las fuentes
+   DM están vendorizadas localmente. No se carga nada desde CDNs, por lo que las CSP de
+   los archivos de servidor pueden restringirse a `self` (sin jsdelivr ni Google Fonts).
+4. Cero analytics de terceros, cero credenciales en el código, datos solo agregados
+   (provincia × sector, sin microdatos identificables).
 
-## Lo que debe configurarse en el SERVIDOR (no puede ir solo en el HTML)
+## Lo que debe configurarse en el SERVIDOR
 
 Algunas cabeceras solo tienen efecto si las envía el servidor. Elige el archivo según
 tu hosting y colócalo donde corresponda:
@@ -34,9 +39,5 @@ página no usa) y **Cross-Origin-Opener-Policy**.
 > `frame-ancestors` solo funciona como cabecera de servidor (no en el `<meta>`), por eso
 > está en estos archivos y no en el HTML.
 
-## Opcional (máxima robustez): auto-alojar KaTeX y las fuentes
-
-Hoy KaTeX y las tipografías DM Sans/DM Mono se cargan desde CDNs externos. Si quieres
-**eliminar toda dependencia de terceros** (y que la página funcione 100% offline),
-descarga esos archivos, colócalos en el proyecto y apunta las rutas a local. Con eso se
-podría endurecer aún más la CSP (quitando `cdn.jsdelivr.net` y los dominios de Google).
+> Nota: si esos archivos de cabeceras aún permiten `cdn.jsdelivr.net` o dominios de
+> Google Fonts, pueden endurecerse quitándolos: el sitio ya no los usa (punto 3).

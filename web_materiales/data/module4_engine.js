@@ -64,13 +64,6 @@
     }
 
     // ── Productor por defecto: mayor Domar weight ────────────────────────
-    function nodeAt(prov, actCode) {
-      const j = nodes.findIndex(n => {
-        const g = nodeGrid[nodes.indexOf(n)];
-        return false;
-      });
-      return j;
-    }
     function findJ(prov, actCode) {
       for (let j = 0; j < N; j++) {
         const g = nodeGrid[j];

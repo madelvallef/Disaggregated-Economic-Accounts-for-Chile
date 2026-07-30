@@ -1,6 +1,6 @@
 // Generado automaticamente -- no editar manualmente.
 // Fuente: en_chile_2022_dea_economic_accounts.csv, en_chile_2022_dea_spatial_io_edgelist.csv.gz
-// Productores domésticos (N): 2576 | GDP: 301,260.12 | Tasa: 752 CLP/USD
+// Productores domésticos (N): 2576 | GDP: 301,260.12 | Tasa: 782.75 CLP/USD (implicita del anclaje al PIB en USD; ver scripts/build-module2-data.js)
 // psi[i*N+j]  = L^D[j,i]  (Leontief transpuesta, densa)
 // ad sparse COO: ad[adRow[k]*N+adCol[k]] = A^D[adCol[k],adRow[k]]  (misma convencion)
 // beta[i] = f^D[i]/GDP;  Total[j,i]=beta[i]*psi[i*N+j];  Directo[j,i]=beta[i]*ad[i*N+j]
@@ -54,7 +54,7 @@ window.spatialIoNetworkDataPromise = (async function () {
     go,
     fd,
     gdp: 301260.1249042925,
-    usdRate: 752,
+    usdRate: 782.75,
     specialLabels: { location: {'57': {es: "Resto del Mundo", en: "Rest of the World"}} }
   };
 })();

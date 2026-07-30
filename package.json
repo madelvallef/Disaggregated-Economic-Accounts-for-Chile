@@ -8,12 +8,14 @@
   },
   "scripts": {
     "build": "node scripts/build.js",
+    "build:data": "node scripts/build-module2-data.js && node scripts/build-es-downloads.js",
     "validate": "node scripts/validate-sitio.js",
     "fix:mojibake": "node scripts/fix-mojibake.js",
-    "preproduction": "npm run validate && npm run build && npm run qa:intensive",
+    "preproduction": "npm run validate && npm run qa:data && npm run build && npm run qa:intensive",
+    "qa:data": "node scripts/qa-data-assertions.js",
     "qa:intensive": "node qa/sitio-smoke.js",
     "smoke": "node qa/sitio-smoke.js",
-    "test": "npm run validate && npm run smoke"
+    "test": "npm run validate && npm run qa:data && npm run smoke"
   },
   "keywords": [],
   "author": "",
