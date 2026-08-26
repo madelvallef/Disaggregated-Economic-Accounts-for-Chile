@@ -104,8 +104,10 @@
   <link rel="stylesheet" href="vendor/katex/katex.min.css">
   <link rel="stylesheet" href="vendor/dm-fonts.css">
   <link rel="stylesheet" href="web_materiales/css/design-system.css" data-design-system>
-  <link rel="icon" type="image/png" href="web_materiales/logo_corfo2024/logo_corfo2024_blanco.png">
-  <link rel="apple-touch-icon" href="web_materiales/logo_corfo2024/logo_corfo2024_blanco.png">
+  <!-- Favicon oficial de Corfo (mismo que corfo.gob.cl/sites/cpp): "CO" azul + banda, fondo transparente -->
+  <link rel="icon" type="image/png" sizes="32x32" href="web_materiales/logo_corfo2024/favicon_corfo_32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="web_materiales/logo_corfo2024/favicon_corfo_192.png">
+  <link rel="apple-touch-icon" href="web_materiales/logo_corfo2024/favicon_corfo_180.png">
   
   
   <style>
@@ -9203,7 +9205,8 @@ function selectionCountLabel(type, level, count) {
       "Cerrar Top": "Close Top",
       "Portada": "Cover",
       "Secciones": "Sections",
-      "The Geographic and Sectoral Impact of Productivity — primera página": "The Geographic and Sectoral Impact of Productivity — first page"
+      "The Geographic and Sectoral Impact of Productivity — primera página": "The Geographic and Sectoral Impact of Productivity — first page",
+      "Banco Interamericano de Desarrollo (BID)": "Inter-American Development Bank (IDB)"
     };
     function localizeAttributes(lang) {
       ["aria-label", "title", "alt"].forEach((attr) => {
@@ -11756,9 +11759,13 @@ function selectionCountLabel(type, level, count) {
   <div class="wrap" style="max-width:1120px">
     <h2 class="display" data-site-i18n="ackTitle" style="margin-bottom:18px">Agradecimientos</h2>
     <p data-site-i18n="ackText" style="margin:0 auto 32px;max-width:none;color:var(--ds-color-muted);line-height:1.65">Agradecemos a la Corporación de Fomento de la Producción (CORFO) por impulsar esta iniciativa. Agradecemos también al Servicio de Impuestos Internos (SII) por facilitar el acceso a datos administrativos anonimizados. La información aquí contenida es de carácter tributario proveniente de autodeclaraciones de los contribuyentes presentadas ante el SII; por lo que la veracidad de dichos datos no es responsabilidad del Servicio. Este trabajo contó con el apoyo del Banco Interamericano de Desarrollo (BID) en el marco del proyecto RG-T3976-P002, a través de su División de Competitividad, Tecnología e Innovación. El financiador no tuvo rol en el diseño del estudio, ni en la recolección, análisis, interpretación de los datos, redacción o decisión de publicar.</p>
-    <div style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap">
-      <img src="web_materiales/logo_corfo2024/logo_corfo2024_navy_trim.png" alt="CORFO" style="height:60px;width:auto">
-      <img src="web_materiales/logo_iadb/IDB-Logo.png" alt="Inter-American Development Bank" style="height:86px;width:auto">
+    <!-- Logos según manuales de marca: CORFO en azul de gobierno (Pantone 293C #0f69b4,
+         única versión permitida sobre fondo claro además del blanco); BID con el lockup
+         vigente (globo+BID), al final derecho, altura pareja con CORFO y separación
+         mayor o igual al ancho del globo (manual BID §2.2-2.3). -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:80px;flex-wrap:wrap">
+      <img src="web_materiales/logo_corfo2024/logo_corfo2024_azul_trim.png" alt="CORFO" style="height:60px;width:auto">
+      <img src="web_materiales/logo_iadb/bid_logo_color.png" alt="Banco Interamericano de Desarrollo (BID)" style="height:60px;width:auto">
     </div>
     <p data-site-i18n="footerCopyright" style="margin:44px auto 0;max-width:680px;padding-top:22px;border-top:1px solid var(--ds-color-line);font-size:.85rem;color:var(--ds-color-muted)">© Cuentas Económicas Desagregadas para Chile · CORFO–BID, 2026.</p>
   </div>
