@@ -5089,7 +5089,7 @@
         <div class="landing-cite-bar"></div>
         <div class="landing-cite-inner">
           <span class="landing-cite-label" data-i18n="citationLabel">Metodología, construcción y aplicaciones — cita el paper</span>
-          <span class="landing-cite-text" data-i18n-html="citation">Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.</span>
+          <span class="landing-cite-text" data-i18n-html="citation">Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Inter-American Development Bank. <a href="http://dx.doi.org/10.18235/0014477" target="_blank" rel="noopener" style="color:inherit">http://dx.doi.org/10.18235/0014477</a></span>
         </div>
       </div>
     </main>
@@ -5913,7 +5913,7 @@
         headerTitle: "Cuentas Económicas Desagregadas de Chile",
         landingTitle: "¿Qué quieres explorar?",
         landingDesc: 'Desagregación de la actividad económica a nivel sectorial y geográfico, consistente con las Cuentas Nacionales del Banco Central de Chile (BCCh) para el año 2022. Elaborado por Huneeus &amp; Del Valle (2026) en una colaboración entre la Corporación de Fomento de la Producción (CORFO) y el Banco Interamericano de Desarrollo (BID), a partir de microdatos administrativos del Servicio de Impuestos Internos (SII), encuestas y fuentes globales de datos de comercio.',
-        citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.',
+        citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Inter-American Development Bank. <a href="http://dx.doi.org/10.18235/0014477" target="_blank" rel="noopener" style="color:inherit">http://dx.doi.org/10.18235/0014477</a>',
         citationLabel: "Metodología, construcción y aplicaciones — cita el paper",
         btn1: "La Economía por Sector y Territorio",
         btn1Q: "¿Dónde producen los sectores económicos?",
@@ -6032,7 +6032,7 @@
         headerTitle: "Disaggregated Economic Accounts of Chile",
         landingTitle: "What do you want to explore?",
         landingDesc: 'Disaggregation of economic activity at the sectoral and geographic level, consistent with the 2022 National Accounts of the Central Bank of Chile (BCCh). Produced by Huneeus &amp; Del Valle (2026) in a collaboration between the Production Development Corporation (CORFO) and the Inter-American Development Bank (IDB), using administrative microdata from the Chilean Internal Revenue Service (SII), surveys, and global trade data sources.',
-        citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Unpublished manuscript.',
+        citation: 'Huneeus, F., &amp; Del Valle, M. (2026). <em>The Geographic and Sectoral Impact of Productivity.</em> Inter-American Development Bank. <a href="http://dx.doi.org/10.18235/0014477" target="_blank" rel="noopener" style="color:inherit">http://dx.doi.org/10.18235/0014477</a>',
         citationLabel: "Methodology, construction and applications — cite the paper",
         btn1: "The Economy by Sector and Territory",
         btn1Q: "Where do economic sectors produce?",
@@ -9062,7 +9062,7 @@ function selectionCountLabel(type, level, count) {
       const out = document.createElement("canvas");
       const ctx = out.getContext("2d");
       const label = (lang === "en" ? "Source: " : "Fuente: ");
-      const cite = "Huneeus, F. & Del Valle, M. (2026). The Geographic and Sectoral Impact of Productivity. Unpublished manuscript.";
+      const cite = "Huneeus, F. & Del Valle, M. (2026). The Geographic and Sectoral Impact of Productivity. Inter-American Development Bank. http://dx.doi.org/10.18235/0014477";
       const text = label + cite;
       // reducir fuente si no cabe en el ancho
       ctx.font = `${fontPx}px Verdana, Geneva, sans-serif`;
@@ -11662,13 +11662,15 @@ function selectionCountLabel(type, level, count) {
     <p data-site-i18n="citationLead" style="margin:0 auto 22px;max-width:62ch;color:var(--ds-color-muted);line-height:1.6">Para usar estos datos, cita el siguiente trabajo de investigación:</p>
     <div style="max-width:680px;margin:0 auto;text-align:left">
       <div class="citation-reference">
-        <p style="margin:0;font-style:italic">Huneeus, F., &amp; Del Valle, M. (2026). The Geographic and Sectoral Impact of Productivity.</p>
+        <p style="margin:0;font-style:italic">Huneeus, F., &amp; Del Valle, M. (2026). The Geographic and Sectoral Impact of Productivity. Inter-American Development Bank. <a href="http://dx.doi.org/10.18235/0014477" target="_blank" rel="noopener">http://dx.doi.org/10.18235/0014477</a></p>
       </div>
-      <pre style="margin:16px 0 0;overflow:auto;padding:18px 20px;border-radius:8px;background:#101222;color:#f3f3f3;font:.82rem/1.55 'DM Mono',monospace">@unpublished{huneeus_delvalle_2026_productivity,
-  author = {Huneeus, F. and Del Valle, M.},
-  title  = {The Geographic and Sectoral Impact of Productivity},
-  year   = {2026},
-  note   = {Unpublished manuscript}
+      <pre style="margin:16px 0 0;overflow:auto;padding:18px 20px;border-radius:8px;background:#101222;color:#f3f3f3;font:.82rem/1.55 'DM Mono',monospace">@misc{huneeus_delvalle_2026_productivity,
+  author    = {Huneeus, Federico and Del Valle, Miguel},
+  title     = {The Geographic and Sectoral Impact of Productivity},
+  year      = {2026},
+  publisher = {Inter-American Development Bank},
+  doi       = {10.18235/0014477},
+  url       = {https://publications.iadb.org/en/geographic-and-sectoral-impact-productivity}
 }</pre>
     </div>
   </div>
