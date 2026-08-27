@@ -1,13 +1,13 @@
 # Entrega para TI - Cuentas Economicas Desagregadas de Chile
 
-**Version del paquete:** 26 de agosto de 2026
+**Version del paquete:** 27 de agosto de 2026
 **Proyecto:** Cuentas Economicas Desagregadas de Chile (CORFO - BID)
 **Contacto tecnico:** Miguel Del Valle
 **Destino previsto:** `https://dataterritorios.corfo.cl/disaggregated-economic-accounts/`
 
 ## 1. Que se entrega
 
-El archivo `CED-cuentas-desagregadas_TI_2026-08-26.zip` contiene una carpeta unica,
+El archivo `CED-cuentas-desagregadas_TI_2026-08-27.zip` contiene una carpeta unica,
 `CED-cuentas-desagregadas/`. Su contenido debe copiarse completo al directorio publico
 que TI defina. El sitio es estatico: no requiere base de datos, login, servidor de
 aplicacion, tareas programadas ni acceso a datos en tiempo real.
@@ -54,7 +54,7 @@ menos 203 MB.
 
 ## 3. Publicacion
 
-1. Descomprimir `CED-cuentas-desagregadas_TI_2026-08-26.zip`.
+1. Descomprimir `CED-cuentas-desagregadas_TI_2026-08-27.zip`.
 2. Copiar el contenido de `CED-cuentas-desagregadas/` a la subruta publica definida.
 3. Verificar que `index.html` abra y que las rutas relativas a `web_materiales/`,
    `vendor/`, `downloads/` y `uploads/` respondan correctamente.
@@ -126,7 +126,7 @@ El sitio no requiere:
 
 ## 7. Integridad del paquete
 
-SHA-256 de `CED-cuentas-desagregadas_TI_2026-08-26.zip`:
+SHA-256 de `CED-cuentas-desagregadas_TI_2026-08-27.zip`:
 
 ```text
 C5B65957B6E68C102C4FF9931A51587001C3869AE65AAEC8C19C94F89691CE51
